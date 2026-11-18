@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Raíz Inmobiliaria · Demo inmobiliaria | ZOLKO</title>
+<meta name="description" content="Demo de ZOLKO INTEGRATIONS: landing inmobiliaria para agendar visita a una propiedad. Negocio de ejemplo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/demo-base.css">
+<style>
+  /* =================================================================
+     IDENTIDAD DEL NEGOCIO · cambia aquí colores y tipografías
+     ================================================================= */
+  :root {
+    --c-bg: #f6f3ec;          /* arena clara */
+    --c-surface: #ebe5d8;
+    --c-text: #1e2b24;        /* verde casi negro */
+    --c-muted: #56635b;
+    --c-primary: #2f5d4a;     /* verde bosque */
+    --c-primary-hover: #234838;
+    --c-on-primary: #ffffff;
+    --c-accent: #c9a66b;      /* arena dorada */
+    --c-dark: #1e2b24;
+    --c-on-dark: #f6f3ec;
+    --c-line: rgba(30, 43, 36, .14);
+    --font-display: "DM Serif Display", Georgia, serif;
+    --font-body: "Manrope", system-ui, sans-serif;
+    --radius: 16px;
+    --radius-btn: 12px;
+  }
+  .hero { background: linear-gradient(180deg, #e7efe9 0%, var(--c-bg) 80%); }
+  .hero h1 { font-weight: 400; }
+  .section h2, .card h3 { font-weight: 400; }
+  .card { padding: 0 0 20px; overflow: hidden; }
+  .card > :not(.card__art) { padding-inline: 20px; }
+  .card__art { border-radius: 0; margin: 0 0 8px; }
+  .feats { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .feats li { font-size: .82rem; font-weight: 700; background: var(--c-surface); border-radius: 999px; padding: 4px 10px; }
+  .sun { animation: sun 8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes sun { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+</style>
+<script>
+  window.DEMO_CONFIG = {
+    negocio: "Raíz Inmobiliaria (inmobiliaria de ejemplo)",
+    simulado: [
+      "Los precios son de ejemplo (pesos mexicanos).",
+      "La inmobiliaria, las propiedades y los textos son de ejemplo (ilustraciones, no fotos).",
+      "La agenda de visitas: el formulario no aparta ninguna cita ni envía datos.",
+      "Los botones de WhatsApp usan el número de ejemplo +5200000000000.",
+      "El mapa del pie de página es una ilustración."
+    ],
+    produccion: [
+      "Agenda real de visitas por propiedad y por asesor.",
+      "Cada prospecto entra al CRM con la propiedad que le interesa y el día propuesto.",
+      "Confirmación, recordatorio y seguimiento automático por WhatsApp después de la visita.",
+      "Medición de qué propiedades generan más visitas agendadas."
+    ]
+  };
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#inicio" aria-label="Raíz Inmobiliaria, inicio">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2f5d4a"/><path d="M8 20l12-10 12 10v12H8z" fill="none" stroke="#f6f3ec" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 32v-9M20 26l-4-3M20 24l4-3" stroke="#c9a66b" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Raíz<small>Inmobiliaria</small></span>
+    </a>
+    <a class="btn btn--header" href="#agendar">Agendar visita</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
+    <nav class="site-nav" id="menu" aria-label="Secciones">
+      <ul>
+        <li><a href="#propiedades">Propiedades</a></li>
+        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="#agendar">Agendar visita</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="reveal">
+        <span class="eyebrow">Venta y renta</span>
+        <h1>Conócela en persona antes de decidir.</h1>
+        <p class="lead">Agenda tu visita sin llamadas de por medio: elige la propiedad y el día, y un asesor te confirma por WhatsApp y te acompaña en el recorrido.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#agendar">Agendar visita</a>
+          <a class="link-arrow" href="#propiedades">Ver propiedades</a>
+        </div>
+        <p class="hero__note">Solo tres datos. Sin compromiso de compra.</p>
+      </div>
+      <div class="hero__art reveal" aria-hidden="true">
+        <svg viewBox="0 0 420 320">
+          <circle class="sun" cx="330" cy="70" r="30" fill="#c9a66b"/>
+          <path d="M0 270c80-30 160-30 240-10s140 10 180-10v70H0z" fill="#cfdccf"/>
+          <!-- casa -->
+          <path d="M90 270V160l100-70 100 70v110z" fill="#ffffff" stroke="#1e2b24" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M70 168L190 82l120 86" fill="none" stroke="#2f5d4a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="166" y="200" width="48" height="70" rx="4" fill="#2f5d4a"/>
+          <circle cx="204" cy="238" r="3" fill="#c9a66b"/>
+          <rect x="112" y="180" width="38" height="34" rx="3" fill="#e7efe9" stroke="#1e2b24" stroke-width="3"/>
+          <rect x="230" y="180" width="38" height="34" rx="3" fill="#e7efe9" stroke="#1e2b24" stroke-width="3"/>
+          <!-- árbol -->
+          <rect x="340" y="200" width="10" height="70" fill="#5b4a33"/>
+          <circle cx="345" cy="190" r="34" fill="#2f5d4a"/>
+          <circle cx="40" cy="236" r="20" fill="#4f7d68"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="nosotros">
+    <div class="container about reveal">
+      <div>
+        <span class="eyebrow">Quiénes somos</span>
+        <h2>Te ayudamos a encontrar tu lugar, sin presiones.</h2>
+      </div>
+      <div>
+        <p>En Raíz te mostramos propiedades revisadas, con información clara antes de que salgas de casa. Te acompañamos desde la primera visita hasta la firma, y te orientamos con el crédito y los papeles.</p>
+        <ul class="chips" aria-label="Operaciones"><li>Compra</li><li>Renta</li><li>Asesoría de crédito</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="propiedades">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Propiedades</span>
+        <h2>Propiedades disponibles para visitar</h2>
+        <p class="lead">La ubicación exacta y las fotos reales te las compartimos al confirmar tu visita.</p>
+      </div>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__art"><svg viewBox="0 0 300 180" aria-hidden="true"><rect width="300" height="180" fill="#e7efe9"/><path d="M0 150h300v30H0z" fill="#cfdccf"/><path d="M70 150V90l80-50 80 50v60z" fill="#fff" stroke="#1e2b24" stroke-width="3"/><rect x="135" y="110" width="30" height="40" fill="#2f5d4a"/><rect x="90" y="100" width="28" height="24" fill="#e7efe9" stroke="#1e2b24" stroke-width="2"/><rect x="182" y="100" width="28" height="24" fill="#e7efe9" stroke="#1e2b24" stroke-width="2"/><circle cx="260" cy="120" r="22" fill="#2f5d4a"/></svg></div>
+          <span class="tag">Venta</span>
+          <h3>Casa con jardín</h3>
+          <p>Dos plantas, cochera techada y jardín para la familia.</p><p class="price-tag">$3,850,000</p>
+          <ul class="feats"><li>Jardín</li><li>Cochera</li><li>Estudio</li></ul>
+          <div class="card__foot"><a class="link-arrow" href="#agendar" data-prop="Casa con jardín">Agendar visita a esta</a></div>
+        </article>
+        <article class="card reveal">
+          <div class="card__art"><svg viewBox="0 0 300 180" aria-hidden="true"><rect width="300" height="180" fill="#ebe5d8"/><rect x="90" y="30" width="120" height="150" fill="#fff" stroke="#1e2b24" stroke-width="3"/><g fill="#e7efe9" stroke="#1e2b24" stroke-width="2"><rect x="105" y="45" width="34" height="26"/><rect x="161" y="45" width="34" height="26"/><rect x="105" y="85" width="34" height="26"/><rect x="161" y="85" width="34" height="26"/></g><path d="M86 128h128" stroke="#2f5d4a" stroke-width="6"/><rect x="135" y="140" width="30" height="40" fill="#2f5d4a"/></svg></div>
+          <span class="tag">Renta</span>
+          <h3>Departamento con terraza</h3>
+          <p>Luminoso, con terraza privada y vigilancia.</p><p class="price-tag">$14,500 <small>al mes</small></p>
+          <ul class="feats"><li>Terraza</li><li>Elevador</li><li>Seguridad</li></ul>
+          <div class="card__foot"><a class="link-arrow" href="#agendar" data-prop="Departamento con terraza">Agendar visita a esta</a></div>
+        </article>
+        <article class="card reveal">
+          <div class="card__art"><svg viewBox="0 0 300 180" aria-hidden="true"><rect width="300" height="180" fill="#e7efe9"/><path d="M0 150h300v30H0z" fill="#cfdccf"/><path d="M50 150v-50h200v50z" fill="#fff" stroke="#1e2b24" stroke-width="3"/><path d="M40 104l110-44 110 44" fill="none" stroke="#2f5d4a" stroke-width="8" stroke-linejoin="round"/><rect x="138" y="114" width="26" height="36" fill="#2f5d4a"/><rect x="72" y="116" width="40" height="20" fill="#e7efe9" stroke="#1e2b24" stroke-width="2"/><rect x="190" y="116" width="40" height="20" fill="#e7efe9" stroke="#1e2b24" stroke-width="2"/></svg></div>
+          <span class="tag">Venta</span>
+          <h3>Casa de una planta</h3>
+          <p>Todo en un nivel, ideal para quien no quiere escaleras.</p><p class="price-tag">$2,950,000</p>
+          <ul class="feats"><li>Un nivel</li><li>Patio</li><li>Cerca de servicios</li></ul>
+          <div class="card__foot"><a class="link-arrow" href="#agendar" data-prop="Casa de una planta">Agendar visita a esta</a></div>
+        </article>
+      </div>
+      <p class="price-note reveal">Precios de ejemplo en pesos mexicanos.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="beneficios">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Beneficios</span>
+        <h2>Visitas solo lo que vale la pena ver.</h2>
+      </div>
+      <ul class="benefits">
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><div><h3>Información antes de ir</h3><p>Fotos, precio y ubicación exacta por WhatsApp al confirmar.</p></div></li>
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><h3>Visitas a tu horario</h3><p>Entre semana o fin de semana, como te acomode.</p></div></li>
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><div><h3>Un asesor contigo</h3><p>Resuelve tus dudas en el recorrido y después.</p></div></li>
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span><div><h3>Trámites acompañados</h3><p>Te orientamos con crédito, papeles y firma.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Proceso</span>
+        <h2>De la visita a las llaves</h2>
+      </div>
+      <ol class="steps" style="--steps:4">
+        <li class="reveal"><h3>Elige la propiedad</h3><p>Revisa las opciones y quédate con la que te interesa.</p></li>
+        <li class="reveal"><h3>Agenda tu visita</h3><p>Tu WhatsApp, la propiedad y el día. Nada más.</p></li>
+        <li class="reveal"><h3>Recorre con un asesor</h3><p>Te confirmamos por WhatsApp y te acompañamos.</p></li>
+        <li class="reveal"><h3>Recibe tu propuesta</h3><p>Si te convence, te guiamos en los trámites.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="preguntas">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Antes de visitar</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>¿Aceptan crédito?</summary><div class="faq__a"><p>Según la propiedad. Al confirmar tu visita te decimos qué tipos de crédito aplican y te orientamos.</p></div></details>
+        <details><summary>¿Puedo visitar en fin de semana?</summary><div class="faq__a"><p>Sí. Elige el día en el formulario y te confirmamos el horario disponible.</p></div></details>
+        <details><summary>¿Qué documentos necesito para rentar o comprar?</summary><div class="faq__a"><p>Depende de la operación. Tu asesor te manda la lista exacta por WhatsApp.</p></div></details>
+        <details><summary>¿Puedo ir con mi familia?</summary><div class="faq__a"><p>Claro. Avísanos al confirmar para preparar la visita.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="agendar">
+    <div class="container form-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Agendar visita</span>
+        <h2>Aparta tu visita. Te confirmamos por WhatsApp.</h2>
+        <p class="lead">Elige la propiedad y el día. Un asesor te escribe para confirmar la hora.</p>
+      </div>
+      <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
+        <h3 id="form-titulo" class="sr-only">Formulario para agendar visita</h3>
+        <div class="field">
+          <label for="i-whatsapp">Tu WhatsApp</label>
+          <input id="i-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="i-whatsapp-hint i-whatsapp-error">
+          <p class="hint" id="i-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+          <p class="field__error" id="i-whatsapp-error" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="i-propiedad">Propiedad que quieres visitar</label>
+          <select id="i-propiedad" name="propiedad" required data-msg="Elige la propiedad que quieres visitar." aria-describedby="i-propiedad-error">
+            <option value="">Elige una opción</option>
+            <option>Casa con jardín</option><option>Departamento con terraza</option><option>Casa de una planta</option><option>Busco otra opción</option>
+          </select>
+          <p class="field__error" id="i-propiedad-error" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="i-dia">¿Qué día te acomoda?</label>
+          <input id="i-dia" name="dia" type="date" required data-msg="Elige el día de tu visita." aria-describedby="i-dia-error">
+          <p class="field__error" id="i-dia-error" aria-live="polite"></p>
+        </div>
+        <button class="btn btn--block" type="submit">Agendar mi visita</button>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se agendó ninguna visita ni se guardó ningún dato.</span></div>
+        <p class="form-legal">Demo: este formulario no envía información.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h2>Raíz Inmobiliaria</h2>
+      <p>Venta y renta de casas y departamentos. Negocio de ejemplo creado por ZOLKO para demostración.</p>
+      <a class="btn" href="#agendar">Agendar visita</a>
+    </div>
+    <div>
+      <h3>Secciones</h3>
+      <ul><li><a href="#propiedades">Propiedades</a></li><li><a href="#proceso">Proceso</a></li><li><a href="#preguntas">Preguntas</a></li><li><a href="https://wa.me/5200000000000" data-wa="Hola, Raíz Inmobiliaria. Tengo una pregunta sobre una propiedad.">WhatsApp</a></li></ul>
+    </div>
+    <div>
+      <h3>Ubicación</h3>
+      <div class="map-sim">
+        <span class="map-sim__label">MAPA DE EJEMPLO · NO ES UNA UBICACIÓN REAL</span>
+        <svg viewBox="0 0 320 160" aria-label="Ilustración de mapa, no es una ubicación real" role="img"><rect width="320" height="160" fill="#2a3a31"/><path d="M0 60h320M0 125h320M100 0v160M220 0v160M320 20L160 160" stroke="#3a4d42" stroke-width="10"/><path d="M100 70a12 12 0 0 1 12 12c0 9-12 22-12 22s-12-13-12-22a12 12 0 0 1 12-12z" fill="#c9a66b"/></svg>
+      </div>
+      <p style="margin-top:10px">Dirección y horario según el negocio</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>Raíz Inmobiliaria es un negocio de ejemplo.</span>
+    <span>Demo hecha por ZOLKO INTEGRATIONS</span>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a class="btn" href="#agendar">Agendar visita</a>
+  <a class="btn btn--wa btn--wa-icon" href="https://wa.me/5200000000000" data-wa="Hola, Raíz Inmobiliaria. Quiero agendar una visita." aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+  </a>
+</div>
+
+<script>
+  /* Propio de esta demo: "Agendar visita a esta" preselecciona la propiedad */
+  document.querySelectorAll("[data-prop]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      var sel = document.getElementById("i-propiedad");
+      sel.value = a.getAttribute("data-prop");
+      sel.removeAttribute("aria-invalid");
+    });
+  });
+</script>
+<script src="../assets/demo-base.js"></script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ZOLKO · Presentación</title>
+<meta name="description" content="Presentación de ZOLKO INTEGRATIONS: páginas web que venden, conectadas con WhatsApp, CRM y medición.">
+<link rel="icon" href="assets/zolko-anillo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fuentes de ZOLKO + las fuentes de cada demo (solo para las miniaturas) -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Fraunces:opsz,wght@9..144,800&family=Barlow+Condensed:wght@800&family=Cormorant+Garamond:wght@700&family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Serif+Display&family=Outfit:wght@700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   PRESENTACIÓN ZOLKO INTEGRATIONS
+   Paleta de marca en variables: cambia aquí y se actualiza todo.
+   ===================================================================== */
+:root {
+  --negro: #050505;          /* fondo principal */
+  --grafito: #16161b;        /* tarjetas */
+  --grafito-2: #222229;
+  --violeta: #7c5cff;        /* acento principal de marca */
+  --violeta-claro: #a993ff;
+  --lima: #c6ff3d;           /* segundo acento */
+  --rojo: #ff4d5e;           /* SOLO para "el problema" */
+  --lavanda: #b7b2d9;        /* texto secundario */
+  --blanco: #f4f4f7;         /* texto principal */
+  --linea: rgba(255, 255, 255, .1);
+  --f-titulo: "Montserrat", system-ui, sans-serif;
+  --f-texto: "Inter", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --dur: .55s;               /* duración de las transiciones */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--negro); color: var(--blanco);
+  font-family: var(--f-texto); line-height: 1.55; overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--lima); outline-offset: 3px; border-radius: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Brillo violeta que cae desde arriba */
+.glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(60% 45% at 50% -8%, rgba(124, 92, 255, .55) 0%, rgba(124, 92, 255, .12) 45%, transparent 70%),
+    radial-gradient(40% 30% at 85% 0%, rgba(198, 255, 61, .07) 0%, transparent 70%);
+  transition: background .8s;
+}
+body[data-tema="problema"] .glow {
+  background: radial-gradient(60% 45% at 50% -8%, rgba(255, 77, 94, .38) 0%, rgba(255, 77, 94, .08) 45%, transparent 70%);
+}
+/* Rejilla tipo software, muy sutil */
+.grid-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(var(--linea) 1px, transparent 1px), linear-gradient(90deg, var(--linea) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%);
+}
+
+/* ---------- Barra superior ---------- */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; gap: 12px;
+  padding: calc(12px + env(safe-area-inset-top)) 16px 18px;
+  /* fondo degradado: el texto que se desplaza no se encima con el logo */
+  background: linear-gradient(rgba(5, 5, 5, .94) 55%, rgba(5, 5, 5, 0));
+}
+.topbar img { height: 34px; width: auto; margin-left: -6px; }
+.topbar__tag { font: 500 11px var(--f-mono); color: var(--lavanda); letter-spacing: .08em; margin-left: auto; }
+.counter { font: 700 13px var(--f-mono); letter-spacing: .08em; padding: 6px 10px; border: 1px solid var(--linea); border-radius: 8px; background: rgba(5, 5, 5, .6); }
+.counter b { color: var(--lima); font-weight: 700; }
+@media (max-width: 560px) { .topbar__tag { display: none; } .counter { margin-left: auto; } }
+
+/* ---------- Diapositivas ---------- */
+.deck { position: fixed; inset: 0; z-index: 1; }
+.slide {
+  position: absolute; inset: 0;
+  overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
+  padding: calc(72px + env(safe-area-inset-top)) 20px calc(96px + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column;
+  opacity: 0; visibility: hidden; transform: translateX(48px);
+  transition: none;   /* la diapositiva que sale se oculta al instante: sin "fantasma" */
+}
+.slide.is-before { transform: translateX(-48px); }
+.slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.slide__inner { width: min(1120px, 100%); margin: auto; }
+
+/* Elementos internos entran escalonados */
+.slide [data-in] { opacity: 0; transform: translateY(10px); transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.slide.is-active [data-in] { opacity: 1; transform: none; transition-delay: calc(min(var(--i, 0), 4) * 40ms); }
+
+/* ---------- Tipografía ---------- */
+.tag {
+  display: inline-flex; align-items: center; gap: 8px; font: 700 11px var(--f-mono); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--lima); border: 1px solid rgba(198, 255, 61, .35); background: rgba(198, 255, 61, .06);
+  padding: 5px 10px; border-radius: 6px;
+}
+.tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+.tag--violeta { color: var(--violeta-claro); border-color: rgba(124, 92, 255, .45); background: rgba(124, 92, 255, .1); }
+.tag--rojo { color: var(--rojo); border-color: rgba(255, 77, 94, .45); background: rgba(255, 77, 94, .08); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+h1, h2 { font-family: var(--f-titulo); font-weight: 900; text-transform: uppercase; line-height: 1.02; letter-spacing: -.01em; margin: 0 0 18px; text-wrap: balance; }
+h1 { font-size: clamp(2.2rem, 8.4vw, 5.6rem); }
+h2 { font-size: clamp(1.8rem, 6vw, 3.8rem); }
+h3 { font-family: var(--f-titulo); font-weight: 700; font-size: 1.05rem; margin: 0 0 6px; line-height: 1.25; }
+.lead { font-size: clamp(1.02rem, 2.4vw, 1.3rem); color: var(--lavanda); max-width: 720px; margin: 0 0 8px; }
+.lima { color: var(--lima); }
+.violeta { color: var(--violeta-claro); }
+.rojo { color: var(--rojo); }
+.mono { font-family: var(--f-mono); }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 24px;
+  border-radius: 12px; border: 1px solid transparent; font: 700 1rem var(--f-texto); text-decoration: none; cursor: pointer;
+  background: var(--lima); color: #0b0f00; transition: transform .15s, box-shadow .25s, background .2s;
+  box-shadow: 0 10px 30px -12px rgba(198, 255, 61, .6);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -12px rgba(198, 255, 61, .75); }
+.btn:active { transform: translateY(1px) scale(.98); box-shadow: none; }
+.btn svg { width: 20px; height: 20px; }
+.btn--ghost { background: transparent; color: var(--blanco); border-color: rgba(255, 255, 255, .25); box-shadow: none; }
+.btn--ghost:hover { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .5); box-shadow: none; }
+
+/* ---------- Tarjeta genérica ---------- */
+.panel { background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .015)); border: 1px solid var(--linea); border-radius: 18px; padding: 20px; }
+
+/* ===== 01 GANCHO ===== */
+.hook h1 .l2 { display: block; color: var(--lima); }
+.hook__brand { font-family: var(--f-texto); font-style: italic; color: var(--lavanda); font-size: clamp(1rem, 2.4vw, 1.25rem); margin: 22px 0 28px; border-left: 3px solid var(--violeta); padding-left: 14px; }
+.hint { font: 500 12px var(--f-mono); color: var(--lavanda); letter-spacing: .06em; display: flex; align-items: center; gap: 8px; }
+.hint kbd { font: inherit; border: 1px solid var(--linea); border-radius: 5px; padding: 2px 6px; background: var(--grafito); }
+.ring-deco { position: absolute; right: -120px; top: 12%; width: 460px; opacity: .14; pointer-events: none; animation: girar 40s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (max-width: 700px) { .ring-deco { width: 300px; right: -150px; top: 4%; } }
+
+/* ===== 02 PROBLEMA ===== */
+.problem { display: grid; gap: 14px; margin-top: 28px; }
+@media (min-width: 860px) { .problem { grid-template-columns: repeat(3, 1fr); } }
+.problem .panel { border-color: rgba(255, 77, 94, .28); position: relative; }
+.problem__n { font: 700 11px var(--f-mono); color: var(--rojo); letter-spacing: .12em; }
+.problem p { margin: 0; color: var(--lavanda); }
+.problem q { display: block; quotes: "“" "”"; color: var(--blanco); font-weight: 600; margin: 4px 0; }
+.problem .err { font: 700 12px var(--f-mono); color: var(--rojo); margin-top: 10px; display: block; }
+.blink { animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ===== 03 MÉTODO ===== */
+.steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px; counter-reset: s; }
+@media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.steps li { counter-increment: s; position: relative; }
+.steps li::before { content: "0" counter(s); display: block; font: 700 12px var(--f-mono); color: var(--lima); margin-bottom: 10px; letter-spacing: .1em; }
+.steps li:first-child { border-color: rgba(124, 92, 255, .55); box-shadow: 0 0 0 1px rgba(124, 92, 255, .25), 0 20px 50px -25px rgba(124, 92, 255, .7); }
+.steps p { margin: 0; color: var(--lavanda); font-size: .95rem; }
+@media (min-width: 900px) {
+  .steps li:not(:last-child)::after { content: "→"; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: var(--lima); font: 700 16px var(--f-mono); z-index: 2; }
+}
+
+/* ===== 04 DEMOS ===== */
+.demos { display: grid; gap: 12px; margin-top: 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .demos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+.demo-card {
+  display: flex; flex-direction: column; gap: 10px; text-decoration: none; padding: 10px 10px 14px;
+  background: var(--grafito); border: 1px solid var(--linea); border-radius: 16px;
+  transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
+}
+.demo-card:hover { transform: translateY(-4px); border-color: rgba(124, 92, 255, .6); box-shadow: 0 24px 50px -24px rgba(124, 92, 255, .6); }
+.demo-card:active { transform: translateY(0) scale(.99); }
+.demo-card__id { font: 700 10px var(--f-mono); letter-spacing: .12em; color: var(--lima); display: flex; justify-content: space-between; gap: 6px; padding: 0 2px; }
+.demo-card__id span:last-child { color: var(--lavanda); }
+/* Miniatura: mini página dibujada con la paleta de cada demo */
+.mini { border-radius: 10px; overflow: hidden; background: var(--m-bg); color: var(--m-text); aspect-ratio: 4 / 3; display: flex; flex-direction: column; border: 1px solid rgba(255, 255, 255, .06); }
+.mini__bar { height: 14px; background: #0d0d10; display: flex; gap: 4px; align-items: center; padding: 0 6px; flex: none; }
+.mini__bar i { width: 5px; height: 5px; border-radius: 50%; background: #3a3a44; }
+.mini__body { padding: 9px 10px; display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0; position: relative; overflow: hidden; }
+.mini__brand { font: 700 9px var(--f-texto); opacity: .75; display: flex; align-items: center; gap: 4px; }
+.mini__brand::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--m-primary); }
+.mini__title { font-family: var(--m-font); font-weight: 800; font-size: clamp(11px, 2.9vw, 17px); line-height: 1.05; }
+.mini__btn { margin-top: auto; align-self: flex-start; font: 700 9px var(--f-texto); background: var(--m-primary); color: var(--m-on); padding: 5px 9px; border-radius: 5px; }
+.mini__deco { position: absolute; right: -16px; bottom: -16px; width: 64px; height: 64px; border-radius: 50%; background: var(--m-accent); opacity: .8; }
+@media (min-width: 900px) {
+  .mini { aspect-ratio: 16 / 7; }
+  .mini__title { font-size: 20px; }
+  .mini__btn { font-size: 11px; }
+  #demos h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 8px; }
+  #demos .tags { margin-bottom: 12px; }
+  #demos .demos { margin-top: 16px; }
+}
+.demo-card h3 { font-size: .98rem; margin: 2px 2px 0; }
+.demo-card__action { font-size: .84rem; color: var(--lavanda); margin: 0 2px; display: flex; gap: 6px; align-items: baseline; }
+.demo-card__action b { color: var(--blanco); font-weight: 600; }
+.demo-card__open { font: 700 11px var(--f-mono); color: var(--violeta-claro); margin: 2px 2px 0; letter-spacing: .06em; }
+
+/* ===== DESTACADO: LEALTAD EN WALLET ===== */
+.wallet { display: grid; gap: 24px; align-items: center; margin-top: 8px; }
+@media (min-width: 900px) { .wallet { grid-template-columns: 1.2fr .8fr; gap: 48px; } }
+.wallet__badge { display: inline-block; background: var(--lima); color: #0b0f00; font: 800 12px var(--f-mono); letter-spacing: .12em; padding: 6px 12px; border-radius: 999px; box-shadow: 0 0 30px -4px rgba(198, 255, 61, .8); }
+.wallet ul { list-style: none; padding: 0; margin: 18px 0 22px; display: grid; gap: 10px; }
+.wallet li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; color: var(--lavanda); }
+.wallet li::before { content: "✓"; color: var(--lima); font-weight: 800; }
+.wallet li b { color: var(--blanco); }
+.wallet__img { max-width: 260px; margin: 0 auto; width: 100%; }
+.wallet__img img { width: 100%; height: auto; filter: drop-shadow(0 30px 50px rgba(124, 92, 255, .6)); }
+.wallet__note { font-size: .82rem; color: var(--lavanda); margin: 12px 0 0; }
+@media (max-width: 899px) { .wallet__img { max-width: 200px; } }
+
+/* ===== 05 DETRÁS DE LA PÁGINA ===== */
+.flow { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 28px; position: relative; }
+@media (min-width: 900px) { .flow { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+.flow li { position: relative; }
+.flow .panel { height: 100%; }
+.flow__icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(124, 92, 255, .14); color: var(--violeta-claro); margin-bottom: 12px; }
+.flow__icon svg { width: 24px; height: 24px; }
+.flow p { margin: 0; color: var(--lavanda); font-size: .95rem; }
+.flow li:not(:last-child)::after {
+  content: ""; position: absolute; left: 50%; bottom: -24px; width: 2px; height: 20px; transform: translateX(-50%);
+  background: linear-gradient(var(--violeta), var(--lima));
+}
+@media (min-width: 900px) {
+  .flow li:not(:last-child)::after { left: auto; right: -22px; bottom: auto; top: 50%; width: 20px; height: 2px; transform: none; background: linear-gradient(90deg, var(--violeta), var(--lima)); }
+}
+/* Pulso que viaja por el flujo */
+.flow li .panel { position: relative; overflow: hidden; }
+.flow li .panel::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(198, 255, 61, .09) 50%, transparent 70%); transform: translateX(-100%); }
+.slide.is-active .flow li .panel::before { animation: barrido 4s var(--ease) infinite; animation-delay: calc(var(--i) * .5s); }
+@keyframes barrido { 0% { transform: translateX(-100%); } 40%, 100% { transform: translateX(100%); } }
+.integra { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; color: var(--lavanda); font-size: .95rem; }
+
+/* ===== 06 QUÉ INCLUYE ===== */
+.includes { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.includes .panel { display: grid; gap: 8px; }
+.includes svg { width: 28px; height: 28px; color: var(--lima); }
+.includes p { margin: 0; color: var(--lavanda); font-size: .93rem; }
+
+/* ===== 07 INVERSIÓN ===== */
+.price { margin-top: 26px; display: grid; gap: 16px; }
+@media (min-width: 900px) { .price { grid-template-columns: 1.1fr .9fr; align-items: stretch; } }
+.price__box { border-color: rgba(124, 92, 255, .5); background: radial-gradient(120% 120% at 0% 0%, rgba(124, 92, 255, .22), rgba(255, 255, 255, .02) 60%); padding: 28px 24px; }
+.price__value { font: 700 clamp(1.3rem, 5vw, 2.4rem) var(--f-mono); color: var(--lima); margin: 10px 0 8px; overflow-wrap: anywhere; }
+.price__box p { margin: 0; color: var(--lavanda); }
+.price ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.price li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; color: var(--blanco); }
+.price li::before { content: "✓"; color: var(--lima); font-weight: 700; }
+
+/* ===== 08 CIERRE ===== */
+.close { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 900px) { .close { grid-template-columns: 1.2fr .8fr; gap: 48px; } }
+.close__photo { position: relative; max-width: 360px; justify-self: center; width: 100%; }
+.close__photo img { width: 100%; height: auto; border-radius: 24px; border: 1px solid rgba(124, 92, 255, .4); box-shadow: 0 30px 80px -30px rgba(124, 92, 255, .8); }
+.close__photo figcaption { position: absolute; left: 12px; right: 12px; bottom: 12px; background: rgba(5, 5, 5, .78); backdrop-filter: blur(6px); border: 1px solid var(--linea); border-radius: 12px; padding: 10px 12px; font-size: .9rem; }
+.close__photo figcaption b { display: block; font-family: var(--f-titulo); }
+.close__photo figcaption span { font: 500 11px var(--f-mono); color: var(--lavanda); letter-spacing: .06em; }
+.close__actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 10px; }
+.close__mail { font: 500 .95rem var(--f-mono); color: var(--lavanda); overflow-wrap: anywhere; line-height: 1.8; }
+.close__mail a { color: var(--blanco); }
+.motto { margin-top: 26px; font-family: var(--f-titulo); font-weight: 900; text-transform: uppercase; font-size: clamp(1rem, 2.6vw, 1.3rem); letter-spacing: .02em; }
+.motto span { color: var(--violeta-claro); }
+@media (max-width: 899px) { .close__photo { max-width: 240px; } }
+
+/* ---------- Controles inferiores ---------- */
+.controls {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+  background: linear-gradient(transparent, rgba(5, 5, 5, .92) 40%);
+}
+.ctrl {
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .22); background: rgba(22, 22, 27, .9); color: var(--blanco);
+  transition: background .2s, border-color .2s, transform .12s, opacity .2s;
+}
+.ctrl:hover { background: var(--violeta); border-color: var(--violeta); }
+.ctrl:active { transform: scale(.94); }
+.ctrl:disabled { opacity: .3; cursor: default; background: rgba(22, 22, 27, .9); border-color: rgba(255, 255, 255, .22); }
+.ctrl svg { width: 20px; height: 20px; }
+.dots { display: flex; gap: 6px; }
+.dots button { width: 22px; height: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; }
+.dots button::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: rgba(255, 255, 255, .28); transition: width .3s var(--ease), background .3s; }
+.dots button[aria-current="step"]::before { width: 22px; background: var(--lima); }
+.dots button:hover::before { background: rgba(255, 255, 255, .6); }
+
+/* Aviso flotante (por ejemplo, número de WhatsApp sin configurar) */
+.toast {
+  position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); z-index: 30; transform: translate(-50%, 20px);
+  background: var(--grafito-2); border: 1px solid rgba(198, 255, 61, .4); color: var(--blanco); border-radius: 12px;
+  padding: 12px 16px; font-size: .92rem; width: max-content; max-width: calc(100% - 32px); opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide [data-in], .glow { transition: none !important; }
+  .slide { transform: none !important; }
+  .slide [data-in] { opacity: 1; transform: none; }
+  *, *::before, *::after { animation: none !important; }
+}
+</style>
+</head>
+<body data-tema="normal">
+
+<div class="glow" aria-hidden="true"></div>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<header class="topbar">
+  <img src="assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="80" height="26">
+  <span class="topbar__tag">PREVIEW · ZOLKO_WEB_DECK</span>
+  <span class="counter" aria-live="polite" aria-atomic="true"><span class="sr-only">Diapositiva </span><b id="num">01</b> / <span id="total">09</span></span>
+</header>
+
+<main class="deck" id="deck" aria-roledescription="presentación" aria-label="Presentación de ZOLKO INTEGRATIONS">
+
+  <!-- ===================== 01 GANCHO ===================== -->
+  <section class="slide hook" id="inicio" aria-roledescription="diapositiva" aria-label="01 de 09: Gancho">
+    <img class="ring-deco" src="assets/zolko-anillo.svg" alt="" aria-hidden="true">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag">PREVIEW</span><span class="tag tag--violeta">WEB_QUE_VENDE</span></div>
+      <h1 data-in style="--i:1">Tu página no es una tarjeta de presentación. <span class="l2">Es tu mejor vendedor.</span></h1>
+      <p class="lead" data-in style="--i:2">Atiende a cualquier hora, responde las dudas de tus clientes y los lleva a escribirte, agendar o comprar.</p>
+      <p class="hook__brand" data-in style="--i:3">“La IA no te reemplaza, sino que te devuelve tu tiempo.”</p>
+      <p class="hint" data-in style="--i:4"><kbd>←</kbd><kbd>→</kbd> o desliza para avanzar</p>
+    </div>
+  </section>
+
+  <!-- ===================== 02 EL PROBLEMA ===================== -->
+  <section class="slide" id="problema" data-tema="problema" aria-roledescription="diapositiva" aria-label="02 de 09: El problema">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag tag--rojo">EL_PROBLEMA</span></div>
+      <h2 data-in style="--i:1">El visitante entra, no entiende qué hacer <span class="rojo">y se va.</span></h2>
+      <p class="lead" data-in style="--i:2">No se va porque no le interese. Se va porque tu página no le dijo qué hacer.</p>
+      <div class="problem">
+        <div class="panel" data-in style="--i:3">
+          <span class="problem__n">01 · ENTRA</span>
+          <h3>Llega con una pregunta</h3>
+          <p>Desde un anuncio, Google o tu perfil de Instagram.</p>
+        </div>
+        <div class="panel" data-in style="--i:4">
+          <span class="problem__n">02 · DUDA</span>
+          <h3>Busca y no encuentra</h3>
+          <p><q>¿Cuánto cuesta?</q><q>¿Cómo pido?</q><q>¿A quién le escribo?</q></p>
+        </div>
+        <div class="panel" data-in style="--i:5">
+          <span class="problem__n">03 · SE VA</span>
+          <h3>Le escribe a otro</h3>
+          <p>Cierra la pestaña y busca a alguien que sí le conteste.</p>
+          <span class="err">ERROR: SIN_ACCIÓN_CLARA<span class="blink">_</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 03 CÓMO TRABAJAMOS ===================== -->
+  <section class="slide" id="metodo" aria-roledescription="diapositiva" aria-label="03 de 09: Cómo trabajamos">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag">PROCESO.ZOLKO</span></div>
+      <h2 data-in style="--i:1">Primero entendemos. <span class="violeta">Después integramos.</span></h2>
+      <ol class="steps">
+        <li class="panel" data-in style="--i:2"><h3>Primero entendemos</h3><p>Cómo vendes hoy, qué te preguntan tus clientes y dónde se te escapan.</p></li>
+        <li class="panel" data-in style="--i:3"><h3>Diseñamos con las palabras de tus clientes</h3><p>Los textos responden lo que tu cliente ya pregunta, con una sola acción clara.</p></li>
+        <li class="panel" data-in style="--i:4"><h3>Conectamos con WhatsApp y CRM</h3><p>Cada contacto llega ordenado y recibe seguimiento, aunque estés ocupado.</p></li>
+        <li class="panel" data-in style="--i:5"><h3>Medimos</h3><p>Visitas, clics y solicitudes para saber qué funciona y qué mejorar.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== 04 DEMOS POR GIRO ===================== -->
+  <section class="slide" id="demos" aria-roledescription="diapositiva" aria-label="04 de 09: Demos por giro">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag">DEMOS</span><span class="tag tag--violeta">NEGOCIOS_DE_EJEMPLO</span></div>
+      <h2 data-in style="--i:1">Así se vería en tu giro</h2>
+      <p class="lead" data-in style="--i:2">Toca una demo. Cada una tiene una sola acción principal.</p>
+      <div class="demos">
+        <a class='demo-card' data-in href='/demos/restaurante' style='--i:3'>
+          <span class="demo-card__id"><span>DEMO_01</span><span>WHATSAPP</span></span>
+          <div class="mini" aria-hidden="true" style="--m-bg:#fbf5ec;--m-text:#2b1d14;--m-primary:#1f8f4e;--m-on:#fff;--m-accent:#e9a23b;--m-font:'Fraunces',serif">
+            <div class="mini__bar"><i></i><i></i><i></i></div>
+            <div class="mini__body"><span class="mini__brand">Casa Brasa</span><span class="mini__title">¿Se te antojó algo al carbón?</span><span class="mini__btn">Pedir por WhatsApp</span><span class="mini__deco"></span></div>
+          </div>
+          <h3>Restaurante</h3>
+          <p class="demo-card__action">Acción: <b>pedir por WhatsApp</b></p>
+          <span class="demo-card__open">ABRIR DEMO →</span>
+        </a>
+        <a class='demo-card' data-in href='/demos/car-wash' style='--i:4'>
+          <span class="demo-card__id"><span>DEMO_02</span><span>FORMULARIO</span></span>
+          <div class="mini" aria-hidden="true" style="--m-bg:#f4f8fc;--m-text:#0b2540;--m-primary:#0059c9;--m-on:#fff;--m-accent:#ffd23f;--m-font:'Barlow Condensed',sans-serif">
+            <div class="mini__bar"><i></i><i></i><i></i></div>
+            <div class="mini__body"><span class="mini__brand">Ola Azul</span><span class="mini__title" style="text-transform:uppercase">Tu auto limpio sin perder la mañana</span><span class="mini__btn">Agendar lavado</span><span class="mini__deco"></span></div>
+          </div>
+          <h3>Car wash</h3>
+          <p class="demo-card__action">Acción: <b>agendar lavado</b></p>
+          <span class="demo-card__open">ABRIR DEMO →</span>
+        </a>
+        <a class='demo-card' data-in href='/demos/joyeria' style='--i:5'>
+          <span class="demo-card__id"><span>DEMO_03</span><span>CATÁLOGO</span></span>
+          <div class="mini" aria-hidden="true" style="--m-bg:#faf7f2;--m-text:#1a1714;--m-primary:#1a1714;--m-on:#f6ecd6;--m-accent:#c7a35a;--m-font:'Cormorant Garamond',serif">
+            <div class="mini__bar"><i></i><i></i><i></i></div>
+            <div class="mini__body"><span class="mini__brand">Áurea</span><span class="mini__title">Elige tu pieza aquí</span><span class="mini__btn">Ver catálogo</span><span class="mini__deco"></span></div>
+          </div>
+          <h3>Joyería</h3>
+          <p class="demo-card__action">Acción: <b>ver catálogo y escribir</b></p>
+          <span class="demo-card__open">ABRIR DEMO →</span>
+        </a>
+        <a class='demo-card' data-in href='/demos/academia' style='--i:6'>
+          <span class="demo-card__id"><span>DEMO_04</span><span>FORMULARIO</span></span>
+          <div class="mini" aria-hidden="true" style="--m-bg:#fff8f0;--m-text:#1f2a44;--m-primary:#c4421c;--m-on:#fff;--m-accent:#f2b134;--m-font:'Bricolage Grotesque',sans-serif">
+            <div class="mini__bar"><i></i><i></i><i></i></div>
+            <div class="mini__body"><span class="mini__brand">Estudio Clave</span><span class="mini__title">Empieza con una clase muestra</span><span class="mini__btn">Agendar clase</span><span class="mini__deco"></span></div>
+          </div>
+          <h3>Academia</h3>
+          <p class="demo-card__action">Acción: <b>agendar clase muestra</b></p>
+          <span class="demo-card__open">ABRIR DEMO →</span>
+        </a>
+        <a class='demo-card' data-in href='/demos/inmobiliaria' style='--i:7'>
+          <span class="demo-card__id"><span>DEMO_05</span><span>FORMULARIO</span></span>
+          <div class="mini" aria-hidden="true" style="--m-bg:#f6f3ec;--m-text:#1e2b24;--m-primary:#2f5d4a;--m-on:#fff;--m-accent:#c9a66b;--m-font:'DM Serif Display',serif">
+            <div class="mini__bar"><i></i><i></i><i></i></div>
+            <div class="mini__body"><span class="mini__brand">Raíz</span><span class="mini__title" style="font-weight:400">Conócela antes de decidir</span><span class="mini__btn">Agendar visita</span><span class="mini__deco"></span></div>
+          </div>
+          <h3>Inmobiliaria</h3>
+          <p class="demo-card__action">Acción: <b>agendar visita</b></p>
+          <span class="demo-card__open">ABRIR DEMO →</span>
+        </a>
+        <a class='demo-card' data-in href='/demos/consultorio' style='--i:8'>
+          <span class="demo-card__id"><span>DEMO_06</span><span>FORMULARIO</span></span>
+          <div class="mini" aria-hidden="true" style="--m-bg:#f5fafa;--m-text:#12313a;--m-primary:#0b6f78;--m-on:#fff;--m-accent:#7fd1c7;--m-font:'Outfit',sans-serif">
+            <div class="mini__bar"><i></i><i></i><i></i></div>
+            <div class="mini__body"><span class="mini__brand">Vida Plena</span><span class="mini__title">Agenda tu cita sin llamar</span><span class="mini__btn">Agendar cita</span><span class="mini__deco"></span></div>
+          </div>
+          <h3>Consultorio</h3>
+          <p class="demo-card__action">Acción: <b>agendar cita</b></p>
+          <span class="demo-card__open">ABRIR DEMO →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 05 DESTACADO: LEALTAD EN WALLET ===================== -->
+  <section class="slide" id="lealtad" aria-roledescription="diapositiva" aria-label="05 de 09: Tarjetas de lealtad en Wallet">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="wallet__badge">★ DESTACADO · NUEVO</span><span class="tag tag--violeta">APPLE_WALLET + GOOGLE_WALLET</span></div>
+      <div class="wallet">
+        <div>
+          <h2 data-in style="--i:1">Tu tarjeta de lealtad, <span class="lima">en la Wallet de tus clientes.</span></h2>
+          <ul data-in style="--i:2">
+            <li><span><b>Sin descargar app:</b> se guarda en Apple Wallet o Google Wallet con un toque.</span></li>
+            <li><span><b>Sellos con código QR:</b> en caja la escanean y el sello aparece al momento.</span></li>
+            <li><span><b>Avisos a su pantalla:</b> recompensa lista, promoción del día o “te extrañamos”.</span></li>
+            <li><span><b>Conectada a tu CRM y WhatsApp:</b> sabes quién regresa y a quién darle seguimiento.</span></li>
+          </ul>
+          <div class="close__actions" data-in style="--i:3;margin:0">
+            <a class='btn' href='/demos/tarjeta-lealtad'>Probar la tarjeta de lealtad</a>
+          </div>
+          <p class="wallet__note" data-in style="--i:4">Los avisos siguen las reglas de Apple y Google: tienen que ver con la tarjeta, y Google permite hasta tres por tarjeta cada 24 horas.</p>
+        </div>
+        <figure class="wallet__img" data-in style="--i:2;margin:0 auto"><img src="assets/img/wallet-lealtad.webp" alt="Tarjeta de lealtad de un restaurante de ejemplo en la Wallet del celular, con sellos, código QR y un aviso de promoción" width="620" height="1249" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 05 LO QUE VA DETRÁS ===================== -->
+  <section class="slide" id="integracion" aria-roledescription="diapositiva" aria-label="06 de 09: Lo que va detrás de la página">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag">LO_QUE_ZOLKO_INTEGRA</span></div>
+      <h2 data-in style="--i:1">Lo que va detrás de la página</h2>
+      <p class="lead" data-in style="--i:2">La página es la puerta. Lo que vende es lo que pasa después de que alguien toca el botón.</p>
+      <ol class="flow">
+        <li data-in style="--i:3"><div class="panel">
+          <span class="flow__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          <h3>Formulario</h3><p>Máximo tres datos. El cliente pide lo que quiere sin pensarlo dos veces.</p></div></li>
+        <li data-in style="--i:4"><div class="panel">
+          <span class="flow__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>
+          <h3>CRM</h3><p>Cada contacto queda guardado con lo que pidió. Nadie se pierde en un chat.</p></div></li>
+        <li data-in style="--i:5"><div class="panel">
+          <span class="flow__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></span>
+          <h3>Seguimiento por WhatsApp</h3><p>Confirmación, recordatorio y seguimiento automáticos, con tu tono.</p></div></li>
+        <li data-in style="--i:6"><div class="panel">
+          <span class="flow__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+          <h3>Medición</h3><p>Ves cuántas visitas, clics y solicitudes llegan, y de dónde.</p></div></li>
+      </ol>
+      <p class="integra" data-in style="--i:7"><span class="tag tag--violeta">EN_LAS_DEMOS: SIMULADO</span> En tu página real, ZOLKO lo conecta de verdad.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 06 QUÉ INCLUYE ===================== -->
+  <section class="slide" id="incluye" aria-roledescription="diapositiva" aria-label="07 de 09: Qué incluye">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag">INCLUYE</span></div>
+      <h2 data-in style="--i:1">Qué incluye tu página</h2>
+      <ul class="includes">
+        <li class="panel" data-in style="--i:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><h3>Pensada primero para celular</h3><p>Donde tus clientes realmente te buscan.</p></li>
+        <li class="panel" data-in style="--i:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg><h3>Botón de WhatsApp</h3><p>Fijo y con el mensaje ya escrito.</p></li>
+        <li class="panel" data-in style="--i:4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9l2 2 4-4M8 16h8"/></svg><h3>Formulario conectado</h3><p>Llega a tu CRM y a tu WhatsApp, no a un correo olvidado.</p></li>
+        <li class="panel" data-in style="--i:5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6-7-12a7 7 0 0 1 14 0c0 6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><h3>Mapa</h3><p>Para que lleguen sin preguntar cómo.</p></li>
+        <li class="panel" data-in style="--i:6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>Medición de visitas</h3><p>Sabes qué funciona con datos, no con corazonadas.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 07 INVERSIÓN ===================== -->
+  <section class="slide" id="inversion" aria-roledescription="diapositiva" aria-label="08 de 09: Inversión">
+    <div class="slide__inner">
+      <div class="tags" data-in style="--i:0"><span class="tag">INVERSIÓN</span></div>
+      <h2 data-in style="--i:1">Inversión</h2>
+      <div class="price">
+        <div class="panel price__box" data-in style="--i:2">
+          <span class="tag tag--violeta">PRECIO</span>
+          <p class="price__value">Precio según diagnóstico</p>
+          <p>Se define después del diagnóstico, según lo que tu negocio necesita conectar.</p>
+        </div>
+        <div class="panel" data-in style="--i:3">
+          <h3>Lo que revisamos en el diagnóstico</h3>
+          <ul>
+            <li>Cómo te llegan hoy los clientes</li>
+            <li>Qué acción principal necesita tu página</li>
+            <li>Qué conectar: WhatsApp, CRM, agenda o catálogo</li>
+            <li>Cómo vamos a medir</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 08 CIERRE ===================== -->
+  <section class="slide" id="contacto" aria-roledescription="diapositiva" aria-label="09 de 09: Agenda tu diagnóstico">
+    <div class="slide__inner close">
+      <div>
+        <div class="tags" data-in style="--i:0"><span class="tag">SIGUIENTE_PASO</span></div>
+        <h2 data-in style="--i:1">Agenda tu <span class="lima">diagnóstico</span></h2>
+        <p class="lead" data-in style="--i:2">Platicamos de tu negocio, vemos cómo te llegan hoy los clientes y te decimos qué haríamos con tu página.</p>
+        <div class="close__actions" data-in style="--i:3">
+          <a class="btn" id="wa-zolko" href="#" data-numero="523343230958">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+            Escribir DIAGNÓSTICO por WhatsApp
+          </a>
+          <a class="btn btn--ghost" href="mailto:ricardo@zolkointegrations.com?subject=Diagn%C3%B3stico%20para%20mi%20p%C3%A1gina">Escribir por correo</a>
+        </div>
+        <p class="close__mail" data-in style="--i:4">WhatsApp: <a href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">+52 33 4323 0958</a><br>Correo: <a href="mailto:ricardo@zolkointegrations.com">ricardo@zolkointegrations.com</a></p>
+        <p class="motto" data-in style="--i:5">La IA no te reemplaza, <span>sino que te devuelve tu tiempo.</span></p>
+      </div>
+      <figure class="close__photo" data-in style="--i:2">
+        <img src="assets/ricardo.jpg" alt="Ricardo Vergara, fundador de ZOLKO INTEGRATIONS" width="570" height="825" loading="lazy">
+        <figcaption><b>Ricardo Vergara</b><span>FUNDADOR · ZOLKO INTEGRATIONS</span></figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Navegación de diapositivas">
+  <button class="ctrl" id="prev" type="button" aria-label="Diapositiva anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <div class="dots" id="dots"></div>
+  <button class="ctrl" id="next" type="button" aria-label="Diapositiva siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   Navegación por diapositivas: teclado, botones, puntos, deslizar,
+   enlace directo con #id (ej. index.html#demos) y movimiento reducido.
+   ===================================================================== */
+(function () {
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var total = slides.length;
+  var actual = 0;
+  var num = document.getElementById("num");
+  var prev = document.getElementById("prev");
+  var next = document.getElementById("next");
+  var dots = document.getElementById("dots");
+  document.getElementById("total").textContent = String(total).padStart(2, "0");
+
+  // Un punto por diapositiva
+  slides.forEach(function (s, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Ir a la diapositiva " + (i + 1) + ": " + s.getAttribute("aria-label").split(": ")[1]);
+    b.addEventListener("click", function () { ir(i); });
+    dots.appendChild(b);
+  });
+
+  function ir(i, sinHash) {
+    i = Math.max(0, Math.min(total - 1, i));
+    actual = i;
+    slides.forEach(function (s, k) {
+      s.classList.toggle("is-active", k === i);
+      s.classList.toggle("is-before", k < i);
+      s.setAttribute("aria-hidden", k === i ? "false" : "true");
+      if (k === i) s.scrollTop = 0;
+    });
+    dots.querySelectorAll("button").forEach(function (b, k) {
+      if (k === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    });
+    num.textContent = String(i + 1).padStart(2, "0");
+    prev.disabled = i === 0;
+    next.disabled = i === total - 1;
+    document.body.setAttribute("data-tema", slides[i].getAttribute("data-tema") || "normal");
+    if (!sinHash && history.replaceState) history.replaceState(null, "", "#" + slides[i].id);
+  }
+
+  prev.addEventListener("click", function () { ir(actual - 1); });
+  next.addEventListener("click", function () { ir(actual + 1); });
+
+  // Teclado
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var k = e.key;
+    if (k === "ArrowRight" || k === "PageDown") { e.preventDefault(); ir(actual + 1); }
+    else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); ir(actual - 1); }
+    else if (k === "Home") { e.preventDefault(); ir(0); }
+    else if (k === "End") { e.preventDefault(); ir(total - 1); }
+  });
+
+  // Deslizar en celular (solo si el gesto es claramente horizontal)
+  var x0 = null, y0 = null;
+  var deck = document.getElementById("deck");
+  deck.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  deck.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) ir(actual + (dx < 0 ? 1 : -1));
+    x0 = y0 = null;
+  }, { passive: true });
+
+  // Abrir en la diapositiva del #id (las demos regresan a #demos)
+  function desdeHash() {
+    var id = location.hash.replace("#", "");
+    var i = slides.findIndex(function (s) { return s.id === id; });
+    ir(i >= 0 ? i : 0, true);
+  }
+  window.addEventListener("hashchange", desdeHash);
+  desdeHash();
+
+  /* ------- Botón de WhatsApp de ZOLKO -------
+     Para cambiarlo, edita data-numero con el número
+     con lada internacional y sin espacios (ej. 52 + 10 dígitos). */
+  var wa = document.getElementById("wa-zolko");
+  var numero = wa.getAttribute("data-numero");
+  var toast = document.getElementById("toast");
+  var configurado = /^\d{10,15}$/.test(numero);
+  if (configurado) {
+    wa.href = "https://wa.me/" + numero + "?text=" + encodeURIComponent("DIAGNÓSTICO");
+    wa.target = "_blank"; wa.rel = "noopener";
+  } else {
+    wa.addEventListener("click", function (e) {
+      e.preventDefault();
+      toast.textContent = "Falta configurar el número de WhatsApp de ZOLKO (ver README).";
+      toast.classList.add("is-visible");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(function () { toast.classList.remove("is-visible"); }, 3200);
+    });
+  }
+})();
+</script>
+</body>
+</html>

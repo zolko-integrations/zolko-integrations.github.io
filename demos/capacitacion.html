@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Capacitación IA para tu equipo · Demo | ZOLKO</title>
+<meta name="description" content="Demo de ZOLKO INTEGRATIONS: página de capacitación en IA y atención por WhatsApp para equipos de negocio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/demo-base.css">
+<style>
+  /* =================================================================
+     IDENTIDAD · ZOLKO (servicio propio de capacitación)
+     ================================================================= */
+  :root {
+    --c-bg: #08080a; --c-surface: #121217; --c-text: #f4f4f7; --c-muted: #b7b2d9;
+    --c-primary: #c6ff3d; --c-primary-hover: #d6ff70; --c-on-primary: #0b0f00;
+    --c-accent: #7c5cff; --c-dark: #0d0d10; --c-on-dark: #f4f4f7; --c-line: rgba(255, 255, 255, .12);
+    --c-error: #ff7a85; --c-ok: #c6ff3d;
+    --font-display: "Montserrat", system-ui, sans-serif; --font-body: "Inter", system-ui, sans-serif; --radius: 18px;
+  }
+  .hero { background: radial-gradient(60% 50% at 50% 0%, rgba(124, 92, 255, .45), transparent 70%); }
+  .hero h1, .section h2 { font-weight: 900; text-transform: uppercase; }
+  .hero h1 span { color: var(--c-primary); }
+  .hero__art img { border-radius: 22px; border: 1px solid rgba(124, 92, 255, .45); box-shadow: 0 30px 70px -30px rgba(124, 92, 255, .8); width: 100%; height: auto; }
+  .card, .faq details, .steps li { background: var(--c-surface); }
+  .section--alt { background: #0e0e12; }
+  .benefit__icon { color: var(--c-primary); }
+  .module-n { font: 700 11px "JetBrains Mono", monospace; letter-spacing: .12em; color: var(--c-primary); }
+  .form-card { background: var(--c-surface); }
+  .field input, .field select { background: #0b0b0e; }
+  .form-status span { color: var(--c-text); }
+  .site-header { background: color-mix(in srgb, #08080a 90%, transparent); }
+  .brand img { height: 30px; width: auto; }
+  .btn:focus-visible { outline-color: var(--c-primary); }
+  /* Mini diagnóstico del equipo */
+  .quiz { background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 20px; padding: 22px; max-width: 760px; }
+  .quiz fieldset { border: 0; padding: 0; margin: 0 0 18px; }
+  .quiz legend { font-weight: 700; margin-bottom: 10px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts label { cursor: pointer; }
+  .opts input { position: absolute; opacity: 0; }
+  .opts span { display: inline-block; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--c-line); transition: background .2s, border-color .2s, color .2s; }
+  .opts input:checked + span { background: var(--c-primary); color: var(--c-on-primary); border-color: var(--c-primary); font-weight: 700; }
+  .opts input:focus-visible + span { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+  .result { display: none; margin-top: 8px; border-radius: 16px; padding: 18px; background: linear-gradient(135deg, rgba(124, 92, 255, .25), rgba(198, 255, 61, .08)); border: 1px solid rgba(124, 92, 255, .5); }
+  .result.is-on { display: block; animation: fade-down .35s ease-out; }
+  .result b { font: 900 1.3rem Montserrat; text-transform: uppercase; color: var(--c-primary); display: block; margin-bottom: 6px; }
+</style>
+<script>
+  window.DEMO_CONFIG = {
+    negocio: "Capacitación ZOLKO (página de ejemplo)",
+    simulado: [
+      "El temario es una propuesta de ejemplo; se ajusta después del diagnóstico de cada negocio.",
+      "El mini diagnóstico del equipo da una orientación general; no guarda tus respuestas.",
+      "El formulario no envía ni guarda datos.",
+      "El botón de WhatsApp abre una vista previa con el número de ejemplo +5200000000000."
+    ],
+    produccion: [
+      "Formulario conectado al CRM de ZOLKO y aviso por WhatsApp.",
+      "Calendario real de fechas de capacitación.",
+      "Materiales y seguimiento después del taller.",
+      "Medición de solicitudes por canal."
+    ]
+  };
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#inicio" aria-label="ZOLKO capacitación, inicio"><img src="../assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="90" height="30"></a>
+    <a class="btn btn--header" href="#solicitar">Solicitar</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
+    <nav class="site-nav" id="menu" aria-label="Secciones">
+      <ul>
+        <li><a href="#temario">Temario</a></li>
+        <li><a href="#diagnostico">¿Tu equipo está listo?</a></li>
+        <li><a href="#como">Cómo funciona</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="#solicitar">Solicitar</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="reveal">
+        <span class="eyebrow">Capacitación para equipos</span>
+        <h1>Tu equipo contestando rápido, igual de bien <span>y con IA de su lado.</span></h1>
+        <p class="lead">Un taller práctico para quienes atienden WhatsApp, cotizan y dan seguimiento. Salen usando las herramientas, no solo escuchando de ellas.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#solicitar">Solicitar capacitación</a>
+          <a class="link-arrow" href="#temario">Ver temario</a>
+        </div>
+        <p class="hero__note">La IA no reemplaza a tu equipo: le devuelve tiempo para atender mejor.</p>
+      </div>
+      <div class="hero__art reveal"><img src="../assets/img/capacitacion.jpg" alt="Ricardo presentando frente a un equipo en una sala de juntas" width="1200" height="670"></div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="temario">
+    <div class="container">
+      <div class="section__head reveal"><span class="eyebrow">Temario</span><h2>Lo que aprende tu equipo</h2><p class="lead">Se adapta a tu giro y a las herramientas que ya usas.</p></div>
+      <div class="cards">
+        <article class="card reveal"><span class="module-n">MÓDULO_01</span><h3>Contestar rápido y bien</h3><p>Respuestas base para las preguntas de siempre, con el tono de tu negocio.</p></article>
+        <article class="card reveal"><span class="module-n">MÓDULO_02</span><h3>IA en el día a día</h3><p>Cómo usar la IA para redactar, cotizar y resumir sin perder el toque humano.</p></article>
+        <article class="card reveal"><span class="module-n">MÓDULO_03</span><h3>Seguimiento que no se olvida</h3><p>Usar el CRM para que ningún cliente se quede esperando.</p></article>
+        <article class="card reveal"><span class="module-n">MÓDULO_04</span><h3>Medir y mejorar</h3><p>Qué revisar cada semana para saber qué está funcionando.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="diagnostico">
+    <div class="container">
+      <div class="section__head reveal"><span class="eyebrow">Mini diagnóstico</span><h2>¿Tu equipo está listo?</h2><p class="lead">Contesta tres preguntas y te decimos por dónde empezar. No se guarda nada.</p></div>
+      <form class="quiz reveal" id="quiz">
+        <fieldset><legend>¿Quién contesta el WhatsApp del negocio?</legend><div class="opts">
+          <label><input type="radio" name="q1" value="0"><span>Yo, cuando puedo</span></label>
+          <label><input type="radio" name="q1" value="1"><span>Alguien del equipo, sin guion</span></label>
+          <label><input type="radio" name="q1" value="2"><span>El equipo, con respuestas base</span></label></div></fieldset>
+        <fieldset><legend>¿Dónde quedan anotados los clientes interesados?</legend><div class="opts">
+          <label><input type="radio" name="q2" value="0"><span>En el chat, nada más</span></label>
+          <label><input type="radio" name="q2" value="1"><span>En una libreta o una hoja</span></label>
+          <label><input type="radio" name="q2" value="2"><span>En un CRM</span></label></div></fieldset>
+        <fieldset><legend>¿Tu equipo ya usa IA para trabajar?</legend><div class="opts">
+          <label><input type="radio" name="q3" value="0"><span>No</span></label>
+          <label><input type="radio" name="q3" value="1"><span>A veces, cada quien a su manera</span></label>
+          <label><input type="radio" name="q3" value="2"><span>Sí, con reglas claras</span></label></div></fieldset>
+        <button class="btn" type="submit">Ver por dónde empezar</button>
+        <p class="field__error" id="quiz-error" aria-live="polite"></p>
+        <div class="result" id="result" role="status" tabindex="-1"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="como">
+    <div class="container">
+      <div class="section__head reveal"><span class="eyebrow">Cómo funciona</span><h2>Primero entendemos. Después capacitamos.</h2></div>
+      <ol class="steps" style="--steps:4">
+        <li class="reveal"><h3>Diagnóstico</h3><p>Vemos cómo atiende hoy tu equipo y qué le cuesta más.</p></li>
+        <li class="reveal"><h3>Plan a la medida</h3><p>Elegimos módulos y ejemplos de tu propio negocio.</p></li>
+        <li class="reveal"><h3>Taller práctico</h3><p>Presencial o en línea, con tus casos reales.</p></li>
+        <li class="reveal"><h3>Seguimiento</h3><p>Revisamos cómo lo están aplicando y ajustamos.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="preguntas">
+    <div class="container">
+      <div class="section__head reveal"><span class="eyebrow">Preguntas frecuentes</span><h2>Antes de solicitar</h2></div>
+      <div class="faq reveal">
+        <details><summary>¿Mi equipo necesita saber de tecnología?</summary><div class="faq__a"><p>No. Empezamos desde lo que ya usan todos los días: el celular y WhatsApp.</p></div></details>
+        <details><summary>¿La IA va a reemplazar a mi equipo?</summary><div class="faq__a"><p>No. La usamos para quitarles lo repetitivo y que tengan más tiempo para atender bien.</p></div></details>
+        <details><summary>¿Es presencial o en línea?</summary><div class="faq__a"><p>Como le acomode a tu equipo. Lo definimos en el diagnóstico.</p></div></details>
+        <details><summary>¿Cuánto cuesta?</summary><div class="faq__a"><p>Depende del tamaño del equipo y de los módulos. Te damos la propuesta después del diagnóstico. Precio según diagnóstico.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="solicitar">
+    <div class="container form-wrap">
+      <div class="reveal"><span class="eyebrow">Solicitar capacitación</span><h2>Agenda el diagnóstico de tu equipo.</h2><p class="lead">Tres datos y te escribimos por WhatsApp para ver fechas.</p></div>
+      <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
+        <h3 id="form-titulo" class="sr-only">Formulario para solicitar capacitación</h3>
+        <div class="field">
+          <label for="k-whatsapp">Tu WhatsApp</label>
+          <input id="k-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="k-whatsapp-hint k-whatsapp-error">
+          <p class="hint" id="k-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+          <p class="field__error" id="k-whatsapp-error" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="k-equipo">¿Quiénes tomarían la capacitación?</label>
+          <select id="k-equipo" name="equipo" required data-msg="Elige quiénes la tomarían." aria-describedby="k-equipo-error">
+            <option value="">Elige una opción</option><option>Solo yo</option><option>Yo y mi equipo de atención</option><option>Todo el negocio</option>
+          </select>
+          <p class="field__error" id="k-equipo-error" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="k-modo">Modalidad</label>
+          <select id="k-modo" name="modo" required data-msg="Elige la modalidad." aria-describedby="k-modo-error">
+            <option value="">Elige una opción</option><option>Presencial</option><option>En línea</option><option>Lo platicamos</option>
+          </select>
+          <p class="field__error" id="k-modo-error" aria-live="polite"></p>
+        </div>
+        <button class="btn btn--block" type="submit">Solicitar capacitación</button>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se envió ni se guardó ningún dato.</span></div>
+        <p class="form-legal">Demo: este formulario no envía información.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-bottom" style="margin-top:0;border:0;padding-top:0">
+    <span>ZOLKO INTEGRATIONS · Primero entendemos. Después integramos.</span>
+    <span>Página de demostración</span>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a class="btn" href="#solicitar">Solicitar capacitación</a>
+  <a class="btn btn--wa btn--wa-icon" href="https://wa.me/5200000000000" data-wa="Hola, quiero información de la capacitación para mi equipo." aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+  </a>
+</div>
+
+<script>
+/* Mini diagnóstico: orientación general, no se guarda */
+document.getElementById("quiz").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var f = new FormData(this), err = document.getElementById("quiz-error"), r = document.getElementById("result");
+  if (!f.get("q1") || !f.get("q2") || !f.get("q3")) { err.textContent = "Contesta las tres preguntas."; r.classList.remove("is-on"); return; }
+  err.textContent = "";
+  var s = +f.get("q1") + +f.get("q2") + +f.get("q3");
+  var t = s <= 2 ? ["Etapa: arranque", "Empieza por el módulo de contestar rápido y bien: respuestas base y un responsable claro del WhatsApp."]
+        : s <= 4 ? ["Etapa: orden", "Ya contestan; el siguiente paso es anotar a cada interesado en un CRM y darle seguimiento."]
+        : ["Etapa: aceleración", "Tienen bases: lo que sigue es usar la IA con reglas claras y medir cada semana."];
+  r.innerHTML = "<b>" + t[0] + "</b>" + t[1] + ' <a href="#solicitar" style="color:var(--c-primary);font-weight:700">Agenda el diagnóstico →</a>';
+  r.classList.add("is-on"); r.focus();
+});
+</script>
+<script src="../assets/demo-base.js"></script>
+</body>
+</html>

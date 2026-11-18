@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Estudio Clave · Demo academia | ZOLKO</title>
+<meta name="description" content="Demo de ZOLKO INTEGRATIONS: landing de academia de música para agendar clase muestra. Negocio de ejemplo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/demo-base.css">
+<style>
+  /* =================================================================
+     IDENTIDAD DEL NEGOCIO · cambia aquí colores y tipografías
+     ================================================================= */
+  :root {
+    --c-bg: #fff8f0;
+    --c-surface: #ffeedd;
+    --c-text: #1f2a44;        /* azul tinta */
+    --c-muted: #52607a;
+    --c-primary: #c4421c;     /* coral intenso */
+    --c-primary-hover: #a3340f;
+    --c-on-primary: #ffffff;
+    --c-accent: #f2b134;      /* amarillo cálido */
+    --c-dark: #1f2a44;
+    --c-on-dark: #fff8f0;
+    --c-line: rgba(31, 42, 68, .14);
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "Nunito Sans", system-ui, sans-serif;
+    --radius: 22px;
+  }
+  .hero { background: radial-gradient(70% 60% at 100% 10%, #ffd9b8 0%, transparent 70%), radial-gradient(50% 40% at 0% 100%, #fde7a6 0%, transparent 70%); }
+  .hero h1 { font-weight: 800; letter-spacing: -.02em; }
+  .hero h1 span { background: var(--c-accent); border-radius: 12px; padding: 0 .15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .inst { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; background: var(--c-surface); color: var(--c-primary); }
+  .inst svg { width: 30px; height: 30px; }
+  .note-anim { animation: bob 3s ease-in-out infinite; transform-box: fill-box; }
+  .note-anim.n2 { animation-delay: -1s; } .note-anim.n3 { animation-delay: -2s; }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-10px) rotate(-6deg); } }
+</style>
+<script>
+  window.DEMO_CONFIG = {
+    negocio: "Estudio Clave (academia de ejemplo)",
+    simulado: [
+      "Los precios son de ejemplo (pesos mexicanos).",
+      "La academia, sus clases y sus textos son de ejemplo.",
+      "La reserva de clase muestra: el formulario no aparta lugar ni envía datos.",
+      "Los botones de WhatsApp usan el número de ejemplo +5200000000000.",
+      "El mapa del pie de página es una ilustración."
+    ],
+    produccion: [
+      "Agenda real de clases muestra según los horarios de cada maestro.",
+      "Cada interesado entra al CRM con instrumento y horario preferido.",
+      "Confirmación y recordatorio automático por WhatsApp, y seguimiento después de la clase muestra para inscribirse.",
+      "Medición de cuántas clases muestra se agendan y cuántas terminan en inscripción."
+    ]
+  };
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#inicio" aria-label="Estudio Clave, inicio">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#1f2a44"/><path d="M16 28V12l12-3v15" fill="none" stroke="#f2b134" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="28" r="4" fill="#c4421c"/><circle cx="25" cy="25" r="4" fill="#c4421c"/></svg>
+      <span>Estudio Clave<small>Academia de música</small></span>
+    </a>
+    <a class="btn btn--header" href="#clase-muestra">Agendar</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
+    <nav class="site-nav" id="menu" aria-label="Secciones">
+      <ul>
+        <li><a href="#clases">Clases</a></li>
+        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#como-empezar">Cómo empezar</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="#clase-muestra">Clase muestra</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="reveal">
+        <span class="eyebrow">Niños, jóvenes y adultos</span>
+        <h1>Siempre quisiste tocar un instrumento. <span>Empieza con una clase muestra.</span></h1>
+        <p class="lead">Conoce al maestro, el salón y la forma de enseñar antes de inscribirte. Aunque nunca hayas tocado.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#clase-muestra">Agendar clase muestra</a>
+          <a class="link-arrow" href="#clases">Ver clases</a>
+        </div>
+        <p class="hero__note">Eliges instrumento y horario. Te confirmamos por WhatsApp.</p>
+      </div>
+      <div class="hero__art reveal" aria-hidden="true">
+        <svg viewBox="0 0 400 340">
+          <circle cx="200" cy="175" r="150" fill="#ffe3c7"/>
+          <!-- guitarra -->
+          <g transform="rotate(-28 200 190)">
+            <rect x="192" y="40" width="16" height="120" rx="4" fill="#1f2a44"/>
+            <rect x="186" y="28" width="28" height="22" rx="6" fill="#1f2a44"/>
+            <path d="M200 140c-40 0-58 22-50 50-22 14-24 48 0 64 22 14 78 14 100 0 24-16 22-50 0-64 8-28-10-50-50-50z" fill="#c4421c"/>
+            <circle cx="200" cy="205" r="18" fill="#1f2a44"/>
+            <rect x="180" y="238" width="40" height="8" rx="3" fill="#1f2a44"/>
+            <path d="M196 50v188M204 50v188" stroke="#fff8f0" stroke-width="1.2"/>
+          </g>
+          <path class="note-anim" d="M70 110v-40l26-6v38" fill="none" stroke="#1f2a44" stroke-width="5" stroke-linecap="round"/>
+          <circle class="note-anim" cx="64" cy="112" r="8" fill="#1f2a44"/>
+          <path class="note-anim n2" d="M320 90v-34" stroke="#c4421c" stroke-width="5" stroke-linecap="round"/>
+          <circle class="note-anim n2" cx="313" cy="92" r="8" fill="#c4421c"/>
+          <circle class="note-anim n3" cx="335" cy="250" r="12" fill="#f2b134"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="nosotros">
+    <div class="container about reveal">
+      <div>
+        <span class="eyebrow">Quiénes somos</span>
+        <h2>Una academia donde aprender música se siente bien.</h2>
+      </div>
+      <div>
+        <p>En Estudio Clave enseñamos con paciencia y con canciones que te gustan. Avanzas a tu ritmo, con un maestro que te acompaña y metas que puedes escuchar.</p>
+        <ul class="chips" aria-label="Para quién"><li>Principiantes</li><li>Nivel intermedio</li><li>Niños y adultos</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="clases">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Clases</span>
+        <h2>Elige tu instrumento</h2>
+        <p class="lead">En la clase muestra conoces al maestro y te decimos por dónde empezar.</p>
+      </div>
+      <div class="cards">
+        <article class="card reveal"><span class="inst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 3l7 7M17 6l-6 6"/><path d="M11 12a4 4 0 0 0-5 1 3 3 0 0 0-1 5 3 3 0 0 0 5-1 4 4 0 0 0 1-5z"/></svg></span><h3>Guitarra</h3><p>Acústica o eléctrica. Desde tus primeros acordes.</p><p class="price-tag">$1,200 <small>al mes</small></p></article>
+        <article class="card reveal"><span class="inst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v8M12 5v8M16 5v8"/></svg></span><h3>Piano</h3><p>Lectura, técnica y canciones desde el inicio.</p><p class="price-tag">$1,400 <small>al mes</small></p></article>
+        <article class="card reveal"><span class="inst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3>Canto</h3><p>Respiración, afinación y confianza para cantar.</p><p class="price-tag">$1,200 <small>al mes</small></p></article>
+        <article class="card reveal"><span class="inst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="9" rx="8" ry="3"/><path d="M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M6 3l4 5M18 3l-4 5"/></svg></span><h3>Batería</h3><p>Ritmo, coordinación y mucha energía.</p><p class="price-tag">$1,400 <small>al mes</small></p></article>
+      </div>
+      <p class="price-note reveal">Precios de ejemplo en pesos mexicanos.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="beneficios">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Beneficios</span>
+        <h2>Aprendes de verdad, sin sentirte fuera de lugar.</h2>
+      </div>
+      <ul class="benefits">
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><h3>A tu ritmo</h3><p>El plan se ajusta a tu nivel y a tus metas.</p></div></li>
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><h3>Horarios para quien trabaja</h3><p>Opciones entre semana y en sábado.</p></div></li>
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><div><h3>Canciones que te gustan</h3><p>Aprendes técnica tocando música que disfrutas.</p></div></li>
+        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg></span><div><h3>Presentaciones</h3><p>Tocas frente a tu familia en las presentaciones de la academia.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="como-empezar">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Cómo empezar</span>
+        <h2>De la curiosidad a tu primera canción</h2>
+      </div>
+      <ol class="steps" style="--steps:4">
+        <li class="reveal"><h3>Agenda tu clase muestra</h3><p>Elige instrumento y horario en el formulario.</p></li>
+        <li class="reveal"><h3>Ven a conocernos</h3><p>Conoces al maestro, el salón y la forma de enseñar.</p></li>
+        <li class="reveal"><h3>Elige tu plan</h3><p>Te recomendamos horario y frecuencia según tu meta.</p></li>
+        <li class="reveal"><h3>Empieza a tocar</h3><p>Desde la primera clase te llevas algo que practicar.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="preguntas">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Antes de tu clase muestra</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>¿Necesito tener mi propio instrumento?</summary><div class="faq__a"><p>Para la clase muestra no. Te prestamos uno y te orientamos si después quieres comprar.</p></div></details>
+        <details><summary>Nunca he tocado nada. ¿Puedo empezar?</summary><div class="faq__a"><p>Sí. La clase muestra está pensada justo para quien empieza desde cero.</p></div></details>
+        <details><summary>¿Qué pasa en la clase muestra?</summary><div class="faq__a"><p>Conoces al maestro, tocas tus primeras notas y te decimos qué plan te conviene.</p></div></details>
+        <details><summary>¿Hay clases para niños?</summary><div class="faq__a"><p>Sí. Dinos la edad en la confirmación y te asignamos al maestro indicado.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="clase-muestra">
+    <div class="container form-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Clase muestra</span>
+        <h2>Aparta tu clase muestra. Te confirmamos por WhatsApp.</h2>
+        <p class="lead">Tres datos y listo. Te proponemos el día según el horario que elijas.</p>
+      </div>
+      <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
+        <h3 id="form-titulo" class="sr-only">Formulario para agendar clase muestra</h3>
+        <div class="field">
+          <label for="a-whatsapp">Tu WhatsApp</label>
+          <input id="a-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="a-whatsapp-hint a-whatsapp-error">
+          <p class="hint" id="a-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+          <p class="field__error" id="a-whatsapp-error" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="a-instrumento">Instrumento</label>
+          <select id="a-instrumento" name="instrumento" required data-msg="Elige el instrumento que quieres aprender." aria-describedby="a-instrumento-error">
+            <option value="">Elige una opción</option>
+            <option>Guitarra</option><option>Piano</option><option>Canto</option><option>Batería</option><option>Aún no sé</option>
+          </select>
+          <p class="field__error" id="a-instrumento-error" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="a-horario">Horario que te acomoda</label>
+          <select id="a-horario" name="horario" required data-msg="Elige el horario que te acomoda." aria-describedby="a-horario-error">
+            <option value="">Elige una opción</option>
+            <option>Entre semana por la mañana</option><option>Entre semana por la tarde</option><option>Sábado</option>
+          </select>
+          <p class="field__error" id="a-horario-error" aria-live="polite"></p>
+        </div>
+        <button class="btn btn--block" type="submit">Agendar mi clase muestra</button>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se apartó ninguna clase ni se guardó ningún dato.</span></div>
+        <p class="form-legal">Demo: este formulario no envía información.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h2>Estudio Clave</h2>
+      <p>Academia de música para niños, jóvenes y adultos. Negocio de ejemplo creado por ZOLKO para demostración.</p>
+      <a class="btn" href="#clase-muestra">Agendar clase muestra</a>
+    </div>
+    <div>
+      <h3>Secciones</h3>
+      <ul><li><a href="#clases">Clases</a></li><li><a href="#como-empezar">Cómo empezar</a></li><li><a href="#preguntas">Preguntas</a></li><li><a href="https://wa.me/5200000000000" data-wa="Hola, Estudio Clave. Tengo una pregunta sobre las clases.">WhatsApp</a></li></ul>
+    </div>
+    <div>
+      <h3>Ubicación</h3>
+      <div class="map-sim">
+        <span class="map-sim__label">MAPA DE EJEMPLO · NO ES UNA UBICACIÓN REAL</span>
+        <svg viewBox="0 0 320 160" aria-label="Ilustración de mapa, no es una ubicación real" role="img"><rect width="320" height="160" fill="#2b3858"/><path d="M0 40h320M0 110h320M140 0v160M250 0v160M40 160L120 0" stroke="#3b4a70" stroke-width="10"/><path d="M140 62a12 12 0 0 1 12 12c0 9-12 22-12 22s-12-13-12-22a12 12 0 0 1 12-12z" fill="#f2b134"/></svg>
+      </div>
+      <p style="margin-top:10px">Dirección y horario según el negocio</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>Estudio Clave es un negocio de ejemplo.</span>
+    <span>Demo hecha por ZOLKO INTEGRATIONS</span>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a class="btn" href="#clase-muestra">Agendar clase muestra</a>
+  <a class="btn btn--wa btn--wa-icon" href="https://wa.me/5200000000000" data-wa="Hola, Estudio Clave. Quiero agendar una clase muestra." aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+  </a>
+</div>
+
+<script src="../assets/demo-base.js"></script>
+</body>
+</html>

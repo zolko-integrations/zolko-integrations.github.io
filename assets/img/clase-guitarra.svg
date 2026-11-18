@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" role="img" aria-labelledby="t">
+  <title id="t">Ilustración: maestro y alumno en una clase de guitarra</title>
+  <!-- Ilustración propia de ZOLKO para la demo de Estudio Clave (colores de la academia) -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd9b8"/><stop offset=".62" stop-color="#ffeedd"/><stop offset=".62" stop-color="#e9c9a6"/><stop offset="1" stop-color="#d9b48c"/>
+    </linearGradient>
+    <linearGradient id="gtr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0662f"/><stop offset="1" stop-color="#a3340f"/></linearGradient>
+    <linearGradient id="gtr2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2b134"/><stop offset="1" stop-color="#c98612"/></linearGradient>
+  </defs>
+  <rect width="360" height="640" fill="url(#bg)"/>
+  <!-- pizarrón con pentagrama -->
+  <rect x="40" y="70" width="280" height="120" rx="10" fill="#1f2a44"/>
+  <g stroke="#fff8f0" stroke-opacity=".55" stroke-width="2"><path d="M60 100h240M60 115h240M60 130h240M60 145h240M60 160h240"/></g>
+  <g fill="#f2b134"><ellipse cx="100" cy="145" rx="9" ry="7"/><ellipse cx="150" cy="122" rx="9" ry="7"/><ellipse cx="200" cy="138" rx="9" ry="7"/><ellipse cx="250" cy="115" rx="9" ry="7"/></g>
+  <g stroke="#f2b134" stroke-width="3"><path d="M108 145V105M158 122V85M208 138V98M258 115V78"/></g>
+  <!-- maestro (izquierda) -->
+  <rect x="58" y="430" width="70" height="12" rx="6" fill="#5b3a22"/><path d="M68 442v80M118 442v80" stroke="#5b3a22" stroke-width="7"/>
+  <path d="M60 330c0-30 18-48 33-48s33 18 33 48v104H60z" fill="#1f2a44"/>
+  <circle cx="93" cy="262" r="26" fill="#a86b45"/><path d="M67 258c2-22 48-28 52 0-8-8-38-12-52 0z" fill="#2b1d14"/>
+  <path d="M70 434l-4 92h18l6-92zM108 434l8 92h18l-6-92z" fill="#2b1d14"/>
+  <g transform="rotate(-24 110 390)">
+    <rect x="104" y="300" width="12" height="96" rx="3" fill="#2b1d14"/>
+    <rect x="100" y="288" width="20" height="18" rx="4" fill="#2b1d14"/>
+    <path d="M110 380c-26 0-38 14-33 32-14 9-15 31 0 41 14 9 52 9 66 0 15-10 14-32 0-41 5-18-7-32-33-32z" fill="url(#gtr)"/>
+    <circle cx="110" cy="420" r="11" fill="#2b1d14"/>
+  </g>
+  <path d="M120 352c14 16 28 30 36 44" stroke="#a86b45" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <!-- alumna (derecha) -->
+  <rect x="222" y="444" width="70" height="12" rx="6" fill="#5b3a22"/><path d="M232 456v70M282 456v70" stroke="#5b3a22" stroke-width="7"/>
+  <path d="M226 350c0-28 16-44 31-44s31 16 31 44v98h-62z" fill="#17a398"/>
+  <circle cx="257" cy="286" r="24" fill="#d39a74"/><path d="M231 290c-4-34 54-38 52-2-6-14-40-18-52 2z" fill="#4a2c1a"/><path d="M233 286c-6 22-4 40 4 52" stroke="#4a2c1a" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M234 448l-6 80h18l4-80zM268 448l6 80h18l-4-80z" fill="#1f2a44"/>
+  <g transform="rotate(24 246 404)">
+    <rect x="240" y="316" width="12" height="94" rx="3" fill="#2b1d14"/>
+    <rect x="236" y="304" width="20" height="18" rx="4" fill="#2b1d14"/>
+    <path d="M246 394c-26 0-38 14-33 32-14 9-15 31 0 41 14 9 52 9 66 0 15-10 14-32 0-41 5-18-7-32-33-32z" fill="url(#gtr2)"/>
+    <circle cx="246" cy="434" r="11" fill="#2b1d14"/>
+  </g>
+  <path d="M232 366c-12 14-22 28-26 40" stroke="#d39a74" stroke-width="11" stroke-linecap="round" fill="none"/>
+  <!-- notas flotando -->
+  <g fill="#c4421c"><circle cx="178" cy="262" r="8"/><circle cx="196" cy="230" r="7"/></g>
+  <g stroke="#c4421c" stroke-width="3"><path d="M185 262v-34M202 230v-30"/></g>
+  <!-- tapete -->
+  <ellipse cx="180" cy="560" rx="150" ry="22" fill="#c4421c" opacity=".25"/>
+</svg>

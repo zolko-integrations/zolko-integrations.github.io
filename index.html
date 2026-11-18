@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ZOLKO INTEGRATIONS · IA y automatización para vender más</title>
+<meta name="description" content="ZOLKO INTEGRATIONS integra inteligencia artificial, automatización y estrategia comercial: páginas web, menús digitales, WhatsApp que contesta, CRM, contenido, tarjetas digitales y capacitación.">
+<link rel="icon" href="assets/zolko-anillo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   SITIO ZOLKO INTEGRATIONS
+   Paleta de marca en variables: cambia aquí y se actualiza todo.
+   ===================================================================== */
+:root {
+  --negro: #050505;
+  --grafito: #121217;
+  --grafito-2: #1b1b22;
+  --violeta: #7c5cff;
+  --violeta-claro: #a993ff;
+  --lima: #c6ff3d;
+  --rojo: #ff4d5e;            /* solo para "el problema" */
+  --lavanda: #b7b2d9;
+  --blanco: #f4f4f7;
+  --linea: rgba(255, 255, 255, .1);
+  --f-titulo: "Montserrat", system-ui, sans-serif;
+  --f-texto: "Inter", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --header-h: 68px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--negro); color: var(--blanco); font-family: var(--f-texto); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--lima); outline-offset: 3px; border-radius: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.container { width: min(1180px, 100% - 40px); margin-inline: auto; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--lima); color: #000; padding: 10px 14px; border-radius: 8px; font-weight: 700; }
+.skip:focus { top: 12px; }
+
+/* Barra de progreso de lectura */
+.progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 80; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--violeta), var(--lima)); }
+
+/* ---------- Tipografía ---------- */
+h1, h2 { font-family: var(--f-titulo); font-weight: 900; text-transform: uppercase; line-height: 1.02; letter-spacing: -.01em; margin: 0 0 18px; text-wrap: balance; }
+h1 { font-size: clamp(2.3rem, 7.4vw, 4.6rem); }
+.show-sm { display: none; }
+@media (max-width: 560px) { .hide-sm { display: none; } .show-sm { display: inline; } }
+h2 { font-size: clamp(1.9rem, 5.6vw, 3.6rem); }
+h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.15rem; line-height: 1.25; margin: 0 0 6px; }
+.lead { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--lavanda); max-width: 680px; }
+.lima { color: var(--lima); } .violeta { color: var(--violeta-claro); } .rojo { color: var(--rojo); }
+.tag { display: inline-flex; align-items: center; gap: 8px; font: 700 11px var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--lima); border: 1px solid rgba(198, 255, 61, .35); background: rgba(198, 255, 61, .06); padding: 5px 10px; border-radius: 6px; margin-bottom: 18px; }
+.tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+.tag--violeta { color: var(--violeta-claro); border-color: rgba(124, 92, 255, .45); background: rgba(124, 92, 255, .1); }
+.tag--rojo { color: var(--rojo); border-color: rgba(255, 77, 94, .45); background: rgba(255, 77, 94, .08); }
+
+/* ---------- Botones que "prenden" ---------- */
+.btn {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 26px;
+  border-radius: 14px; border: 1px solid transparent; font: 700 1rem var(--f-texto); text-decoration: none; cursor: pointer;
+  background: var(--lima); color: #0b0f00; transition: transform .15s var(--ease), box-shadow .3s, background .2s;
+  box-shadow: 0 10px 30px -12px rgba(198, 255, 61, .7);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 0 0 4px rgba(198, 255, 61, .18), 0 18px 40px -12px rgba(198, 255, 61, .9); }
+.btn:active { transform: translateY(1px) scale(.98); box-shadow: none; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+/* brillo que recorre el botón */
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .55) 50%, transparent 70%); transform: translateX(-120%); animation: shine 3.6s var(--ease) infinite; }
+@keyframes shine { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
+.btn--ghost { background: transparent; color: var(--blanco); border-color: rgba(255, 255, 255, .25); box-shadow: none; }
+.btn--ghost::before { display: none; }
+.btn--ghost:hover { background: rgba(255, 255, 255, .06); border-color: var(--violeta-claro); box-shadow: 0 0 0 4px rgba(124, 92, 255, .2), 0 0 30px -6px rgba(124, 92, 255, .7); }
+/* Botón principal que "prende": late con luz lima y violeta */
+.btn--glow { animation: prender 2.8s ease-in-out infinite; }
+@keyframes prender {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 255, 0), 0 10px 30px -10px rgba(198, 255, 61, .7); }
+  50% { box-shadow: 0 0 0 5px rgba(124, 92, 255, .35), 0 0 38px 2px rgba(198, 255, 61, .55); }
+}
+.ripple { position: absolute; border-radius: 50%; transform: scale(0); background: rgba(255, 255, 255, .55); animation: ripple .6s ease-out; pointer-events: none; }
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+.link { font-weight: 700; text-decoration: none; color: var(--lima); display: inline-flex; gap: 6px; align-items: center; }
+.link span { transition: transform .2s; }
+.link:hover span { transform: translateX(4px); }
+
+/* ---------- Encabezado ---------- */
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 60; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+.header.is-scrolled { background: rgba(5, 5, 5, .82); backdrop-filter: blur(14px) saturate(1.4); border-color: var(--linea); }
+.header__in { display: flex; align-items: center; gap: 14px; min-height: var(--header-h); }
+.header__logo img { height: 36px; width: auto; margin-left: -6px; }
+.nav { margin-left: auto; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; }
+.nav a { display: block; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--lavanda); transition: color .2s, background .2s; }
+.nav a:hover, .nav a.is-active { color: var(--blanco); background: rgba(255, 255, 255, .06); }
+.header .btn { min-height: 44px; padding: 10px 18px; font-size: .92rem; }
+.menu-btn { display: none; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--linea); background: transparent; cursor: pointer; place-items: center; }
+.menu-btn span, .menu-btn span::before, .menu-btn span::after { content: ""; display: block; width: 18px; height: 2px; background: currentColor; border-radius: 2px; position: relative; transition: transform .25s, background .25s; }
+.menu-btn span::before { position: absolute; top: -6px; } .menu-btn span::after { position: absolute; top: 6px; }
+.menu-btn[aria-expanded="true"] span { background: transparent; }
+.menu-btn[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
+@media (max-width: 960px) {
+  .menu-btn { display: grid; }
+  .nav { position: absolute; top: 100%; left: 0; right: 0; background: rgba(5, 5, 5, .97); border-bottom: 1px solid var(--linea); display: none; }
+  .nav.is-open { display: block; animation: bajar .25s var(--ease); }
+  .nav ul { flex-direction: column; padding: 8px 20px 18px; }
+  .nav a { padding: 14px 6px; border-bottom: 1px solid var(--linea); border-radius: 0; font-size: 1.05rem; }
+  .header .btn { margin-left: auto; padding: 10px 14px; }
+}
+@keyframes bajar { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Secciones ---------- */
+.section { padding: 96px 0; position: relative; }
+.section__head { max-width: 760px; margin-bottom: 40px; }
+@media (max-width: 700px) { .section { padding: 72px 0; } }
+.panel { background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .015)); border: 1px solid var(--linea); border-radius: 20px; padding: 22px; }
+
+/* ---------- Hero ---------- */
+.hero { padding: calc(var(--header-h) + 48px) 0 72px; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 55% at 50% -10%, rgba(124, 92, 255, .6), rgba(124, 92, 255, .1) 45%, transparent 70%), radial-gradient(35% 30% at 90% 10%, rgba(198, 255, 61, .1), transparent 70%); }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5; background-image: linear-gradient(var(--linea) 1px, transparent 1px), linear-gradient(90deg, var(--linea) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(70% 60% at 50% 0%, #000, transparent 75%); -webkit-mask-image: radial-gradient(70% 60% at 50% 0%, #000, transparent 75%); }
+.spot { position: absolute; width: 520px; height: 520px; border-radius: 50%; pointer-events: none; z-index: -1; background: radial-gradient(circle, rgba(124, 92, 255, .25), transparent 65%); transform: translate(-50%, -50%); left: 70%; top: 40%; transition: left .4s ease-out, top .4s ease-out; }
+.hero__grid { display: grid; gap: 44px; align-items: center; }
+@media (min-width: 1000px) { .hero__grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+.hero h1 .l2 { display: block; color: var(--lima); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 18px; }
+.hero__motto { font-style: italic; color: var(--lavanda); border-left: 3px solid var(--violeta); padding-left: 14px; margin: 0; }
+.hero__visual { position: relative; }
+.hero__img { border-radius: 26px; overflow: hidden; border: 1px solid rgba(124, 92, 255, .45); box-shadow: 0 40px 100px -40px rgba(124, 92, 255, .9); aspect-ratio: 16 / 11; }
+.hero__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.05); transition: transform 6s ease-out; }
+.hero__img.is-in img { transform: scale(1); }
+/* Notificaciones flotantes estilo app */
+.notif { position: absolute; display: flex; gap: 10px; align-items: center; max-width: 270px; padding: 10px 14px; border-radius: 14px; background: rgba(18, 18, 23, .9); backdrop-filter: blur(10px); border: 1px solid var(--linea); box-shadow: 0 16px 40px -16px rgba(0, 0, 0, .8); font-size: .85rem; line-height: 1.3; opacity: 0; transform: translateY(12px) scale(.96); animation: notif 9s var(--ease) infinite; }
+.notif b { display: block; font-size: .72rem; font-family: var(--f-mono); letter-spacing: .08em; color: var(--lima); }
+.notif i { width: 34px; height: 34px; flex: none; border-radius: 10px; display: grid; place-items: center; background: rgba(124, 92, 255, .2); font-style: normal; }
+.notif i svg { width: 18px; height: 18px; color: var(--violeta-claro); }
+.n1 { left: -18px; top: 14%; animation-delay: 0s; }
+.n2 { right: -14px; top: 46%; animation-delay: 3s; }
+.n3 { left: 8%; bottom: -18px; animation-delay: 6s; }
+@keyframes notif { 0% { opacity: 0; transform: translateY(12px) scale(.96); } 6%, 30% { opacity: 1; transform: none; } 36%, 100% { opacity: 0; transform: translateY(-8px) scale(.98); } }
+@media (max-width: 560px) { .n1 { left: 6px; } .n2 { right: 6px; } .notif { max-width: 230px; font-size: .8rem; } }
+
+/* ---------- Cinta de servicios ---------- */
+.marquee { border-block: 1px solid var(--linea); background: #0a0a0d; overflow: hidden; padding: 16px 0; }
+.marquee__track { display: flex; gap: 40px; width: max-content; animation: cinta 34s linear infinite; }
+.marquee span { font: 700 13px var(--f-mono); letter-spacing: .14em; color: var(--lavanda); white-space: nowrap; display: flex; align-items: center; gap: 40px; }
+.marquee span::after { content: "✦"; color: var(--lima); }
+@keyframes cinta { to { transform: translateX(-50%); } }
+
+/* ---------- Problema (rojo) ---------- */
+.problem { background: radial-gradient(60% 50% at 0% 0%, rgba(255, 77, 94, .12), transparent 70%); }
+.problem__grid { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 960px) { .problem__grid { grid-template-columns: .85fr 1.15fr; gap: 56px; } }
+.problem__img { border-radius: 24px; overflow: hidden; border: 1px solid rgba(255, 77, 94, .35); position: relative; aspect-ratio: 4 / 5; max-height: 560px; }
+@media (max-width: 959px) { .problem__img { aspect-ratio: 4 / 3; } .problem__img img { object-position: 50% 30%; } }
+.problem__img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.6) contrast(1.05); }
+.problem__img::after { content: "ERROR: CLIENTE_SIN_RESPUESTA"; position: absolute; left: 14px; bottom: 14px; font: 700 11px var(--f-mono); color: var(--rojo); background: rgba(0, 0, 0, .75); padding: 6px 10px; border-radius: 6px; letter-spacing: .06em; }
+.leaks { display: grid; gap: 12px; margin-top: 26px; }
+@media (min-width: 640px) { .leaks { grid-template-columns: 1fr 1fr; } }
+.leak { border-color: rgba(255, 77, 94, .25); transition: border-color .3s, transform .3s; }
+.leak:hover { border-color: rgba(255, 77, 94, .6); transform: translateY(-3px); }
+.leak small { font: 700 11px var(--f-mono); color: var(--rojo); letter-spacing: .12em; }
+.leak p { margin: 0; color: var(--lavanda); font-size: .95rem; }
+.fix { display: block; margin-top: 10px; font-size: .88rem; color: var(--lima); font-weight: 600; }
+
+/* ---------- Servicios ---------- */
+.services { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.service { position: relative; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: var(--grafito); border: 1px solid var(--linea); text-decoration: none; transition: transform .35s var(--ease), border-color .3s, box-shadow .35s; }
+.service::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(124, 92, 255, .22), transparent 60%); opacity: 0; transition: opacity .3s; }
+.service:hover { transform: translateY(-6px); border-color: rgba(124, 92, 255, .6); box-shadow: 0 30px 60px -30px rgba(124, 92, 255, .8); }
+.service:hover::after { opacity: 1; }
+.service:active { transform: translateY(-2px) scale(.99); }
+.service__img { aspect-ratio: 16 / 10; overflow: hidden; position: relative; }
+.service__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.service:hover .service__img img { transform: scale(1.06); }
+.service__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 50%, var(--grafito)); }
+.service__body { padding: 4px 22px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.service__n { font: 700 11px var(--f-mono); letter-spacing: .12em; color: var(--violeta-claro); }
+.service p { margin: 0; color: var(--lavanda); font-size: .95rem; }
+.service .link { margin-top: auto; padding-top: 12px; }
+
+.new-pill { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 14px; padding: 6px 14px 6px 6px; border-radius: 999px; text-decoration: none; font-size: .9rem; font-weight: 600; background: rgba(198, 255, 61, .08); border: 1px solid rgba(198, 255, 61, .4); transition: background .2s, border-color .2s; }
+.new-pill b { background: var(--lima); color: #0b0f00; font: 800 11px var(--f-mono); letter-spacing: .1em; padding: 4px 9px; border-radius: 999px; }
+.new-pill:hover { background: rgba(198, 255, 61, .16); border-color: var(--lima); }
+.new-pill span { color: var(--lima); transition: transform .2s; }
+.new-pill:hover span { transform: translateX(3px); }
+.hero .tag { display: flex; width: fit-content; }
+/* ---------- Destacado: tarjeta de lealtad en Wallet ---------- */
+.feature { position: relative; overflow: hidden; background: radial-gradient(55% 60% at 85% 40%, rgba(198, 255, 61, .14), transparent 70%), radial-gradient(60% 60% at 10% 0%, rgba(124, 92, 255, .3), transparent 70%), #08080b; border-block: 1px solid rgba(198, 255, 61, .25); }
+.feature__grid { display: grid; gap: 40px; align-items: center; }
+@media (min-width: 960px) { .feature__grid { grid-template-columns: 1.15fr .85fr; gap: 64px; } }
+.feature__badge { display: inline-flex; gap: 8px; align-items: center; background: var(--lima); color: #0b0f00; font: 800 12px var(--f-mono); letter-spacing: .12em; padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; box-shadow: 0 0 30px -4px rgba(198, 255, 61, .8); }
+.feature__list { list-style: none; padding: 0; margin: 24px 0 28px; display: grid; gap: 14px; }
+.feature__list li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+.feature__list .ico { width: 40px; height: 40px; margin: 0; }
+.feature__list b { display: block; font-family: var(--f-titulo); font-weight: 800; }
+.feature__list span { color: var(--lavanda); font-size: .95rem; }
+.feature__note { font-size: .85rem; color: var(--lavanda); opacity: .85; margin: 16px 0 0; max-width: 560px; }
+.feature__visual { position: relative; max-width: 330px; margin: 0 auto; width: 100%; }
+.feature__visual img { width: 100%; height: auto; filter: drop-shadow(0 40px 60px rgba(124, 92, 255, .55)); animation: flotar 6s ease-in-out infinite; }
+@keyframes flotar { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
+.feature__chip { position: absolute; font: 700 11px var(--f-mono); letter-spacing: .08em; background: rgba(18, 18, 23, .92); border: 1px solid var(--linea); border-radius: 10px; padding: 8px 12px; white-space: nowrap; }
+.feature__chip b { color: var(--lima); }
+.feature__chip.c1 { left: -24px; top: 38%; }
+.feature__chip.c2 { right: -18px; bottom: 16%; }
+@media (max-width: 560px) { .feature__visual { max-width: 250px; } .feature__chip.c1 { left: -30px; } .feature__chip.c2 { right: -30px; } }
+
+/* ---------- Demos (vista tipo navegador) ---------- */
+.tabs { display: inline-flex; gap: 6px; padding: 6px; border-radius: 14px; background: var(--grafito); border: 1px solid var(--linea); margin-bottom: 26px; flex-wrap: wrap; }
+.tabs button { border: 0; background: transparent; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: .95rem; color: var(--lavanda); transition: background .25s, color .25s; }
+.tabs button[aria-selected="true"] { background: var(--violeta); color: #fff; box-shadow: 0 8px 24px -8px rgba(124, 92, 255, .9); }
+.tabs button:hover:not([aria-selected="true"]) { color: var(--blanco); background: rgba(255, 255, 255, .06); }
+.demos { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); }
+.demos[hidden] { display: none; }
+.demo { display: flex; flex-direction: column; text-decoration: none; border-radius: 18px; background: var(--grafito); border: 1px solid var(--linea); overflow: hidden; transition: transform .35s var(--ease), border-color .3s, box-shadow .35s; animation: entrar .5s var(--ease) both; }
+.demo:hover { transform: translateY(-6px); border-color: rgba(198, 255, 61, .5); box-shadow: 0 30px 60px -30px rgba(198, 255, 61, .45); }
+.demo:active { transform: translateY(-2px) scale(.99); }
+@keyframes entrar { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.browser { background: #0c0c10; border-bottom: 1px solid var(--linea); }
+.browser__bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; }
+.browser__bar i { width: 9px; height: 9px; border-radius: 50%; background: #3a3a44; }
+.browser__bar i:nth-child(1) { background: #ff5f57; } .browser__bar i:nth-child(2) { background: #febc2e; } .browser__bar i:nth-child(3) { background: #28c840; }
+.browser__url { flex: 1; margin-left: 8px; font: 500 11px var(--f-mono); color: #8f8fa0; background: #17171d; border-radius: 6px; padding: 4px 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browser__shot { aspect-ratio: 16 / 10; overflow: hidden; position: relative; }
+.browser__shot img { width: 100%; height: auto; transition: transform 2.8s ease-in-out; }
+.demo:hover .browser__shot img { transform: translateY(-60%); }
+.demo__body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 4px; }
+.demo__id { font: 700 10px var(--f-mono); letter-spacing: .12em; color: var(--lima); display: flex; justify-content: space-between; }
+.demo__id span:last-child { color: var(--lavanda); }
+.demo p { margin: 0; color: var(--lavanda); font-size: .92rem; }
+
+/* ---------- Detrás de la página ---------- */
+.flow { list-style: none; padding: 0; margin: 0; display: grid; gap: 30px; position: relative; }
+@media (min-width: 960px) { .flow { grid-template-columns: repeat(4, 1fr); gap: 26px; } }
+.flow li { position: relative; }
+.flow .panel { height: 100%; position: relative; overflow: hidden; }
+.flow .panel::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(198, 255, 61, .1) 50%, transparent 70%); transform: translateX(-100%); animation: barrido 4.5s var(--ease) infinite; animation-delay: calc(var(--i) * .5s); }
+@keyframes barrido { 0% { transform: translateX(-100%); } 40%, 100% { transform: translateX(100%); } }
+.flow li:not(:last-child)::after { content: ""; position: absolute; left: 50%; bottom: -26px; width: 2px; height: 22px; transform: translateX(-50%); background: linear-gradient(var(--violeta), var(--lima)); }
+@media (min-width: 960px) { .flow li:not(:last-child)::after { left: auto; right: -24px; bottom: auto; top: 50%; width: 22px; height: 2px; transform: none; background: linear-gradient(90deg, var(--violeta), var(--lima)); } }
+.ico { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: rgba(124, 92, 255, .14); color: var(--violeta-claro); margin-bottom: 14px; }
+.ico svg { width: 24px; height: 24px; }
+.flow p, .steps p, .includes p { margin: 0; color: var(--lavanda); font-size: .95rem; }
+
+/* ---------- Método ---------- */
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; counter-reset: s; }
+@media (min-width: 960px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.steps li { counter-increment: s; }
+.steps li::before { content: "0" counter(s); display: block; font: 700 12px var(--f-mono); color: var(--lima); margin-bottom: 10px; letter-spacing: .1em; }
+.steps li:first-child { border-color: rgba(124, 92, 255, .6); box-shadow: 0 0 0 1px rgba(124, 92, 255, .25), 0 20px 50px -25px rgba(124, 92, 255, .8); }
+
+/* ---------- Incluye + inversión ---------- */
+.includes { list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+.includes svg { width: 28px; height: 28px; color: var(--lima); margin-bottom: 8px; }
+.price { display: grid; gap: 16px; }
+@media (min-width: 900px) { .price { grid-template-columns: 1.1fr .9fr; } }
+.price__box { border-color: rgba(124, 92, 255, .5); background: radial-gradient(120% 120% at 0% 0%, rgba(124, 92, 255, .25), rgba(255, 255, 255, .02) 60%); padding: 30px 26px; }
+.price__value { font: 700 clamp(1.3rem, 4.6vw, 2.3rem) var(--f-mono); color: var(--lima); margin: 6px 0 8px; overflow-wrap: anywhere; }
+.price__box p, .price li { color: var(--lavanda); margin: 0; }
+.price ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.price li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; color: var(--blanco); }
+.price li::before { content: "✓"; color: var(--lima); font-weight: 700; }
+
+/* ---------- Sobre Ricardo + cierre ---------- */
+.about { display: grid; gap: 36px; align-items: center; }
+@media (min-width: 960px) { .about { grid-template-columns: .8fr 1.2fr; gap: 64px; } }
+.about__photo { position: relative; max-width: 380px; margin: auto; width: 100%; }
+.about__photo img { width: 100%; height: auto; border-radius: 26px; border: 1px solid rgba(124, 92, 255, .45); box-shadow: 0 40px 90px -36px rgba(124, 92, 255, .95); }
+.about__photo figcaption { position: absolute; left: 14px; right: 14px; bottom: 14px; background: rgba(5, 5, 5, .8); backdrop-filter: blur(6px); border: 1px solid var(--linea); border-radius: 14px; padding: 10px 14px; }
+.about__photo b { display: block; font-family: var(--f-titulo); }
+.about__photo span { font: 500 11px var(--f-mono); color: var(--lavanda); letter-spacing: .06em; }
+.cta { text-align: center; padding: 110px 0; background: radial-gradient(60% 70% at 50% 100%, rgba(124, 92, 255, .45), transparent 70%); border-top: 1px solid var(--linea); }
+.cta .lead { margin: 0 auto 30px; }
+.cta__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.cta__contact { margin-top: 22px; font: 500 .95rem var(--f-mono); color: var(--lavanda); line-height: 1.9; }
+.cta__contact a { color: var(--blanco); }
+
+/* ---------- Pie ---------- */
+.footer { border-top: 1px solid var(--linea); padding: 40px 0 170px; color: var(--lavanda); font-size: .92rem; }
+.footer__in { display: flex; flex-wrap: wrap; gap: 18px 32px; justify-content: space-between; align-items: center; }
+.footer img { height: 34px; width: auto; }
+.footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; }
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--blanco); }
+
+/* ---------- WhatsApp flotante ---------- */
+/* Subido para no chocar con el distintivo "Powered by Netlify" (esquina inferior derecha, ~60 px de alto) */
+.fab { position: fixed; right: 18px; bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 70; display: flex; align-items: center; gap: 10px; padding: 0 20px 0 16px; height: 58px; border-radius: 999px; background: #25d366; color: #05200e; font-weight: 800; text-decoration: none; box-shadow: 0 14px 34px -10px rgba(37, 211, 102, .8); transition: transform .2s, box-shadow .3s; }
+.fab::before { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 rgba(37, 211, 102, .6); animation: latido 2.4s infinite; }
+@keyframes latido { 70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+.fab:hover { transform: translateY(-3px) scale(1.03); }
+.fab:active { transform: scale(.96); }
+.fab svg { width: 26px; height: 26px; }
+@media (max-width: 560px) { .fab span { display: none; } .fab { width: 58px; padding: 0; justify-content: center; } }
+
+/* ---------- Aparición al hacer scroll ---------- */
+/* Visible desde el inicio; solo lo que está fuera de pantalla espera a aparecer (0.35 s + máx. 0.1 s de retraso) */
+.reveal { transition: opacity .35s var(--ease), transform .35s var(--ease); transition-delay: calc(min(var(--d, 0), 2) * 50ms); }
+.js-anim .reveal:not(.is-in) { opacity: 0; transform: translateY(12px); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .notif { opacity: 1; transform: none; }
+  .n2, .n3 { display: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ======================= ENCABEZADO ======================= -->
+<header class="header" id="header">
+  <div class="container header__in">
+    <a class="header__logo" href="#inicio" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="108" height="36"></a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#demos">Demos</a></li>
+        <li><a href="#metodo">Cómo trabajamos</a></li>
+        <li><a href="#inversion">Inversión</a></li>
+        <li><a href="#ricardo">Quién soy</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--glow" href="#diagnostico"><span class="hide-sm">Agenda tu diagnóstico</span><span class="show-sm">Diagnóstico</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><span></span></button>
+  </div>
+</header>
+
+<main id="contenido">
+  <!-- ======================= HERO ======================= -->
+  <section class="hero" id="inicio">
+    <div class="spot" id="spot" aria-hidden="true"></div>
+    <div class="container hero__grid">
+      <div>
+        <a class="new-pill reveal" href="#lealtad"><b>NUEVO</b> Tarjetas de lealtad en Apple y Google Wallet <span aria-hidden="true">→</span></a>
+        <span class="tag reveal">IA · AUTOMATIZACIÓN · ESTRATEGIA COMERCIAL</span>
+        <h1 class="reveal" style="--d:1">Tu página no es una tarjeta de presentación. <span class="l2">Es tu mejor vendedor.</span></h1>
+        <p class="lead reveal" style="--d:2">En ZOLKO integramos inteligencia artificial, automatización y estrategia comercial para que tu negocio conteste rápido, dé seguimiento y venda más, aunque tú estés ocupado.</p>
+        <div class="hero__actions reveal" style="--d:3">
+          <a class="btn btn--glow" href="#diagnostico">Agenda tu diagnóstico</a>
+          <a class="btn btn--ghost" href="#demos">Ver demos en vivo</a>
+        </div>
+        <p class="hero__motto reveal" style="--d:4">“La IA no te reemplaza, sino que te devuelve tu tiempo.”</p>
+      </div>
+      <div class="hero__visual reveal" style="--d:2">
+        <div class="hero__img" id="heroImg"><img src="assets/img/hero-ricardo.jpg" alt="Ricardo Vergara en su escritorio con el asistente de ZOLKO" width="1200" height="670" fetchpriority="high"></div>
+        <div class="notif n1" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/></svg></i><div><b>PÁGINA WEB</b>Nuevo contacto pidió una cita</div></div>
+        <div class="notif n2" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></i><div><b>WHATSAPP</b>Respuesta enviada al momento</div></div>
+        <div class="notif n3" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></i><div><b>CRM</b>Recordatorio programado</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee__track">
+    <span>PÁGINAS WEB</span><span>LANDING PAGES</span><span>MENÚS DIGITALES</span><span>WHATSAPP QUE CONTESTA</span><span>CRM</span><span>AUTOMATIZACIÓN</span><span>CONTENIDO</span><span>TARJETAS DIGITALES</span><span>LEALTAD EN WALLET</span><span>CAPACITACIÓN</span>
+    <span>PÁGINAS WEB</span><span>LANDING PAGES</span><span>MENÚS DIGITALES</span><span>WHATSAPP QUE CONTESTA</span><span>CRM</span><span>AUTOMATIZACIÓN</span><span>CONTENIDO</span><span>TARJETAS DIGITALES</span><span>LEALTAD EN WALLET</span><span>CAPACITACIÓN</span>
+  </div></div>
+
+  <!-- ======================= PROBLEMA ======================= -->
+  <section class="section problem" id="problema" aria-labelledby="p-title">
+    <div class="container problem__grid">
+      <figure class="problem__img reveal" style="margin:0"><img src="assets/img/fuga-cafe.jpg" alt="Dueña de una cafetería atendiendo el mostrador mientras su celular recibe mensajes" loading="lazy" width="670" height="1200"></figure>
+      <div>
+        <span class="tag tag--rojo reveal">EL_PROBLEMA</span>
+        <h2 id="p-title" class="reveal" style="--d:1">Por ahí se te van <span class="rojo">los clientes.</span></h2>
+        <p class="lead reveal" style="--d:2">No se van por el precio. Se van porque nadie les contestó a tiempo o porque tu página no les dijo qué hacer.</p>
+        <div class="leaks">
+          <div class="panel leak reveal" style="--d:1"><small>FUGA_01</small><h3>Contestas tarde</h3><p>Te escribieron mientras atendías y, cuando contestaste, ya le habían comprado a otro.</p><span class="fix">→ WhatsApp que contesta al momento</span></div>
+          <div class="panel leak reveal" style="--d:2"><small>FUGA_02</small><h3>Cotizaste… y silencio</h3><p>Mandaste el precio hace días y nadie le dio seguimiento.</p><span class="fix">→ CRM con seguimiento automático</span></div>
+          <div class="panel leak reveal" style="--d:3"><small>FUGA_03</small><h3>No te encuentran</h3><p>Buscan tu giro y aparece tu competencia, o una página que no responde nada.</p><span class="fix">→ Página que vende y mapa</span></div>
+          <div class="panel leak reveal" style="--d:4"><small>FUGA_04</small><h3>Todo depende de ti</h3><p>Si tú no estás, nadie sabe qué contestar ni a quién darle seguimiento.</p><span class="fix">→ Procesos y capacitación para tu equipo</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= SERVICIOS ======================= -->
+  <section class="section" id="servicios" aria-labelledby="s-title">
+    <div class="container">
+      <div class="section__head">
+        <span class="tag reveal">LO_QUE_HACEMOS</span>
+        <h2 id="s-title" class="reveal" style="--d:1">Todo lo que tu negocio necesita para <span class="lima">vender sin perseguir.</span></h2>
+        <p class="lead reveal" style="--d:2">Cada servicio tiene una demo en vivo. Ábrela y pruébala como si fueras tu cliente.</p>
+      </div>
+      <div class="services">
+        <a class="service reveal" href="#demos" data-open-tab="tab-g">
+          <div class="service__img"><img src="assets/img/web.jpg" alt="" loading="lazy" width="670" height="1200" style="object-position:50% 40%"></div>
+          <div class="service__body"><span class="service__n">01 · WEB</span><h3>Páginas web y landing pages</h3><p>Una sola acción clara por página, pensada para celular y escrita con las palabras de tus clientes.</p><span class="link">Ver demos por giro <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/menu-digital' style='--d:1'>
+          <div class="service__img"><img src="assets/img/menu.jpg" alt="" loading="lazy" width="1200" height="670"></div>
+          <div class="service__body"><span class="service__n">02 · MENÚS</span><h3>Menús digitales</h3><p>Escanean el QR, eligen y te mandan el pedido ya armado por WhatsApp. Cambias platillos sin reimprimir.</p><span class="link">Probar el menú <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/automatizacion' style='--d:2'>
+          <div class="service__img"><img src="assets/img/whatsapp.jpg" alt="" loading="lazy" width="670" height="1200" style="object-position:50% 55%"></div>
+          <div class="service__body"><span class="service__n">03 · WHATSAPP</span><h3>WhatsApp que contesta y agenda</h3><p>Un asistente que responde al momento, aparta citas y pasa a una persona cuando hace falta.</p><span class="link">Chatear con el asistente <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/crm'>
+          <div class="service__img"><img src="assets/img/crm.jpg" alt="" loading="lazy" width="670" height="1200" style="object-position:50% 45%"></div>
+          <div class="service__body"><span class="service__n">04 · CRM</span><h3>CRM y seguimiento automático</h3><p>Todos tus clientes en un solo lugar, con la etapa en que van y el siguiente mensaje programado.</p><span class="link">Entrar al CRM de prueba <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/contenido' style='--d:1'>
+          <div class="service__img"><img src="assets/img/contenido.jpg" alt="" loading="lazy" width="1200" height="670"></div>
+          <div class="service__body"><span class="service__n">05 · CONTENIDO</span><h3>Contenido que trae mensajes</h3><p>Reels, carruseles e historias que responden lo que tus clientes preguntan y terminan en WhatsApp.</p><span class="link">Ver el plan de contenido <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/tarjeta-digital' style='--d:2'>
+          <div class="service__img"><img src="assets/img/nfc.jpg" alt="" loading="lazy" width="670" height="1200" style="object-position:50% 40%"></div>
+          <div class="service__body"><span class="service__n">06 · NFC Y QR</span><h3>Tarjetas digitales y de reseñas</h3><p>Acercan el celular y te guardan en contactos, te escriben o te dejan una reseña en Google.</p><span class="link">Ver mi tarjeta <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/tarjeta-lealtad' style='--d:1'>
+          <div class="service__img" style="background:radial-gradient(70% 80% at 50% 30%, rgba(124, 92, 255, .45), #121217)"><img src="assets/img/wallet-lealtad.webp" alt="" loading="lazy" width="620" height="1249" style="object-fit:contain;padding-top:14px;object-position:50% 0"></div>
+          <div class="service__body"><span class="service__n">07 · WALLET · DESTACADO</span><h3>Tarjetas de lealtad en Wallet</h3><p>Tarjeta de sellos con QR en Apple Wallet y Google Wallet, con avisos directo a la pantalla de tus clientes.</p><span class="link">Probar la tarjeta <span>→</span></span></div>
+        </a>
+        <a class='service reveal' href='/demos/capacitacion'>
+          <div class="service__img"><img src="assets/img/capacitacion.jpg" alt="" loading="lazy" width="1200" height="670"></div>
+          <div class="service__body"><span class="service__n">08 · EQUIPO</span><h3>Capacitación para tu equipo</h3><p>Tu equipo contestando rápido, igual de bien y usando la IA con reglas claras.</p><span class="link">Ver el taller <span>→</span></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= DESTACADO: LEALTAD EN WALLET ======================= -->
+  <section class="section feature" id="lealtad" aria-labelledby="w-title">
+    <div class="container feature__grid">
+      <div>
+        <span class="feature__badge reveal">★ DESTACADO · NUEVO</span>
+        <h2 id="w-title" class="reveal" style="--d:1">Tu tarjeta de lealtad, <span class="lima">en la Wallet de tus clientes.</span></h2>
+        <p class="lead reveal" style="--d:2">Adiós a la tarjeta de cartón que se pierde. Tus clientes guardan su tarjeta de sellos en Apple Wallet o Google Wallet con un toque, y tú les puedes mandar avisos directo a su pantalla.</p>
+        <ul class="feature__list">
+          <li class="reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></span><div><b>Se guarda sin descargar ninguna app</b><span>Apple Wallet en iPhone y Google Wallet en Android.</span></div></li>
+          <li class="reveal" style="--d:1"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2M18 14h2v2M14 18h2v2h4"/></svg></span><div><b>Sellos con código QR</b><span>En caja escanean la tarjeta y el sello aparece al momento.</span></div></li>
+          <li class="reveal" style="--d:2"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><div><b>Avisos a la pantalla de bloqueo</b><span>Recompensa lista, promoción del día o “te extrañamos”, sin pedir su número.</span></div></li>
+          <li class="reveal" style="--d:3"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/></svg></span><div><b>Conectada a tu CRM y WhatsApp</b><span>Sabes quién regresa, quién dejó de venir y a quién darle seguimiento.</span></div></li>
+        </ul>
+        <div class="hero__actions reveal" style="margin:0">
+          <a class='btn btn--glow' href='/demos/tarjeta-lealtad'>Probar la tarjeta de lealtad</a>
+          <a class="btn btn--ghost" href="#diagnostico">Quiero una para mi negocio</a>
+        </div>
+        <p class="feature__note reveal">Los avisos siguen las reglas de Apple y Google: tienen que ver con la tarjeta, y Google permite hasta tres avisos por tarjeta cada 24 horas.</p>
+      </div>
+      <figure class="feature__visual reveal" style="margin:0 auto">
+        <img src="assets/img/wallet-lealtad.webp" alt="Tarjeta de lealtad de un restaurante de ejemplo guardada en la Wallet del celular, con sellos, código QR y un aviso de promoción en la pantalla" width="620" height="1249" loading="lazy">
+        <span class="feature__chip c1" aria-hidden="true"><b>+1</b> SELLO EN CAJA</span>
+        <span class="feature__chip c2" aria-hidden="true">AVISO <b>ENVIADO</b></span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======================= DEMOS ======================= -->
+  <section class="section" id="demos" aria-labelledby="d-title" style="background:#08080b;border-block:1px solid var(--linea)">
+    <div class="container">
+      <div class="section__head">
+        <span class="tag reveal">DEMOS_EN_VIVO</span>
+        <h2 id="d-title" class="reveal" style="--d:1">Pruébalo como si fueras <span class="violeta">tu cliente.</span></h2>
+        <p class="lead reveal" style="--d:2">Negocios de ejemplo, funcionando. Lo que necesitaría un servidor está simulado y cada demo te dice qué es simulado.</p>
+      </div>
+      <div class="tabs reveal" role="tablist" aria-label="Tipo de demo">
+        <button type="button" role="tab" id="tab-h" aria-selected="true" aria-controls="panel-h">Herramientas</button>
+        <button type="button" role="tab" id="tab-g" aria-selected="false" aria-controls="panel-g" tabindex="-1">Páginas por giro</button>
+      </div>
+
+      <div class="demos" id="panel-h" role="tabpanel" aria-labelledby="tab-h">
+        <a class='demo' href='/demos/menu-digital'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/menu-digital.html</span></div><div class="browser__shot"><img src="assets/thumbs/menu-digital.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_MENÚ</span><span>RESTAURANTE</span></span><h3>Menú digital con pedido</h3><p>Agrega platillos y envía el pedido por WhatsApp.</p></div></a>
+        <a class='demo' href='/demos/tarjeta-lealtad'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/tarjeta-lealtad.html</span></div><div class="browser__shot"><img src="assets/thumbs/tarjeta-lealtad.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_WALLET ★</span><span>RESTAURANTE</span></span><h3>Tarjeta de lealtad en Wallet</h3><p>Guárdala, suma sellos y manda un aviso a la pantalla.</p></div></a>
+        <a class='demo' href='/demos/crm'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/crm.html</span></div><div class="browser__shot"><img src="assets/thumbs/crm.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_CRM</span><span>CAR WASH</span></span><h3>CRM con inicio de sesión</h3><p>Entra, mueve contactos por etapa y simula uno nuevo.</p></div></a>
+        <a class='demo' href='/demos/automatizacion'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/automatizacion.html</span></div><div class="browser__shot"><img src="assets/thumbs/automatizacion.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_BOT</span><span>CONSULTORIO</span></span><h3>Asistente de WhatsApp</h3><p>Agenda una cita y mira lo que pasa detrás.</p></div></a>
+        <a class='demo' href='/demos/contenido'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/contenido.html</span></div><div class="browser__shot"><img src="assets/thumbs/contenido.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_CONTENIDO</span><span>ACADEMIA</span></span><h3>Plan de contenido semanal</h3><p>Reels, carruseles e historias con vista previa.</p></div></a>
+        <a class='demo' href='/demos/tarjeta-digital'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/tarjeta-digital.html</span></div><div class="browser__shot"><img src="assets/thumbs/tarjeta-digital.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_NFC</span><span>ZOLKO</span></span><h3>Tarjeta digital</h3><p>Guarda mi contacto o escríbeme con un toque.</p></div></a>
+        <a class='demo' href='/demos/capacitacion'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/capacitacion.html</span></div><div class="browser__shot"><img src="assets/thumbs/capacitacion.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_TALLER</span><span>EQUIPOS</span></span><h3>Capacitación</h3><p>Temario y mini diagnóstico de tu equipo.</p></div></a>
+      </div>
+
+      <div class="demos" id="panel-g" role="tabpanel" aria-labelledby="tab-g" hidden>
+        <a class='demo' href='/demos/restaurante'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/restaurante.html</span></div><div class="browser__shot"><img src="assets/thumbs/restaurante.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_01</span><span>WHATSAPP</span></span><h3>Restaurante</h3><p>Acción: pedir por WhatsApp.</p></div></a>
+        <a class='demo' href='/demos/car-wash'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/car-wash.html</span></div><div class="browser__shot"><img src="assets/thumbs/car-wash.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_02</span><span>FORMULARIO</span></span><h3>Car wash</h3><p>Acción: agendar lavado.</p></div></a>
+        <a class='demo' href='/demos/joyeria'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/joyeria.html</span></div><div class="browser__shot"><img src="assets/thumbs/joyeria.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_03</span><span>CATÁLOGO</span></span><h3>Joyería</h3><p>Acción: ver catálogo y escribir por WhatsApp.</p></div></a>
+        <a class='demo' href='/demos/academia'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/academia.html</span></div><div class="browser__shot"><img src="assets/thumbs/academia.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_04</span><span>FORMULARIO</span></span><h3>Academia</h3><p>Acción: agendar clase muestra.</p></div></a>
+        <a class='demo' href='/demos/inmobiliaria'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/inmobiliaria.html</span></div><div class="browser__shot"><img src="assets/thumbs/inmobiliaria.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_05</span><span>FORMULARIO</span></span><h3>Inmobiliaria</h3><p>Acción: agendar visita.</p></div></a>
+        <a class='demo' href='/demos/consultorio'><div class="browser"><div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">zolko-demos.netlify.app/demos/consultorio.html</span></div><div class="browser__shot"><img src="assets/thumbs/consultorio.jpg" alt="" loading="lazy" width="640" height="1000"></div></div>
+          <div class="demo__body"><span class="demo__id"><span>DEMO_06</span><span>FORMULARIO</span></span><h3>Consultorio</h3><p>Acción: agendar cita.</p></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= DETRÁS DE LA PÁGINA ======================= -->
+  <section class="section" id="integracion" aria-labelledby="i-title">
+    <div class="container">
+      <div class="section__head">
+        <span class="tag reveal">LO_QUE_ZOLKO_INTEGRA</span>
+        <h2 id="i-title" class="reveal" style="--d:1">Lo que va detrás de la página</h2>
+        <p class="lead reveal" style="--d:2">La página es la puerta. Lo que vende es lo que pasa después de que alguien toca el botón.</p>
+      </div>
+      <ol class="flow">
+        <li class="reveal" style="--i:0;--d:0"><div class="panel"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><h3>Formulario o chat</h3><p>Máximo tres datos. El cliente pide lo que quiere sin pensarlo dos veces.</p></div></li>
+        <li class="reveal" style="--i:1;--d:1"><div class="panel"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>CRM</h3><p>Cada contacto queda guardado con lo que pidió. Nadie se pierde en un chat.</p></div></li>
+        <li class="reveal" style="--i:2;--d:2"><div class="panel"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></span><h3>Seguimiento por WhatsApp</h3><p>Confirmación, recordatorio y seguimiento automáticos, con tu tono.</p></div></li>
+        <li class="reveal" style="--i:3;--d:3"><div class="panel"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Medición</h3><p>Ves cuántas visitas, clics y solicitudes llegan, y de dónde.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ======================= MÉTODO ======================= -->
+  <section class="section" id="metodo" aria-labelledby="m-title" style="padding-top:24px">
+    <div class="container">
+      <div class="section__head">
+        <span class="tag reveal">PROCESO.ZOLKO</span>
+        <h2 id="m-title" class="reveal" style="--d:1">Primero entendemos. <span class="violeta">Después integramos.</span></h2>
+      </div>
+      <ol class="steps">
+        <li class="panel reveal"><h3>Primero entendemos</h3><p>Cómo vendes hoy, qué te preguntan tus clientes y dónde se te escapan.</p></li>
+        <li class="panel reveal" style="--d:1"><h3>Diseñamos con las palabras de tus clientes</h3><p>Los textos responden lo que tu cliente ya pregunta, con una sola acción clara.</p></li>
+        <li class="panel reveal" style="--d:2"><h3>Conectamos con WhatsApp y CRM</h3><p>Cada contacto llega ordenado y recibe seguimiento, aunque estés ocupado.</p></li>
+        <li class="panel reveal" style="--d:3"><h3>Medimos</h3><p>Visitas, clics y solicitudes para saber qué funciona y qué mejorar.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ======================= INCLUYE + INVERSIÓN ======================= -->
+  <section class="section" id="inversion" aria-labelledby="v-title" style="background:#08080b;border-block:1px solid var(--linea)">
+    <div class="container">
+      <div class="section__head">
+        <span class="tag reveal">INVERSIÓN</span>
+        <h2 id="v-title" class="reveal" style="--d:1">Qué incluye tu página</h2>
+      </div>
+      <ul class="includes">
+        <li class="panel reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><h3>Pensada primero para celular</h3><p>Donde tus clientes realmente te buscan.</p></li>
+        <li class="panel reveal" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg><h3>Botón de WhatsApp</h3><p>Fijo y con el mensaje ya escrito.</p></li>
+        <li class="panel reveal" style="--d:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9l2 2 4-4M8 16h8"/></svg><h3>Formulario conectado</h3><p>Llega a tu CRM y a tu WhatsApp, no a un correo olvidado.</p></li>
+        <li class="panel reveal" style="--d:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6-7-12a7 7 0 0 1 14 0c0 6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><h3>Mapa</h3><p>Para que lleguen sin preguntar cómo.</p></li>
+        <li class="panel reveal" style="--d:4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>Medición de visitas</h3><p>Sabes qué funciona con datos, no con corazonadas.</p></li>
+      </ul>
+      <div class="price">
+        <div class="panel price__box reveal">
+          <span class="tag tag--violeta">PRECIO</span>
+          <p class="price__value">Precio según diagnóstico</p>
+          <p>Se define después del diagnóstico, según lo que tu negocio necesita conectar.</p>
+        </div>
+        <div class="panel reveal" style="--d:1">
+          <h3>Lo que revisamos en el diagnóstico</h3>
+          <ul>
+            <li>Cómo te llegan hoy los clientes</li>
+            <li>Qué acción principal necesita tu página</li>
+            <li>Qué conectar: WhatsApp, CRM, agenda, menú, catálogo o tarjeta de lealtad</li>
+            <li>Cómo vamos a medir</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= QUIÉN SOY ======================= -->
+  <section class="section" id="ricardo" aria-labelledby="r-title">
+    <div class="container about">
+      <figure class="about__photo reveal" style="margin:0 auto">
+        <img src="assets/ricardo.jpg" alt="Ricardo Vergara, fundador de ZOLKO INTEGRATIONS" width="570" height="825" loading="lazy">
+        <figcaption><b>Ricardo Vergara</b><span>FUNDADOR · ZOLKO INTEGRATIONS</span></figcaption>
+      </figure>
+      <div>
+        <span class="tag reveal">QUIÉN_SOY</span>
+        <h2 id="r-title" class="reveal" style="--d:1">La IA no te reemplaza. <span class="lima">Te devuelve tu tiempo.</span></h2>
+        <p class="lead reveal" style="--d:2">Soy Ricardo Vergara, fundador de ZOLKO INTEGRATIONS. Integro inteligencia artificial, automatización y estrategia comercial para que los negocios vendan más sin vivir pegados al celular.</p>
+        <p class="lead reveal" style="--d:3">No empiezo vendiéndote una herramienta: primero entiendo cómo vendes hoy y dónde se te van los clientes. Después integro solo lo que sí te sirve.</p>
+        <div class="hero__actions reveal" style="--d:4"><a class='btn btn--ghost' href='/demos/tarjeta-digital'>Guardar mi contacto</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= CIERRE ======================= -->
+  <section class="cta" id="diagnostico" aria-labelledby="c-title">
+    <div class="container">
+      <span class="tag reveal">SIGUIENTE_PASO</span>
+      <h2 id="c-title" class="reveal" style="--d:1">Agenda tu <span class="lima">diagnóstico</span></h2>
+      <p class="lead reveal" style="--d:2">Platicamos de tu negocio, vemos cómo te llegan hoy los clientes y te decimos qué haríamos. Escríbeme la palabra DIAGNÓSTICO.</p>
+      <div class="cta__actions reveal" style="--d:3">
+        <a class="btn btn--glow" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+          Escribir DIAGNÓSTICO por WhatsApp
+        </a>
+        <a class="btn btn--ghost" href="mailto:ricardo@zolkointegrations.com?subject=Diagn%C3%B3stico%20para%20mi%20negocio">Escribir por correo</a>
+      </div>
+      <p class="cta__contact reveal" style="--d:4">WhatsApp: <a href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">+52 33 4323 0958</a><br>Correo: <a href="mailto:ricardo@zolkointegrations.com">ricardo@zolkointegrations.com</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__in">
+    <img src="assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="102" height="34">
+    <ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#demos">Demos</a></li>
+      <li><a href="#metodo">Cómo trabajamos</a></li>
+      <li><a href='/presentacion'>Modo presentación</a></li>
+    </ul>
+    <span>Primero entendemos. Después integramos.</span>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener" aria-label="Escribir a ZOLKO por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+  <span>DIAGNÓSTICO</span>
+</a>
+
+<script>
+/* =====================================================================
+   Interacciones del sitio: encabezado, menú, progreso, aparición,
+   pestañas de demos, luz que sigue al cursor y efecto en botones.
+   ===================================================================== */
+(function () {
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var header = document.getElementById("header"), progress = document.getElementById("progress");
+
+  // Encabezado con fondo al bajar + barra de progreso
+  function onScroll() {
+    var y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    header.classList.toggle("is-scrolled", y > 20);
+    progress.style.transform = "scaleX(" + (h > 0 ? y / h : 0) + ")";
+  }
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Menú en celular
+  var btn = document.getElementById("menuBtn"), nav = document.getElementById("nav");
+  function menu(open) { btn.setAttribute("aria-expanded", open); btn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú"); nav.classList.toggle("is-open", open); }
+  btn.addEventListener("click", function () { menu(btn.getAttribute("aria-expanded") !== "true"); });
+  nav.addEventListener("click", function (e) { if (e.target.closest("a")) menu(false); });
+  addEventListener("keydown", function (e) { if (e.key === "Escape") menu(false); });
+
+  // Aparición al hacer scroll y sección activa en el menú
+  var items = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) items.forEach(function (n) { n.classList.add("is-in"); });
+  else {
+    // Lo que ya está en pantalla se queda visible desde el primer momento
+    items.forEach(function (n) { if (n.getBoundingClientRect().top < innerHeight) n.classList.add("is-in"); });
+    document.documentElement.classList.add("js-anim");
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: .08 });
+    items.forEach(function (n) { io.observe(n); });
+    var links = nav.querySelectorAll("a");
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) links.forEach(function (a) { a.classList.toggle("is-active", a.getAttribute("href") === "#" + en.target.id); }); });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    ["servicios", "demos", "metodo", "inversion", "ricardo"].forEach(function (id) { so.observe(document.getElementById(id)); });
+  }
+  document.getElementById("heroImg").classList.add("is-in");
+
+  // Pestañas de demos (con flechas del teclado)
+  var tabs = document.querySelectorAll('[role="tab"]');
+  function tab(t) {
+    tabs.forEach(function (x) {
+      var on = x === t; x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { tab(t); });
+    t.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") { var n = tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length]; tab(n); n.focus(); }
+    });
+  });
+  if (location.hash === "#demos-giro") tab(document.getElementById("tab-g"));
+  document.querySelectorAll("[data-open-tab]").forEach(function (a) {
+    a.addEventListener("click", function () { tab(document.getElementById(a.getAttribute("data-open-tab"))); });
+  });
+
+  if (!reduce) {
+    // Luz que sigue al cursor en el hero
+    var spot = document.getElementById("spot"), hero = document.getElementById("inicio");
+    hero.addEventListener("pointermove", function (e) { var r = hero.getBoundingClientRect(); spot.style.left = (e.clientX - r.left) + "px"; spot.style.top = (e.clientY - r.top) + "px"; });
+    // Brillo que sigue al cursor en las tarjetas de servicios
+    document.querySelectorAll(".service").forEach(function (c) {
+      c.addEventListener("pointermove", function (e) { var r = c.getBoundingClientRect(); c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px"); });
+    });
+    // Onda al tocar los botones
+    document.addEventListener("pointerdown", function (e) {
+      var b = e.target.closest(".btn"); if (!b) return;
+      var r = b.getBoundingClientRect(), s = Math.max(r.width, r.height), d = document.createElement("span");
+      d.className = "ripple"; d.style.width = d.style.height = s + "px";
+      d.style.left = (e.clientX - r.left - s / 2) + "px"; d.style.top = (e.clientY - r.top - s / 2) + "px";
+      b.appendChild(d); setTimeout(function () { d.remove(); }, 650);
+    });
+  }
+})();
+</script>
+</body>
+</html>
