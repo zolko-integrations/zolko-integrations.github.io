@@ -40,7 +40,7 @@
   .msg { max-width: 84%; padding: 8px 11px 6px; border-radius: 10px; font-size: .95rem; line-height: 1.35; box-shadow: 0 1px 1px rgba(0, 0, 0, .08); white-space: pre-line; animation: pop .25s ease-out; }
   .msg--bot { background: #fff; align-self: flex-start; border-top-left-radius: 2px; }
   .msg--me { background: #d9fdd3; align-self: flex-end; border-top-right-radius: 2px; }
-  .msg small { display: block; text-align: right; font-size: .7rem; color: #667781; margin-top: 2px; }
+  .msg small { display: block; text-align: right; font-size: .7rem; color: #54656f; margin-top: 2px; }
   @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
   .typing { align-self: flex-start; background: #fff; border-radius: 10px; padding: 10px 14px; display: flex; gap: 4px; }
   .typing i { width: 7px; height: 7px; border-radius: 50%; background: #9aa5ab; animation: dot 1s infinite; }
@@ -54,8 +54,8 @@
   /* ---------- Lo que pasa detrás ---------- */
   .behind h2 { font-size: 1.6rem; }
   .log { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 12px; }
-  .log li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; background: #fff; border: 1px solid var(--c-line); border-radius: 14px; padding: 14px; opacity: .45; filter: grayscale(1); transition: opacity .4s, filter .4s, border-color .4s, box-shadow .4s; }
-  .log li.is-on { opacity: 1; filter: none; border-color: var(--c-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-primary) 15%, transparent); }
+  .log li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; background: #fff; border: 1px solid var(--c-line); border-radius: 14px; padding: 14px; opacity: .9; filter: grayscale(1); border-style: dashed; transition: opacity .4s, filter .4s, border-color .4s, box-shadow .4s; }
+  .log li.is-on { opacity: 1; filter: none; border-style: solid; border-color: var(--c-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-primary) 15%, transparent); }
   .log .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--c-surface); color: var(--c-primary); }
   .log .ic svg { width: 22px; height: 22px; }
   .log b { display: block; }
@@ -64,6 +64,18 @@
   .night { margin-top: 22px; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; background: var(--c-dark); color: var(--c-on-dark); border-radius: 18px; overflow: hidden; }
   .night img { width: 120px; height: 100%; object-fit: cover; }
   .night p { margin: 0; padding: 16px 16px 16px 0; }
+
+  /* ---------- Portada con foto (v3) ---------- */
+  body { position: relative; }
+  body::before { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 600px;
+    background: linear-gradient(180deg, rgba(10, 38, 44, .72) 0%, rgba(10, 38, 44, .9) 62%, var(--c-bg) 100%), url(../assets/fotos/consultorio.webp) center 30% / cover; }
+  .intro, .intro h1 { color: #fff; }
+  .intro .lead { color: rgba(255, 255, 255, .86); }
+  .intro .eyebrow { color: var(--c-accent); }
+  .phone { position: relative; background: linear-gradient(160deg, #2a2f33, #0b0d0f); box-shadow: 0 50px 90px -40px rgba(4, 30, 34, .85), 0 0 0 1px rgba(255, 255, 255, .08), 0 0 80px -10px color-mix(in srgb, var(--c-accent) 45%, transparent); }
+  .wa__top { background: linear-gradient(90deg, #075e54, #0b6f78); }
+  .wa__chat { background-color: #efeae2; background-image: radial-gradient(rgba(7, 94, 84, .07) 1.2px, transparent 1.3px), radial-gradient(rgba(7, 94, 84, .05) 1px, transparent 1.1px); background-size: 18px 18px, 11px 11px; background-position: 0 0, 7px 9px; }
+  .log li.is-on .ic { background: var(--c-primary); color: #fff; }
 </style>
 <script>
   window.DEMO_CONFIG = {
@@ -113,7 +125,7 @@
         <li data-step="4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><div><span class="tag-sim">SEGUIMIENTO</span><b>Recordatorio programado</b><p>Un día antes le llega un recordatorio, y después un “¿cómo sigues?”.</p></div></li>
       </ol>
       <div class="night">
-        <img src="../assets/img/automatizacion.jpg" alt="Persona dormida mientras un asistente atiende los mensajes en su celular" loading="lazy" width="670" height="1200">
+        <img src="../assets/img/automatizacion.jpg" alt="Persona dormida mientras un asistente atiende los mensajes en su celular" loading="eager" decoding="async" width="670" height="1200">
         <p>Mientras tú descansas, tu WhatsApp sigue atendiendo. Tú decides qué contesta solo y cuándo pasa a una persona.</p>
       </div>
       <p style="margin-top:18px"><button class="btn btn--ghost" type="button" id="reiniciar">Reiniciar conversación</button></p>

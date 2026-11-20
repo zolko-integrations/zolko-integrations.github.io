@@ -189,7 +189,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .btn svg { width: 20px; height: 20px; flex: none; }
 .btn--ghost { --_bg: transparent; --_fg: var(--c-text); border-color: var(--c-line); box-shadow: none; }
 .btn--ghost:hover { --_bg: color-mix(in srgb, var(--c-text) 6%, transparent); border-color: var(--c-text); }
-.btn--wa { --_bg: #1f8f4e; --_fg: #fff; }               /* verde WhatsApp con buen contraste */
+.btn--wa { --_bg: #187a42; --_fg: #fff; }               /* verde WhatsApp con buen contraste */
 .btn--wa:hover { --_bg: #187a42; }
 .btn--block { width: 100%; }
 .btn--header { min-height: 44px; padding: 10px 18px; font-size: .95rem; }
@@ -364,6 +364,20 @@ body { padding-bottom: 84px; }
 /* Visible desde el inicio; solo lo que está fuera de pantalla aparece al llegar (0.35 s) */
 .reveal { transition: opacity .35s ease, transform .35s ease; }
 .js-anim .reveal:not(.is-in) { opacity: 0; transform: translateY(12px); }
+
+/* =====================================================================
+   7. BLOQUE FINAL DE ZOLKO (lo inserta demo-base.js; colores de ZOLKO, no del negocio)
+   ===================================================================== */
+.zolko-cta { background: #0d0d10; color: #f4f4f7; border-top: 1px solid rgba(124, 92, 255, .4); font-family: Inter, system-ui, sans-serif; }
+.zolko-cta__in { width: min(1120px, 100% - 40px); margin: auto; padding: 22px 0; display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; }
+.zolko-cta p { margin: 0; }
+.zolko-cta__tag { font: 700 10px "JetBrains Mono", monospace; letter-spacing: .14em; color: #c6ff3d; }
+.zolko-cta__title { font: 800 1.15rem Montserrat, Inter, sans-serif; margin-top: 2px !important; }
+.zolko-cta__text { color: #b7b2d9; font-size: .92rem; }
+.zolko-cta__btn { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; border-radius: 12px; background: #c6ff3d; color: #0b0f00; font-weight: 700; text-decoration: none; transition: box-shadow .2s, transform .12s; }
+.zolko-cta__btn:hover { box-shadow: 0 0 0 4px rgba(198, 255, 61, .25); }
+.zolko-cta__btn:active { transform: scale(.98); }
+.zolko-cta__btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

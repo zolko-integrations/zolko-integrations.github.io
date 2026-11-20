@@ -44,7 +44,7 @@
      ------------------------------------------------------------------ */
   var bar = el("div", { class: "demo-bar", role: "region", "aria-label": "Aviso de demostración" },
     '<div class="demo-bar__inner">' +
-      '<a class="demo-bar__back" href="../index.html#demos">← Volver a ZOLKO</a>' +
+      '<a class="demo-bar__back" href="../index.html#servicios">← Volver a ZOLKO</a>' +
       '<p class="demo-bar__text"><strong>Demo de ZOLKO INTEGRATIONS</strong> · No es una página publicada</p>' +
       '<button type="button" class="demo-bar__sim" aria-haspopup="dialog">Ver qué está simulado</button>' +
     "</div>");
@@ -197,6 +197,25 @@
       status.focus();
     });
   });
+
+  /* ------------------------------------------------------------------
+     4b. Bloque final "¿Quieres esto para tu negocio?" → WhatsApp REAL de ZOLKO
+         (los botones de la demo siguen con el número de ejemplo)
+     ------------------------------------------------------------------ */
+  var WHATSAPP_ZOLKO = "523343230958";
+  var nombreDemo = (CFG.negocio || "").replace(/\s*\(.*\)\s*$/, "");
+  var cierre = el("aside", { class: "zolko-cta", "aria-label": "Contactar a ZOLKO INTEGRATIONS" },
+    '<div class="zolko-cta__in">' +
+      '<div><p class="zolko-cta__tag">HECHO POR ZOLKO INTEGRATIONS</p>' +
+      '<p class="zolko-cta__title">¿Quieres esto para tu negocio?</p>' +
+      '<p class="zolko-cta__text">Esta página es una demo. Te la hacemos con tu marca y tus datos reales.</p></div>' +
+      '<a class="zolko-cta__btn" target="_blank" rel="noopener" href="https://wa.me/' + WHATSAPP_ZOLKO + "?text=" +
+        encodeURIComponent("Hola, Ricardo. Vi la demo de " + nombreDemo + " y quiero algo así para mi negocio.") + '">Escribir a ZOLKO por WhatsApp</a>' +
+    "</div>");
+  var pie = document.querySelector(".site-footer"), principal = document.querySelector("main");
+  if (pie) pie.parentNode.insertBefore(cierre, pie);
+  else if (principal) principal.parentNode.insertBefore(cierre, principal.nextSibling);
+  else document.body.insertBefore(cierre, document.body.querySelector(":scope > script"));
 
   /* ------------------------------------------------------------------
      5. Aparición suave de secciones

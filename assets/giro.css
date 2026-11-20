@@ -1,0 +1,105 @@
+/* =====================================================================
+   ZOLKO · Plantilla "giro" (páginas de ejemplo por tipo de negocio)
+   ---------------------------------------------------------------------
+   Corta y visual: foto grande, tarjetas que se deslizan, 3 pasos y un
+   formulario. Cada página pone sus colores en :root (--c-*) y su fuente
+   en --font-display; todo lo demás sale de aquí.
+   Se usa junto con demo-base.css (banda de demo, botones, formulario).
+   ===================================================================== */
+
+.g-body { background: var(--c-bg); }
+
+/* ---------- Encabezado de cristal sobre la foto ---------- */
+.g-head { position: absolute; top: var(--demo-bar-h, 0); left: 0; right: 0; z-index: 20; }
+.g-head__in { width: min(1120px, 100% - 32px); margin: 14px auto 0; display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; border-radius: 999px;
+  background: rgba(10, 10, 12, .38); border: 1px solid rgba(255, 255, 255, .18); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); color: #fff; }
+.g-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font: 700 1.1rem/1 var(--font-display); }
+.g-brand svg { width: 30px; height: 30px; flex: none; }
+.g-head .btn { margin-left: auto; min-height: 44px; padding: 10px 18px; font-size: .95rem; }
+
+/* ---------- Portada: foto completa con degradado ---------- */
+.g-hero { position: relative; min-height: min(88svh, 760px); display: flex; align-items: flex-end; overflow: hidden; color: #fff; isolation: isolate; }
+.g-hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: var(--hero-pos, center); animation: g-zoom 18s ease-out both; }
+@keyframes g-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+.g-hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .2) 18%, rgba(0, 0, 0, .58) 36%, color-mix(in srgb, var(--c-dark) 88%, transparent) 72%, var(--c-dark) 100%); }
+.g-hero__in { width: min(1120px, 100% - 40px); margin: 0 auto; padding: 120px 0 34px; }
+.g-eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 700 .72rem/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;
+  padding: 8px 12px; border-radius: 999px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .25); backdrop-filter: blur(6px); }
+.g-eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c-accent); box-shadow: 0 0 12px var(--c-accent); }
+.g-hero h1 { margin: 16px 0 12px; font: 800 clamp(2.15rem, 8.4vw, 4rem)/1.02 var(--font-display); letter-spacing: -.01em; max-width: 17ch; text-wrap: balance; text-shadow: 0 6px 30px rgba(0, 0, 0, .45); }
+.g-hero h1 em { font-style: normal; color: var(--c-accent); }
+.g-hero p { margin: 0; max-width: 46ch; font-size: 1.05rem; color: rgba(255, 255, 255, .88); }
+.g-acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.g-acts .btn { min-height: 52px; }
+.g-ghost { background: rgba(255, 255, 255, .12) !important; color: #fff !important; border: 1px solid rgba(255, 255, 255, .35) !important; backdrop-filter: blur(8px); }
+.g-chips { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.g-chips li { display: inline-flex; align-items: center; gap: 6px; font-size: .84rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: rgba(0, 0, 0, .35); border: 1px solid rgba(255, 255, 255, .18); }
+.g-chips li::before { content: "✓"; color: var(--c-accent); font-weight: 800; }
+
+/* ---------- Sección oscura de continuación (une la foto con el contenido) ---------- */
+.g-dark { background: var(--c-dark); color: var(--c-on-dark); }
+.g-sec { padding: 44px 0 48px; }
+.g-sec__in { width: min(1120px, 100% - 40px); margin: 0 auto; }
+.g-sec h2 { margin: 0 0 6px; font: 800 clamp(1.6rem, 5.6vw, 2.4rem)/1.08 var(--font-display); letter-spacing: -.01em; }
+.g-sec__sub { margin: 0 0 20px; color: color-mix(in srgb, currentColor 72%, transparent); }
+
+/* ---------- Tarjetas que se deslizan ---------- */
+.g-rail { display: grid; grid-auto-flow: column; grid-auto-columns: min(80%, 300px); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 16px; margin: 0 -2px; scrollbar-width: none; overscroll-behavior-x: contain; }
+.g-rail::-webkit-scrollbar { display: none; }
+@media (min-width: 960px) { .g-rail { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); overflow: visible; } }
+.g-card { scroll-snap-align: start; position: relative; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: var(--c-surface-2, #fff); color: var(--c-text);
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .06); transition: transform .3s cubic-bezier(.2, .7, .2, 1), box-shadow .3s; }
+.g-card:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -24px rgba(0, 0, 0, .7), 0 0 0 1px color-mix(in srgb, var(--c-accent) 50%, transparent); }
+.g-card__img { aspect-ratio: 16 / 10; overflow: hidden; background: #111; }
+.g-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.g-card:hover .g-card__img img { transform: scale(1.06); }
+.g-card__ico { aspect-ratio: 16 / 10; display: grid; place-items: center; color: #fff;
+  background: radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--c-accent) 70%, transparent), transparent 60%), linear-gradient(140deg, var(--c-primary), var(--c-dark)); }
+.g-card__ico svg { width: 64px; height: 64px; filter: drop-shadow(0 8px 20px rgba(0, 0, 0, .35)); }
+.g-card__tag { position: absolute; top: 12px; left: 12px; font: 700 .7rem/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; padding: 7px 10px; border-radius: 999px; background: rgba(0, 0, 0, .55); color: #fff; backdrop-filter: blur(6px); }
+.g-card__body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.g-card__body h3 { margin: 0; font: 700 1.2rem/1.15 var(--font-display); }
+.g-card__body p { margin: 0; color: var(--c-muted); font-size: .92rem; }
+.g-card__foot { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.g-price { font: 800 1.15rem/1 var(--font-body); color: var(--c-primary); }
+.g-price small { display: block; font-size: .72rem; font-weight: 600; color: var(--c-muted); margin-top: 3px; }
+.g-mini { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 8px 14px; border-radius: 12px; font-weight: 700; font-size: .9rem; text-decoration: none;
+  background: var(--c-primary); color: var(--c-on-primary); transition: filter .2s, transform .12s; }
+.g-mini:hover { filter: brightness(1.08); }
+.g-mini:active { transform: scale(.97); }
+.g-swipe { margin: 4px 0 0; font-size: .82rem; color: color-mix(in srgb, currentColor 60%, transparent); }
+@media (min-width: 960px) { .g-swipe { display: none; } }
+
+/* ---------- Pasos ---------- */
+.g-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; counter-reset: p; }
+@media (min-width: 760px) { .g-steps { grid-template-columns: repeat(3, 1fr); } }
+.g-steps li { counter-increment: p; display: flex; gap: 14px; align-items: center; padding: 14px 16px; border-radius: 18px; background: var(--c-surface); border: 1px solid var(--c-line); }
+.g-steps li::before { content: counter(p); flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font: 800 1rem var(--font-body);
+  background: linear-gradient(140deg, var(--c-primary), color-mix(in srgb, var(--c-primary) 60%, var(--c-accent))); color: var(--c-on-primary); box-shadow: 0 8px 18px -8px var(--c-primary); }
+.g-steps b { display: block; font-size: 1rem; }
+.g-steps span { font-size: .88rem; color: var(--c-muted); }
+
+/* ---------- Formulario (simulado) ---------- */
+.g-form { display: grid; gap: 22px; align-items: center; }
+@media (min-width: 900px) { .g-form { grid-template-columns: .9fr 1.1fr; gap: 48px; } }
+.g-form .form-card { border: 0; border-radius: 24px; padding: 22px; background: var(--c-surface-2, #fff);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .45), 0 0 0 1px var(--c-line), 0 0 0 6px color-mix(in srgb, var(--c-primary) 10%, transparent); }
+.g-alt { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: .92rem; color: var(--c-muted); }
+
+/* ---------- Pie ---------- */
+.g-foot { background: var(--c-dark); color: color-mix(in srgb, var(--c-on-dark) 80%, transparent); padding: 26px 0 96px; font-size: .9rem; }
+.g-foot__in { width: min(1120px, 100% - 40px); margin: 0 auto; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; }
+.g-foot b { color: var(--c-on-dark); font-family: var(--font-display); font-size: 1.1rem; }
+@media (min-width: 761px) { .g-foot { padding-bottom: 28px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .g-hero__img { animation: none; }
+  .g-card, .g-card__img img { transition: none; }
+}
+
+/* Celular: el botón fijo de abajo ya lleva a WhatsApp; la portada deja espacio para él */
+@media (max-width: 860px) {
+  .g-head .btn { display: none; }
+  .g-hero__in { padding-bottom: 104px; }
+}

@@ -90,6 +90,17 @@
   .float-notif .notif { position: static; transform: none; }
   .celebrate { animation: brinco .6s ease; }
   @keyframes brinco { 30% { transform: scale(1.04) rotate(-1deg); } 60% { transform: scale(.99); } }
+
+  /* ---------- Portada con foto y tira de foto en la tarjeta (v3) ---------- */
+  body { position: relative; }
+  body::before { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 560px;
+    background: linear-gradient(180deg, rgba(30, 18, 10, .7) 0%, rgba(30, 18, 10, .9) 60%, var(--c-bg) 100%), url(../assets/fotos/arrachera.webp) center 40% / cover; }
+  .intro, .intro h1 { color: #fff; }
+  .intro .lead { color: rgba(255, 255, 255, .86); }
+  .intro .eyebrow { color: var(--c-accent); }
+  .stamps { padding: 14px 16px; background: linear-gradient(rgba(25, 14, 8, .5), rgba(25, 14, 8, .72)), url(../assets/fotos/parrillada-640.webp) center / cover; }
+  .stamp { background: rgba(0, 0, 0, .28); border-color: rgba(255, 210, 150, .7); }
+  .stamp.on { background: rgba(233, 162, 59, .32); }
 </style>
 <script>
   window.DEMO_CONFIG = {

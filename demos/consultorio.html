@@ -2,18 +2,18 @@
 <html lang="es" class="no-js">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Consultorio Vida Plena · Demo consultorio | ZOLKO</title>
-<meta name="description" content="Demo de ZOLKO INTEGRATIONS: landing de consultorio médico para agendar cita. Negocio de ejemplo.">
+<title>Consultorio Vida Plena (demo)</title>
+<meta name="description" content="Demo de ZOLKO: consultorio que agenda citas por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/giro.css">
+<link rel="preload" as="image" href="../assets/fotos/consultorio.webp" fetchpriority="high">
 <style>
-  /* =================================================================
-     IDENTIDAD DEL NEGOCIO · cambia aquí colores y tipografías
-     ================================================================= */
+  /* Identidad del negocio de ejemplo (colores y fuentes) */
   :root {
     --c-bg: #f5fafa;
     --c-surface: #e4f1f1;
@@ -29,17 +29,12 @@
     --font-display: "Outfit", system-ui, sans-serif;
     --font-body: "Source Sans 3", system-ui, sans-serif;
     --radius: 20px;
+    --c-surface-2: #ffffff;
   }
-  .hero { background: radial-gradient(80% 70% at 100% 0%, #d3eeea 0%, transparent 70%); }
-  .hero h1 { font-weight: 700; letter-spacing: -.015em; }
-  .hero h1 span { color: var(--c-primary); }
-  .svc-icon { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--c-surface); color: var(--c-primary); }
-  .svc-icon svg { width: 26px; height: 26px; }
-  .notice { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: #fff4e5; color: #6b3d00; border: 1px solid #f3c98b; font-size: .95rem; }
-  .pulse { stroke-dasharray: 300; stroke-dashoffset: 300; animation: pulse 3.2s ease-in-out infinite; }
-  @keyframes pulse { 0% { stroke-dashoffset: 300; } 60%,100% { stroke-dashoffset: 0; } }
+  .g-hero { --hero-pos: center 55%; }
 </style>
 <script>
+  /* Lo que la banda de demo explica en el panel "Ver qué está simulado" */
   window.DEMO_CONFIG = {
     negocio: "Consultorio Vida Plena (consultorio de ejemplo)",
     simulado: [
@@ -47,7 +42,7 @@
       "El consultorio, sus servicios y sus textos son de ejemplo.",
       "La agenda de citas: el formulario no aparta ninguna cita ni envía datos.",
       "Los botones de WhatsApp usan el número de ejemplo +5200000000000.",
-      "El mapa del pie de página es una ilustración."
+      "Las fotos son ilustrativas, generadas para la demo: no son del negocio."
     ],
     produccion: [
       "Agenda real con los horarios del consultorio y confirmación inmediata.",
@@ -58,199 +53,116 @@
   };
 </script>
 </head>
-<body>
+<body class="g-body">
 
-<header class="site-header">
-  <div class="container site-header__inner">
-    <a class="brand" href="#inicio" aria-label="Consultorio Vida Plena, inicio">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#0b6f78"/><path d="M17 10h6v7h7v6h-7v7h-6v-7h-7v-6h7z" fill="#fff"/><circle cx="30" cy="10" r="4" fill="#7fd1c7"/></svg>
-      <span>Vida Plena<small>Medicina familiar</small></span>
-    </a>
-    <a class="btn btn--header" href="#agendar">Agendar cita</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
-    <nav class="site-nav" id="menu" aria-label="Secciones">
-      <ul>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#beneficios">Beneficios</a></li>
-        <li><a href="#como-agendar">Cómo agendar</a></li>
-        <li><a href="#preguntas">Preguntas</a></li>
-        <li><a href="#agendar">Agendar cita</a></li>
-      </ul>
-    </nav>
+<header class="g-head">
+  <div class="g-head__in">
+    <a class="g-brand" href="#inicio" aria-label="Vida Plena, inicio"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#0b6f78"/><path d="M17 10h6v7h7v6h-7v7h-6v-7h-7v-6h7z" fill="#fff"/><circle cx="30" cy="10" r="4" fill="#7fd1c7"/></svg><span>Vida Plena</span></a>
+    <a class="btn btn--wa" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una cita.">Agendar cita</a>
   </div>
 </header>
 
-<main id="inicio">
-  <section class="hero">
-    <div class="container hero__grid">
-      <div class="reveal">
-        <span class="eyebrow">Medicina familiar</span>
-        <h1>Agenda tu cita <span>sin llamar ni esperar en la línea.</span></h1>
-        <p class="lead">Elige el motivo y el día. Te confirmamos la hora por WhatsApp y te recordamos un día antes.</p>
-        <div class="hero__actions">
-          <a class="btn" href="#agendar">Agendar cita</a>
-          <a class="link-arrow" href="#servicios">Ver servicios</a>
-        </div>
-        <p class="hero__note">Solo tres datos. No te pedimos información médica aquí.</p>
+<main id="contenido">
+  <section class="g-hero" id="inicio">
+    <img class="g-hero__img" src="../assets/fotos/consultorio.webp" alt="" width="1280" height="720" fetchpriority="high">
+    <div class="g-hero__in">
+      <span class="g-eyebrow">Medicina general</span>
+      <h1>Agenda tu cita <em>sin llamar.</em></h1>
+      <p>Elige el motivo y el día. Te confirmamos por WhatsApp y te recordamos un día antes.</p>
+      <div class="g-acts">
+        <a class="btn btn--wa" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una cita."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Agendar cita</a>
+        <a class="btn g-ghost" href="#consultas">Ver consultas</a>
       </div>
-      <div class="hero__art reveal" aria-hidden="true">
-        <svg viewBox="0 0 400 320">
-          <circle cx="200" cy="160" r="140" fill="#d3eeea"/>
-          <rect x="90" y="70" width="220" height="180" rx="22" fill="#fff" stroke="#12313a" stroke-width="4"/>
-          <rect x="90" y="70" width="220" height="44" rx="22" fill="#0b6f78"/>
-          <rect x="90" y="96" width="220" height="18" fill="#0b6f78"/>
-          <circle cx="135" cy="62" r="8" fill="#12313a"/><circle cx="265" cy="62" r="8" fill="#12313a"/>
-          <g fill="#e4f1f1"><rect x="112" y="132" width="36" height="28" rx="6"/><rect x="158" y="132" width="36" height="28" rx="6"/><rect x="250" y="132" width="36" height="28" rx="6"/><rect x="112" y="170" width="36" height="28" rx="6"/><rect x="158" y="170" width="36" height="28" rx="6"/><rect x="204" y="170" width="36" height="28" rx="6"/><rect x="250" y="170" width="36" height="28" rx="6"/></g>
-          <rect x="204" y="132" width="36" height="28" rx="6" fill="#7fd1c7"/>
-          <path d="M213 146l6 6 12-12" fill="none" stroke="#12313a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path class="pulse" d="M100 225h50l10-18 14 30 12-22 8 10h106" fill="none" stroke="#0b6f78" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
+      <ul class="g-chips"><li>Sin esperar en la línea</li><li>Recordatorio un día antes</li><li>Precios claros</li></ul>
     </div>
   </section>
 
-  <section class="section section--alt" id="nosotros">
-    <div class="container about reveal">
-      <div>
-        <span class="eyebrow">Quiénes somos</span>
-        <h2>Atención cercana, a tu hora y con seguimiento.</h2>
+  <section class="g-dark g-sec" id="consultas" aria-labelledby="t-cards">
+    <div class="g-sec__in">
+      <h2 id="t-cards">¿En qué te ayudamos?</h2>
+      <p class="g-sec__sub">Precios de referencia.</p>
+      <div class="g-rail">
+        <article class="g-card reveal" style="--d:0">
+          <div class="g-card__img"><img src="../assets/fotos/consultorio-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">General</span>
+          <div class="g-card__body"><h3>Consulta general</h3><p>Malestares, infecciones, revisión y orientación médica.</p>
+            <div class="g-card__foot"><span class="g-price">$600</span><a class="g-mini" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una consulta general."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:1">
+          <div class="g-card__img"><img src="../assets/fotos/cronicas-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Seguimiento</span>
+          <div class="g-card__body"><h3>Enfermedades crónicas</h3><p>Control de diabetes, presión alta y colesterol.</p>
+            <div class="g-card__foot"><span class="g-price">$700</span><a class="g-mini" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una consulta de seguimiento."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:2">
+          <div class="g-card__img"><img src="../assets/fotos/chequeo-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Prevención</span>
+          <div class="g-card__body"><h3>Chequeo preventivo</h3><p>Revisión completa para saber cómo estás.</p>
+            <div class="g-card__foot"><span class="g-price">$1,500</span><a class="g-mini" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar un chequeo preventivo."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:3">
+          <div class="g-card__img"><img src="../assets/fotos/certificado-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Trámite</span>
+          <div class="g-card__body"><h3>Certificados médicos</h3><p>Para escuela, trabajo o deporte, con revisión incluida.</p>
+            <div class="g-card__foot"><span class="g-price">$350</span><a class="g-mini" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero un certificado médico."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
       </div>
-      <div>
-        <p>En Vida Plena atendemos a toda la familia con consultas sin prisas y explicaciones claras. Llegas a tu hora, te escuchamos y te damos seguimiento después de la consulta.</p>
-        <ul class="chips" aria-label="A quién atendemos"><li>Adultos</li><li>Niños</li><li>Adultos mayores</li></ul>
-      </div>
+      <p class="g-swipe" aria-hidden="true">Desliza para ver más →</p>
     </div>
   </section>
 
-  <section class="section" id="servicios">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Servicios</span>
-        <h2>¿En qué te podemos ayudar?</h2>
-        <p class="lead">Al confirmar tu cita te decimos qué llevar.</p>
-      </div>
-      <div class="cards">
-        <article class="card reveal"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="12" r="2"/></svg></span><h3>Consulta general</h3><p>Malestares, infecciones, revisión y orientación médica.</p><p class="price-tag">$600</p></article>
-        <article class="card reveal"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><h3>Control de enfermedades crónicas</h3><p>Seguimiento de diabetes, presión alta y colesterol.</p><p class="price-tag">$700</p></article>
-        <article class="card reveal"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Chequeo preventivo</h3><p>Revisión completa para saber cómo estás antes de que algo duela.</p><p class="price-tag">$1,500</p></article>
-        <article class="card reveal"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h3>Certificados médicos</h3><p>Para escuela, trabajo o deporte, con revisión incluida.</p><p class="price-tag">$350</p></article>
-      </div>
-      <p class="price-note reveal">Precios de ejemplo en pesos mexicanos.</p>
-    </div>
-  </section>
-
-  <section class="section section--dark" id="beneficios">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Beneficios</span>
-        <h2>Te atendemos a tu hora y no te olvidamos después.</h2>
-      </div>
-      <ul class="benefits">
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><h3>Cita con hora</h3><p>Apartas tu lugar y te atendemos a la hora acordada.</p></div></li>
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><div><h3>Recordatorio por WhatsApp</h3><p>Te avisamos un día antes para que no se te pase.</p></div></li>
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><div><h3>Consulta sin prisas</h3><p>Tiempo para escucharte y explicarte tu tratamiento.</p></div></li>
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></span><div><h3>Seguimiento</h3><p>Te escribimos después para saber cómo sigues.</p></div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section" id="como-agendar">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Cómo agendar</span>
-        <h2>Tu cita en tres pasos</h2>
-      </div>
-      <ol class="steps" style="--steps:3">
-        <li class="reveal"><h3>Llena el formulario</h3><p>Tu WhatsApp, el motivo de la consulta y el día que prefieres.</p></li>
-        <li class="reveal"><h3>Recibe la confirmación</h3><p>Te escribimos por WhatsApp con la hora exacta y qué llevar.</p></li>
-        <li class="reveal"><h3>Asiste a tu consulta</h3><p>Te recordamos un día antes y te damos seguimiento después.</p></li>
+  <section class="g-sec" aria-labelledby="t-pasos">
+    <div class="g-sec__in">
+      <h2 id="t-pasos">Así de fácil</h2>
+      <p class="g-sec__sub">Todo por WhatsApp, sin llamadas ni apps.</p>
+      <ol class="g-steps">
+          <li class="reveal" style="--d:0"><div><b>Eliges motivo y día</b><span>Desde tu celular.</span></div></li>
+          <li class="reveal" style="--d:1"><div><b>Te confirmamos</b><span>La hora por WhatsApp.</span></div></li>
+          <li class="reveal" style="--d:2"><div><b>Te recordamos</b><span>Un día antes de tu cita.</span></div></li>
       </ol>
     </div>
   </section>
 
-  <section class="section section--alt" id="preguntas">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2>Antes de tu cita</h2>
-      </div>
-      <div class="faq reveal">
-        <details><summary>¿Atienden urgencias?</summary><div class="faq__a"><p>No somos un servicio de urgencias. Si es una emergencia, acude de inmediato al servicio de urgencias más cercano.</p></div></details>
-        <details><summary>¿Atienden niños?</summary><div class="faq__a"><p>Sí, atendemos a toda la familia. Indica el motivo al agendar y te confirmamos.</p></div></details>
-        <details><summary>¿Puedo cambiar o cancelar mi cita?</summary><div class="faq__a"><p>Sí. Responde al mensaje de confirmación por WhatsApp y te damos otra fecha.</p></div></details>
-        <details><summary>¿Cómo pago la consulta?</summary><div class="faq__a"><p>Al confirmar tu cita te decimos las formas de pago disponibles.</p></div></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--dark" id="agendar">
-    <div class="container form-wrap">
-      <div class="reveal">
-        <span class="eyebrow">Agendar cita</span>
-        <h2>Aparta tu cita. Te confirmamos por WhatsApp.</h2>
-        <p class="lead">Tres datos y listo. Si el día está lleno, te proponemos otro.</p>
-        <p class="notice">¿Es una emergencia? No uses este formulario: acude al servicio de urgencias más cercano.</p>
+  <section class="g-sec" id="agendar" aria-labelledby="form-titulo" style="padding-top:0">
+    <div class="g-sec__in g-form">
+      <div>
+        <h2 id="form-titulo">Agenda tu cita</h2>
+        <p class="g-sec__sub">Te confirmamos la hora por WhatsApp.</p>
+        <p class="g-alt">¿Prefieres escribir directo? <a class="link-arrow" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una cita.">Abrir WhatsApp →</a></p>
       </div>
       <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
-        <h3 id="form-titulo" class="sr-only">Formulario para agendar cita</h3>
-        <div class="field">
-          <label for="c-whatsapp">Tu WhatsApp</label>
-          <input id="c-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="c-whatsapp-hint c-whatsapp-error">
-          <p class="hint" id="c-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
-          <p class="field__error" id="c-whatsapp-error" aria-live="polite"></p>
-        </div>
-        <div class="field">
-          <label for="c-motivo">Motivo de la consulta</label>
-          <select id="c-motivo" name="motivo" required data-msg="Elige el motivo de tu consulta." aria-describedby="c-motivo-error">
-            <option value="">Elige una opción</option>
-            <option>Consulta general</option><option>Control de enfermedad crónica</option><option>Chequeo preventivo</option><option>Certificado médico</option>
-          </select>
-          <p class="field__error" id="c-motivo-error" aria-live="polite"></p>
-        </div>
-        <div class="field">
-          <label for="c-dia">¿Qué día prefieres?</label>
-          <input id="c-dia" name="dia" type="date" required data-msg="Elige el día de tu cita." aria-describedby="c-dia-error">
-          <p class="field__error" id="c-dia-error" aria-live="polite"></p>
-        </div>
+          <div class="field">
+            <label for="c-whatsapp">Tu WhatsApp</label>
+            <input id="c-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="c-whatsapp-error c-whatsapp-hint">
+            <p class="hint" id="c-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+            <p class="field__error" id="c-whatsapp-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="c-motivo">Motivo de la consulta</label>
+            <select id="c-motivo" name="motivo" required data-msg="Elige el motivo de tu consulta." aria-describedby="c-motivo-error"><option value="">Elige una opción</option><option>Consulta general</option><option>Control de enfermedad crónica</option><option>Chequeo preventivo</option><option>Certificado médico</option></select>
+            
+            <p class="field__error" id="c-motivo-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="c-dia">¿Qué día prefieres?</label>
+            <input id="c-dia" name="dia" type="date" required data-msg="Elige el día de tu cita." aria-describedby="c-dia-error">
+            
+            <p class="field__error" id="c-dia-error" aria-live="polite"></p>
+          </div>
         <button class="btn btn--block" type="submit">Agendar mi cita</button>
-        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se agendó ninguna cita ni se guardó ningún dato.</span></div>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se envió ni se guardó ningún dato.</span></div>
         <p class="form-legal">Demo: este formulario no envía información.</p>
       </form>
     </div>
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <h2>Consultorio Vida Plena</h2>
-      <p>Medicina familiar con cita. Negocio de ejemplo creado por ZOLKO para demostración.</p>
-      <a class="btn" href="#agendar">Agendar cita</a>
-    </div>
-    <div>
-      <h3>Secciones</h3>
-      <ul><li><a href="#servicios">Servicios</a></li><li><a href="#como-agendar">Cómo agendar</a></li><li><a href="#preguntas">Preguntas</a></li><li><a href="https://wa.me/5200000000000" data-wa="Hola, Consultorio Vida Plena. Tengo una pregunta.">WhatsApp</a></li></ul>
-    </div>
-    <div>
-      <h3>Ubicación</h3>
-      <div class="map-sim">
-        <span class="map-sim__label">MAPA DE EJEMPLO · NO ES UNA UBICACIÓN REAL</span>
-        <svg viewBox="0 0 320 160" aria-label="Ilustración de mapa, no es una ubicación real" role="img"><rect width="320" height="160" fill="#1c4450"/><path d="M0 45h320M0 120h320M90 0v160M210 0v160M320 100L180 0" stroke="#2a5866" stroke-width="10"/><path d="M210 66a12 12 0 0 1 12 12c0 9-12 22-12 22s-12-13-12-22a12 12 0 0 1 12-12z" fill="#7fd1c7"/></svg>
-      </div>
-      <p style="margin-top:10px">Dirección y horario según el negocio</p>
-    </div>
-  </div>
-  <div class="container footer-bottom">
-    <span>Consultorio Vida Plena es un negocio de ejemplo.</span>
-    <span>Demo hecha por ZOLKO INTEGRATIONS</span>
-  </div>
+<footer class="g-foot">
+  <div class="g-foot__in"><b>Vida Plena</b><span>Negocio de ejemplo · Página hecha por ZOLKO INTEGRATIONS</span></div>
 </footer>
 
-<div class="mobile-cta">
-  <a class="btn" href="#agendar">Agendar cita</a>
-  <a class="btn btn--wa btn--wa-icon" href="https://wa.me/5200000000000" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una cita." aria-label="Escribir por WhatsApp">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
-  </a>
+<div class="mobile-cta" role="region" aria-label="Acción rápida">
+  <a class="btn btn--wa" href="#" data-wa="Hola, Consultorio Vida Plena. Quiero agendar una cita."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Agendar cita</a>
 </div>
 
 <script src="../assets/demo-base.js"></script>

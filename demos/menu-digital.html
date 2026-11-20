@@ -51,7 +51,8 @@
   .item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--c-line); }
   .item:last-child { border-bottom: 0; }
   .item__img { width: 64px; height: 64px; border-radius: 14px; display: grid; place-items: center; background: var(--c-surface); color: var(--c-primary); }
-  .item__img svg { width: 34px; height: 34px; }
+  .item__img { overflow: hidden; }
+  .item__img img { width: 100%; height: 100%; object-fit: cover; }
   .item h4 { margin: 0; font-size: 1rem; }
   .item p { margin: 2px 0 0; color: var(--c-muted); font-size: .86rem; line-height: 1.35; }
   .item small { display: block; margin-top: 4px; font-size: .78rem; font-weight: 700; color: var(--c-primary); }
@@ -67,6 +68,7 @@
   /* Barra del pedido */
   .cart-bar { position: fixed; left: 50%; bottom: 16px; z-index: 40; transform: translate(-50%, 140%); width: min(430px, 100% - 24px); transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
   .cart-bar { visibility: hidden; }
+  .zolko-cta__in { padding-bottom: 96px; }  /* espacio para la barra del pedido */
   .cart-bar.is-visible { transform: translate(-50%, 0); visibility: visible; }
   .cart-bar button { width: 100%; display: flex; justify-content: space-between; align-items: center; min-height: 58px; padding: 0 20px; border: 0; border-radius: 16px; background: var(--c-dark); color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 16px 40px -12px rgba(0, 0, 0, .5); }
   .cart-bar button:active { transform: scale(.98); }
@@ -168,27 +170,22 @@
 
 <script>
 /* -------- Datos del menú (en producción vendrían de una hoja o del punto de venta) -------- */
-var ICONOS = {
-  plato: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15c2-6 14-7 16-1 1 3-3 5-8 5s-9-1-8-4z"/><path d="M8 13l2 3M12 12l2 4M16 12l1 3"/></svg>',
-  taco: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17a9 9 0 0 1 18 0z"/><path d="M7 13c1-1 2-1 3 0M12 12c1-1 2-1 3 0"/></svg>',
-  hoja: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-5 0-8-4-8-9 4 0 8 3 8 9zM12 21c5 0 8-4 8-9-4 0-8 3-8 9zM12 12V3"/></svg>',
-  vaso: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h12l-2 18H8z"/><path d="M7 8h10"/></svg>'
-};
 var MENU = [
   { id: "c-entradas", nombre: "Entradas", items: [
-    ["Queso fundido al carbón", "Con chorizo de la casa y tortillas recién hechas.", "plato", 135],
-    ["Cebollitas y nopales asados", "Con limón y sal de grano.", "hoja", 85]]},
+    ["Queso fundido al carbón", "Con chorizo de la casa y tortillas recién hechas.", "queso", 135],
+    ["Cebollitas y nopales asados", "Con limón y sal de grano.", "cebollitas", 85]]},
   { id: "c-carbon", nombre: "Al carbón", items: [
-    ["Arrachera al carbón", "Marinada de la casa, frijoles charros y guacamole.", "plato", 265],
-    ["Pollo a las brasas", "Medio pollo, con salsa tatemada.", "plato", 189],
-    ["Parrillada de verduras", "Opción sin carne.", "hoja", 175]]},
+    ["Arrachera al carbón", "Marinada de la casa, frijoles charros y guacamole.", "arrachera", 265],
+    ["Pollo a las brasas", "Medio pollo, con salsa tatemada.", "pollo", 189],
+    ["Parrillada mixta", "Arrachera, chorizo, pollo, nopales y cebollitas. Para compartir.", "parrillada", 480]]},
   { id: "c-tacos", nombre: "Tacos", items: [
-    ["Tacos de costilla", "Orden de tres, con cebolla, cilantro y salsa de la casa.", "taco", 120],
-    ["Tacos de arrachera", "Orden de tres, en tortilla de maíz hecha a mano.", "taco", 135]]},
+    ["Tacos de costilla", "Orden de tres, con cebolla, cilantro y salsa de la casa.", "tacos-costilla", 120],
+    ["Tacos de arrachera", "Orden de tres, en tortilla de maíz hecha a mano.", "tacos-arrachera", 135]]},
   { id: "c-bebidas", nombre: "Bebidas", items: [
-    ["Agua fresca del día", "Pregunta el sabor de hoy.", "vaso", 40],
-    ["Refresco", "Varias opciones.", "vaso", 35]]}
+    ["Agua fresca del día", "Pregunta el sabor de hoy.", "agua", 40],
+    ["Refresco", "Varias opciones.", "refresco", 35]]}
 ];
+var FOTO = { "tacos-costilla": "tacos", "tacos-arrachera": "tacos", agua: "bebidas", refresco: "bebidas" };
 var pedido = {};
 /* Formato de dinero en pesos mexicanos */
 function mxn(n) { return "$" + n.toLocaleString("es-MX"); }
@@ -199,7 +196,7 @@ lista.innerHTML = MENU.map(function (c) {
   return '<section class="cat" id="' + c.id + '"><h3>' + c.nombre + '</h3>' + c.items.map(function (it, k) {
     var key = c.id + "-" + k;
     PRECIO[key] = it[3];
-    return '<div class="item"><span class="item__img" aria-hidden="true">' + ICONOS[it[2]] + '</span>' +
+    return '<div class="item"><span class="item__img" aria-hidden="true"><img src="../assets/fotos/' + (FOTO[it[2]] || it[2]) + '-sq.webp" alt="" width="64" height="64" loading="lazy" decoding="async"></span>' +
       '<div><h4>' + it[0] + '</h4><p>' + it[1] + '</p><small>' + mxn(it[3]) + '</small></div>' +
       '<div class="qty" data-key="' + key + '" data-nombre="' + it[0] + '">' +
       '<button type="button" class="minus" hidden aria-label="Quitar ' + it[0] + '">−</button>' +

@@ -1,0 +1,9 @@
+# Configuración de Netlify: sitio estático, sin compilación.
+[build]
+  publish = "."
+
+# Que los buscadores no indexen las demos (vista previa privada)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

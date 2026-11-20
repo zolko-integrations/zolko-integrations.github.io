@@ -76,6 +76,21 @@
   .ideas { margin-top: 28px; display: grid; gap: 12px; }
   .idea-out { background: var(--c-dark); color: var(--c-on-dark); border-radius: 16px; padding: 16px 18px; font-size: 1.1rem; font-weight: 700; min-height: 64px; display: flex; align-items: center; }
   .idea-out.flash { animation: fade-down .35s ease-out; }
+
+  /* ---------- Fotos (v3) ---------- */
+  .day { overflow: hidden; }
+  .day__img { display: block; margin: -12px -12px 2px; height: 86px; background: #222 center / cover; transition: transform .5s; }
+  .day:hover .day__img { transform: scale(1.05); }
+  .slide--foto { background-size: cover; background-position: center; justify-content: flex-end; padding-bottom: 46px; }
+  .slide--foto h3 { text-shadow: 0 4px 20px rgba(0, 0, 0, .5); }
+  .reel-bg { background-size: cover; background-position: center; }
+
+  body { position: relative; }
+  body::before { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 600px;
+    background: linear-gradient(180deg, rgba(24, 30, 52, .74) 0%, rgba(24, 30, 52, .9) 62%, var(--c-bg) 100%), url(../assets/fotos/academia.webp) center 40% / cover; }
+  .intro, .intro h1 { color: #fff; }
+  .intro .lead { color: rgba(255, 255, 255, .86); }
+  .intro .eyebrow { color: var(--c-accent); }
 </style>
 <script>
   window.DEMO_CONFIG = {
@@ -126,23 +141,23 @@
 <script>
 /* ===== Calendario de ejemplo ===== */
 var DIAS = [
-  { d: "LUNES", t: "carr", titulo: "Nunca he tocado nada, ¿puedo aprender?", slides: [
+  { d: "LUNES", f: "academia", t: "carr", titulo: "Nunca he tocado nada, ¿puedo aprender?", slides: [
       ["s1", "¿Nunca has tocado un instrumento?", "Desliza →"], ["s2", "Empezar desde cero es lo normal", "La clase muestra es para eso."],
       ["s3", "Te prestamos el instrumento", "No necesitas comprar nada para probar."], ["s4", "Agenda tu clase muestra", "Escríbenos por WhatsApp."]],
     pasos: ["Gancho con la duda más común.", "Quita el miedo de empezar.", "Resuelve la objeción del instrumento.", "Llamado a la acción: agendar clase muestra."] },
-  { d: "MARTES", t: "reel", titulo: "Lo que pasa en tu primera clase", gancho: "Así se ve tu primera clase de guitarra (spoiler: sí sale una canción)",
+  { d: "MARTES", f: "academia", t: "reel", titulo: "Lo que pasa en tu primera clase", gancho: "Así se ve tu primera clase de guitarra (spoiler: sí sale una canción)",
     pasos: ["Gancho en los primeros segundos.", "Tomas reales del salón y del maestro.", "Cierre: “Aparta tu clase muestra”."] },
-  { d: "MIÉRCOLES", t: "hist", titulo: "Encuesta: ¿qué te gustaría tocar?", pregunta: "¿Qué te gustaría aprender?", opciones: ["Guitarra", "Piano", "Canto"],
+  { d: "MIÉRCOLES", f: "piano", t: "hist", titulo: "Encuesta: ¿qué te gustaría tocar?", pregunta: "¿Qué te gustaría aprender?", opciones: ["Guitarra", "Piano", "Canto"],
     pasos: ["Encuesta para conocer al público.", "A quien vota se le responde por mensaje directo.", "La respuesta se registra como contacto interesado."] },
-  { d: "JUEVES", t: "carr", titulo: "Mitos de aprender música de adulto", slides: [
+  { d: "JUEVES", f: "canto", t: "carr", titulo: "Mitos de aprender música de adulto", slides: [
       ["s2", "Mitos de aprender música de adulto", "Desliza →"], ["s1", "“Ya estoy grande”", "Se aprende a cualquier edad."],
       ["s4", "“No tengo tiempo”", "Hay horarios para quien trabaja."], ["s3", "Empieza con una clase muestra", "Link en el perfil."]],
     pasos: ["Gancho con creencias comunes.", "Cada mito, una respuesta corta.", "Cierre con la acción principal."] },
-  { d: "VIERNES", t: "reel", titulo: "Detrás de cámaras: preparando la presentación", gancho: "Así se preparan nuestros alumnos para tocar frente a su familia",
+  { d: "VIERNES", f: "bateria", t: "reel", titulo: "Detrás de cámaras: preparando la presentación", gancho: "Así se preparan nuestros alumnos para tocar frente a su familia",
     pasos: ["Gancho emocional.", "Ensayo y nervios reales.", "Cierre: “¿Te imaginas ahí? Empieza hoy”."] },
-  { d: "SÁBADO", t: "hist", titulo: "Pregunta abierta a seguidores", pregunta: "¿Qué canción te gustaría aprender primero?", opciones: ["Una de rock", "Una romántica", "No sé, ayúdame"],
+  { d: "SÁBADO", f: "piano", t: "hist", titulo: "Pregunta abierta a seguidores", pregunta: "¿Qué canción te gustaría aprender primero?", opciones: ["Una de rock", "Una romántica", "No sé, ayúdame"],
     pasos: ["Caja de preguntas.", "Las respuestas dan ideas para los reels.", "Respuestas por mensaje directo."] },
-  { d: "DOMINGO", t: "carr", titulo: "Cómo agendar tu clase muestra", slides: [
+  { d: "DOMINGO", f: "academia", t: "carr", titulo: "Cómo agendar tu clase muestra", slides: [
       ["s1", "Agenda tu clase muestra en tres pasos", "Desliza →"], ["s2", "Elige tu instrumento", "Guitarra, piano, canto o batería."],
       ["s3", "Elige tu horario", "Entre semana o sábado."], ["s4", "Te confirmamos por WhatsApp", "Así de fácil."]],
     pasos: ["Gancho directo.", "Proceso en pasos simples.", "Cierre con el enlace a WhatsApp."] }
@@ -153,7 +168,7 @@ var arrows = document.getElementById("arrows"), detail = document.getElementById
 var actual = 0, idx = 0;
 
 week.innerHTML = DIAS.map(function (x, i) {
-  return '<button type="button" class="day reveal" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><small>' + x.d + '</small><span class="chip chip--' + x.t + '">' + TIPO[x.t] + "</span><b>" + x.titulo + "</b></button>";
+  return '<button type="button" class="day reveal" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><span class="day__img" aria-hidden="true" style="background-image:url(../assets/fotos/' + x.f + '-640.webp)"></span><small>' + x.d + '</small><span class="chip chip--' + x.t + '">' + TIPO[x.t] + "</span><b>" + x.titulo + "</b></button>";
 }).join("");
 week.addEventListener("click", function (e) {
   var b = e.target.closest(".day"); if (!b) return;
@@ -167,14 +182,14 @@ function mostrar() {
   var x = DIAS[actual], cab = '<div class="ig"><i></i>estudio.clave</div>';
   arrows.hidden = x.t !== "carr";
   if (x.t === "carr") {
-    screen.innerHTML = cab + '<div class="slides" id="slides">' + x.slides.map(function (s) {
-      return '<div class="slide ' + s[0] + '"><h3>' + s[1] + "</h3><p>" + s[2] + "</p></div>";
+    screen.innerHTML = cab + '<div class="slides" id="slides">' + x.slides.map(function (s, k) {
+      return '<div class="slide ' + s[0] + (k === 0 ? ' slide--foto" style="background-image:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.75)), url(../assets/fotos/' + x.f + '-640.webp)' : '') + '"><h3>' + s[1] + "</h3><p>" + s[2] + "</p></div>";
     }).join("") + '</div><div class="nav">' + x.slides.map(function (_, k) { return "<span" + (k === 0 ? ' class="on"' : "") + "></span>"; }).join("") + "</div>";
     mover(0);
   } else if (x.t === "reel") {
-    screen.innerHTML = '<div class="progress"><i></i></div>' + cab + '<div class="reel-bg" role="img" aria-label="Ilustración de una clase de guitarra"></div><div class="reel-txt"><b>' + x.gancho + "</b></div>";
+    screen.innerHTML = '<div class="progress"><i></i></div>' + cab + '<div class="reel-bg" role="img" aria-label="Foto ilustrativa de una clase de música" style="background-image:url(../assets/fotos/' + x.f + '.webp)"></div><div class="reel-txt"><b>' + x.gancho + "</b></div>";
   } else {
-    screen.innerHTML = '<div class="progress"><i></i></div>' + cab + '<div class="slide s2" style="height:100%"><h3>' + x.pregunta + '</h3><div class="poll">' +
+    screen.innerHTML = '<div class="progress"><i></i></div>' + cab + '<div class="slide s2 slide--foto" style="height:100%;background-image:linear-gradient(180deg, rgba(20,26,44,.55), rgba(20,26,44,.85)), url(../assets/fotos/' + x.f + '-640.webp)"><h3>' + x.pregunta + '</h3><div class="poll">' +
       x.opciones.map(function (o) { return '<button type="button">' + o + "</button>"; }).join("") + "</div></div>";
     screen.querySelector(".poll").addEventListener("click", function (e) {
       var b = e.target.closest("button"); if (!b) return;

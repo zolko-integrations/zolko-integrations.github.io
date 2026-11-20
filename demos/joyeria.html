@@ -2,18 +2,18 @@
 <html lang="es" class="no-js">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Áurea Joyería · Demo joyería | ZOLKO</title>
-<meta name="description" content="Demo de ZOLKO INTEGRATIONS: landing de joyería con catálogo y consulta por WhatsApp. Negocio de ejemplo.">
+<title>Áurea Joyería (demo)</title>
+<meta name="description" content="Demo de ZOLKO: joyería que resuelve dudas por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&amp;family=Jost:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/giro.css">
+<link rel="preload" as="image" href="../assets/fotos/joyeria.webp" fetchpriority="high">
 <style>
-  /* =================================================================
-     IDENTIDAD DEL NEGOCIO · cambia aquí colores y tipografías
-     ================================================================= */
+  /* Identidad del negocio de ejemplo (colores y fuentes) */
   :root {
     --c-bg: #faf7f2;          /* marfil */
     --c-surface: #f1ebe1;
@@ -31,27 +31,17 @@
     --font-body: "Jost", system-ui, sans-serif;
     --radius: 4px;
     --radius-btn: 2px;
+    --c-surface-2: #fffdf9;
   }
-  .hero { background: radial-gradient(90% 70% at 85% 20%, #efe2c7 0%, transparent 65%); }
-  .hero h1 { font-weight: 600; font-size: clamp(2.4rem, 9vw, 4.4rem); }
-  .hero h1 em { color: var(--c-gold-text); }
-  .section h2 { font-weight: 600; font-size: clamp(1.9rem, 5vw, 2.9rem); }
-  .eyebrow { color: var(--c-gold-text); letter-spacing: .22em; }
-  .section--dark .eyebrow { color: var(--c-accent); }
-  .btn { letter-spacing: .08em; text-transform: uppercase; font-size: .88rem; font-weight: 600; }
-  .card { padding: 0 0 20px; overflow: hidden; }
-  .card > :not(.card__art) { padding-inline: 20px; }
-  .card__art { border-radius: 0; margin: 0 0 8px; }
-  .card h3 { font-size: 1.5rem; }
-  .shine { animation: shine 3.5s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
-  @keyframes shine { 0%,100% { opacity: .2; transform: scale(.7); } 50% { opacity: 1; transform: scale(1); } }
+  .g-hero { --hero-pos: center 45%; }
 </style>
 <script>
+  /* Lo que la banda de demo explica en el panel "Ver qué está simulado" */
   window.DEMO_CONFIG = {
     negocio: "Áurea Joyería (joyería de ejemplo)",
     simulado: [
       "Los precios son de ejemplo (pesos mexicanos).",
-      "El negocio, el catálogo y las piezas son de ejemplo (ilustraciones, no fotos).",
+      "El negocio, el catálogo y las piezas son de ejemplo (las fotos son ilustrativas, generadas para la demo).",
       "Los botones de WhatsApp usan el número de ejemplo +5200000000000.",
       "El formulario no envía ni guarda datos: solo muestra una confirmación simulada.",
       "Disponibilidad, tallas y apartados no están conectados a un inventario."
@@ -65,188 +55,102 @@
   };
 </script>
 </head>
-<body>
+<body class="g-body">
 
-<header class="site-header">
-  <div class="container site-header__inner">
-    <a class="brand" href="#inicio" aria-label="Áurea Joyería, inicio">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#1a1714"/><circle cx="20" cy="23" r="8" fill="none" stroke="#c7a35a" stroke-width="2.4"/><path d="M15 12l5-5 5 5-5 4z" fill="#f6ecd6"/></svg>
-      <span>Áurea<small>Joyería</small></span>
-    </a>
-    <a class="btn btn--header" href="#catalogo">Catálogo</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
-    <nav class="site-nav" id="menu" aria-label="Secciones">
-      <ul>
-        <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#beneficios">Por qué Áurea</a></li>
-        <li><a href="#como-comprar">Cómo comprar</a></li>
-        <li><a href="#preguntas">Preguntas</a></li>
-        <li><a href="#buscar">Busco una pieza</a></li>
-      </ul>
-    </nav>
+<header class="g-head">
+  <div class="g-head__in">
+    <a class="g-brand" href="#inicio" aria-label="Áurea, inicio"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#1a1714"/><circle cx="20" cy="23" r="8" fill="none" stroke="#c7a35a" stroke-width="2.4"/><path d="M15 12l5-5 5 5-5 4z" fill="#f6ecd6"/></svg><span>Áurea</span></a>
+    <a class="btn btn--wa" href="#" data-wa="Hola, Áurea. Quiero ver opciones de joyería.">Preguntar por WhatsApp</a>
   </div>
 </header>
 
-<main id="inicio">
-  <section class="hero">
-    <div class="container hero__grid">
-      <div class="reveal">
-        <span class="eyebrow">Joyería fina</span>
-        <h1>Elige tu pieza aquí. <em>Resolvemos tus dudas</em> por WhatsApp antes de que vayas.</h1>
-        <p class="lead">¿La tienen en mi talla? ¿Es oro de verdad? ¿Me la pueden apartar? Pregúntanos por la pieza que te gustó y te respondemos con fotos y disponibilidad.</p>
-        <div class="hero__actions">
-          <a class="btn" href="#catalogo">Ver catálogo</a>
-          <a class="link-arrow" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Quiero ver opciones de joyería.">O escríbenos por WhatsApp</a>
-        </div>
+<main id="contenido">
+  <section class="g-hero" id="inicio">
+    <img class="g-hero__img" src="../assets/fotos/joyeria.webp" alt="" width="1280" height="720" fetchpriority="high">
+    <div class="g-hero__in">
+      <span class="g-eyebrow">Joyería en oro y plata</span>
+      <h1>La pieza perfecta, <em>sin dudas.</em></h1>
+      <p>Elige aquí y te resolvemos tallas, precios y disponibilidad por WhatsApp antes de que vayas.</p>
+      <div class="g-acts">
+        <a class="btn btn--wa" href="#" data-wa="Hola, Áurea. Quiero ver opciones de joyería."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Preguntar por WhatsApp</a>
+        <a class="btn g-ghost" href="#piezas">Ver piezas</a>
       </div>
-      <div class="hero__art reveal" aria-hidden="true">
-        <svg viewBox="0 0 400 340">
-          <defs>
-            <linearGradient id="j-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc9c"/><stop offset=".5" stop-color="#c7a35a"/><stop offset="1" stop-color="#8a6a2b"/></linearGradient>
-            <linearGradient id="j-gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd9e6"/></linearGradient>
-          </defs>
-          <rect x="40" y="40" width="320" height="280" rx="160" fill="#efe2c7"/>
-          <ellipse cx="200" cy="300" rx="120" ry="14" fill="#1a1714" opacity=".08"/>
-          <circle cx="200" cy="205" r="78" fill="none" stroke="url(#j-gold)" stroke-width="18"/>
-          <path d="M160 128l20-28h40l20 28-40 34z" fill="url(#j-gem)" stroke="#9aa9bb" stroke-width="2"/>
-          <path d="M160 128h80M180 100l20 28 20-28M200 128v34" stroke="#9aa9bb" stroke-width="1.5" fill="none"/>
-          <path class="shine" d="M262 92l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#c7a35a"/>
-          <path class="shine" style="animation-delay:-1.7s" d="M120 150l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#c7a35a"/>
-        </svg>
-      </div>
+      <ul class="g-chips"><li>Te asesoramos sin presión</li><li>Fotos reales por WhatsApp</li><li>Grabado disponible</li></ul>
     </div>
   </section>
 
-  <section class="section section--alt" id="nosotros">
-    <div class="container about reveal">
-      <div>
-        <span class="eyebrow">La casa</span>
-        <h2>Piezas para momentos que se recuerdan.</h2>
+  <section class="g-dark g-sec" id="piezas" aria-labelledby="t-cards">
+    <div class="g-sec__in">
+      <h2 id="t-cards">Piezas destacadas</h2>
+      <p class="g-sec__sub">Toca “Preguntar” y te mandamos fotos, tallas y disponibilidad.</p>
+      <div class="g-rail">
+        <article class="g-card reveal" style="--d:0">
+          <div class="g-card__img"><img src="../assets/fotos/joyeria-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Compromiso</span>
+          <div class="g-card__body"><h3>Anillo solitario</h3><p>Oro amarillo con piedra central. Ajuste de talla disponible.</p>
+            <div class="g-card__foot"><span class="g-price">$8,900</span><a class="g-mini" href="#" data-wa="Hola, Áurea. Me interesa el anillo solitario. ¿Lo tienen disponible y en qué tallas?"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:1">
+          <div class="g-card__img"><img src="../assets/fotos/arracadas-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Diario</span>
+          <div class="g-card__body"><h3>Arracadas clásicas</h3><p>Oro amarillo, ligeras para usar todos los días.</p>
+            <div class="g-card__foot"><span class="g-price">$2,450</span><a class="g-mini" href="#" data-wa="Hola, Áurea. Me interesan las arracadas clásicas."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:2">
+          <div class="g-card__img"><img src="../assets/fotos/collar-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Regalo</span>
+          <div class="g-card__body"><h3>Collar con dije</h3><p>Cadena fina con dije de piedra. Se puede grabar una inicial.</p>
+            <div class="g-card__foot"><span class="g-price">$3,200</span><a class="g-mini" href="#" data-wa="Hola, Áurea. Me interesa el collar con dije."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:3">
+          <div class="g-card__img"><img src="../assets/fotos/pulsera-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Plata</span>
+          <div class="g-card__body"><h3>Pulsera tejida</h3><p>Plata con tejido artesanal y broche de seguridad.</p>
+            <div class="g-card__foot"><span class="g-price">$1,350</span><a class="g-mini" href="#" data-wa="Hola, Áurea. Me interesa la pulsera tejida."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
       </div>
-      <div>
-        <p>En Áurea seleccionamos joyería en oro y plata para compromisos, aniversarios y regalos que se quedan. Te asesoramos sin presión: primero entendemos qué buscas y para quién, después te mostramos opciones.</p>
-        <ul class="chips" aria-label="Ocasiones"><li>Compromiso</li><li>Aniversario</li><li>Regalo</li><li>Para ti</li></ul>
-      </div>
+      <p class="g-swipe" aria-hidden="true">Desliza para ver más →</p>
     </div>
   </section>
 
-  <section class="section" id="catalogo">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Catálogo</span>
-        <h2>Piezas destacadas</h2>
-        <p class="lead">Toca “Preguntar por esta pieza” y te respondemos con fotos reales, talla y disponibilidad.</p>
-      </div>
-      <div class="cards">
-        <article class="card reveal">
-          <div class="card__art"><svg viewBox="0 0 300 200" aria-hidden="true"><rect width="300" height="200" fill="#f1ebe1"/><circle cx="150" cy="118" r="44" fill="none" stroke="url(#j-gold)" stroke-width="11"/><path d="M128 74l10-14h24l10 14-22 18z" fill="url(#j-gem)" stroke="#9aa9bb"/></svg></div>
-          <span class="tag">Compromiso</span>
-          <h3>Anillo solitario</h3>
-          <p>Oro amarillo con piedra central. Ajuste de talla disponible.</p><p class="price-tag">$8,900</p>
-          <div class="card__foot"><a class="btn btn--wa btn--block" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Me interesa el anillo solitario. ¿Lo tienen disponible y en qué tallas?">Preguntar por esta pieza</a></div>
-        </article>
-        <article class="card reveal">
-          <div class="card__art"><svg viewBox="0 0 300 200" aria-hidden="true"><rect width="300" height="200" fill="#f1ebe1"/><circle cx="110" cy="105" r="36" fill="none" stroke="url(#j-gold)" stroke-width="8"/><circle cx="190" cy="105" r="36" fill="none" stroke="url(#j-gold)" stroke-width="8"/></svg></div>
-          <span class="tag">Diario</span>
-          <h3>Arracadas clásicas</h3>
-          <p>Oro amarillo, ligeras para usar todos los días.</p><p class="price-tag">$2,450</p>
-          <div class="card__foot"><a class="btn btn--wa btn--block" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Me interesan las arracadas clásicas. ¿Las tienen disponibles?">Preguntar por esta pieza</a></div>
-        </article>
-        <article class="card reveal">
-          <div class="card__art"><svg viewBox="0 0 300 200" aria-hidden="true"><rect width="300" height="200" fill="#f1ebe1"/><path d="M70 40c10 70 50 100 80 100s70-30 80-100" fill="none" stroke="url(#j-gold)" stroke-width="4"/><path d="M150 140l14 18-14 18-14-18z" fill="url(#j-gem)" stroke="#9aa9bb"/></svg></div>
-          <span class="tag">Regalo</span>
-          <h3>Collar con dije</h3>
-          <p>Cadena fina con dije de piedra. Se puede grabar una inicial.</p><p class="price-tag">$3,200</p>
-          <div class="card__foot"><a class="btn btn--wa btn--block" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Me interesa el collar con dije. ¿Se puede grabar una inicial?">Preguntar por esta pieza</a></div>
-        </article>
-        <article class="card reveal">
-          <div class="card__art"><svg viewBox="0 0 300 200" aria-hidden="true"><rect width="300" height="200" fill="#f1ebe1"/><ellipse cx="150" cy="100" rx="80" ry="34" fill="none" stroke="#b9bec6" stroke-width="10"/><ellipse cx="150" cy="100" rx="80" ry="34" fill="none" stroke="#e8ebef" stroke-width="3" stroke-dasharray="6 8"/></svg></div>
-          <span class="tag">Plata</span>
-          <h3>Pulsera tejida</h3>
-          <p>Plata con tejido artesanal y broche de seguridad.</p><p class="price-tag">$1,350</p>
-          <div class="card__foot"><a class="btn btn--wa btn--block" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Me interesa la pulsera tejida de plata. ¿Está disponible?">Preguntar por esta pieza</a></div>
-        </article>
-      </div>
-      <p class="price-note reveal">Precios de ejemplo en pesos mexicanos.</p>
-    </div>
-  </section>
-
-  <section class="section section--dark" id="beneficios">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Por qué Áurea</span>
-        <h2>Compras con calma y con todas tus dudas resueltas.</h2>
-      </div>
-      <ul class="benefits">
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></span><div><h3>Respuesta con fotos</h3><p>Te mandamos fotos reales de la pieza antes de que vengas.</p></div></li>
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18"/></svg></span><div><h3>Material garantizado</h3><p>Cada pieza se entrega con su certificado del material.</p></div></li>
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="9" width="16" height="12" rx="1"/><path d="M12 9v12M4 13h16M12 9c-2-4-6-4-6-1s6 1 6 1 6 2 6-1-4-3-6 1"/></svg></span><div><h3>Lista para regalar</h3><p>Pregunta por empaque y tarjeta con tu mensaje.</p></div></li>
-        <li class="benefit reveal"><span class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><div><h3>Asesoría sin presión</h3><p>Te ayudamos a elegir según la ocasión y el estilo.</p></div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section" id="como-comprar">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Cómo comprar</span>
-        <h2>De la pantalla a tus manos</h2>
-      </div>
-      <ol class="steps" style="--steps:4">
-        <li class="reveal"><h3>Ve el catálogo</h3><p>Elige la pieza que te gustó.</p></li>
-        <li class="reveal"><h3>Pregunta por WhatsApp</h3><p>Te respondemos con fotos, talla y disponibilidad.</p></li>
-        <li class="reveal"><h3>Apártala</h3><p>Te explicamos cómo apartar tu pieza.</p></li>
-        <li class="reveal"><h3>Recógela</h3><p>En tienda o por envío asegurado.</p></li>
+  <section class="g-sec" aria-labelledby="t-pasos">
+    <div class="g-sec__in">
+      <h2 id="t-pasos">Así de fácil</h2>
+      <p class="g-sec__sub">Todo por WhatsApp, sin llamadas ni apps.</p>
+      <ol class="g-steps">
+          <li class="reveal" style="--d:0"><div><b>Eliges tu pieza</b><span>O nos dices qué buscas.</span></div></li>
+          <li class="reveal" style="--d:1"><div><b>Te mandamos opciones</b><span>Fotos, tallas y precio.</span></div></li>
+          <li class="reveal" style="--d:2"><div><b>Pasas por ella</b><span>Ya sabiendo qué llevas.</span></div></li>
       </ol>
     </div>
   </section>
 
-  <section class="section section--alt" id="preguntas">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2>Lo que nos preguntan antes de comprar</h2>
-      </div>
-      <div class="faq reveal">
-        <details><summary>¿Hacen ajuste de talla?</summary><div class="faq__a"><p>Sí, en anillos. Pregúntanos por la pieza y te decimos el tiempo y las condiciones.</p></div></details>
-        <details><summary>¿Cómo sé que el material es auténtico?</summary><div class="faq__a"><p>Cada pieza se entrega con su certificado del material y nota de compra.</p></div></details>
-        <details><summary>¿Puedo apartar una pieza?</summary><div class="faq__a"><p>Sí. Escríbenos por WhatsApp y te explicamos cómo apartarla.</p></div></details>
-        <details><summary>¿Hacen grabado?</summary><div class="faq__a"><p>En dijes y algunos anillos. Dinos qué pieza te interesa y lo confirmamos.</p></div></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--dark" id="buscar">
-    <div class="container form-wrap">
-      <div class="reveal">
-        <span class="eyebrow">¿No la encontraste?</span>
-        <h2>Dinos qué pieza buscas y te mandamos opciones.</h2>
-        <p class="lead">Tres datos y te escribimos por WhatsApp con fotos.</p>
+  <section class="g-sec" id="agendar" aria-labelledby="form-titulo" style="padding-top:0">
+    <div class="g-sec__in g-form">
+      <div>
+        <h2 id="form-titulo">Cuéntanos qué buscas</h2>
+        <p class="g-sec__sub">Te mandamos opciones por WhatsApp.</p>
+        <p class="g-alt">¿Prefieres escribir directo? <a class="link-arrow" href="#" data-wa="Hola, Áurea. Quiero ver opciones de joyería.">Abrir WhatsApp →</a></p>
       </div>
       <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
-        <h3 id="form-titulo" class="sr-only">Formulario para pedir opciones de joyería</h3>
-        <div class="field">
-          <label for="j-whatsapp">Tu WhatsApp</label>
-          <input id="j-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="j-whatsapp-hint j-whatsapp-error">
-          <p class="hint" id="j-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
-          <p class="field__error" id="j-whatsapp-error" aria-live="polite"></p>
-        </div>
-        <div class="field">
-          <label for="j-pieza">¿Qué pieza buscas?</label>
-          <input id="j-pieza" name="pieza" type="text" required data-msg="Cuéntanos qué pieza buscas." aria-describedby="j-pieza-hint j-pieza-error">
-          <p class="hint" id="j-pieza-hint">Ejemplo: anillo de compromiso en oro blanco.</p>
-          <p class="field__error" id="j-pieza-error" aria-live="polite"></p>
-        </div>
-        <div class="field">
-          <label for="j-cuando">¿Para cuándo la necesitas?</label>
-          <select id="j-cuando" name="cuando" required data-msg="Elige para cuándo la necesitas." aria-describedby="j-cuando-error">
-            <option value="">Elige una opción</option>
-            <option>Esta semana</option>
-            <option>Este mes</option>
-            <option>Sin prisa</option>
-          </select>
-          <p class="field__error" id="j-cuando-error" aria-live="polite"></p>
-        </div>
+          <div class="field">
+            <label for="j-whatsapp">Tu WhatsApp</label>
+            <input id="j-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="j-whatsapp-error j-whatsapp-hint">
+            <p class="hint" id="j-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+            <p class="field__error" id="j-whatsapp-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="j-pieza">¿Qué pieza buscas?</label>
+            <input id="j-pieza" name="pieza" type="text" required data-msg="Cuéntanos qué pieza buscas." aria-describedby="j-pieza-error j-pieza-hint">
+            <p class="hint" id="j-pieza-hint">Ejemplo: anillo de compromiso en oro blanco.</p>
+            <p class="field__error" id="j-pieza-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="j-cuando">¿Para cuándo la necesitas?</label>
+            <select id="j-cuando" name="cuando" required data-msg="Elige para cuándo la necesitas." aria-describedby="j-cuando-error"><option value="">Elige una opción</option><option>Esta semana</option><option>Este mes</option><option>Sin prisa</option></select>
+            
+            <p class="field__error" id="j-cuando-error" aria-live="polite"></p>
+          </div>
         <button class="btn btn--block" type="submit">Quiero ver opciones</button>
         <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se envió ni se guardó ningún dato.</span></div>
         <p class="form-legal">Demo: este formulario no envía información.</p>
@@ -255,37 +159,12 @@
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <h2>Áurea Joyería</h2>
-      <p>Joyería fina en oro y plata. Negocio de ejemplo creado por ZOLKO para demostración.</p>
-      <a class="btn btn--wa" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Quiero ver opciones de joyería.">Escribir por WhatsApp</a>
-    </div>
-    <div>
-      <h3>Secciones</h3>
-      <ul><li><a href="#catalogo">Catálogo</a></li><li><a href="#como-comprar">Cómo comprar</a></li><li><a href="#preguntas">Preguntas</a></li><li><a href="#buscar">Busco una pieza</a></li></ul>
-    </div>
-    <div>
-      <h3>Ubicación</h3>
-      <div class="map-sim">
-        <span class="map-sim__label">MAPA DE EJEMPLO · NO ES UNA UBICACIÓN REAL</span>
-        <svg viewBox="0 0 320 160" aria-label="Ilustración de mapa, no es una ubicación real" role="img"><rect width="320" height="160" fill="#2a2520"/><path d="M0 70h320M0 130h320M60 0v160M180 0v160M300 0L220 160" stroke="#3d362f" stroke-width="10"/><path d="M180 52a12 12 0 0 1 12 12c0 9-12 22-12 22s-12-13-12-22a12 12 0 0 1 12-12z" fill="#c7a35a"/></svg>
-      </div>
-      <p style="margin-top:10px">Dirección y horario según el negocio</p>
-    </div>
-  </div>
-  <div class="container footer-bottom">
-    <span>Áurea Joyería es un negocio de ejemplo.</span>
-    <span>Demo hecha por ZOLKO INTEGRATIONS</span>
-  </div>
+<footer class="g-foot">
+  <div class="g-foot__in"><b>Áurea</b><span>Negocio de ejemplo · Página hecha por ZOLKO INTEGRATIONS</span></div>
 </footer>
 
-<div class="mobile-cta">
-  <a class="btn btn--wa" href="https://wa.me/5200000000000" data-wa="Hola, Áurea. Quiero ver opciones de joyería.">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
-    Preguntar por WhatsApp
-  </a>
+<div class="mobile-cta" role="region" aria-label="Acción rápida">
+  <a class="btn btn--wa" href="#" data-wa="Hola, Áurea. Quiero ver opciones de joyería."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Preguntar por WhatsApp</a>
 </div>
 
 <script src="../assets/demo-base.js"></script>
