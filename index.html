@@ -73,7 +73,7 @@ button { font: inherit; color: inherit; }
 /* ---------- Tipografía: serif elegante, romana + cursiva ---------- */
 h1, h2 { font-family: var(--f-serif); font-weight: 400; line-height: .98; letter-spacing: -.015em; margin: 0 0 18px; text-wrap: balance; overflow-wrap: break-word; }
 h1 em, h2 em { font-style: italic; color: var(--lavanda); }
-h1 { font-size: clamp(3.1rem, 7.4vw, 5.8rem); }
+h1 { font-size: clamp(3.1rem, 7.2vw, 5.4rem); }
 h2 { font-size: clamp(2.4rem, 6vw, 4.6rem); }
 h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-height: 1.25; margin: 0 0 6px; }
 .lead { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--lavanda); max-width: 640px; margin: 0; }
@@ -165,7 +165,31 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
   radial-gradient(70% 50% at 50% -10%, rgba(124, 92, 255, .45), transparent 70%),
   linear-gradient(90deg, rgba(5, 5, 5, .7), transparent 60%); }
 .hero__in { position: relative; display: grid; gap: 34px; align-items: end; }
-@media (min-width: 1000px) { .hero__in { grid-template-columns: 1fr 340px; gap: 48px; } }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: minmax(0, 1fr) 460px; gap: 36px; } }
+/* Celular en vivo del inicio + tarjeta de vidrio encimada */
+.hero__vis { position: relative; display: grid; gap: 34px; justify-items: center; }
+.hero__phone { position: relative; width: min(250px, 64vw); animation: flotar 7s ease-in-out infinite; }
+@keyframes flotar { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
+.hero__glow { position: absolute; inset: 8% -30% -8%; z-index: -1; background: radial-gradient(50% 50% at 50% 50%, rgba(124, 92, 255, .6), transparent 70%); filter: blur(24px); }
+@media (min-width: 1000px) {
+  .hero__vis { display: block; height: 560px; }
+  .hero__phone { position: absolute; right: 18px; top: 0; width: 250px; }
+  .hero__vis .hcard { position: absolute; left: -60px; bottom: 0; width: 262px; padding: 18px 18px 14px; z-index: 3; }
+  .hero__vis .hcard__num strong { font-size: 4.4rem; }
+  .hero__vis .hcard li { font-size: .86rem; }
+}
+.chip { position: absolute; z-index: 4; font: 700 10.5px var(--f-mono); letter-spacing: .08em; background: rgba(12, 12, 18, .9); border: 1px solid rgba(169, 147, 255, .4); border-radius: 999px; padding: 7px 12px; white-space: nowrap; backdrop-filter: blur(8px); box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .9); }
+.chip b { color: var(--lima); }
+.chip.c1 { left: -46px; top: 28%; } .chip.c2 { right: -38px; top: 58%; }
+@media (max-width: 600px) { .chip.c1 { left: -22px; } .chip.c2 { right: -18px; } }
+.chip.pop { animation: pop .6s var(--ease-out) both; }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.85); filter: blur(4px); } }
+/* Dos videos encimados: el nuevo entra con fundido, acercamiento y barrido de luz */
+.vid2 video { position: absolute; left: 0; right: 0; bottom: 0; top: 28px; width: 100%; height: calc(100% - 28px); object-fit: cover; opacity: 0; transform: scale(1.08); filter: blur(10px) saturate(1.4); transition: opacity .75s var(--ease), transform 1.1s var(--ease-out), filter .75s var(--ease); }
+.vid2 video.is-on { opacity: 1; transform: none; filter: none; }
+.barrido { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(105deg, transparent 30%, rgba(169, 147, 255, .5) 47%, rgba(244, 244, 247, .65) 50%, rgba(169, 147, 255, .5) 53%, transparent 70%); transform: translateX(-130%); mix-blend-mode: screen; }
+.barrido.go { animation: barrer 1s var(--ease-out); }
+@keyframes barrer { to { transform: translateX(130%); } }
 .hero__eyebrow { margin-bottom: 22px; }
 .hero h1 { margin-bottom: 22px; }
 .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
@@ -261,6 +285,7 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
 .piso__num { font: 700 11px var(--f-mono); color: rgba(183, 178, 217, .6); letter-spacing: .08em; }
 .piso__nombre { font: 400 clamp(1.15rem, 2.3vw, 1.45rem)/1.1 var(--f-serif); color: var(--blanco); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .piso__grupo { font: 700 9.5px var(--f-mono); letter-spacing: .14em; color: var(--lavanda); opacity: .75; justify-self: end; }
+.piso__barra { position: absolute; left: 0; bottom: -1px; height: 2px; width: var(--p, 0%); border-radius: 0 2px 2px 0; background: linear-gradient(90deg, var(--violeta), var(--lima)); box-shadow: 0 0 10px var(--violeta); }
 .piso__ventanas { grid-column: 1 / -1; display: flex; gap: 5px; margin-top: 4px; }
 .piso__ventanas i { flex: 1; height: 5px; border-radius: 2px; background: rgba(183, 178, 217, .08); transition: background .5s, box-shadow .5s; transition-delay: calc(var(--n) * 110ms + var(--w, 0ms)); }
 .piso__ventanas i:nth-child(2) { --w: 40ms; } .piso__ventanas i:nth-child(3) { --w: 80ms; } .piso__ventanas i:nth-child(4) { --w: 120ms; } .piso__ventanas i:nth-child(5) { --w: 160ms; } .piso__ventanas i:nth-child(6) { --w: 200ms; } .piso__ventanas i:nth-child(7) { --w: 240ms; } .piso__ventanas i:nth-child(8) { --w: 280ms; }
@@ -288,6 +313,12 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
 .piso__det > div { overflow: hidden; }
 .piso.is-open .piso__det { grid-template-rows: 1fr; }
 .piso__det-in { padding: 14px 6px 10px; display: grid; gap: 8px; }
+.phone.piso__fone { width: 132px; float: right; margin: 0 0 8px 14px; border-radius: 24px; padding: 6px; }
+.phone.piso__fone::before { top: 11px; height: 12px; }
+.piso__fone .phone__screen { border-radius: 19px; padding-top: 20px; }
+.piso__fone .phone__screen::before { top: 4px; font-size: 8px; }
+.piso__fone .phone__screen::after { top: 6px; width: 15px; height: 7px; box-shadow: inset -6px 0 0 rgba(255, 255, 255, .85); }
+.piso__det-in { display: block; } .piso__det-in > p { margin-bottom: 10px; } .piso__acts { clear: both; }
 .piso__det p { margin: 0; color: var(--lavanda); font-size: .95rem; }
 .piso__det p b { display: block; font: 700 10px var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--violeta-claro); margin-bottom: 2px; }
 .piso__acts { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; margin-top: 4px; }
@@ -306,8 +337,6 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
 .ppanel__txt { min-width: 0; }
 .ppanel__txt > * { transition: opacity .35s var(--ease), transform .45s var(--ease-out), filter .35s; }
 .ppanel.is-swap .ppanel__txt > * { opacity: 0; transform: translateY(10px); filter: blur(4px); transition-duration: .18s; }
-.ppanel.is-swap .phone__screen video { opacity: .25; }
-.ppanel .phone__screen video { transition: opacity .3s; }
 .ppanel .tag { margin-bottom: 0; }
 
 /* Celular (marco reutilizable) */
@@ -434,6 +463,21 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
           <a class="hero__baja" href="#problema" aria-label="Bajar a la siguiente sección"><i aria-hidden="true"></i>Desliza</a>
         </div>
       </div>
+      <div class="hero__vis">
+        <figure class="hero__phone fade" style="--t:.45s;margin:0">
+          <div class="hero__glow" aria-hidden="true"></div>
+          <div class="phone">
+            <div class="phone__screen vid2" id="heroScreen">
+              <video class="is-on" muted playsinline preload="auto" poster="videos/menu.jpg" aria-label="Demos de ZOLKO funcionando en un celular"></video>
+              <video muted playsinline preload="none" aria-hidden="true"></video>
+              <span class="barrido" aria-hidden="true"></span>
+            </div>
+            <span class="phone__label" id="heroLabel" aria-live="polite">En vivo · Menú digital</span>
+          </div>
+          <span class="chip c1" aria-hidden="true" id="heroChip1"><b>+1</b> PEDIDO</span>
+          <span class="chip c2" aria-hidden="true" id="heroChip2">LISTO EN <b>WHATSAPP</b></span>
+          <figcaption class="sr-only">Video: demos de ZOLKO grabadas en un celular. Son negocios de ejemplo.</figcaption>
+        </figure>
       <aside class="hcard" aria-label="Resumen del sistema ZOLKO">
         <div class="hcard__tag"><span>SISTEMA_ZOLKO</span><b>EN VIVO</b></div>
         <div class="hcard__num"><strong>9</strong><span>pisos,<br>un solo sistema</span></div>
@@ -444,6 +488,7 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
         </ul>
         <a class="hcard__go" href="#sistema">RECORRE LA TORRE <span aria-hidden="true">↓</span></a>
       </aside>
+      </div>
     </div>
   </section>
 
@@ -499,10 +544,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:1" data-key="contenido" data-demo="demos/contenido.html">
               <button class="piso__btn" type="button" id="piso-contenido" aria-expanded="false" aria-controls="det-contenido ppanel">
                 <span class="piso__num">01</span><span class="piso__nombre">Contenido</span><span class="piso__grupo">ATRAER</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Publicaciones que terminan en WhatsApp.</span>
               </button>
               <div class="piso__det" id="det-contenido" role="region" aria-labelledby="piso-contenido"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/contenido.jpg" data-src="videos/loop-contenido.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Tu semana planeada: reels, carruseles e historias con un fin: que te escriban.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Publicas sin saber qué decir y nadie te escribe.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="contenido" data-video-title="Contenido" data-video-demo="demos/contenido.html">▶ Ver cómo funciona</button><a class="link" href="demos/contenido.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -511,10 +557,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:2" data-key="web" data-demo="demos/restaurante.html">
               <button class="piso__btn" type="button" id="piso-web" aria-expanded="false" aria-controls="det-web ppanel">
                 <span class="piso__num">02</span><span class="piso__nombre">Páginas web</span><span class="piso__grupo">ATRAER</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Una página clara que lleva a escribirte.</span>
               </button>
               <div class="piso__det" id="det-web" role="region" aria-labelledby="piso-web"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/web.jpg" data-src="videos/loop-web.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Una página pensada primero para celular, con el botón de WhatsApp y el mensaje ya escrito.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Entran a tu página, no entienden qué hacer y se van.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="web" data-video-title="Páginas web" data-video-demo="demos/restaurante.html">▶ Ver cómo funciona</button><a class="link" href="demos/restaurante.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -523,10 +570,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:3" data-key="sucursal" data-demo="demos/landing-sucursal.html">
               <button class="piso__btn" type="button" id="piso-sucursal" aria-expanded="false" aria-controls="det-sucursal ppanel">
                 <span class="piso__num">03</span><span class="piso__nombre">Página por sucursal</span><span class="piso__grupo">ATRAER</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">NFC y QR en el mostrador, con reseñas y WhatsApp.</span>
               </button>
               <div class="piso__det" id="det-sucursal" role="region" aria-labelledby="piso-sucursal"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/sucursal.jpg" data-src="videos/loop-sucursal.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Cada sucursal con su página: reseñas de Google, redes y WhatsApp, que se abre con NFC o QR desde el mostrador.</p>
                 <p class="piso__res"><b>Qué resuelve</b>No te encuentran y tus clientes contentos no dejan reseña.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="sucursal" data-video-title="Página por sucursal" data-video-demo="demos/landing-sucursal.html">▶ Ver cómo funciona</button><a class="link" href="demos/landing-sucursal.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -535,10 +583,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:4" data-key="nfc" data-demo="demos/tarjeta-digital.html">
               <button class="piso__btn" type="button" id="piso-nfc" aria-expanded="false" aria-controls="det-nfc ppanel">
                 <span class="piso__num">04</span><span class="piso__nombre">Tarjeta digital NFC</span><span class="piso__grupo">ATRAER</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Acercan el celular y guardan tu contacto.</span>
               </button>
               <div class="piso__det" id="det-nfc" role="region" aria-labelledby="piso-nfc"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/nfc.jpg" data-src="videos/loop-nfc.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Una tarjeta que no se pierde en un cajón: con un toque guardan tu contacto, te escriben o te siguen.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Tu tarjeta de papel termina olvidada.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="nfc" data-video-title="Tarjeta digital NFC" data-video-demo="demos/tarjeta-digital.html">▶ Ver cómo funciona</button><a class="link" href="demos/tarjeta-digital.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -547,10 +596,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:5" data-key="whatsapp" data-demo="demos/automatizacion.html">
               <button class="piso__btn" type="button" id="piso-whatsapp" aria-expanded="false" aria-controls="det-whatsapp ppanel">
                 <span class="piso__num">05</span><span class="piso__nombre">WhatsApp que contesta</span><span class="piso__grupo">CONTESTAR</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Responde al momento y agenda por ti.</span>
               </button>
               <div class="piso__det" id="det-whatsapp" role="region" aria-labelledby="piso-whatsapp"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/whatsapp.jpg" data-src="videos/loop-whatsapp.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Contesta con tus palabras, pregunta lo necesario y aparta la cita, aunque estés ocupado.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Contestas tarde y el cliente ya le compró a otro.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="whatsapp" data-video-title="WhatsApp que contesta" data-video-demo="demos/automatizacion.html">▶ Ver cómo funciona</button><a class="link" href="demos/automatizacion.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -559,10 +609,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:6" data-key="menu" data-demo="demos/menu-digital.html">
               <button class="piso__btn" type="button" id="piso-menu" aria-expanded="false" aria-controls="det-menu ppanel">
                 <span class="piso__num">06</span><span class="piso__nombre">Menú digital</span><span class="piso__grupo">VENDER</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Escanean el QR y te llega el pedido armado.</span>
               </button>
               <div class="piso__det" id="det-menu" role="region" aria-labelledby="piso-menu"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/menu.jpg" data-src="videos/loop-menu.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Tu cliente elige desde la mesa y el pedido te llega por WhatsApp, con total y forma de entrega.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Todo depende de que tú tomes cada pedido.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="menu" data-video-title="Menú digital" data-video-demo="demos/menu-digital.html">▶ Ver cómo funciona</button><a class="link" href="demos/menu-digital.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -571,10 +622,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:7" data-key="arm" data-demo="demos/arm.html">
               <button class="piso__btn" type="button" id="piso-arm" aria-expanded="false" aria-controls="det-arm ppanel">
                 <span class="piso__num">07</span><span class="piso__nombre">ARM · agente de clientes</span><span class="piso__grupo">SEGUIMIENTO</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Mueve a cada cliente de etapa y te dice cuándo escribirle.</span>
               </button>
               <div class="piso__det" id="det-arm" role="region" aria-labelledby="piso-arm"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/arm.jpg" data-src="videos/loop-arm.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Un agente de IA lee cada conversación, cambia al cliente de etapa y te dice cuándo contactarlo.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Cotizas y nadie da seguimiento.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="arm" data-video-title="ARM · agente de clientes" data-video-demo="demos/arm.html">▶ Ver cómo funciona</button><a class="link" href="demos/arm.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -583,10 +635,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:8" data-key="wallet" data-demo="demos/tarjeta-lealtad.html">
               <button class="piso__btn" type="button" id="piso-wallet" aria-expanded="false" aria-controls="det-wallet ppanel">
                 <span class="piso__num">08</span><span class="piso__nombre">Lealtad en Wallet</span><span class="piso__grupo">QUE REGRESEN</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Tarjeta de sellos en su celular, con avisos.</span>
               </button>
               <div class="piso__det" id="det-wallet" role="region" aria-labelledby="piso-wallet"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/wallet.jpg" data-src="videos/loop-wallet.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Se guarda en Apple o Google Wallet sin descargar apps; sumas sellos y mandas avisos a su pantalla.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Te compran una vez y no regresan.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="wallet" data-video-title="Lealtad en Wallet" data-video-demo="demos/tarjeta-lealtad.html">▶ Ver cómo funciona</button><a class="link" href="demos/tarjeta-lealtad.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -595,10 +648,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
             <li class="piso" style="--n:9" data-key="capacitacion" data-demo="demos/capacitacion.html">
               <button class="piso__btn" type="button" id="piso-capacitacion" aria-expanded="false" aria-controls="det-capacitacion ppanel">
                 <span class="piso__num">09</span><span class="piso__nombre">Capacitación</span><span class="piso__grupo">TU EQUIPO</span>
-                <span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="piso__barra" aria-hidden="true"></span><span class="piso__ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
                 <span class="piso__tip" aria-hidden="true">Tu equipo contesta rápido y usa IA con reglas.</span>
               </button>
               <div class="piso__det" id="det-capacitacion" role="region" aria-labelledby="piso-capacitacion"><div><div class="piso__det-in">
+                <div class="piso__fone phone" aria-hidden="true"><div class="phone__screen"><video muted loop playsinline preload="none" poster="videos/capacitacion.jpg" data-src="videos/loop-capacitacion.mp4"></video></div></div>
                 <p class="piso__que"><b>Qué es</b>Un taller práctico para quienes atienden WhatsApp, cotizan y dan seguimiento, con herramientas de IA para su día a día.</p>
                 <p class="piso__res"><b>Qué resuelve</b>Tu equipo contesta lento y cada quien lo hace a su manera.</p>
                 <div class="piso__acts"><button class="play" type="button" data-video="capacitacion" data-video-title="Capacitación" data-video-demo="demos/capacitacion.html">▶ Ver cómo funciona</button><a class="link" href="demos/capacitacion.html">Probar la demo <span aria-hidden="true">→</span></a></div>
@@ -610,7 +664,7 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
 
         <div class="ppanel" id="ppanel" aria-live="polite">
           <div class="phone">
-            <div class="phone__screen"><video id="pVideo" muted loop playsinline preload="none" aria-label="Vista previa de la demo del piso elegido"></video></div>
+            <div class="phone__screen vid2" id="pScreen"><video class="is-on" muted playsinline preload="none" aria-label="Vista previa de la demo del piso elegido"></video><video muted playsinline preload="none" aria-hidden="true"></video><span class="barrido" aria-hidden="true"></span></div>
             <span class="phone__label" id="pLabel">En vivo</span>
           </div>
           <div class="ppanel__txt">
@@ -780,11 +834,82 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
     ["sistema", "giros", "metodo", "diagnostico"].forEach(function (id) { so.observe(document.getElementById(id)); });
   }
 
+  /* ---------- Videos con transición de cine ----------
+     Cada celular tiene dos <video> encimados: el siguiente demo carga
+     detrás y entra con fundido, acercamiento y un barrido de luz violeta. */
+  function Duo(pantalla) {
+    var v = pantalla.querySelectorAll("video"), i = 0, br = pantalla.querySelector(".barrido"), alTerminar = null;
+    Array.prototype.forEach.call(v, function (x, n) {
+      x.addEventListener("ended", function () { if (n === i && alTerminar) alTerminar(); });
+    });
+    return {
+      activo: function () { return v[i]; },
+      alTerminar: function (fn) { alTerminar = fn; },
+      tiene: function () { return !!v[i].getAttribute("src"); },
+      poner: function (key, animar) {
+        var poster = "videos/" + key + ".jpg";
+        if (reduce) { v[i].poster = poster; return; }
+        var viejo = v[i], sig = v[1 - i], hecho = false;
+        sig.poster = poster; sig.src = "videos/loop-" + key + ".mp4";
+        function entrar() {
+          if (hecho) return; hecho = true;
+          sig.removeEventListener("canplay", entrar);
+          sig.currentTime = 0; sig.play().catch(function () {});
+          sig.classList.add("is-on"); viejo.classList.remove("is-on");
+          setTimeout(function () { viejo.pause(); }, 800);
+          i = 1 - i;
+          if (animar && br) { br.classList.remove("go"); void br.offsetWidth; br.classList.add("go"); }
+        }
+        if (sig.readyState >= 3) entrar(); else { sig.addEventListener("canplay", entrar); setTimeout(entrar, 1500); }
+      },
+      play: function () { if (!reduce) v[i].play().catch(function () {}); },
+      pausa: function () { v[0].pause(); v[1].pause(); },
+      repetir: function () { v[i].currentTime = 0; v[i].play().catch(function () {}); }
+    };
+  }
+
+  /* ---------- Celular del inicio: recorre varias demos ---------- */
+  var CICLO = [
+    ["menu", "Menú digital", "<b>+1</b> PEDIDO", "LISTO EN <b>WHATSAPP</b>"],
+    ["wallet", "Lealtad en Wallet", "<b>+1</b> SELLO", "AVISO <b>ENVIADO</b>"],
+    ["whatsapp", "WhatsApp que contesta", "CITA <b>APARTADA</b>", "RESPUESTA <b>AL MOMENTO</b>"],
+    ["sucursal", "Página por sucursal", "<b>NFC</b> + QR", "RESEÑA EN <b>GOOGLE</b>"],
+    ["arm", "ARM · agente de clientes", "ETAPA <b>ACTUALIZADA</b>", "PRÓXIMO <b>CONTACTO</b>"]
+  ];
+  var hDuo = Duo(document.getElementById("heroScreen")), hi = 0;
+  var hl = document.getElementById("heroLabel"), c1 = document.getElementById("heroChip1"), c2 = document.getElementById("heroChip2");
+  function heroPoner(n, animar) {
+    var c = CICLO[n]; hi = n;
+    hDuo.poner(c[0], animar);
+    hl.textContent = "En vivo · " + c[1]; c1.innerHTML = c[2]; c2.innerHTML = c[3];
+    if (!reduce) [c1, c2].forEach(function (ch, k) { ch.classList.remove("pop"); void ch.offsetWidth; ch.style.animationDelay = (k * 160 + 250) + "ms"; ch.classList.add("pop"); });
+  }
+  hDuo.alTerminar(function () { heroPoner((hi + 1) % CICLO.length, true); });
+  heroPoner(0, false);
+  if (hayIO && !reduce) new IntersectionObserver(function (es) { es.forEach(function (e) { e.isIntersecting ? hDuo.play() : hDuo.pausa(); }); }).observe(document.getElementById("heroScreen"));
+
+  /* ---------- Hero: al bajar, el contenido se aleja suave ---------- */
+  var hin = hero.querySelector(".hero__in");
+  if (!reduce) {
+    var tick = false;
+    addEventListener("scroll", function () {
+      if (tick) return; tick = true;
+      requestAnimationFrame(function () {
+        tick = false;
+        var y = scrollY, h = innerHeight;
+        if (y > h * 1.2) return;
+        hin.style.transform = "translateY(" + (y * .2) + "px)";
+        hin.style.opacity = String(Math.max(0, 1 - y / (h * .9)));
+      });
+    }, { passive: true });
+  }
+
   /* ---------- La torre ---------- */
   var torre = document.getElementById("torre");
   var pisos = Array.prototype.slice.call(torre.querySelectorAll(".piso"));
-  var panel = document.getElementById("ppanel"), pv = document.getElementById("pVideo");
-  var actual = null, panelVisible = false;
+  var panel = document.getElementById("ppanel");
+  var pDuo = Duo(document.getElementById("pScreen"));
+  var actual = null, panelVisible = false, fijo = false;
 
   // Se enciende de abajo hacia arriba la primera vez que se ve
   if (hayIO && !reduce) {
@@ -802,8 +927,7 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
       res: d.querySelector(".piso__res").lastChild.textContent.trim()
     };
   }
-  function pintarPanel(p) {
-    var x = datos(p);
+  function textos(x) {
     document.getElementById("pTag").textContent = x.tag;
     document.getElementById("pTitulo").textContent = x.nombre;
     document.getElementById("pQue").textContent = x.que;
@@ -812,26 +936,47 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
     var play = document.getElementById("pPlay");
     play.dataset.video = x.key; play.dataset.videoTitle = x.nombre; play.dataset.videoDemo = x.demo;
     document.getElementById("pDemo").href = x.demo;
-    pv.poster = "videos/" + x.key + ".jpg";
-    if (!reduce && panelVisible) { pv.src = "videos/loop-" + x.key + ".mp4"; pv.play().catch(function () {}); }
-    else pv.removeAttribute("src");
   }
-  function abrir(p, desdeUsuario) {
+  function pintarPanel(p, animar) {
+    var x = datos(p);
+    if (panelVisible || reduce) pDuo.poner(x.key, animar);
+    if (!animar || reduce) { textos(x); return; }
+    panel.classList.add("is-swap");
+    setTimeout(function () { textos(x); panel.classList.remove("is-swap"); }, 200);
+  }
+  function videoCel(p, prender) {
+    var v = p.querySelector(".piso__fone video"); if (!v) return;
+    if (prender && !reduce) { if (!v.getAttribute("src")) v.src = v.dataset.src; v.play().catch(function () {}); }
+    else v.pause();
+  }
+  function abrir(p, animar) {
     if (escritorio.matches) {
       if (p === actual) return;
-      pisos.forEach(function (q) { q.querySelector(".piso__btn").setAttribute("aria-expanded", q === p); });
+      pisos.forEach(function (q) { var b = q.querySelector(".piso__btn"); b.setAttribute("aria-expanded", q === p); b.style.removeProperty("--p"); });
       actual = p;
-      if (reduce || !desdeUsuario) { pintarPanel(p); return; }
-      panel.classList.add("is-swap");
-      setTimeout(function () { pintarPanel(p); panel.classList.remove("is-swap"); }, 190);
+      pintarPanel(p, animar);
     } else {
       var yaAbierto = p.classList.contains("is-open");
-      pisos.forEach(function (q) { q.classList.remove("is-open"); q.querySelector(".piso__btn").setAttribute("aria-expanded", "false"); });
-      if (!yaAbierto) { p.classList.add("is-open"); p.querySelector(".piso__btn").setAttribute("aria-expanded", "true"); actual = p; }
+      pisos.forEach(function (q) { q.classList.remove("is-open"); q.querySelector(".piso__btn").setAttribute("aria-expanded", "false"); videoCel(q, false); });
+      if (!yaAbierto) { p.classList.add("is-open"); p.querySelector(".piso__btn").setAttribute("aria-expanded", "true"); actual = p; videoCel(p, true); }
       else actual = null;
     }
   }
-  pisos.forEach(function (p) { p.querySelector(".piso__btn").addEventListener("click", function () { abrir(p, true); }); });
+  pisos.forEach(function (p) { p.querySelector(".piso__btn").addEventListener("click", function () { fijo = true; abrir(p, true); }); });
+
+  // Recorrido automático: al terminar el video sube al siguiente piso.
+  // Si el visitante eligió un piso, se queda en ese y lo repite.
+  pDuo.alTerminar(function () {
+    if (!escritorio.matches || !actual) return;
+    if (fijo) { pDuo.repetir(); return; }
+    abrir(pisos[(pisos.indexOf(actual) + 1) % pisos.length], true);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("#pScreen video"), function (v) {
+    v.addEventListener("timeupdate", function () {
+      if (v !== pDuo.activo() || !actual || !v.duration) return;
+      actual.querySelector(".piso__btn").style.setProperty("--p", (v.currentTime / v.duration * 100) + "%");
+    });
+  });
 
   // Esc cierra el piso abierto en celular
   addEventListener("keydown", function (e) {
@@ -840,12 +985,11 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
     if (!escritorio.matches && actual) { var b = actual.querySelector(".piso__btn"); abrir(actual, true); b.focus(); }
   });
 
-  // Estado inicial según el tamaño de pantalla
-  var inicial = torre.querySelector('.piso[data-key="whatsapp"]') || pisos[0];
+  // Estado inicial según el tamaño de pantalla (arranca en el piso 1)
   function acomodar() {
-    pisos.forEach(function (q) { q.classList.remove("is-open"); q.querySelector(".piso__btn").setAttribute("aria-expanded", "false"); });
-    actual = null;
-    if (escritorio.matches) abrir(inicial, false);
+    pisos.forEach(function (q) { q.classList.remove("is-open"); q.querySelector(".piso__btn").setAttribute("aria-expanded", "false"); videoCel(q, false); });
+    actual = null; fijo = false;
+    if (escritorio.matches) abrir(pisos[0], false);
   }
   acomodar();
   if (escritorio.addEventListener) escritorio.addEventListener("change", acomodar);
@@ -854,10 +998,10 @@ h3 { font-family: var(--f-titulo); font-weight: 800; font-size: 1.1rem; line-hei
   if (hayIO && !reduce) new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       panelVisible = e.isIntersecting;
-      if (panelVisible && actual && escritorio.matches) { if (!pv.getAttribute("src")) pintarPanel(actual); else pv.play().catch(function () {}); }
-      else pv.pause();
+      if (panelVisible && actual && escritorio.matches) { if (!pDuo.tiene()) pDuo.poner(actual.dataset.key, false); else pDuo.play(); }
+      else pDuo.pausa();
     });
-  }, { threshold: .3 }).observe(pv);
+  }, { threshold: .3 }).observe(document.getElementById("pScreen"));
 
   /* ---------- Carrusel de giros ---------- */
   var track = document.getElementById("track");
