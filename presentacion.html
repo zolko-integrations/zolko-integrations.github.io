@@ -12,6 +12,15 @@
 <!-- Fuentes de ZOLKO + las fuentes de cada demo (solo para las miniaturas) -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Fraunces:opsz,wght@9..144,800&family=Barlow+Condensed:wght@800&family=Cormorant+Garamond:wght@700&family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Serif+Display&family=Outfit:wght@700&display=swap" rel="stylesheet">
 <style>
+/* Transición suave al entrar y salir de esta página (sitio ZOLKO) */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation: zk-vt-sale .35s cubic-bezier(.2,.7,.2,1) both; }
+  ::view-transition-new(root) { animation: zk-vt-entra .55s cubic-bezier(.16,1,.3,1) both; }
+}
+@keyframes zk-vt-sale { to { opacity: 0; transform: scale(.985); filter: blur(4px); } }
+@keyframes zk-vt-entra { from { opacity: 0; transform: scale(1.015); filter: blur(6px); } }
+
 /* =====================================================================
    PRESENTACIÓN ZOLKO INTEGRATIONS
    Paleta de marca en variables: cambia aquí y se actualiza todo.

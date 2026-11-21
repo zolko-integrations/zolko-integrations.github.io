@@ -6,6 +6,15 @@
    variables, así que para un cliente real basta cambiar el bloque
    :root de su página.
    ===================================================================== */
+/* Transición suave al entrar y salir de esta página (sitio ZOLKO) */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation: zk-vt-sale .35s cubic-bezier(.2,.7,.2,1) both; }
+  ::view-transition-new(root) { animation: zk-vt-entra .55s cubic-bezier(.16,1,.3,1) both; }
+}
+@keyframes zk-vt-sale { to { opacity: 0; transform: scale(.985); filter: blur(4px); } }
+@keyframes zk-vt-entra { from { opacity: 0; transform: scale(1.015); filter: blur(6px); } }
+
 
 /* ---------- Variables por defecto (cada demo las sobrescribe) -------- */
 :root {
