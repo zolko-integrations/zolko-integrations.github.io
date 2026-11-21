@@ -1,6 +1,6 @@
 # ZOLKO · Sitio web + demos en vivo
 
-Sitio web de ZOLKO INTEGRATIONS (`index.html`) con sus servicios y **catorce demos en vivo**: ocho herramientas (tarjeta de lealtad en Wallet, menú digital, CRM con inicio de sesión, automatización por WhatsApp, contenido, tarjeta digital, capacitación y página por sucursal con NFC y QR) y seis páginas por giro (restaurante, car wash, joyería, academia, inmobiliaria y consultorio). La versión en diapositivas para reuniones sigue en `presentacion.html`.
+Sitio web de ZOLKO INTEGRATIONS (`index.html`) con sus servicios y **catorce demos en vivo**: ocho herramientas (tarjeta de lealtad en Wallet, menú digital, ARM con agente de IA, automatización por WhatsApp, contenido, tarjeta digital, capacitación y página por sucursal con NFC y QR) y seis páginas por giro (restaurante, car wash, joyería, academia, inmobiliaria y consultorio). La versión en diapositivas para reuniones sigue en `presentacion.html`.
 
 Todo es HTML, CSS y JavaScript sin frameworks ni compilación. Los negocios de las demos son **de ejemplo** y todo lo que necesitaría un servidor está **simulado**: ningún formulario envía ni guarda datos. La única excepción es la tarjeta digital: es la de Ricardo, con sus datos reales.
 
@@ -11,7 +11,8 @@ zolko-demos/
 ├── demos/
 │   ├── tarjeta-lealtad.html← Casa Brasa · tarjeta de sellos en Apple/Google Wallet con avisos (DESTACADA)
 │   ├── menu-digital.html   ← Casa Brasa · menú con QR y pedido por WhatsApp
-│   ├── crm.html            ← Ola Azul · CRM con inicio de sesión simulado
+│   ├── arm.html            ← Ola Azul · ARM: agente de IA que mueve al cliente de etapa
+│   ├── crm.html            ← redirige a arm.html (enlaces viejos)
 │   ├── automatizacion.html ← Vida Plena · asistente de WhatsApp que agenda
 │   ├── contenido.html      ← Estudio Clave · plan semanal de reels y carruseles
 │   ├── tarjeta-digital.html← tarjeta NFC/QR de Ricardo (datos reales)
@@ -48,7 +49,7 @@ node herramientas/grabar-videos.js zolko-demos /tmp/grabaciones menu wallet     
 bash herramientas/codificar-videos.sh /tmp/grabaciones zolko-demos/videos menu wallet
 ```
 
-Claves: `web, menu, whatsapp, crm, contenido, nfc, wallet, capacitacion, sucursal`. Los pasos de cada video están en `VIDEOS` dentro de `grabar-videos.js`. Requiere Node con Playwright y `ffmpeg`.
+Claves: `web, menu, whatsapp, arm, contenido, nfc, wallet, capacitacion, sucursal`. Los pasos de cada video están en `VIDEOS` dentro de `grabar-videos.js`. Requiere Node con Playwright y `ffmpeg`.
 
 ## Caso real (Plataforma Joyería)
 
@@ -120,7 +121,7 @@ Los precios de los catálogos (menú digital y páginas por giro) son **de ejemp
 
 ### Para pasarlo a producción
 Lo que hoy es simulado y habría que conectar:
-- Formulario → CRM (y aviso al WhatsApp del negocio).
+- Formulario → ARM (y aviso al WhatsApp del negocio).
 - Seguimiento automático por WhatsApp (confirmación, recordatorio, seguimiento).
 - Agenda real (horarios disponibles) en car wash, academia, inmobiliaria y consultorio.
 - Catálogo con inventario en la joyería.
@@ -163,7 +164,7 @@ Cada tarjeta de servicios del sitio abre un video corto en una ventana. Los arch
 | `web.mp4` | Páginas web | `web.jpg` | `web.vtt` |
 | `menu.mp4` | Menú digital | `menu.jpg` | `menu.vtt` |
 | `whatsapp.mp4` | WhatsApp que contesta | `whatsapp.jpg` | `whatsapp.vtt` |
-| `crm.mp4` | CRM y seguimiento | `crm.jpg` | `crm.vtt` |
+| `arm.mp4` | ARM · agente de clientes | `arm.jpg` | `arm.vtt` |
 | `contenido.mp4` | Contenido | `contenido.jpg` | `contenido.vtt` |
 | `nfc.mp4` | Tarjeta digital NFC | `nfc.jpg` | `nfc.vtt` |
 | `wallet.mp4` | Lealtad en Wallet | `wallet.jpg` | `wallet.vtt` |

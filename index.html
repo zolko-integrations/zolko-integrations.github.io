@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>ZOLKO INTEGRATIONS · Primero entendemos. Después integramos.</title>
-<meta name="description" content="ZOLKO INTEGRATIONS integra IA, automatización y estrategia comercial: WhatsApp que contesta, CRM, páginas web, menús digitales, tarjetas de lealtad en Wallet y más. Primero entendemos. Después integramos.">
+<meta name="description" content="ZOLKO INTEGRATIONS integra IA, automatización y estrategia comercial: WhatsApp que contesta, ARM con agente de IA, páginas web, menús digitales, tarjetas de lealtad en Wallet y más. Primero entendemos. Después integramos.">
 <meta name="theme-color" content="#050505">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ZOLKO INTEGRATIONS">
 <meta property="og:title" content="ZOLKO INTEGRATIONS · Primero entendemos. Después integramos.">
-<meta property="og:description" content="Mira las demos funcionando: WhatsApp que contesta, menú digital, CRM, lealtad en Wallet, páginas por sucursal con NFC y QR.">
+<meta property="og:description" content="Mira las demos funcionando: WhatsApp que contesta, menú digital, ARM con agente de IA, lealtad en Wallet, páginas por sucursal con NFC y QR.">
 <meta property="og:url" content="https://zolko-demos.netlify.app/">
 <meta property="og:image" content="https://zolko-demos.netlify.app/assets/og-zolko-eslogan.jpg">
 <meta property="og:image:width" content="1200">
@@ -144,9 +144,25 @@ body.en-inicio .header__cta, body.en-cierre .header__cta { opacity: 0; visibilit
 /* ---------- 2. El problema ---------- */
 .problem { padding: 56px 0; border-block: 1px solid rgba(255, 77, 94, .25); background: radial-gradient(60% 100% at 0% 50%, rgba(255, 77, 94, .1), transparent 70%); }
 .problem h2 { font-size: clamp(1.5rem, 4vw, 2.4rem); }
-.leaks { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
-.leaks li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(255, 77, 94, .3); background: rgba(255, 77, 94, .05); font-weight: 700; }
-.leaks li::before { content: "✕"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 77, 94, .18); color: var(--rojo); font-size: .8rem; }
+
+.fix__intro { margin: 10px 0 0; color: var(--lavanda); font-weight: 600; }
+.fix { list-style: none; margin: 16px -2px 0; padding: 4px 2px 14px; display: grid; grid-auto-flow: column; grid-auto-columns: min(64%, 240px); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.fix::-webkit-scrollbar { display: none; }
+@media (min-width: 960px) { .fix { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); overflow: visible; } .fix__swipe { display: none; } }
+.fix__card { scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 14px; border-radius: 24px; background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015)); border: 1px solid var(--linea); }
+.fix__phone { position: relative; aspect-ratio: 9 / 15; border-radius: 18px; overflow: hidden; background: #000; box-shadow: 0 0 0 4px #17171f, 0 0 0 5px rgba(255, 255, 255, .08), 0 24px 40px -22px #000; margin-bottom: 6px; }
+.fix__phone video { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.fix__live { position: absolute; left: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 6px; font: 700 10px var(--f-mono); letter-spacing: .1em; color: #050505; background: var(--lima); padding: 5px 8px; border-radius: 999px; }
+.fix__live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #050505; }
+.fix__mal, .fix__bien { margin: 0 4px; display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; line-height: 1.35; }
+.fix__mal { color: var(--lavanda); font-size: .9rem; text-decoration: line-through; text-decoration-color: rgba(255, 77, 94, .8); }
+.fix__bien { font-weight: 700; font-size: .98rem; }
+.fix__mal::before, .fix__bien::before { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .7rem; font-weight: 800; text-decoration: none; }
+.fix__mal::before { content: "✕"; background: rgba(255, 77, 94, .18); color: var(--rojo); }
+.fix__bien::before { content: "✓"; background: var(--lima); color: #050505; }
+.fix__go { margin: auto 4px 0; padding-top: 6px; color: var(--lima); font-weight: 700; font-size: .9rem; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.fix__go:hover { text-decoration: underline; }
+.fix__swipe { margin: 2px 0 0; font-size: .82rem; color: var(--lavanda); }
 
 /* ---------- 3. Lo que hacemos ---------- */
 .services { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
@@ -380,12 +396,34 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
     <div class="container">
       <span class="tag tag--rojo reveal">EL_PROBLEMA</span>
       <h2 id="p-title" class="reveal">Por ahí se te van <span class="rojo">los clientes.</span></h2>
-      <ul class="leaks">
-        <li class="reveal">Contestas tarde.</li>
-        <li class="reveal" style="--d:1">Cotizas y nadie da seguimiento.</li>
-        <li class="reveal" style="--d:2">No te encuentran.</li>
-        <li class="reveal" style="--d:2">Todo depende de ti.</li>
+      <p class="fix__intro reveal">Así lo resolvemos. Míralo funcionando:</p>
+      <ul class="fix" aria-label="Problemas y cómo los resolvemos">
+        <li class="fix__card reveal" style="--d:0">
+          <div class="fix__phone"><video muted loop playsinline preload="none" poster="videos/whatsapp.jpg" data-src="videos/loop-whatsapp.mp4" aria-hidden="true"></video><span class="fix__live">EN VIVO</span></div>
+          <p class="fix__mal">Contestas tarde.</p>
+          <p class="fix__bien">Tu WhatsApp contesta al momento y aparta la cita.</p>
+          <a class="fix__go" href="demos/automatizacion.html">Probar WhatsApp <span aria-hidden="true">→</span></a>
+        </li>
+        <li class="fix__card reveal" style="--d:1">
+          <div class="fix__phone"><video muted loop playsinline preload="none" poster="videos/arm.jpg" data-src="videos/loop-arm.mp4" aria-hidden="true"></video><span class="fix__live">EN VIVO</span></div>
+          <p class="fix__mal">Cotizas y nadie da seguimiento.</p>
+          <p class="fix__bien">Tu agente ARM cambia al cliente de etapa y te dice cuándo escribirle.</p>
+          <a class="fix__go" href="demos/arm.html">Probar ARM <span aria-hidden="true">→</span></a>
+        </li>
+        <li class="fix__card reveal" style="--d:2">
+          <div class="fix__phone"><video muted loop playsinline preload="none" poster="videos/sucursal.jpg" data-src="videos/loop-sucursal.mp4" aria-hidden="true"></video><span class="fix__live">EN VIVO</span></div>
+          <p class="fix__mal">No te encuentran.</p>
+          <p class="fix__bien">Página por sucursal con reseñas en Google, NFC y QR.</p>
+          <a class="fix__go" href="demos/landing-sucursal.html">Probar página <span aria-hidden="true">→</span></a>
+        </li>
+        <li class="fix__card reveal" style="--d:2">
+          <div class="fix__phone"><video muted loop playsinline preload="none" poster="videos/menu.jpg" data-src="videos/loop-menu.mp4" aria-hidden="true"></video><span class="fix__live">EN VIVO</span></div>
+          <p class="fix__mal">Todo depende de ti.</p>
+          <p class="fix__bien">Los pedidos te llegan armados por WhatsApp, sin que los tomes tú.</p>
+          <a class="fix__go" href="demos/menu-digital.html">Probar menú <span aria-hidden="true">→</span></a>
+        </li>
       </ul>
+      <p class="fix__swipe">Desliza para ver más →</p>
     </div>
   </section>
 
@@ -410,7 +448,7 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
           <button class="vtab" type="button" role="tab" id="tab-whatsapp" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="whatsapp" data-demo="demos/automatizacion.html" data-label="WhatsApp que contesta" data-panel="Contesta con tus palabras, pregunta lo necesario y aparta la cita, aunque estés ocupado."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></span><b>WhatsApp que contesta</b><span class="d">Responde al momento y agenda citas por ti.</span><span class="vtab__bar" aria-hidden="true"></span></button>
           <button class="vtab vtab--new" type="button" role="tab" id="tab-sucursal" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="sucursal" data-demo="demos/landing-sucursal.html" data-label="Página por sucursal" data-panel="Cada sucursal con su página: reseñas de Google, redes y su WhatsApp. Cambias un enlace y el NFC sigue igual."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s-7-6.3-7-12a7 7 0 0 1 14 0c0 5.7-7 12-7 12z"/><path d="M9.5 9.5a3.5 3.5 0 0 1 5 0M8 7.5a6 6 0 0 1 8 0"/></svg></span><b>Página por sucursal</b><span class="d">NFC y QR en el mostrador, con reseñas y WhatsApp.</span><span class="vtab__new">NUEVO</span><span class="vtab__bar" aria-hidden="true"></span></button>
           <button class="vtab vtab--new" type="button" role="tab" id="tab-wallet" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="wallet" data-demo="demos/tarjeta-lealtad.html" data-label="Lealtad en Wallet" data-panel="Se guarda en Apple o Google Wallet sin descargar apps; sumas sellos y mandas avisos a su pantalla."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></span><b>Lealtad en Wallet</b><span class="d">Tarjeta de sellos en su celular, con avisos.</span><span class="vtab__new">NUEVO</span><span class="vtab__bar" aria-hidden="true"></span></button>
-          <button class="vtab" type="button" role="tab" id="tab-crm" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="crm" data-demo="demos/crm.html" data-label="CRM" data-panel="Cada contacto queda guardado con lo que pidió y en qué etapa va, con seguimiento automático."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><b>CRM y seguimiento</b><span class="d">Todos tus clientes en un lugar.</span><span class="vtab__bar" aria-hidden="true"></span></button>
+          <button class="vtab" type="button" role="tab" id="tab-arm" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="arm" data-demo="demos/arm.html" data-label="ARM · agente de clientes" data-panel="Un agente de IA lee cada conversación, cambia al cliente de etapa y te dice cuándo contactarlo."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><b>ARM · agente de clientes</b><span class="d">Mueve a cada cliente de etapa.</span><span class="vtab__bar" aria-hidden="true"></span></button>
           <button class="vtab" type="button" role="tab" id="tab-web" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="web" data-demo="demos/restaurante.html" data-label="Página web" data-panel="Pensada primero para celular, con el botón de WhatsApp y el mensaje ya escrito."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h6M7 16h4"/></svg></span><b>Páginas web</b><span class="d">Una página clara que lleva a escribirte.</span><span class="vtab__bar" aria-hidden="true"></span></button>
           <button class="vtab" type="button" role="tab" id="tab-contenido" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="contenido" data-demo="demos/contenido.html" data-label="Contenido" data-panel="Tu semana planeada: reels, carruseles e historias que responden dudas y llevan a escribirte."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></span><b>Contenido</b><span class="d">Publicaciones que terminan en WhatsApp.</span><span class="vtab__bar" aria-hidden="true"></span></button>
           <button class="vtab" type="button" role="tab" id="tab-nfc" aria-selected="false" aria-controls="vitPanel" tabindex="-1" data-key="nfc" data-demo="demos/tarjeta-digital.html" data-label="Tarjeta NFC" data-panel="Una tarjeta que no se pierde en un cajón: guardan tu contacto, te escriben o te siguen con un toque."><span class="vtab__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="6" width="14" height="10" rx="2"/><path d="M19 8a6 6 0 0 1 0 8M21.5 5.5a10 10 0 0 1 0 13"/></svg></span><b>Tarjeta digital NFC</b><span class="d">Acercan el celular y guardan tu contacto.</span><span class="vtab__bar" aria-hidden="true"></span></button>
@@ -458,7 +496,7 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
       <ol class="steps">
         <li class="panel reveal">Entendemos cómo vendes hoy.</li>
         <li class="panel reveal" style="--d:1">Diseñamos con las palabras de tus clientes.</li>
-        <li class="panel reveal" style="--d:2">Conectamos WhatsApp, CRM y agenda.</li>
+        <li class="panel reveal" style="--d:2">Conectamos WhatsApp, ARM y agenda.</li>
         <li class="panel reveal" style="--d:2">Medimos y ajustamos.</li>
       </ol>
       <details class="more">
@@ -468,7 +506,7 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
             <h3>Lo que va detrás de la página</h3>
             <ul>
               <li>Formulario o chat de máximo tres datos.</li>
-              <li>CRM: cada contacto queda guardado con lo que pidió.</li>
+              <li>ARM: un agente de IA mueve a cada cliente de etapa y te dice cuándo escribirle.</li>
               <li>Seguimiento por WhatsApp: confirmación, recordatorio y seguimiento automáticos.</li>
               <li>Medición: visitas, clics y solicitudes, y de dónde llegan.</li>
             </ul>
@@ -478,7 +516,7 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
             <ul>
               <li>Pensada primero para celular.</li>
               <li>Botón de WhatsApp con el mensaje ya escrito.</li>
-              <li>Formulario conectado a tu CRM y tu WhatsApp.</li>
+              <li>Formulario conectado a tu ARM y tu WhatsApp.</li>
               <li>Mapa para que lleguen sin preguntar.</li>
               <li>Medición de visitas.</li>
             </ul>
@@ -629,7 +667,7 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
     ["wallet", "Lealtad en Wallet", "<b>+1</b> SELLO", "AVISO <b>ENVIADO</b>"],
     ["whatsapp", "WhatsApp que contesta", "CITA <b>APARTADA</b>", "RESPUESTA <b>AL MOMENTO</b>"],
     ["sucursal", "Página por sucursal", "<b>NFC</b> + QR", "RESEÑA EN <b>GOOGLE</b>"],
-    ["crm", "CRM y seguimiento", "<b>+1</b> CONTACTO", "SEGUIMIENTO <b>AUTOMÁTICO</b>"]
+    ["arm", "ARM · agente de clientes", "ETAPA <b>ACTUALIZADA</b>", "PRÓXIMO <b>CONTACTO</b>"]
   ];
   var hv = document.getElementById("heroVideo"), hl = document.getElementById("heroLabel");
   var c1 = document.getElementById("heroChip1"), c2 = document.getElementById("heroChip2"), hi = 0;
@@ -704,6 +742,21 @@ body.en-inicio .fab, body.en-cierre .fab, body.en-pie .fab { opacity: 0; visibil
     var go = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle("is-live", e.isIntersecting); }); }, { threshold: .7 });
     giros.forEach(function (g) { go.observe(g); });
   }
+})();
+</script>
+<script>
+/* Problema → solución: cada video corre solo cuando está a la vista */
+(function () {
+  var vids = document.querySelectorAll(".fix__phone video");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) { if (!v.getAttribute("src")) v.src = v.dataset.src; v.play().catch(function () {}); }
+      else v.pause();
+    });
+  }, { threshold: .5 });
+  vids.forEach(function (v) { io.observe(v); });
 })();
 </script>
 <script src="videos/lista.js" defer></script>

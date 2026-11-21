@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ARM: tu agente de clientes · Demo | ZOLKO</title>
+<meta name="description" content="Demo de ZOLKO INTEGRATIONS: ARM, un agente de IA que lee cada conversación, cambia al cliente de etapa y te dice cuándo contactarlo. Datos de ejemplo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/demo-base.css">
+<style>
+  /* =================================================================
+     ARM de "Ola Azul Autolavado" (negocio de ejemplo)
+     ARM = gestión de clientes con un agente de IA: el agente lee cada
+     conversación, cambia la etapa y programa el siguiente contacto.
+     ================================================================= */
+  :root {
+    --c-bg: #07101f; --c-surface: #0f1c33; --c-surface-2: #13233f; --c-text: #eef4ff; --c-muted: #9fb0cc;
+    --c-primary: #1f63d6; --c-primary-hover: #1a54b8; --c-on-primary: #fff;
+    --c-accent: #ffd23f; --c-dark: #050b16; --c-on-dark: #eef4ff; --c-line: rgba(160, 190, 240, .16);
+    --font-display: "Inter", system-ui, sans-serif; --font-body: "Inter", system-ui, sans-serif; --radius: 16px;
+    --agente: #8b6cff; --ok: #3ddc84; --riesgo: #ff8a3d;
+    --e0: #7d8fb0; --e1: #2f7bff; --e2: #ffd23f; --e3: #8b6cff; --e4: #3ddc84;
+  }
+  body { padding-bottom: 0; background: var(--c-bg); color: var(--c-text); }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  /* ---------- Portada ---------- */
+  .hero { position: relative; overflow: hidden; padding: 34px 0 26px; isolation: isolate; }
+  .hero::before { content: ""; position: absolute; inset: -30% -20% auto; height: 520px; z-index: -1;
+    background: radial-gradient(50% 50% at 70% 40%, rgba(139, 108, 255, .45), transparent 70%), radial-gradient(40% 40% at 10% 20%, rgba(47, 123, 255, .35), transparent 70%); }
+  .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35;
+    background-image: linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px); background-size: 40px 40px;
+    mask-image: linear-gradient(#000, transparent 85%); -webkit-mask-image: linear-gradient(#000, transparent 85%); }
+  .in { width: min(1120px, 100% - 32px); margin: 0 auto; }
+  .eyebrow { color: var(--c-accent); }
+  .hero h1 { margin: 6px 0 12px; font: 900 clamp(2rem, 7.6vw, 3.6rem)/1.02 var(--font-display); letter-spacing: -.02em; max-width: 18ch; }
+  .hero h1 em { font-style: normal; background: linear-gradient(90deg, #a48bff, #5fa0ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { color: var(--c-muted); max-width: 52ch; margin: 0; }
+
+  /* CRM vs ARM */
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; max-width: 640px; }
+  .vs div { border-radius: 16px; padding: 14px; border: 1px solid var(--c-line); background: rgba(255, 255, 255, .03); }
+  .vs b { display: block; font: 800 1.05rem var(--font-display); margin-bottom: 4px; }
+  .vs p { margin: 0; font-size: .86rem; color: var(--c-muted); line-height: 1.4; }
+  .vs .arm { border-color: color-mix(in srgb, var(--agente) 65%, transparent); background: linear-gradient(160deg, rgba(139, 108, 255, .22), rgba(47, 123, 255, .08)); box-shadow: 0 0 40px -14px var(--agente); }
+  .vs .arm b { color: #c9bbff; }
+  .vs .crm b { color: var(--c-muted); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: rgba(255, 255, 255, .35); }
+
+  /* ---------- Escenario ---------- */
+  .stage { padding: 8px 0 40px; }
+  .app { border-radius: 26px; background: linear-gradient(180deg, var(--c-surface), #0b1629); border: 1px solid var(--c-line); box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .9), 0 0 0 6px rgba(139, 108, 255, .06); overflow: hidden; }
+  .app__top { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--c-line); background: rgba(255, 255, 255, .02); }
+  .app__top svg { width: 28px; height: 28px; flex: none; }
+  .app__top strong { font-size: .95rem; }
+  .app__top small { display: block; font-size: .72rem; color: var(--c-muted); }
+  .live { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font: 700 .7rem "JetBrains Mono", monospace; letter-spacing: .06em; color: #c9bbff; padding: 6px 10px; border-radius: 999px; background: rgba(139, 108, 255, .14); border: 1px solid rgba(139, 108, 255, .4); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(61, 220, 132, .7); animation: ping 1.6s infinite; }
+  @keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(61, 220, 132, 0); } 100% { box-shadow: 0 0 0 0 rgba(61, 220, 132, 0); } }
+  .app__grid { display: grid; gap: 0; }
+  @media (min-width: 960px) { .app__grid { grid-template-columns: 1fr 1.15fr; } .app__grid > .pane + .pane { border-left: 1px solid var(--c-line); } }
+  .pane { padding: 14px; }
+  .pane + .pane { border-top: 1px solid var(--c-line); }
+  @media (min-width: 960px) { .pane + .pane { border-top: 0; } }
+  .pane__t { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 10px; font: 700 .7rem "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--c-muted); }
+
+  /* Mensaje entrante */
+  .msg { display: flex; gap: 10px; align-items: flex-end; min-height: 76px; }
+  .ava { width: 38px; height: 38px; flex: none; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .85rem; color: #07101f; }
+  .bubble { position: relative; background: #1f2c45; border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: .95rem; line-height: 1.35; max-width: 100%; }
+  .bubble small { display: block; font-size: .72rem; color: var(--c-muted); margin-bottom: 3px; font-weight: 600; }
+  .bubble.evento { background: rgba(255, 138, 61, .12); border: 1px dashed rgba(255, 138, 61, .6); border-radius: 14px; color: #ffd2b3; }
+  .bubble.entra { animation: entra .45s cubic-bezier(.2, .9, .2, 1); }
+  @keyframes entra { from { opacity: 0; transform: translateY(10px) scale(.97); } }
+  .typing { display: inline-flex; gap: 4px; padding: 12px 14px; background: #1f2c45; border-radius: 16px; }
+  .typing i { width: 7px; height: 7px; border-radius: 50%; background: #8193b3; animation: dot 1s infinite; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes dot { 50% { transform: translateY(-4px); opacity: .5; } }
+
+  /* Agente */
+  .agent { margin-top: 12px; border-radius: 18px; padding: 12px; background: linear-gradient(160deg, rgba(139, 108, 255, .18), rgba(139, 108, 255, .04)); border: 1px solid rgba(139, 108, 255, .35); }
+  .agent__head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bot { width: 40px; height: 40px; flex: none; }
+  .bot .ojo { transform-box: fill-box; transform-origin: center; animation: parpadeo 4s infinite; }
+  @keyframes parpadeo { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+  .agent.pensando .bot { animation: flota 1.2s ease-in-out infinite; }
+  @keyframes flota { 50% { transform: translateY(-3px); } }
+  .agent__head b { display: block; font-size: .95rem; }
+  .agent__head span { font-size: .78rem; color: #c9bbff; }
+  .think { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; align-content: start; min-height: 112px; }
+  .think li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; font-size: .9rem; line-height: 1.35; opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .3s; }
+  .think li.on { opacity: 1; transform: none; }
+  .think li::before { content: ""; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; border: 2px solid rgba(201, 187, 255, .5); }
+  .think li.ok::before { border-color: var(--agente); background: var(--agente) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; }
+  .think li b { color: #fff; }
+
+  /* Línea de etapas */
+  .rail { position: relative; margin: 4px 4px 0; padding: 18px 0 6px; }
+  .rail__line { position: absolute; left: 10px; right: 10px; top: 27px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .1); }
+  .rail__fill { position: absolute; left: 10px; top: 27px; height: 4px; border-radius: 2px; width: 0; background: linear-gradient(90deg, var(--e1), var(--agente)); transition: width .9s cubic-bezier(.6, 0, .2, 1); }
+  .rail ol { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .rail li { display: grid; justify-items: center; gap: 6px; font-size: .68rem; font-weight: 700; color: var(--c-muted); text-align: center; }
+  .rail li::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: #0b1629; border: 3px solid rgba(255, 255, 255, .18); transition: border-color .4s, background .4s, box-shadow .4s; }
+  .rail li.pasada::before { border-color: var(--c-primary); background: var(--c-primary); }
+  .rail li.actual::before { border-color: #fff; background: var(--agente); box-shadow: 0 0 0 6px rgba(139, 108, 255, .3), 0 0 22px var(--agente); }
+  .rail li.actual { color: #fff; }
+  .quien { margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: .85rem; color: var(--c-muted); min-height: 24px; }
+  .quien b { color: #fff; }
+
+  /* Siguiente contacto */
+  .next { margin-top: 10px; display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: rgba(255, 210, 63, .1); border: 1px solid rgba(255, 210, 63, .45); opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
+  .next.on { opacity: 1; transform: none; }
+  .next svg { width: 26px; height: 26px; flex: none; color: var(--c-accent); }
+  .next b { display: block; font-size: .95rem; color: #fff; }
+  .next span { font-size: .82rem; color: #ffe9a3; }
+
+  /* Tablero */
+  .counts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
+  .counts div { text-align: center; border-radius: 12px; padding: 8px 2px; background: rgba(255, 255, 255, .04); border-top: 3px solid var(--k); }
+  .counts b { display: block; font-size: 1.2rem; line-height: 1; transition: transform .3s; }
+  .counts b.bump { animation: bump .5s; }
+  @keyframes bump { 40% { transform: scale(1.45); color: var(--k); } }
+  .counts span { font-size: .6rem; font-weight: 700; color: var(--c-muted); text-transform: uppercase; letter-spacing: .03em; }
+  .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .row { display: grid; grid-template-columns: 38px 1fr auto; gap: 10px; align-items: center; padding: 10px; border-radius: 14px; background: rgba(255, 255, 255, .035); border: 1px solid transparent; transition: background .4s, border-color .4s, box-shadow .4s; }
+  .row.flash { background: rgba(139, 108, 255, .16); border-color: rgba(139, 108, 255, .6); box-shadow: 0 0 26px -8px var(--agente); }
+  .row b { display: block; font-size: .92rem; }
+  .row .cuando { display: flex; align-items: center; gap: 5px; font-size: .76rem; color: var(--c-muted); margin-top: 2px; }
+  .row .cuando svg { width: 13px; height: 13px; flex: none; }
+  .row .cuando.riesgo { color: var(--riesgo); font-weight: 700; }
+  .pill { font: 700 .66rem "JetBrains Mono", monospace; letter-spacing: .04em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; color: #07101f; background: var(--k); white-space: nowrap; }
+  .pill.cambia { animation: cambia .6s cubic-bezier(.2, 1.4, .4, 1); }
+  @keyframes cambia { from { transform: scale(.4) rotate(-8deg); opacity: 0; } }
+
+  /* Controles */
+  .ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px; border-top: 1px solid var(--c-line); }
+  .ctrl .btn { min-height: 48px; }
+  .btn--ghost { background: transparent !important; color: var(--c-text) !important; border: 1px solid var(--c-line) !important; }
+  .ctrl small { color: var(--c-muted); font-size: .8rem; }
+
+  /* ---------- Qué hace por ti ---------- */
+  .hace { padding: 10px 0 56px; }
+  .hace h2 { font: 800 clamp(1.5rem, 5.4vw, 2.2rem)/1.1 var(--font-display); margin: 0 0 16px; }
+  .tres { display: grid; gap: 10px; }
+  @media (min-width: 760px) { .tres { grid-template-columns: repeat(3, 1fr); } }
+  .tres li { list-style: none; display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: start; padding: 14px; border-radius: 18px; background: var(--c-surface); border: 1px solid var(--c-line); }
+  .tres ul { padding: 0; margin: 0; }
+  .tres .ic { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(140deg, var(--agente), var(--c-primary)); }
+  .tres .ic svg { width: 24px; height: 24px; color: #fff; }
+  .tres b { display: block; margin-bottom: 2px; }
+  .tres p { margin: 0; color: var(--c-muted); font-size: .9rem; }
+  .nota { margin-top: 14px; font-size: .82rem; color: var(--c-muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live i, .bot .ojo, .agent.pensando .bot, .typing i { animation: none; }
+    .rail__fill, .think li, .next { transition: none; }
+  }
+</style>
+<script>
+  window.DEMO_CONFIG = {
+    negocio: "ARM de Ola Azul Autolavado (datos de ejemplo)",
+    simulado: [
+      "Los clientes, mensajes, precios y fechas son de ejemplo.",
+      "En esta página el agente sigue un guion: no hay IA real conectada y no se envía ningún mensaje.",
+      "Todo vive solo en esta página; al recargar se reinicia."
+    ],
+    produccion: [
+      "Agente de IA conectado a tu WhatsApp Business y a tu página: lee cada conversación.",
+      "Cambia al cliente de etapa y anota por qué, sin que nadie lo capture a mano.",
+      "Programa el siguiente contacto (recordatorio, seguimiento, reseña) y puede mandarlo por WhatsApp, solo o con tu aprobación.",
+      "Te avisa cuando un cliente necesita a una persona.",
+      "Trabaja dentro de las reglas y permisos que tú defines."
+    ]
+  };
+</script>
+</head>
+<body>
+<main>
+  <section class="hero" aria-labelledby="h-arm">
+    <div class="in">
+      <span class="eyebrow reveal">ARM · Demo</span>
+      <h1 id="h-arm" class="reveal">Tu agente de clientes: <em>mueve a cada cliente de etapa</em> y te dice cuándo contactarlo.</h1>
+      <p class="lead reveal">El CRM solo guarda datos y alguien tiene que actualizarlo. En el ARM, un agente de IA lee cada conversación, decide en qué etapa va el cliente y agenda el siguiente contacto.</p>
+      <div class="vs reveal">
+        <div class="crm"><b>CRM</b><p>Tú capturas, tú cambias la etapa, tú te acuerdas de escribir.</p></div>
+        <div class="arm"><b>ARM</b><p>El agente lee, cambia la etapa y te dice cuándo escribir.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" aria-label="Simulación del agente trabajando">
+    <div class="in">
+      <div class="app reveal">
+        <div class="app__top">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#0059c9"/><path d="M20 8c4 6 8 10 8 15a8 8 0 0 1-16 0c0-5 4-9 8-15z" fill="#ffd23f"/><path d="M6 30c5 3 9-3 14 0s9 3 14 0v4H6z" fill="#fff"/></svg>
+          <div><strong>Ola Azul · ARM</strong><small>Autolavado de ejemplo</small></div>
+          <span class="live"><i></i>AGENTE ACTIVO</span>
+        </div>
+
+        <div class="app__grid">
+          <div class="pane">
+            <p class="pane__t"><span>Llega a tu WhatsApp</span><span id="hora" class="mono"></span></p>
+            <div class="msg" id="msg"></div>
+
+            <div class="agent" id="agent">
+              <div class="agent__head">
+                <svg class="bot" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#0b0a12" stroke="#8b6cff" stroke-width="3"/><ellipse class="ojo" cx="15.5" cy="19" rx="2.6" ry="3.8" fill="#fff"/><ellipse class="ojo" cx="24.5" cy="19" rx="2.6" ry="3.8" fill="#fff"/></svg>
+                <div><b>Agente ZOLKO</b><span id="estado">Esperando mensajes…</span></div>
+              </div>
+              <ol class="think" id="steps"></ol>
+            </div>
+          </div>
+
+          <div class="pane">
+            <p class="pane__t"><span>Etapa del cliente</span></p>
+            <div class="rail" aria-hidden="true">
+              <span class="rail__line"></span><span class="rail__fill" id="fill"></span>
+              <ol id="rail"><li>Nuevo</li><li>Interesado</li><li>Cotizado</li><li>Agendado</li><li>Cliente</li></ol>
+            </div>
+            <p class="quien" id="quien"></p>
+            <div class="next" id="next" role="status" aria-live="polite">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <div><b id="nextT"></b><span id="nextS"></span></div>
+            </div>
+
+            <p class="pane__t" style="margin-top:16px"><span>Tus clientes hoy</span><span class="mono">EJEMPLO</span></p>
+            <div class="counts" id="counts"></div>
+            <ul class="list" id="list"></ul>
+          </div>
+        </div>
+
+        <div class="ctrl">
+          <button class="btn" type="button" id="sig">Que llegue otro mensaje</button>
+          <button class="btn btn--ghost" type="button" id="pausa" aria-pressed="false">Pausar</button>
+          <small id="paso"></small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hace" aria-labelledby="h-hace">
+    <div class="in">
+      <h2 id="h-hace" class="reveal">Lo que hace tu agente por ti</h2>
+      <ul class="tres">
+        <li class="reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.7A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg></span><div><b>Lee y entiende</b><p>Sabe si preguntan precio, quieren agendar o ya compraron.</p></div></li>
+        <li class="reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg></span><div><b>Cambia la etapa solo</b><p>Nadie tiene que capturar ni mover tarjetas a mano.</p></div></li>
+        <li class="reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Te dice cuándo escribir</b><p>Recordatorios, seguimiento y reseñas a tiempo, sin que se te pase nadie.</p></div></li>
+      </ul>
+      <p class="nota">ARM: gestión de clientes con un agente de IA. Un paso más allá del CRM tradicional.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var ETAPAS = ["Nuevo", "Interesado", "Cotizado", "Agendado", "Cliente"];
+  var COLOR = ["var(--e0)", "var(--e1)", "var(--e2)", "var(--e3)", "var(--e4)"];
+  var RELOJ = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+
+  // Clientes de ejemplo
+  var C = {
+    laura: { n: "Laura M.", i: "LM", c: "#7fb2ff", e: 0, cuando: "Escribió hace 1 min" },
+    jorge: { n: "Jorge T.", i: "JT", c: "#ffd23f", e: 1, cuando: "Mañana 10:00 · mandarle horarios" },
+    carlos: { n: "Carlos R.", i: "CR", c: "#ff9f6b", e: 2, cuando: "Cotización enviada el martes" },
+    ana: { n: "Ana P.", i: "AP", c: "#c9bbff", e: 3, cuando: "Hoy 13:00 · recoge su camioneta" },
+    sofia: { n: "Sofía G.", i: "SG", c: "#7ee2a8", e: 4, cuando: "En 21 días · recordatorio de lavado" }
+  };
+  var ORDEN = ["laura", "jorge", "carlos", "ana", "sofia"];
+
+  // Lo que pasa en cada mensaje (guion de ejemplo)
+  var GUION = [
+    { k: "laura", hora: "10:02", texto: "Hola, ¿cuánto cuesta el lavado de interiores? ¿Tienen el sábado?",
+      pasos: ["Lee: pregunta <b>precio</b> y quiere <b>sábado</b>.", "Le contesta el precio ($650) y los horarios libres.", "Cambia la etapa: <b>Nuevo → Cotizado</b>."],
+      a: 2, next: ["Hoy 19:00", "Si no responde, le escribe de nuevo con los horarios."], cuando: "Hoy 19:00 · si no responde" },
+    { k: "laura", hora: "10:09", texto: "Va, apártame el sábado a las 10, porfa.",
+      pasos: ["Lee: <b>confirma</b> sábado 10:00.", "Aparta el lugar en la agenda.", "Cambia la etapa: <b>Cotizado → Agendado</b>."],
+      a: 3, next: ["Viernes 18:00", "Recordatorio por WhatsApp un día antes."], cuando: "Viernes 18:00 · recordatorio" },
+    { k: "carlos", evento: true, hora: "11:00", texto: "Carlos no ha contestado la cotización en 2 días.",
+      pasos: ["Detecta: cliente <b>en riesgo</b> de enfriarse.", "Prepara un mensaje corto con la promoción de encerado.", "Se queda en <b>Cotizado</b>, con prioridad alta."],
+      a: 2, riesgo: true, next: ["Hoy 11:30", "Le escribe a Carlos. Si contesta, sigue el agente; si pide hablar, te avisa."], cuando: "Hoy 11:30 · seguimiento" },
+    { k: "ana", hora: "13:20", texto: "Ya recogí mi camioneta, ¡quedó increíble! 🙌",
+      pasos: ["Lee: servicio <b>terminado</b> y cliente <b>contenta</b>.", "Cambia la etapa: <b>Agendado → Cliente</b>.", "Programa la reseña y el próximo lavado."],
+      a: 4, next: ["Hoy 15:00", "Le pide su reseña en Google. En 30 días, recordatorio de lavado."], cuando: "Hoy 15:00 · pedir reseña" },
+    { k: "jorge", hora: "16:45", texto: "¿Cuánto me sale el encerado para un sedán?",
+      pasos: ["Lee: pide <b>precio</b> de encerado.", "Le manda el precio ($450) y la promoción vigente.", "Cambia la etapa: <b>Interesado → Cotizado</b>."],
+      a: 2, next: ["Mañana 10:00", "Si no ha agendado, le ofrece los horarios del fin de semana."], cuando: "Mañana 10:00 · seguimiento" }
+  ];
+
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (id) { return document.getElementById(id); };
+  var msg = $("msg"), steps = $("steps"), agent = $("agent"), estado = $("estado"), fill = $("fill"), rail = $("rail").children;
+  var quien = $("quien"), next = $("next"), list = $("list"), counts = $("counts"), paso = $("paso"), hora = $("hora");
+  var idx = 0, corriendo = false, pausado = false, timers = [];
+
+  function ava(c) { return '<span class="ava" style="background:' + c.c + '">' + c.i + "</span>"; }
+  function pintarConteos(bump) {
+    var n = [0, 0, 0, 0, 0]; ORDEN.forEach(function (k) { n[C[k].e]++; });
+    counts.innerHTML = ETAPAS.map(function (e, i) {
+      return '<div style="--k:' + COLOR[i] + '"><b' + (bump && bump.indexOf(i) > -1 ? ' class="bump"' : "") + ">" + n[i] + "</b><span>" + e + "</span></div>";
+    }).join("");
+  }
+  function pintarLista(k, cambio) {
+    list.innerHTML = ORDEN.map(function (id) {
+      var c = C[id];
+      return '<li class="row' + (id === k ? " flash" : "") + '">' + ava(c) +
+        "<div><b>" + c.n + '</b><span class="cuando' + (c.riesgo ? " riesgo" : "") + '">' + RELOJ + c.cuando + "</span></div>" +
+        '<span class="pill' + (id === k && cambio ? " cambia" : "") + '" style="--k:' + COLOR[c.e] + '">' + ETAPAS[c.e] + "</span></li>";
+    }).join("");
+  }
+  function pintarRail(e, k) {
+    for (var i = 0; i < rail.length; i++) { rail[i].className = i < e ? "pasada" : i === e ? "actual" : ""; }
+    fill.style.width = "calc((100% - 20px) * " + (e / 4) + ")";
+    if (k) quien.innerHTML = ava(C[k]).replace('class="ava"', 'class="ava" style="width:24px;height:24px;font-size:.6rem;background:' + C[k].c + '"') + "<span><b>" + C[k].n + "</b> · " + ETAPAS[e] + "</span>";
+  }
+  function t(fn, ms) { timers.push(setTimeout(fn, reduce ? 0 : ms)); }
+
+  function correr() {
+    if (corriendo) return; corriendo = true;
+    var g = GUION[idx % GUION.length], c = C[g.k], antes = c.e;
+    paso.textContent = "Mensaje " + ((idx % GUION.length) + 1) + " de " + GUION.length;
+    hora.textContent = g.hora;
+    next.classList.remove("on"); steps.innerHTML = "";
+    agent.classList.add("pensando"); estado.textContent = "Leyendo la conversación…";
+    pintarRail(antes, g.k);
+    msg.innerHTML = g.evento ? "" : ava(c) + '<span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>';
+    t(function () {
+      msg.innerHTML = (g.evento ? "" : ava(c)) + '<div class="bubble entra' + (g.evento ? " evento" : "") + '"><small>' + (g.evento ? "Aviso del ARM" : c.n) + "</small>" + g.texto + "</div>";
+      g.pasos.forEach(function (p, i) { var li = document.createElement("li"); li.innerHTML = "<span>" + p + "</span>"; steps.appendChild(li); });
+      var lis = steps.children;
+      [0, 1, 2].forEach(function (i) {
+        t(function () { lis[i].classList.add("on"); }, 500 + i * 900);
+        t(function () { lis[i].classList.add("ok"); }, 900 + i * 900);
+      });
+      t(function () {
+        c.e = g.a; c.cuando = g.cuando; c.riesgo = !!g.riesgo;
+        ORDEN.splice(ORDEN.indexOf(g.k), 1); ORDEN.unshift(g.k);
+        pintarRail(g.a, g.k); pintarConteos(antes !== g.a ? [antes, g.a] : []); pintarLista(g.k, antes !== g.a);
+        $("nextT").textContent = "Próximo contacto: " + g.next[0]; $("nextS").textContent = g.next[1];
+        next.classList.add("on");
+        agent.classList.remove("pensando"); estado.textContent = antes !== g.a ? "Listo: etapa actualizada" : "Listo: seguimiento programado";
+      }, 3300);
+      t(function () { corriendo = false; idx++; if (auto && !pausado) t(correr, 2600); }, 3800);
+    }, 1100);
+  }
+
+  // Estado inicial
+  pintarConteos(); pintarLista(); pintarRail(0);
+  quien.textContent = "Cuando llegue un mensaje, aquí ves cómo se mueve el cliente.";
+
+  var auto = !reduce;
+  $("sig").addEventListener("click", function () {
+    if (corriendo) return;
+    timers.forEach(clearTimeout); timers = []; correr();
+  });
+  $("pausa").addEventListener("click", function () {
+    pausado = !pausado; this.setAttribute("aria-pressed", pausado); this.textContent = pausado ? "Seguir solo" : "Pausar";
+    if (!pausado && !corriendo) correr();
+  });
+  if (!auto) { $("pausa").hidden = true; }
+
+  // Empieza cuando el tablero está a la vista
+  var app = document.querySelector(".app");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); if (auto) t(correr, 400); } }, { threshold: .25 });
+    io.observe(app);
+  }
+})();
+</script>
+<script src="../assets/demo-base.js"></script>
+</body>
+</html>
