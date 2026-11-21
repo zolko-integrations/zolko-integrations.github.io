@@ -224,9 +224,10 @@ body.en-inicio .header__cta, body.en-cierre .header__cta { opacity: 0; visibilit
 .ele__num { position: relative; overflow: hidden; height: 1em; font: 500 clamp(4rem, 8vw, 6.6rem)/1 var(--f-display); font-variant-numeric: lining-nums; min-width: 1.15em; }
 .ele__num span { display: block; }
 .ele__grupo { font: italic 400 1.35rem/1.2 var(--f-display); color: var(--lavanda); padding-bottom: .5em; }
-.ele__cubo { position: relative; padding-left: 20px; }
-.ele__cubo::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: rgba(244, 244, 247, .1); }
-.ele__carro { position: absolute; left: 3px; top: 0; width: 8px; height: calc(100% / 9); border-radius: 4px; background: var(--violeta-luz); box-shadow: 0 0 18px 2px var(--violeta); }
+.ele__cubo { position: relative; padding-left: 46px; }
+.ele__cubo::before { content: ""; position: absolute; left: 17px; top: 0; bottom: 0; width: 2px; background: rgba(244, 244, 247, .1); }
+.ele__carro { position: absolute; left: 0; top: 0; width: 36px; height: calc(100% / 9); display: grid; place-items: center; }
+.ele__carro svg { width: 30px; filter: drop-shadow(0 0 10px rgba(124, 92, 255, .8)); }
 .ele__pisos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column-reverse; }
 .ele__pisos button { width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 6px 0; border: 0; border-bottom: 1px solid rgba(244, 244, 247, .07); background: none; cursor: pointer; text-align: left; color: rgba(183, 178, 217, .55); transition: color .3s; }
 .ele__pisos button span { font: 400 1.12rem/1.2 var(--f-display); }
@@ -235,7 +236,7 @@ body.en-inicio .header__cta, body.en-cierre .header__cta { opacity: 0; visibilit
 .ele__pisos li.hecho button { color: var(--lavanda); }
 .ele__pisos li.actual button { color: var(--blanco); }
 .ele__pisos li.actual button span { font-style: italic; }
-.ele__base { margin: 10px 0 0 20px; font-size: .88rem; color: var(--lavanda); }
+.ele__base { margin: 10px 0 0 46px; font-size: .88rem; color: var(--lavanda); }
 .ele__panel { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; align-items: center; }
 .ele__panel .phone { box-shadow: 0 0 0 1px rgba(244, 244, 247, .14), 0 50px 100px -40px rgba(124, 92, 255, 1); }
 .puerta { position: absolute; z-index: 4; top: 28px; bottom: 0; width: 50.5%; background: linear-gradient(90deg, #191628, #2b2640 70%, #1c1930); transform: scaleX(0); }
@@ -356,6 +357,28 @@ body.en-inicio .header__cta, body.en-cierre .header__cta { opacity: 0; visibilit
 @media (max-width: 860px) { .fab { display: flex; } }
 body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, body.en-ele .fab { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(16px) scale(.9); }
 
+/* =====================================================================
+   EL ASESOR: la mascota de ZOLKO acompaña todo el recorrido.
+   Anillo violeta con ojos y dos piecitos (sin boca ni brazos).
+   Cambia de cara y dice algo en cada escena.
+   ===================================================================== */
+.guia { position: fixed; left: 22px; bottom: 20px; z-index: 66; width: 66px; cursor: pointer; transition: bottom .4s var(--ease), opacity .3s; -webkit-tap-highlight-color: transparent; }
+.guia__in { position: relative; }
+.ojos .t { fill: none; stroke: #f4f4f7; stroke-width: 9; stroke-linecap: round; }
+.ojos .t.f { stroke-width: 7; }
+.guia__cuerpo svg { width: 100%; height: auto; overflow: visible; }
+.guia__burbuja { position: absolute; left: 74px; bottom: 16px; width: max-content; max-width: 240px; padding: 9px 14px; border-radius: 18px 18px 18px 4px; background: var(--blanco); color: #0c0a18; font: 600 .9rem/1.3 var(--f-texto); box-shadow: 0 18px 40px -16px rgba(124, 92, 255, .9); opacity: 0; transform: translateY(8px) scale(.9); transform-origin: 0 100%; pointer-events: none; }
+.ele__mini { width: 44px; flex: none; align-self: center; }
+.ele__mini svg, .ele__carro svg { width: 100%; height: auto; overflow: visible; }
+@media (min-width: 1000px) { .ele__mini { display: none; } .hero__in { bottom: clamp(112px, 14vh, 150px); } .hcard { bottom: clamp(112px, 14vh, 150px); } }
+@media (max-width: 999px) {
+  .guia { left: auto; right: 14px; bottom: 16px; width: 54px; }
+  .guia__burbuja { left: auto; right: 0; bottom: calc(100% + 8px); border-radius: 18px 18px 4px 18px; transform-origin: 100% 100%; max-width: 200px; font-size: .84rem; }
+  body:not(.en-inicio):not(.en-chat):not(.en-ele):not(.en-cierre):not(.en-pie) .guia { bottom: 86px; }
+  body.en-ele .guia { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+.estatico .guia { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
@@ -454,7 +477,7 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     <div class="container ele__grid">
       <div class="ele__cab">
         <h2 id="s-title">El sistema, <em>piso por piso.</em></h2>
-        <div class="ele__display" aria-hidden="true"><div class="ele__num" id="eNum"><span>1</span></div><div class="ele__grupo" id="eGrupo">Atraer</div></div>
+        <div class="ele__display" aria-hidden="true"><div class="ele__num" id="eNum"><span>1</span></div><div class="ele__grupo" id="eGrupo">Atraer</div><div class="ele__mini" id="eMini"></div></div>
         <div class="ele__barra" id="eBarra" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="ele__cubo">
           <span class="ele__carro" id="eCarro" aria-hidden="true"></span>
@@ -590,6 +613,8 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
   </div>
 </footer>
 
+<div class="guia" id="guia" aria-hidden="true" title="El Asesor"><div class="guia__in" id="guiaIn"><div class="guia__burbuja" id="guiaB"></div><div class="guia__cuerpo" id="guiaC"></div></div></div>
+
 <a class="fab" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener" aria-label="Agenda tu diagnóstico por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg><span>DIAGNÓSTICO</span></a>
 
 <script src="assets/vendor/gsap/gsap.min.js"></script>
@@ -667,6 +692,112 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     };
   }
 
+  /* ---------- El Asesor ----------
+     Siempre el mismo personaje: anillo violeta, ojos y dos piecitos
+     (sin boca ni brazos). Lo que cambia es la cara (los ojos) y la
+     postura del cuerpo (brincar, inclinarse, temblar, flotar, caminar…). */
+  var n_as = 0;
+  var OJOS = {
+    normal: '<ellipse cx="88" cy="100" rx="13" ry="20"/><ellipse cx="122" cy="100" rx="13" ry="20"/>',
+    lado: '<ellipse cx="108" cy="102" rx="12" ry="19"/><ellipse cx="142" cy="102" rx="12" ry="19"/>',
+    arriba: '<ellipse cx="90" cy="88" rx="13" ry="20"/><ellipse cx="124" cy="88" rx="13" ry="20"/>',
+    susto: '<ellipse cx="86" cy="98" rx="16" ry="25"/><ellipse cx="124" cy="98" rx="16" ry="25"/>',
+    feliz: '<path d="M74 104 q14 -22 28 0" class="t"/><path d="M108 104 q14 -22 28 0" class="t"/>',
+    guino: '<ellipse cx="88" cy="100" rx="13" ry="20"/><path d="M108 104 q14 -18 28 0" class="t"/>',
+    preocupado: '<ellipse cx="88" cy="104" rx="12" ry="17"/><ellipse cx="122" cy="104" rx="12" ry="17"/><path d="M72 82 l26 -9" class="t f"/><path d="M138 82 l-26 -9" class="t f"/>',
+    pensando: '<ellipse cx="94" cy="96" rx="12" ry="18"/><ellipse cx="128" cy="96" rx="12" ry="18"/><path d="M118 74 l24 6" class="t f"/>',
+    dormido: '<path d="M74 102 q14 12 28 0" class="t"/><path d="M108 102 q14 12 28 0" class="t"/>',
+    estrellas: '<path d="M88 80 l5 13 14 1 -11 9 4 14 -12 -8 -12 8 4 -14 -11 -9 14 -1z"/><path d="M122 80 l5 13 14 1 -11 9 4 14 -12 -8 -12 8 4 -14 -11 -9 14 -1z"/>',
+    corazones: '<path d="M88 116 l-15 -15 a8.5 8.5 0 0 1 15 -11 a8.5 8.5 0 0 1 15 11z"/><path d="M122 116 l-15 -15 a8.5 8.5 0 0 1 15 -11 a8.5 8.5 0 0 1 15 11z"/>'
+  };
+  function asesor(cara) {
+    var id = "as" + (n_as++);
+    return '<svg viewBox="0 0 210 262"><defs><filter id="' + id + '" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter></defs>' +
+      '<ellipse class="sombra" cx="105" cy="250" rx="62" ry="9" fill="#000" opacity=".55"/>' +
+      '<g class="pie pie-i"><path d="M86 190 v44 h-16 a8 8 0 0 0 0 14 h26 v-58" fill="#7C5CFF"/></g>' +
+      '<g class="pie pie-d"><path d="M124 190 v58 h26 a8 8 0 0 0 0 -14 h-16 v-44" fill="#7C5CFF"/></g>' +
+      '<g class="cuerpo"><circle class="halo" cx="105" cy="105" r="86" fill="none" stroke="#7C5CFF" stroke-width="20" filter="url(#' + id + ')" opacity=".9"/>' +
+      '<circle cx="105" cy="105" r="86" fill="#040406" stroke="#7C5CFF" stroke-width="15"/>' +
+      '<g class="ojos" fill="#F4F4F7">' + (OJOS[cara] || OJOS.normal) + '</g></g></svg>';
+  }
+  var guia = $("#guia"), guiaC = $("#guiaC"), guiaB = $("#guiaB"), caraActual = "", guiaTimer = null, ultimoDicho = "", poseTl = null;
+  function cara(c) {
+    if (c === caraActual) return; caraActual = c;
+    guiaC.innerHTML = asesor(c);
+    if (window.gsap && !reduce) gsap.from(guiaC.querySelector(".ojos"), { scale: .2, transformOrigin: "50% 50%", duration: .35, ease: "back.out(3)" });
+  }
+  // Posturas del cuerpo (todas con GSAP, sin cambiar el diseño del personaje)
+  function pose(nombre) {
+    if (!window.gsap || reduce) return;
+    var svg = guiaC.querySelector("svg"), cu = svg.querySelector(".cuerpo"), pi = svg.querySelector(".pie-i"), pd = svg.querySelector(".pie-d"), so = svg.querySelector(".sombra");
+    if (poseTl) poseTl.kill();
+    gsap.set([svg, cu, pi, pd], { clearProps: "transform" });
+    var t = gsap.timeline();
+    gsap.set(svg, { transformOrigin: "50% 100%" }); gsap.set(cu, { transformOrigin: "50% 80%" });
+    if (nombre === "brinco") {
+      t.to(svg, { scaleY: .82, scaleX: 1.12, duration: .12, ease: "power2.in" })
+       .to(svg, { y: -30, scaleY: 1.12, scaleX: .92, duration: .22, ease: "power2.out" })
+       .to(so, { scaleX: .6, opacity: .25, transformOrigin: "50% 50%", duration: .22 }, "<")
+       .to(svg, { y: 0, scaleY: 1, scaleX: 1, duration: .3, ease: "bounce.out" })
+       .to(so, { scaleX: 1, opacity: .55, duration: .3 }, "<");
+    } else if (nombre === "tiembla") {
+      t.to(svg, { x: -3, duration: .05, repeat: 9, yoyo: true, ease: "none" }).set(svg, { x: 0 })
+       .to(svg, { scaleY: .94, scaleX: 1.04, duration: .2, yoyo: true, repeat: 1 });
+    } else if (nombre === "inclina") {
+      t.to(svg, { rotation: -14, duration: .35, ease: "back.out(2)" }).to(svg, { rotation: 0, duration: .5, delay: 1.6, ease: "power2.inOut" });
+    } else if (nombre === "flota") {
+      t.to(svg, { y: -18, duration: .6, ease: "sine.out" })
+       .to([pi, pd], { rotation: function (i) { return i ? 10 : -10; }, transformOrigin: "50% 0%", duration: .4, yoyo: true, repeat: 3 }, "<")
+       .to(svg, { y: 0, duration: .8, ease: "sine.inOut", delay: 1.2 });
+    } else if (nombre === "camina") {
+      t.to(pi, { y: -14, duration: .16, yoyo: true, repeat: 5, ease: "sine.inOut" })
+       .to(pd, { y: -14, duration: .16, yoyo: true, repeat: 5, ease: "sine.inOut" }, .16)
+       .to(cu, { rotation: 6, duration: .16, yoyo: true, repeat: 5, ease: "sine.inOut" }, 0);
+    } else if (nombre === "baila") {
+      t.to(svg, { rotation: 10, duration: .18, yoyo: true, repeat: 5, ease: "sine.inOut" })
+       .to(pi, { y: -12, duration: .18, yoyo: true, repeat: 5 }, 0)
+       .to(pd, { y: -12, duration: .18, yoyo: true, repeat: 5 }, .18)
+       .set(svg, { rotation: 0 });
+    } else if (nombre === "gira") {
+      t.to(cu, { scaleX: -1, duration: .25, ease: "power2.in" }).to(cu, { scaleX: 1, duration: .25, ease: "power2.out" })
+       .to(cu, { scaleX: -1, duration: .25, ease: "power2.in" }).to(cu, { scaleX: 1, duration: .35, ease: "back.out(2)" });
+    } else if (nombre === "asoma") {
+      t.from(svg, { y: 70, duration: .6, ease: "back.out(1.7)" }).to(svg, { rotation: 8, duration: .3, yoyo: true, repeat: 1 });
+    } else if (nombre === "estira") {
+      t.to(svg, { scaleY: 1.2, scaleX: .9, duration: .35, ease: "power2.out" }).to(svg, { scaleY: 1, scaleX: 1, duration: .5, ease: "elastic.out(1, .4)" });
+    }
+    poseTl = t;
+  }
+  function decir(texto, c, p) {
+    if (texto === ultimoDicho) return; ultimoDicho = texto;
+    cara(c || "normal");
+    if (!window.gsap || reduce) return;
+    pose(p || "brinco");
+    guiaB.textContent = texto;
+    gsap.fromTo(guiaB, { autoAlpha: 0, y: 8, scale: .9 }, { autoAlpha: 1, y: 0, scale: 1, duration: .4, ease: "back.out(2)", overwrite: true });
+    clearTimeout(guiaTimer);
+    guiaTimer = setTimeout(function () { gsap.to(guiaB, { autoAlpha: 0, y: 6, scale: .95, duration: .3 }); }, 4200);
+  }
+  cara("normal");
+  $("#eMini").innerHTML = asesor("guino");
+  // Tocarlo: brinca, cambia de cara y dice algo
+  var chistes = [
+    ["¡Ey! Sigue bajando, falta lo mejor.", "guino", "brinco"],
+    ["Sin boca, pero bien que contesto.", "feliz", "baila"],
+    ["Yo nunca dejo un mensaje en visto.", "estrellas", "gira"],
+    ["¿Te imaginas esto en tu negocio?", "pensando", "inclina"],
+    ["Zzz… no, no, aquí sigo atendiendo.", "dormido", "estira"]
+  ], ch = 0;
+  guia.addEventListener("click", function () { ultimoDicho = ""; var x = chistes[ch++ % chistes.length]; decir(x[0], x[1], x[2]); });
+  // Mientras no pasa nada: parpadea y a veces mira a otro lado o mueve un pie
+  if (window.gsap && !reduce) setInterval(function () {
+    var o = guiaC.querySelector(".ojos"); if (!o) return;
+    var r = Math.random();
+    if ((caraActual === "normal" || caraActual === "lado" || caraActual === "arriba") && r < .6) gsap.fromTo(o, { scaleY: 1 }, { scaleY: .1, transformOrigin: "50% 50%", duration: .08, yoyo: true, repeat: 1 });
+    else if (r < .8) gsap.fromTo(guiaC.querySelector(".pie-d"), { y: 0 }, { y: -10, duration: .14, yoyo: true, repeat: 3 });
+    else gsap.fromTo(o, { x: 0 }, { x: 8, duration: .3, yoyo: true, repeat: 1, repeatDelay: .6 });
+  }, 3600);
+
   /* ---------- Celular del inicio: recorre varias demos ---------- */
   var CICLO = [
     ["menu", "menú digital", "<b>+1</b> pedido", "Listo en <b>WhatsApp</b>"],
@@ -697,6 +828,9 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     $("#eGrupo").textContent = li.dataset.grupo;
     pisos.forEach(function (q, j) { q.classList.toggle("actual", j === k); q.classList.toggle("hecho", j < k); q.querySelector("button").setAttribute("aria-current", j === k ? "true" : "false"); });
     $$("#eBarra i").forEach(function (b, j) { b.classList.toggle("on", j <= k); });
+    var caraPiso = ["normal", "lado", "arriba", "guino", "feliz", "estrellas", "pensando", "corazones", "estrellas"][k];
+    $("#eMini").innerHTML = asesor(caraPiso); var cc = $("#eCarro"); if (cc && cc.firstChild) cc.innerHTML = asesor(caraPiso);
+    if (window.gsap && !reduce) gsap.fromTo(["#eMini svg", "#eCarro svg"], { y: 0, scaleY: .85 }, { y: -8, scaleY: 1.05, transformOrigin: "50% 100%", duration: .16, yoyo: true, repeat: 1, ease: "power2.out", overwrite: true });
   }
   function video(k) { var key = pisos[k].dataset.key; if (eleVisible || reduce) pDuo.poner(key, false); else pDuo.poster(key); }
   // Si bajas rápido, el elevador no se atora: termina el viaje y sigue al piso más reciente
@@ -813,6 +947,7 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
 
   /* ---------- 3 · El elevador ---------- */
   var nP = pisos.length, carro = $("#eCarro");
+  carro.innerHTML = asesor("guino");
   var eleST = ScrollTrigger.create({
     trigger: "#sistema", start: "top top", end: "+=" + (nP * 60) + "%", pin: true, scrub: true,
     onUpdate: function (self) {
@@ -854,6 +989,29 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
   /* ---------- 7 · Cierre: la ciudad encendida ---------- */
   gsap.fromTo("#cierreBg", { yPercent: -10, scale: 1.1 }, { yPercent: 6, scale: 1, ease: "none", scrollTrigger: { trigger: ".cierre", start: "top bottom", end: "bottom bottom", scrub: true } });
   gsap.from(".cierre__foto, .cierre h2, .cierre .lead, .cierre__acts, .cierre__contacto", { autoAlpha: 0, y: 40, stagger: .1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".cierre", start: "top 70%" } });
+
+  /* ---------- Lo que dice El Asesor en cada escena ---------- */
+  gsap.fromTo("#guiaIn", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .8, ease: "back.out(2)", delay: 1.6, onComplete: function () { if (pc.matches) decir("¡Hola! Baja conmigo, te enseño cómo vende tu negocio.", "feliz", "brinco"); } });
+  ScrollTrigger.create({ start: function () { return buceo.scrollTrigger.start; }, end: function () { return buceo.scrollTrigger.end; }, onUpdate: function (s) {
+    if (s.progress > .88) decir("Esta ventana es tu negocio. Mírala funcionando.", "estrellas", "flota");
+    else if (s.progress > .2) decir("¡Agárrate, vamos a entrar!", "susto", "tiembla");
+    else if (s.progress > .03) decir("¡Hola! Baja conmigo, te enseño cómo vende tu negocio.", "feliz", "brinco");
+  } });
+  ScrollTrigger.create({ start: function () { return chat.scrollTrigger.start - innerHeight * .4; }, end: function () { return chat.scrollTrigger.end; }, onUpdate: function (s) {
+    var pc = chat.scrollTrigger.progress;
+    if (pc > .72) decir("¡Listo! Todos con respuesta al momento.", "feliz", "baila");
+    else if (pc > .3) decir("Uy… ese cliente ya se fue con la competencia.", "preocupado", "tiembla");
+  } });
+  ScrollTrigger.create({ start: function () { return eleST.start - innerHeight * .4; }, end: function () { return eleST.end; }, onUpdate: function () {
+    var pe = eleST.progress;
+    if (pe > .93) decir("¡Llegamos a la azotea!", "estrellas", "brinco");
+    else if (pe > .5) decir("Cada piso es algo que trabaja por ti.", "arriba", "estira");
+    else decir("Súbete, el elevador va por mi cuenta.", "guino", "inclina");
+  } });
+  ScrollTrigger.create({ trigger: "#giros", start: "top 50%", onEnter: function () { decir("Busca el de tu giro. Todos se pueden probar.", "lado", "camina"); }, onEnterBack: function () { decir("Busca el de tu giro. Todos se pueden probar.", "lado", "camina"); } });
+  ScrollTrigger.create({ trigger: ".frase", start: "top 50%", onEnter: function () { decir("Esta me la sé de memoria.", "corazones", "flota"); } });
+  ScrollTrigger.create({ trigger: "#metodo", start: "top 50%", onEnter: function () { decir("Tres pasos. Ni yo me pierdo.", "pensando", "gira"); } });
+  ScrollTrigger.create({ trigger: "#diagnostico", start: "top 55%", onEnter: function () { decir("Ándale, escríbele DIAGNÓSTICO a Ricardo.", "feliz", "brinco"); } });
 
   // Recalcular cuando carguen fuentes e imágenes
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
