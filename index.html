@@ -498,12 +498,12 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
       <p class="lead">Negocios de ejemplo. Abre el de tu giro y pruébalo como si fueras tu cliente.</p>
     </div>
     <div class="giros__track" id="track">
-      <a class="giro" href="demos/restaurante.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/restaurante.webp" alt="" loading="lazy" decoding="async" width="360" height="2123"></div></div><h3>Restaurante</h3><p>Pedir por WhatsApp</p></a>
-      <a class="giro" href="demos/car-wash.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/car-wash.webp" alt="" loading="lazy" decoding="async" width="360" height="2123"></div></div><h3>Car wash</h3><p>Agendar lavado</p></a>
-      <a class="giro" href="demos/joyeria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/joyeria.webp" alt="" loading="lazy" decoding="async" width="360" height="2123"></div></div><h3>Joyería</h3><p>Ver catálogo y escribir</p></a>
-      <a class="giro" href="demos/academia.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/academia.webp" alt="" loading="lazy" decoding="async" width="360" height="2123"></div></div><h3>Academia</h3><p>Agendar clase muestra</p></a>
-      <a class="giro" href="demos/inmobiliaria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/inmobiliaria.webp" alt="" loading="lazy" decoding="async" width="360" height="2123"></div></div><h3>Inmobiliaria</h3><p>Agendar visita</p></a>
-      <a class="giro" href="demos/consultorio.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/consultorio.webp" alt="" loading="lazy" decoding="async" width="360" height="2123"></div></div><h3>Consultorio</h3><p>Agendar cita</p></a>
+      <a class="giro" href="demos/restaurante.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/restaurante.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Restaurante</h3><p>Pedir por WhatsApp</p></a>
+      <a class="giro" href="demos/car-wash.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/car-wash.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Car wash</h3><p>Agendar lavado</p></a>
+      <a class="giro" href="demos/joyeria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/joyeria.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Joyería</h3><p>Ver catálogo y escribir</p></a>
+      <a class="giro" href="demos/academia.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/academia.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Academia</h3><p>Agendar clase muestra</p></a>
+      <a class="giro" href="demos/inmobiliaria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/inmobiliaria.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Inmobiliaria</h3><p>Agendar visita</p></a>
+      <a class="giro" href="demos/consultorio.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/consultorio.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Consultorio</h3><p>Agendar cita</p></a>
     </div>
   </section>
 
@@ -699,22 +699,25 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     $$("#eBarra i").forEach(function (b, j) { b.classList.toggle("on", j <= k); });
   }
   function video(k) { var key = pisos[k].dataset.key; if (eleVisible || reduce) pDuo.poner(key, false); else pDuo.poster(key); }
-  var puertasTl = null;
+  // Si bajas rápido, el elevador no se atora: termina el viaje y sigue al piso más reciente
+  var animando = false, objetivo = 0;
   function irPiso(k, animar) {
-    if (k === actual) return;
+    objetivo = k;
+    if (animando || k === actual) return;
     var antes = actual; actual = k;
-    if (!animar || !hayGsap || reduce) { textos(k); video(k); $("#eNum span").textContent = k + 1; return; }
-    if (puertasTl) puertasTl.kill();
-    var sube = k > antes;
-    puertasTl = gsap.timeline()
-      .to(".puerta", { scaleX: 1, duration: .32, ease: "power3.in" })
-      .to("#eTxt > *", { autoAlpha: 0, y: sube ? -12 : 12, duration: .2, stagger: .03 }, 0)
-      .to("#eNum span", { yPercent: sube ? -100 : 100, duration: .28, ease: "power2.in" }, 0)
-      .add(function () { textos(k); video(k); $("#eNum span").textContent = k + 1; })
+    if (!animar || !hayGsap || reduce) { textos(k); video(k); $("#eNum span").textContent = k + 1; if (hayGsap) gsap.set(".puerta", { scaleX: 0 }); return; }
+    animando = true;
+    var sube = k > antes, rapido = Math.abs(k - antes) > 1;
+    var d = rapido ? .6 : 1;
+    gsap.timeline({ onComplete: function () { animando = false; gsap.set("#eTxt > *", { autoAlpha: 1, y: 0 }); gsap.set(".puerta", { scaleX: 0 }); if (objetivo !== actual) irPiso(objetivo, true); } })
+      .to(".puerta", { scaleX: 1, duration: .3 * d, ease: "power3.in" })
+      .to("#eTxt > *", { autoAlpha: 0, y: sube ? -12 : 12, duration: .18 * d, stagger: .03 * d }, 0)
+      .to("#eNum span", { yPercent: sube ? -100 : 100, duration: .26 * d, ease: "power2.in" }, 0)
+      .add(function () { var j = objetivo; actual = j; textos(j); video(j); $("#eNum span").textContent = j + 1; })
       .set("#eNum span", { yPercent: sube ? 100 : -100 })
-      .to("#eNum span", { yPercent: 0, duration: .45, ease: "power3.out" })
-      .to(".puerta", { scaleX: 0, duration: .55, ease: "power3.out", delay: .12 }, "<")
-      .fromTo("#eTxt > *", { autoAlpha: 0, y: sube ? 14 : -14 }, { autoAlpha: 1, y: 0, duration: .45, stagger: .06, ease: "power3.out" }, "<+.1");
+      .to("#eNum span", { yPercent: 0, duration: .4 * d, ease: "power3.out" })
+      .to(".puerta", { scaleX: 0, duration: .5 * d, ease: "power3.out", delay: .1 * d }, "<")
+      .fromTo("#eTxt > *", { autoAlpha: 0, y: sube ? 14 : -14 }, { autoAlpha: 1, y: 0, duration: .4 * d, stagger: .05 * d, ease: "power3.out" }, "<+.08");
   }
   irPiso(0, false);
   if ("IntersectionObserver" in window) new IntersectionObserver(function (es) {
