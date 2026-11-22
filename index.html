@@ -207,7 +207,6 @@ body.en-inicio .header__cta, body.en-cierre .header__cta { opacity: 0; visibilit
 .estatico .hero__dice { display: none; }
 /* Celular: el teléfono un poco más chico para que la frase de abajo se lea limpia */
 @media (max-width: 760px) { .hero__fone { width: min(220px, 52vw, 30vh); } .hero__dice { bottom: 14px; font-size: 1.12rem; padding: 0 18px; } }
-#heroLabel::before { background: var(--lima); box-shadow: none; animation: none; }
 .estatico .hcard { display: none; }
 
 /* Celular (marco reutilizable) */
@@ -432,6 +431,142 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
 @media (max-width: 999px) { .guia { width: 56px; } .guia__burbuja { max-width: 190px; font-size: .84rem; } }
 .estatico .guia { display: none; }
 
+
+/* =====================================================================
+   v4 · Correcciones de la auditoría (14 puntos)
+   ===================================================================== */
+/* 7 · El menú fijo nunca tapa títulos al saltar a una sección */
+html { scroll-padding-top: calc(var(--header-h) + 18px); }
+.ancla { display: block; position: relative; top: calc(-1 * (var(--header-h) + 18px)); height: 0; visibility: hidden; }
+
+/* 1 · ARM explicado una sola vez, en el inicio */
+.hero__arm { margin: -14px 0 26px; max-width: 34em; font-size: clamp(.98rem, 1.4vw, 1.1rem); line-height: 1.5; color: var(--blanco); text-shadow: 0 2px 16px rgba(0, 0, 0, .8); }
+.hero__arm b { display: inline-block; margin-right: 4px; padding: 1px 9px; border-radius: 999px; font-weight: 700; letter-spacing: .04em; color: #0b0918; background: var(--violeta-luz); }
+
+/* 4 · Inicio: etiquetas fuera del texto del teléfono; título nítido */
+#heroLabel::before { background: var(--violeta-luz); box-shadow: 0 0 8px var(--violeta); animation: none; }
+.chip.c1 { top: 11%; }
+.chip.c2 { top: 78%; }
+#h-title { will-change: transform; }
+@media (orientation: landscape) and (max-height: 560px) {
+  .hero__fone { width: min(150px, 40vh); }
+  .hero__dice { display: none; }
+}
+
+/* 4 y 14 · Celular: el teléfono del inicio un poco más chico y más abajo, para no quedar debajo del título */
+@media (max-width: 760px) {
+  .hero__fone { width: min(180px, 46vw, 26vh); top: 56%; }
+  .phone__label { font-size: .78rem; }
+  .chip { font-size: .76rem; }
+}
+/* 9 y 14 · Cierre en celular: foto más chica para que el título se vea al llegar */
+@media (max-width: 899px) {
+  .cierre { padding-top: 90px; }
+  .cierre__foto { width: min(200px, 52vw); }
+}
+.cierre__contacto a { display: inline-block; padding: 6px 0; }
+/* 4 · Celular girado: el teléfono del inicio con buen tamaño y su forma de siempre */
+@media (orientation: landscape) and (max-height: 560px) { .hero__fone { width: min(150px, 40vh); top: 50%; } }
+
+/* 5 · Mensajes: más contraste en el texto de la izquierda */
+.chat .lead { color: #e8e6f4; text-shadow: 0 2px 18px rgba(0, 0, 0, .85); }
+
+/* 2 · Elevador: la vista previa cambia al instante, sin desenfoque */
+#pScreen video { transition: none; filter: none !important; transform: none !important; opacity: 1; }
+#pScreen video + video { display: none; }
+.ele__display { align-items: center; }
+.ele__flechas { display: flex; gap: 8px; margin-left: auto; }
+.ele__flechas button, .giros__nav button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(244, 244, 247, .28); background: rgba(13, 10, 28, .55); color: var(--blanco); font-size: 1.5rem; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background .2s, border-color .2s, opacity .2s, transform .2s var(--ease); backdrop-filter: blur(8px); }
+.ele__flechas button:hover, .giros__nav button:hover { background: rgba(124, 92, 255, .35); border-color: var(--violeta-luz); }
+.ele__flechas button:active, .giros__nav button:active { transform: scale(.94); }
+.ele__flechas button:disabled, .giros__nav button:disabled { opacity: .3; cursor: default; }
+.ele__barra button { padding: 12px 0; border: 0; background: none; cursor: pointer; }
+.ele__barra button i { display: block; height: 4px; border-radius: 2px; background: rgba(244, 244, 247, .16); transition: background .4s; }
+.ele__barra button i.on { background: var(--violeta-luz); box-shadow: 0 0 8px var(--violeta); }
+.ele__pisos li.actual button { color: var(--blanco); }
+.ele__pisos button { min-height: 40px; }
+.ele__guia { margin: 10px 0 0 22px; font-size: .85rem; color: var(--lavanda); }
+@media (max-width: 999px) { .ele__guia { margin: 4px 0 0; } }
+
+/* 3 y 14 · Giros: carrusel con flechas, dedo y avance solo; tarjetas completas */
+.giros__cab { align-items: center; }
+.giros__nav { display: flex; gap: 10px; }
+.giros__track { width: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; padding: 40px max(20px, calc((100vw - 1200px) / 2)) 46px; scroll-padding-inline: max(20px, calc((100vw - 1200px) / 2)); will-change: auto; }
+.giros__track::-webkit-scrollbar { display: none; }
+.giro { scroll-snap-align: start; transform-origin: 50% 100%; will-change: transform; }
+.giros__pie { margin-top: -18px; font-size: .88rem; color: var(--lavanda); }
+@media (max-width: 999px) { .giro { width: min(66vw, 250px); } .giro { scroll-snap-align: center; } .giros__cab { margin-bottom: 6px; } }
+
+/* 11 · ¿Para quién es? */
+.para { position: relative; padding: 120px 0 90px; background: linear-gradient(180deg, rgba(5,5,5,.15) 0%, rgba(5,5,5,.86) 22%, rgba(5,5,5,.86) 100%); }
+.para__grid { display: grid; gap: 36px; align-items: start; }
+@media (min-width: 1000px) { .para__grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 80px; } }
+.para h2 { margin-bottom: 18px; }
+.para h2 em { color: var(--violeta-luz); }
+.para__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+@media (min-width: 700px) { .para__lista { grid-template-columns: 1fr 1fr; } }
+.para__lista li { position: relative; padding: 22px 22px 20px; border-radius: 22px; background: linear-gradient(160deg, rgba(124, 92, 255, .16), rgba(13, 10, 28, .6) 60%); border: 1px solid rgba(169, 147, 255, .22); }
+.para__lista li::before { content: "✓"; display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 14px; border-radius: 50%; font-weight: 700; color: #0b0918; background: var(--violeta-luz); box-shadow: 0 0 18px rgba(124, 92, 255, .8); }
+.para__lista b { display: block; font: 500 1.35rem/1.15 var(--f-display); margin-bottom: 6px; }
+.para__lista span { color: var(--lavanda); font-size: .98rem; }
+
+/* 12 · Clientes: logotipos que corren despacio */
+.clientes { position: relative; padding: 70px 0 80px; background: rgba(5, 5, 5, .86); border-block: 1px solid var(--linea); }
+.clientes__cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 30px; margin-bottom: 34px; }
+.clientes h2 { font-size: clamp(1.8rem, 3.4vw, 2.7rem); }
+.clientes h2 em { color: var(--violeta-luz); }
+.clientes__pausa { min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--linea); background: none; color: var(--lavanda); cursor: pointer; font-size: .9rem; }
+.clientes__pausa:hover { color: var(--blanco); border-color: rgba(244, 244, 247, .3); }
+.marquesina { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquesina__pista { display: flex; width: max-content; animation: correr 38s linear infinite; }
+.marquesina:hover .marquesina__pista, .marquesina.pausada .marquesina__pista { animation-play-state: paused; }
+.marquesina__fila { list-style: none; display: flex; align-items: center; gap: 0; margin: 0; padding: 0; }
+.marquesina__fila li { flex: none; display: grid; place-items: center; height: 96px; padding: 0 clamp(34px, 5vw, 64px); opacity: .82; transition: opacity .3s; }
+.marquesina__fila li:hover { opacity: 1; }
+.marquesina__fila img { width: auto; max-width: 230px; height: 46px; object-fit: contain; }
+.marquesina__fila img.alto { height: 86px; }
+.marca { font: 500 clamp(1.5rem, 2.6vw, 2.1rem)/1 var(--f-display); letter-spacing: .02em; white-space: nowrap; color: var(--blanco); }
+.marca--mayus { font-family: var(--f-texto); font-weight: 700; letter-spacing: .32em; text-transform: uppercase; font-size: clamp(1.05rem, 1.8vw, 1.35rem); }
+.marca--ital { font-style: italic; }
+@keyframes correr { to { transform: translateX(-50%); } }
+
+/* 10 · ¿Cuánto cuesta? sin precios: el proceso */
+.costo { align-items: start; }
+.costo__pasos { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 16px; counter-reset: c; max-width: 40em; }
+.costo__pasos li { counter-increment: c; display: grid; grid-template-columns: 42px 1fr; gap: 4px 14px; align-items: start; }
+.costo__pasos li::before { content: counter(c); grid-row: span 2; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; font: italic 500 1.3rem var(--f-display); color: var(--violeta-luz); border: 1px solid rgba(169, 147, 255, .45); }
+.costo__pasos b { font-weight: 600; color: var(--blanco); }
+.costo__pasos span { color: var(--lavanda); }
+.costo__cta { display: grid; gap: 10px; justify-items: start; padding: 26px; border-radius: 24px; background: linear-gradient(160deg, rgba(124, 92, 255, .28), rgba(13, 10, 28, .7)); border: 1px solid rgba(169, 147, 255, .4); box-shadow: 0 30px 70px -30px rgba(124, 92, 255, .9); }
+.costo__cta p { margin: 0; color: var(--lavanda); font-size: .92rem; }
+.btn--grande { min-height: 58px; padding: 16px 30px; font-size: 1.08rem; }
+@media (min-width: 900px) { .costo { grid-template-columns: 1fr 320px; } }
+
+/* 13 · Preguntas frecuentes */
+.faq { position: relative; padding: 100px 0; background: rgba(5, 5, 5, .9); }
+.faq__grid { display: grid; gap: 30px; }
+@media (min-width: 1000px) { .faq__grid { grid-template-columns: 360px 1fr; gap: 80px; } }
+.faq h2 em { color: var(--violeta-luz); }
+.faq__lista { display: grid; gap: 10px; }
+.faq details { border-radius: 18px; border: 1px solid var(--linea); background: rgba(13, 10, 28, .6); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 56px; padding: 14px 20px; font-weight: 600; font-size: 1.05rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; font-size: 1.4rem; color: var(--violeta-luz); transition: transform .25s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: 0; padding: 0 20px 18px; color: var(--lavanda); }
+
+/* 13 · Pie con año y enlaces legales */
+.pie__legal { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--linea); font-size: .86rem; }
+.pie__legal p { margin: 0; }
+.pie__nota { width: 100%; color: rgba(183, 178, 217, .7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquesina__pista { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .marquesina__fila[aria-hidden="true"] { display: none; }
+  .marquesina { -webkit-mask-image: none; mask-image: none; }
+  .clientes__pausa { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
@@ -477,6 +612,7 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     <div class="container hero__in" id="heroIn">
       <h1 id="h-title"><span class="ln"><span>Primero entendemos.</span></span><span class="ln"><span><em>Después integramos.</em></span></span></h1>
       <p class="hero__sub">Tu negocio vendiendo solo, piso por piso.</p>
+      <p class="hero__arm"><b>ARM</b>, el CRM de Zolko: registra, organiza y da seguimiento a cada cliente.</p>
       <div class="hero__acts">
         <a class="btn" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg> Agenda tu diagnóstico</a>
         <a class="btn btn--linea" href="#sistema">Ver el sistema</a>
@@ -539,8 +675,8 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     <div class="container ele__grid">
       <div class="ele__cab">
         <h2 id="s-title">El sistema, <em>piso por piso.</em></h2>
-        <div class="ele__display" aria-hidden="true"><div class="ele__num" id="eNum"><span>1</span></div><div class="ele__grupo" id="eGrupo">Atraer</div></div>
-        <div class="ele__barra" id="eBarra" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="ele__display"><div class="ele__num" id="eNum" aria-hidden="true"><span>1</span></div><div class="ele__grupo" id="eGrupo" aria-hidden="true">Atraer</div><div class="ele__flechas"><button type="button" id="eAnt" aria-label="Piso anterior" aria-controls="ePanel">‹</button><button type="button" id="eSig" aria-label="Piso siguiente" aria-controls="ePanel">›</button></div></div>
+        <div class="ele__barra" id="eBarra" role="group" aria-label="Elige un piso"><button type="button" aria-label="Piso 1: Contenido" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 2: Páginas web" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 3: Página por sucursal" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 4: Tarjeta digital NFC" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 5: WhatsApp que contesta" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 6: Menú digital" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 7: ARM, agente de clientes" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 8: Lealtad en Wallet" aria-controls="ePanel"><i></i></button><button type="button" aria-label="Piso 9: Capacitación" aria-controls="ePanel"><i></i></button></div>
         <div class="ele__cubo">
           <span class="ele__carro" id="eCarro" aria-hidden="true"></span>
           <ul class="ele__pisos" id="ePisos" aria-label="Pisos del sistema, de abajo hacia arriba">
@@ -550,12 +686,13 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
             <li data-key="nfc" data-demo="demos/tarjeta-digital.html" data-grupo="Atraer" data-nombre="Tarjeta digital NFC" data-que="Una tarjeta que no se pierde en un cajón: con un toque guardan tu contacto, te escriben o te siguen." data-res="Tu tarjeta de papel termina olvidada."><button type="button" aria-controls="ePanel"><span>Tarjeta digital NFC</span><small>4</small></button></li>
             <li data-key="whatsapp" data-demo="demos/automatizacion.html" data-grupo="Contestar" data-nombre="WhatsApp que contesta" data-que="Contesta con tus palabras, pregunta lo necesario y aparta la cita, aunque estés ocupado." data-res="Contestas tarde y el cliente ya le compró a otro."><button type="button" aria-controls="ePanel"><span>WhatsApp que contesta</span><small>5</small></button></li>
             <li data-key="menu" data-demo="demos/menu-digital.html" data-grupo="Vender" data-nombre="Menú digital" data-que="Tu cliente elige desde la mesa y el pedido te llega por WhatsApp, con total y forma de entrega." data-res="Todo depende de que tú tomes cada pedido."><button type="button" aria-controls="ePanel"><span>Menú digital</span><small>6</small></button></li>
-            <li data-key="arm" data-demo="demos/arm.html" data-grupo="Dar seguimiento" data-nombre="ARM, agente de clientes" data-que="Un agente de IA lee cada conversación, cambia al cliente de etapa y te dice cuándo contactarlo." data-res="Cotizas y nadie da seguimiento."><button type="button" aria-controls="ePanel"><span>ARM, agente de clientes</span><small>7</small></button></li>
+            <li data-key="arm" data-demo="demos/arm.html" data-grupo="Dar seguimiento" data-nombre="ARM, agente de clientes" data-que="Un agente de IA lee cada conversación, mueve al cliente de etapa y te dice cuándo contactarlo." data-res="Cotizas y nadie da seguimiento."><button type="button" aria-controls="ePanel"><span>ARM, agente de clientes</span><small>7</small></button></li>
             <li data-key="wallet" data-demo="demos/tarjeta-lealtad.html" data-grupo="Que regresen" data-nombre="Lealtad en Wallet" data-que="Se guarda en Apple o Google Wallet sin descargar apps; sumas sellos y mandas avisos a su pantalla." data-res="Te compran una vez y no regresan."><button type="button" aria-controls="ePanel"><span>Lealtad en Wallet</span><small>8</small></button></li>
             <li data-key="capacitacion" data-demo="demos/capacitacion.html" data-grupo="Tu equipo" data-nombre="Capacitación" data-que="Un taller práctico para quienes atienden WhatsApp, cotizan y dan seguimiento, con herramientas de IA para su día a día." data-res="Tu equipo contesta lento y cada quien lo hace a su manera."><button type="button" aria-controls="ePanel"><span>Capacitación</span><small>9</small></button></li>
           </ul>
         </div>
         <p class="ele__base">Los cimientos: el diagnóstico de tu negocio.</p>
+        <p class="ele__guia">Toca un piso para verlo funcionando.</p>
       </div>
       <div class="ele__panel" id="ePanel" aria-live="polite">
         <div class="phone">
@@ -579,10 +716,13 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
   <!-- ======================= 4 · LOS GIROS ======================= -->
   <section class="giros" id="giros" aria-labelledby="g-title">
     <div class="container giros__cab">
-      <h2 id="g-title">Míralo en <em>tu giro.</em></h2>
-      <p class="lead">Negocios de ejemplo. Abre el de tu giro y pruébalo como si fueras tu cliente.</p>
+      <div>
+        <h2 id="g-title">Míralo en <em>tu giro.</em></h2>
+        <p class="lead">Negocios de ejemplo. Abre el de tu giro y pruébalo como si fueras tu cliente.</p>
+      </div>
+      <div class="giros__nav"><button type="button" id="gAnt" aria-label="Ver giros anteriores" aria-controls="track">‹</button><button type="button" id="gSig" aria-label="Ver más giros" aria-controls="track">›</button></div>
     </div>
-    <div class="giros__track" id="track">
+    <div class="giros__track" id="track" tabindex="0" role="region" aria-label="Seis páginas de ejemplo por giro; desliza o usa las flechas">
       <a class="giro" href="demos/restaurante.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/restaurante.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Restaurante</h3><p>Pedir por WhatsApp</p></a>
       <a class="giro" href="demos/car-wash.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/car-wash.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Car wash</h3><p>Agendar lavado</p></a>
       <a class="giro" href="demos/joyeria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/joyeria.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Joyería</h3><p>Ver catálogo y escribir</p></a>
@@ -597,8 +737,39 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     <div class="container"><p id="frase" aria-hidden="true">La IA no te reemplaza, <em>sino que te devuelve tu tiempo.</em></p></div>
   </section>
 
+  <!-- ======================= 5b · ¿PARA QUIÉN ES? ======================= -->
+  <section class="para" id="para-quien" aria-labelledby="pq-title">
+    <div class="container para__grid">
+      <div>
+        <h2 id="pq-title">¿Para quién <em>es ZOLKO?</em></h2>
+        <p class="lead">Para negocios que ya venden y quieren vender más. Si tus clientes ya te escriben, que ninguno se quede sin respuesta.</p>
+      </div>
+      <ul class="para__lista">
+        <li><b>Ya vendes</b><span>Tienes clientes y quieres que te compren más y más seguido.</span></li>
+        <li><b>Contestas a tus clientes</b><span>Atiendes por WhatsApp, redes o en persona, y quieres hacerlo más rápido y mejor.</span></li>
+        <li><b>Se te van ventas por no contestar</b><span>Mensajes de noche, cotizaciones sin seguimiento, clientes que se enfrían.</span></li>
+        <li><b>Quieres un seguimiento que no dependa de tu memoria</b><span>Que cada cliente tenga su siguiente paso, aunque estés ocupado.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ======================= 5c · CLIENTES =======================
+       Sección de prueba: por ahora solo logotipos de clientes reales.
+       El testimonio y el resultado con número se agregan cuando Ricardo
+       los comparta (no se inventan). -->
+  <section class="clientes" id="clientes" aria-labelledby="cl-title">
+    <div class="container clientes__cab">
+      <h2 id="cl-title">Negocios que ya <em>trabajan con ZOLKO.</em></h2>
+      <button class="clientes__pausa" type="button" id="mqPausa" aria-pressed="false">Pausar</button>
+    </div>
+    <div class="marquesina" role="region" aria-label="Clientes de ZOLKO">
+      <div class="marquesina__pista"><ul class="marquesina__fila"><li><img src="assets/clientes/maria-montero.png" alt="María Montero" width="640" height="95" loading="lazy"></li><li><img class="alto" src="assets/clientes/plataforma.png" alt="Plataforma Joyería" width="308" height="340" loading="lazy"></li><li><span class="marca marca--ital">Eloisa Montero</span></li><li><span class="marca marca--mayus">Damira</span></li><li><span class="marca">Los Parados de Sinaloa</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img src="assets/clientes/maria-montero.png" alt="" width="640" height="95" loading="lazy"></li><li><img class="alto" src="assets/clientes/plataforma.png" alt="" width="308" height="340" loading="lazy"></li><li><span class="marca marca--ital">Eloisa Montero</span></li><li><span class="marca marca--mayus">Damira</span></li><li><span class="marca">Los Parados de Sinaloa</span></li></ul></div>
+    </div>
+  </section>
+
   <!-- ======================= 6 · CÓMO TRABAJAMOS ======================= -->
   <section class="proceso" id="metodo" aria-labelledby="m-title">
+    <span class="ancla" id="proceso" aria-hidden="true"></span>
     <div class="container">
       <h2 id="m-title">Tres pasos, <em>sin enredos.</em></h2>
       <div class="pasos-wrap" id="pasos">
@@ -633,12 +804,35 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
           </div>
         </div>
       </details>
+      <span class="ancla" id="costo" aria-hidden="true"></span>
       <div class="costo" id="cuanto-cuesta">
         <div>
           <h2>¿Cuánto cuesta?</h2>
-          <p>Cada negocio es distinto, por eso cotizamos directo contigo. Empezamos con una investigación de tu negocio; su costo se te devuelve completo al contratar cualquier servicio.</p>
+          <p>Cada negocio es distinto, por eso no hay precios de lista: cotizamos directo contigo. Así funciona:</p>
+          <ol class="costo__pasos">
+            <li><b>Diagnóstico de 30 minutos</b><span>Entendemos cómo vendes hoy y dónde se te van los clientes.</span></li>
+            <li><b>Cotización directa con Ricardo</b><span>A la medida de tu negocio, solo con lo que te sirve.</span></li>
+            <li><b>La investigación se te devuelve</b><span>Empezamos con una investigación de tu negocio; su costo se te devuelve completo al contratar cualquier servicio.</span></li>
+          </ol>
         </div>
-        <a class="btn btn--linea" href="https://wa.me/523343230958?text=Hola%20Ricardo%2C%20quiero%20cotizar%20para%20mi%20negocio." target="_blank" rel="noopener">Cotizar con Ricardo</a>
+        <div class="costo__cta">
+          <a class="btn btn--grande" href="https://wa.me/523343230958?text=Hola%20Ricardo%2C%20quiero%20cotizar%20para%20mi%20negocio." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg> Cotizar con Ricardo</a>
+          <p>Te escribe Ricardo por WhatsApp para agendar tu diagnóstico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 6b · PREGUNTAS FRECUENTES ======================= -->
+  <section class="faq" id="preguntas" aria-labelledby="f-title">
+    <div class="container faq__grid">
+      <h2 id="f-title">Preguntas <em>frecuentes.</em></h2>
+      <div class="faq__lista">
+        <details><summary>¿Necesito saber de tecnología?</summary><p>No. Nosotros lo instalamos y te enseñamos a usarlo. Tú y tu equipo siguen trabajando desde el celular y WhatsApp.</p></details>
+        <details><summary>¿Tengo que cambiar mi número de WhatsApp?</summary><p>No necesariamente. En el diagnóstico revisamos cómo usas WhatsApp hoy y te decimos la mejor opción para tu número.</p></details>
+        <details><summary>¿La IA va a contestar cosas que no debe?</summary><p>Contesta solo con la información y las reglas que tú apruebas, y te pasa la conversación cuando el cliente necesita a una persona.</p></details>
+        <details><summary>¿Cuánto tarda en estar listo?</summary><p>Depende de lo que tu negocio necesite. En el diagnóstico te damos fechas concretas para cada parte.</p></details>
+        <details><summary>¿Qué pasa después del diagnóstico?</summary><p>Ricardo te manda una cotización a la medida. Si contratas, el costo de la investigación se te devuelve completo.</p></details>
       </div>
     </div>
   </section>
@@ -667,10 +861,22 @@ body.en-inicio .fab, body.en-chat .fab, body.en-cierre .fab, body.en-pie .fab, b
     <ul>
       <li><a href="#sistema">El sistema</a></li>
       <li><a href="#giros">Tu giro</a></li>
-      <li><a href="#metodo">Cómo trabajamos</a></li>
+      <li><a href="#para-quien">Para quién es</a></li>
+      <li><a href="#proceso">Cómo trabajamos</a></li>
+      <li><a href="#costo">Cuánto cuesta</a></li>
+      <li><a href="#preguntas">Preguntas</a></li>
       <li><a href="#diagnostico">Quién soy</a></li>
       <li><a href="presentacion.html">Modo presentación</a></li>
     </ul>
+  </div>
+  <div class="container pie__legal">
+    <p>© <span id="anio">2026</span> ZOLKO INTEGRATIONS. Todos los derechos reservados.</p>
+    <ul>
+      <li><a href="aviso-privacidad.html">Aviso de privacidad</a></li>
+      <li><a href="https://wa.me/523343230958?text=Hola%20Ricardo" target="_blank" rel="noopener">WhatsApp</a></li>
+      <li><a href="mailto:ricardo@zolkointegrations.com">ricardo@zolkointegrations.com</a></li>
+    </ul>
+    <p class="pie__nota">Los negocios de las demos son de ejemplo.</p>
   </div>
 </footer>
 
@@ -957,7 +1163,7 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
       vestir(cfg.cara, cfg.traje, true);
       pose(cfg.pose || "brinco");
       hablar(cfg.texto);
-      if (cfg.apunta) { G.apunta = cfg.apunta; G.hasta = performance.now() + (cfg.tiempo || 5200); }
+      // Sin línea punteada: así nunca cruza títulos, teléfonos ni textos
     }
     if (lejos) {
       vestir(estado.cara === "susto" ? "susto" : "normal", estado.traje, false);
@@ -987,9 +1193,28 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
   /* ---------- Celular del inicio: imagen fija (se lee mejor que videos que cambian) ---------- */
   function heroArranca() {}
 
-  /* ---------- Elevador: datos de cada piso ---------- */
-  var pisos = $$("#ePisos li"), pDuo = Duo($("#pScreen"), false), actual = -1, eleVisible = false;
-  pDuo.alTerminar(function () { pDuo.repetir(); });
+  /* ---------- Elevador: datos de cada piso ----------
+     El piso solo cambia cuando el visitante lo elige (lista, flechas o
+     barra). La vista previa usa un solo <video>: al elegir un piso se pone
+     de inmediato la imagen de ese piso y luego corre su video. */
+  function Uno(pantalla) {
+    var vs = $$("video", pantalla), v = vs[0], clave = null;
+    vs.slice(1).forEach(function (x) { x.remove(); });
+    v.classList.add("is-on"); v.loop = true;
+    return {
+      clave: function () { return clave; },
+      poner: function (key) {
+        clave = key; v.poster = "videos/" + key + ".jpg";
+        if (reduce) { v.removeAttribute("src"); v.load(); return; }
+        v.src = "videos/loop-" + key + ".mp4"; v.play().catch(function () {});
+      },
+      poster: function (key) { clave = null; v.pause(); v.removeAttribute("src"); v.poster = "videos/" + key + ".jpg"; v.load(); },
+      play: function () { if (!reduce && v.getAttribute("src")) v.play().catch(function () {}); },
+      pausa: function () { v.pause(); }
+    };
+  }
+  var pisos = $$("#ePisos li"), pDuo = Uno($("#pScreen")), actual = -1, eleVisible = false;
+  var barras = $$("#eBarra button");
   function textos(k) {
     var li = pisos[k];
     $("#pTitulo").textContent = li.dataset.nombre;
@@ -999,12 +1224,17 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
     $("#pDemo").href = li.dataset.demo;
     $("#eGrupo").textContent = li.dataset.grupo;
     pisos.forEach(function (q, j) { q.classList.toggle("actual", j === k); q.classList.toggle("hecho", j < k); q.querySelector("button").setAttribute("aria-current", j === k ? "true" : "false"); });
-    $$("#eBarra i").forEach(function (b, j) { b.classList.toggle("on", j <= k); });
+    barras.forEach(function (b, j) { b.querySelector("i").classList.toggle("on", j <= k); b.setAttribute("aria-current", j === k ? "true" : "false"); });
+    $("#eAnt").disabled = k === 0; $("#eSig").disabled = k === pisos.length - 1;
+    var y = (pisos.length - 1 - k) * 100;
+    if (hayGsap && !reduce) gsap.to("#eCarro", { yPercent: y, duration: .7, ease: "power3.inOut", overwrite: true });
+    else $("#eCarro").style.transform = "translateY(" + y + "%)";
   }
-  function video(k) { var key = pisos[k].dataset.key; if (eleVisible || reduce) pDuo.poner(key, false); else pDuo.poster(key); }
-  // Si bajas rápido, el elevador no se atora: termina el viaje y sigue al piso más reciente
+  function video(k) { var key = pisos[k].dataset.key; if (eleVisible || reduce) pDuo.poner(key); else pDuo.poster(key); }
+  // Si eliges otro piso mientras el elevador viaja, termina el viaje y sigue al último elegido
   var animando = false, objetivo = 0;
   function irPiso(k, animar) {
+    k = Math.max(0, Math.min(pisos.length - 1, k));
     objetivo = k;
     if (animando || k === actual) return;
     var antes = actual; actual = k;
@@ -1012,33 +1242,105 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
     animando = true;
     var sube = k > antes, rapido = Math.abs(k - antes) > 1;
     var d = rapido ? .6 : 1;
+    // La imagen del piso nuevo se pone en cuanto se elige (detrás de las puertas)
+    pDuo.poster(pisos[k].dataset.key);
     gsap.timeline({ onComplete: function () { animando = false; gsap.set("#eTxt > *", { autoAlpha: 1, y: 0 }); gsap.set(".puerta", { scaleX: 0 }); if (objetivo !== actual) irPiso(objetivo, true); } })
-      .to(".puerta", { scaleX: 1, duration: .3 * d, ease: "power3.in" })
-      .to("#eTxt > *", { autoAlpha: 0, y: sube ? -12 : 12, duration: .18 * d, stagger: .03 * d }, 0)
-      .to("#eNum span", { yPercent: sube ? -100 : 100, duration: .26 * d, ease: "power2.in" }, 0)
+      .to(".puerta", { scaleX: 1, duration: .26 * d, ease: "power3.in" })
+      .to("#eTxt > *", { autoAlpha: 0, y: sube ? -12 : 12, duration: .16 * d, stagger: .03 * d }, 0)
+      .to("#eNum span", { yPercent: sube ? -100 : 100, duration: .24 * d, ease: "power2.in" }, 0)
       .add(function () { var j = objetivo; actual = j; textos(j); video(j); $("#eNum span").textContent = j + 1; })
       .set("#eNum span", { yPercent: sube ? 100 : -100 })
-      .to("#eNum span", { yPercent: 0, duration: .4 * d, ease: "power3.out" })
-      .to(".puerta", { scaleX: 0, duration: .5 * d, ease: "power3.out", delay: .1 * d }, "<")
-      .fromTo("#eTxt > *", { autoAlpha: 0, y: sube ? 14 : -14 }, { autoAlpha: 1, y: 0, duration: .4 * d, stagger: .05 * d, ease: "power3.out" }, "<+.08");
+      .to("#eNum span", { yPercent: 0, duration: .36 * d, ease: "power3.out" })
+      .to(".puerta", { scaleX: 0, duration: .42 * d, ease: "power3.out", delay: .06 * d }, "<")
+      .fromTo("#eTxt > *", { autoAlpha: 0, y: sube ? 14 : -14 }, { autoAlpha: 1, y: 0, duration: .36 * d, stagger: .05 * d, ease: "power3.out" }, "<+.06");
   }
   irPiso(0, false);
+  pisos.forEach(function (li, k) { li.querySelector("button").addEventListener("click", function () { irPiso(k, true); }); });
+  barras.forEach(function (b, k) { b.addEventListener("click", function () { irPiso(k, true); }); });
+  $("#eAnt").addEventListener("click", function () { irPiso(objetivo - 1, true); });
+  $("#eSig").addEventListener("click", function () { irPiso(objetivo + 1, true); });
   if ("IntersectionObserver" in window) new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       eleVisible = e.isIntersecting;
       var key = pisos[Math.max(0, actual)].dataset.key;
-      if (eleVisible) { if (pDuo.clave() !== key) pDuo.poner(key, false); else pDuo.play(); } else pDuo.pausa();
+      if (eleVisible) { if (pDuo.clave() !== key) pDuo.poner(key); else pDuo.play(); } else pDuo.pausa();
     });
   }, { threshold: .25 }).observe($("#pScreen"));
 
-  // Giros: el celular recorre su página (alto de la imagen menos la pantalla)
+  /* ---------- Giros: carrusel con flechas, dedo y avance solo ----------
+     · Se desliza con el dedo o el trackpad (desplazamiento nativo).
+     · Flechas ‹ › para recorrer las 6 tarjetas completas en computadora.
+     · Si nadie lo toca y está a la vista, avanza solo una tarjeta.
+     · Abanico: cada tarjeta se inclina según su lugar en la pantalla y su
+       celular recorre la página de ejemplo mientras cruza. */
+  var track = $("#track"), gCards = $$(".giro", track), gAnt = $("#gAnt"), gSig = $("#gSig");
   function recorridoImg(img) { var sc = img.parentNode; return Math.max(0, img.offsetHeight - sc.clientHeight + 24); }
+  function paso() { var c = gCards[0]; return c ? c.offsetWidth + (parseFloat(getComputedStyle(track).columnGap) || 34) : 280; }
+  function alFinal() { return track.scrollLeft + track.clientWidth >= track.scrollWidth - 6; }
+  function flechas() { gAnt.disabled = track.scrollLeft <= 4; gSig.disabled = alFinal(); }
+  function abanico() {
+    if (reduce) return;
+    var W = innerWidth;
+    gCards.forEach(function (g) {
+      var r = g.getBoundingClientRect(), c = (r.left + r.width / 2) / W, t = Math.max(-1, Math.min(1, (c - .5) * 2));
+      g.style.transform = "translateY(" + (Math.abs(t) * 22).toFixed(1) + "px) rotate(" + (t * 3).toFixed(2) + "deg)";
+      var img = g.querySelector(".phone__screen img"), p = Math.max(0, Math.min(1, (W - r.left) / (W + r.width)));
+      img.style.transform = "translateY(" + (-recorridoImg(img) * p).toFixed(1) + "px)";
+    });
+  }
+  var pintando = false;
+  function alMover() { if (pintando) return; pintando = true; requestAnimationFrame(function () { pintando = false; abanico(); flechas(); }); }
+  track.addEventListener("scroll", alMover, { passive: true });
+  addEventListener("resize", alMover);
+  addEventListener("load", alMover);
+  alMover();
+  function mover(dir) { track.scrollBy({ left: dir * paso(), behavior: reduce ? "auto" : "smooth" }); }
+  var quietoGiros = 0;
+  function tocado() { quietoGiros = Date.now() + 6000; }
+  ["pointerdown", "wheel", "touchstart", "keydown", "focusin"].forEach(function (ev) { track.addEventListener(ev, tocado, { passive: true }); });
+  var encima = false;
+  track.addEventListener("mouseenter", function () { encima = true; });
+  track.addEventListener("mouseleave", function () { encima = false; });
+  gAnt.addEventListener("click", function () { tocado(); mover(-1); });
+  gSig.addEventListener("click", function () { tocado(); mover(1); });
+  track.addEventListener("keydown", function (e) {
+    if (e.target !== track) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); mover(1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); mover(-1); }
+  });
+  var girosVisible = false;
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { girosVisible = es[0].isIntersecting; }, { threshold: .45 }).observe(track);
+  if (!reduce) setInterval(function () {
+    if (!girosVisible || encima || document.hidden || Date.now() < quietoGiros) return;
+    if (track.scrollWidth <= track.clientWidth + 8) return;
+    if (alFinal()) track.scrollTo({ left: 0, behavior: "smooth" }); else mover(1);
+  }, 3600);
+
+  /* ---------- Clientes: botón para pausar los logotipos ---------- */
+  var mq = $(".marquesina"), mqBtn = $("#mqPausa");
+  if (mq && mqBtn) mqBtn.addEventListener("click", function () {
+    var p = mq.classList.toggle("pausada");
+    mqBtn.setAttribute("aria-pressed", p ? "true" : "false");
+    mqBtn.textContent = p ? "Seguir" : "Pausar";
+  });
+
+  /* ---------- 8 · "Ver qué incluye": al abrirlo, el menú no tapa la lista ---------- */
+  $$("details.mas, .faq details").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (!d.open) return;
+      var tope = ($("#header").getBoundingClientRect().bottom || 80) + 16, r = d.getBoundingClientRect();
+      if (r.top < tope) window.scrollBy({ top: r.top - tope, behavior: "smooth" });
+      else if (r.bottom > innerHeight - 20) window.scrollBy({ top: Math.min(r.top - tope, r.bottom - innerHeight + 30), behavior: "smooth" });
+    });
+  });
+
+  /* ---------- Año del pie ---------- */
+  var anio = $("#anio"); if (anio) anio.textContent = new Date().getFullYear();
 
   /* ================= SIN GSAP o con "reducir movimiento" ================= */
   if (!hayGsap || reduce) {
     document.documentElement.classList.add("estatico");
     heroArranca();
-    pisos.forEach(function (li, k) { li.querySelector("button").addEventListener("click", function () { irPiso(k, false); }); });
     return;
   }
 
@@ -1063,6 +1365,11 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
     .fromTo(ZC, { lit: .08 }, { lit: .42, duration: 2.6, ease: "power2.out" }, 0);
 
   /* ---------- 1 · La cámara vuela hacia tu torre y entra por la ventana ---------- */
+  // El título sube hasta quedar debajo del menú (sin desenfocarse ni desaparecer)
+  function tituloArriba() {
+    var h1 = $("#h-title"), inn = $("#heroIn"), hdr = $("#header").getBoundingClientRect();
+    return (hdr.bottom + 12) - (inn.offsetTop + h1.offsetTop);
+  }
   gsap.set("#heroFone", { x: 0, y: 0, xPercent: -50, yPercent: -48 });
   var buceo = gsap.timeline({
     scrollTrigger: { trigger: "#inicio", start: "top top", end: "+=190%", pin: true, scrub: 1, invalidateOnRefresh: true,
@@ -1070,7 +1377,8 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
     defaults: { ease: "none" }
   });
   buceo
-    .to("#heroIn", { autoAlpha: 0, y: -90, filter: "blur(6px)", duration: .22, ease: "power2.in" }, 0)
+    .to(".hero__sub, .hero__arm, .hero__acts", { autoAlpha: 0, y: -16, duration: .16, ease: "power2.in" }, 0)
+    .to("#h-title", { y: function () { return tituloArriba(); }, scale: function () { return pc.matches ? .5 : .5; }, transformOrigin: "0% 0%", duration: .3, ease: "power2.inOut" }, 0)
     .to("#hcard", { autoAlpha: 0, y: 40, duration: .18, ease: "power2.in" }, 0)
     .fromTo(ZC.cam, toma("inicio"), Object.assign(toma("ventana"), { duration: .82, ease: "power2.inOut" }), 0)
     .to(".hero__velo", { autoAlpha: .5, duration: .4 }, .3)
@@ -1081,18 +1389,22 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
   var ins = $$(".msg.in"), outs = $$(".msg.out");
   var chat = gsap.timeline({ scrollTrigger: { trigger: "#problema", start: "top top", end: "+=170%", pin: true, scrub: 1 } });
   gsap.set("#chatB", { autoAlpha: 0 });
+  // Los mensajes que aún no llegan no ocupan lugar: la tarjeta empieza solo con el primero
+  gsap.set(outs.concat(ins.slice(1)), { display: "none", autoAlpha: 0 });
   chat
-    .from(".chat__a h2, .chat__a .lead", { autoAlpha: 0, y: 30, stagger: .05, duration: .12 }, 0)
-    .from(".ventana", { autoAlpha: 0, y: 60, rotate: 2, duration: .14 }, 0)
-    .fromTo(outs, { autoAlpha: 0, height: 0, paddingTop: 0, paddingBottom: 0, marginTop: -7 }, { autoAlpha: 0, duration: .001 }, 0)
-    .from(ins, { autoAlpha: 0, x: -30, scale: .9, transformOrigin: "0% 100%", stagger: .09, duration: .1, ease: "back.out(2)" }, .1)
+    .from(".ventana", { y: 30, rotate: 1, duration: .14 }, 0)
     .to(".msg.in .no", { color: "#ff6b7a", duration: .01 }, .38)
     .to(ins, { x: function (i) { return [-4, 4, -3][i]; }, duration: .03, yoyo: true, repeat: 3 }, .4)
     .to("#chatA", { autoAlpha: 0, y: -40, duration: .12 }, .52)
     .fromTo("#chatB", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .14 }, .58);
+  ins.slice(1).forEach(function (m, n) {
+    var t = .1 + n * .12;
+    chat.set(m, { display: "block" }, t)
+        .fromTo(m, { autoAlpha: 0, x: -30, scale: .9 }, { autoAlpha: 1, x: 0, scale: 1, transformOrigin: "0% 100%", duration: .08, ease: "back.out(2)", immediateRender: false }, t + .02);
+  });
   outs.forEach(function (o, n) {
     var t = .6 + n * .11;
-    chat.to(o, { height: "auto", paddingTop: 9, paddingBottom: 7, marginTop: 0, duration: .06 }, t)
+    chat.set(o, { display: "block" }, t)
         .fromTo(o, { autoAlpha: 0, x: 30, scale: .9 }, { autoAlpha: 1, x: 0, scale: 1, transformOrigin: "100% 100%", duration: .08, ease: "back.out(2)", immediateRender: false }, t + .02)
         .add(function () {}, t + .1);
     var no = ins[n].querySelector(".no");
@@ -1100,103 +1412,25 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
   });
   chat.to({}, { duration: .1 });
 
-  /* ---------- 3 · El elevador ---------- */
-  var nP = pisos.length, carro = $("#eCarro");
+  /* ---------- 3 · El elevador ----------
+     Ya no se queda pegado ni cambia de piso al bajar: el piso lo elige el
+     visitante. Al pasar por la sección, la cámara de la ciudad sube. */
   var eleST = ScrollTrigger.create({
-    trigger: "#sistema", start: "top top", end: "+=" + (nP * 60) + "%", pin: true, scrub: true,
+    trigger: "#sistema", start: "top 70%", end: "bottom 70%",
     onUpdate: function (self) {
-      var x = self.progress * nP, k = Math.min(nP - 1, Math.floor(x));
-      gsap.set(carro, { yPercent: (nP - 1 - Math.min(x, nP - .0001) + .5 - .5) * 100 });
-      irPiso(k, true);
       var y = 150 * self.progress, e = TOMAS.elevador;
       ZC.cam.px = e.px; ZC.cam.pz = e.pz; ZC.cam.py = e.py + y; ZC.cam.tx = 0; ZC.cam.tz = 0; ZC.cam.ty = e.ty + y + 4;
-      ZC.piso = Math.min(9, x + .35);
+      ZC.piso = Math.min(9, actual + 1.35);
     }
   });
-  gsap.set(carro, { yPercent: (nP - 1) * 100 });
-  pisos.forEach(function (li, k) {
-    li.querySelector("button").addEventListener("click", function () {
-      var y = eleST.start + ((k + .5) / nP) * (eleST.end - eleST.start);
-      window.scrollTo({ top: y, behavior: "smooth" });
-    });
-  });
 
-  /* ---------- 4 · Los giros: recorrido de lado ---------- */
-  var track = $("#track");
-  function distancia() { return Math.max(0, track.scrollWidth - innerWidth); }
-  var lado = gsap.to(track, { x: function () { return -distancia(); }, ease: "none",
-    scrollTrigger: { trigger: "#giros", start: "top top", end: function () { return "+=" + Math.max(innerHeight * .8, distancia() * 1.4); }, pin: true, scrub: 1, invalidateOnRefresh: true,
-      onUpdate: function (self) {
-        var a = .33 + self.progress * 1.5, r = 122;
-        ZC.cam.px = Math.cos(a) * r; ZC.cam.pz = Math.sin(a) * r; ZC.cam.py = 205 - self.progress * 20; ZC.cam.tx = 0; ZC.cam.ty = 150; ZC.cam.tz = 0;
-      } } });
-  $$(".giro").forEach(function (g) {
-    var img = $(".phone__screen img", g);
-    gsap.to(img, { y: function () { return -recorridoImg(img); }, ease: "none", scrollTrigger: { trigger: g, containerAnimation: lado, start: "left right", end: "right left", scrub: true, invalidateOnRefresh: true } });
-    gsap.fromTo(g, { rotate: 3, y: 30 }, { rotate: -3, y: -10, ease: "none", scrollTrigger: { trigger: g, containerAnimation: lado, start: "left right", end: "right left", scrub: true } });
-  });
-
-  /* ---------- Doble función: se mueven solos y también a mano ----------
-     · Giros: además de avanzar al bajar, se deslizan de lado con el dedo
-       (o arrastrando con el mouse) y, si te quedas quieto, avanzan solos.
-     · Elevador: además de bajar o tocar un piso, si te quedas quieto sube
-       solo al siguiente piso.
-     Cualquier toque, rueda o tecla pausa el movimiento automático. */
-  (function () {
-    var ultimo = Date.now();
-    function toque() { ultimo = Date.now(); }
-    ["wheel", "touchstart", "pointerdown", "keydown"].forEach(function (ev) { addEventListener(ev, toque, { passive: true, capture: true }); });
-    var ST = lado.scrollTrigger, cards = $$(".giro", track);
-    function yDeX(x) { var d = distancia(); return ST.start + (d ? Math.max(0, Math.min(1, x / d)) : 0) * (ST.end - ST.start); }
-    function xDeTarjeta(g) { return Math.max(0, Math.min(distancia(), g.offsetLeft - (innerWidth - g.offsetWidth) / 2)); }
-    function xActual() { return ST.progress * distancia(); }
-    function irTarjeta(dir) {
-      var x = xActual(), meta = null, i;
-      if (dir > 0) { for (i = 0; i < cards.length; i++) { var xi = xDeTarjeta(cards[i]); if (xi > x + 12) { meta = xi; break; } } }
-      else { for (i = cards.length - 1; i >= 0; i--) { var xj = xDeTarjeta(cards[i]); if (xj < x - 12) { meta = xj; break; } } }
-      if (meta === null) return false;
-      window.scrollTo({ top: yDeX(meta), behavior: "smooth" });
-      return true;
-    }
-
-    // a) Deslizar de lado
-    var x0 = null, y0 = 0, s0 = 0, t0 = 0, horiz = null, arrastro = false;
-    track.style.touchAction = "pan-y";
-    track.addEventListener("pointerdown", function (e) { if (e.button > 0) return; x0 = e.clientX; y0 = e.clientY; s0 = scrollY; t0 = Date.now(); horiz = null; arrastro = false; });
-    addEventListener("pointermove", function (e) {
-      if (x0 === null) return;
-      var dx = e.clientX - x0, dy = e.clientY - y0;
-      if (horiz === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) horiz = Math.abs(dx) > Math.abs(dy) * 1.1;
-      if (!horiz) return;
-      arrastro = true; toque();
-      var k = (ST.end - ST.start) / Math.max(1, distancia());
-      window.scrollTo(0, s0 - dx * k);
-    }, { passive: true });
-    addEventListener("pointerup", function (e) {
-      if (x0 === null) return;
-      var dx = e.clientX - x0, rapido = Date.now() - t0 < 320 && Math.abs(dx) > 40;
-      if (horiz && rapido) irTarjeta(dx < 0 ? 1 : -1);
-      x0 = null;
-    });
-    addEventListener("pointercancel", function () { x0 = null; });
-    // Si fue arrastre, no abre la demo por accidente
-    track.addEventListener("click", function (e) { if (arrastro) { e.preventDefault(); e.stopPropagation(); arrastro = false; } }, true);
-    track.addEventListener("dragstart", function (e) { e.preventDefault(); });
-
-    // b) Movimiento automático cuando no estás tocando nada
-    var sigGiro = 0, sigPiso = 0;
-    setInterval(function () {
-      if (document.hidden) return;
-      var ahora = Date.now(), quieto = ahora - ultimo;
-      if (ST.isActive && quieto > 3200 && ahora > sigGiro) {
-        if (irTarjeta(1)) sigGiro = ahora + 3600;
-      }
-      if (eleST.isActive && quieto > 5500 && ahora > sigPiso && actual < nP - 1) {
-        var k = actual + 1, y = eleST.start + ((k + .5) / nP) * (eleST.end - eleST.start);
-        window.scrollTo({ top: y, behavior: "smooth" }); sigPiso = ahora + 6000;
-      }
-    }, 400);
-  })();
+  /* ---------- 4 · Los giros: la cámara orbita mientras pasas por la sección ---------- */
+  var lado = { scrollTrigger: ScrollTrigger.create({
+    trigger: "#giros", start: "top 70%", end: "bottom 30%",
+    onUpdate: function (self) {
+      var a = .33 + self.progress * 1.5, r = 122;
+      ZC.cam.px = Math.cos(a) * r; ZC.cam.pz = Math.sin(a) * r; ZC.cam.py = 205 - self.progress * 20; ZC.cam.tx = 0; ZC.cam.ty = 150; ZC.cam.tz = 0;
+    } }) };
 
   /* ---------- 5 · La frase ---------- */
   var split = SplitText.create("#frase", { type: "words" });
@@ -1221,7 +1455,6 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
   var finEle = Object.assign({}, TOMAS.elevador, { py: TOMAS.elevador.py + 150, ty: TOMAS.elevador.ty + 154 });
   TOMAS.finEle = finEle;
   TOMAS.azotea = { px: Math.cos(.33) * 122, py: 205, pz: Math.sin(.33) * 122, tx: 0, ty: 150, tz: 0 };
-  tramo("finEle", "azotea", function () { return eleST.end; }, function () { return ladoST.start; });
   var finGiros = { px: Math.cos(1.83) * 122, py: 185, pz: Math.sin(1.83) * 122, tx: 0, ty: 150, tz: 0 };
   TOMAS.finGiros = finGiros;
   tramo("finGiros", "cielo", function () { return ladoST.end; }, function () { return fraseST.start; });
@@ -1266,13 +1499,13 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
     hola: { traje: "casco", cara: "feliz", pose: "brinco", texto: "¡Hola! Vamos a construir tu negocio, piso por piso.", apunta: ".hero__acts .btn",
       ancla: function () { return pc2() ? { x: innerWidth * .5, y: innerHeight * .32 } : { x: innerWidth - tam() - 14, y: innerHeight * .26 }; } },
     entra: { traje: "casco", cara: "susto", pose: "tiembla", texto: "¡Agárrate, vamos a entrar!",
-      ancla: function () { return { x: innerWidth * .5 - tam() / 2, y: innerHeight * .16 }; } },
+      ancla: function () { return { x: innerWidth - tam() - 14, y: innerHeight * .3 }; } },
     ventana: { traje: "lentes", cara: "normal", pose: "inclina", texto: "Esta ventana es tu negocio. Mírala funcionando.", apunta: "#heroFone",
       ancla: function () { var r = rect("#heroFone"); return pc2() ? { x: r.right + 26, y: r.top + r.height * .18 } : { x: r.right - tam() * .45, y: r.top - tam() * 1.15 }; } },
     nadie: { traje: "audifonos", cara: "preocupado", pose: "tiembla", texto: "Uy… nadie les contestó.", apunta: function () { return $$(".msg.in")[1]; },
-      ancla: function () { var r = rect(".ventana"); return pc2() ? { x: r.left - tam() - 30, y: r.top + 40 } : { x: r.right - tam() - 4, y: r.top - tam() * 1.2 }; } },
+      ancla: function () { var r = rect(".ventana"); return pc2() ? { x: r.left - tam() - 30, y: r.top + 40 } : { x: r.right - tam() - 4, y: r.bottom + 10 }; } },
     contesta: { traje: "audifonos", cara: "feliz", pose: "baila", texto: "Ahora contesto yo, al momento.", apunta: function () { var o = $$(".msg.out"); return o[o.length - 1]; },
-      ancla: function () { var r = rect(".ventana"); return pc2() ? { x: r.left - tam() - 30, y: r.top + 40 } : { x: r.right - tam() - 4, y: r.top - tam() * 1.2 }; } },
+      ancla: function () { var r = rect(".ventana"); return pc2() ? { x: r.left - tam() - 30, y: r.top + 40 } : { x: r.right - tam() - 4, y: r.bottom + 10 }; } },
     sube: { traje: "casco", cara: "guino", pose: "inclina", texto: "Súbete, vamos piso por piso.", apunta: "#pDemo",
       ancla: function () { var r = rect("#ePanel .phone"); return pc2() ? { x: r.left - tam() - 34, y: r.top + 20 } : { x: r.right + 6, y: r.top + 10 }; } },
     pisos: { traje: "casco", cara: "pensando", pose: "estira", texto: "Cada piso trabaja por ti.", apunta: function () { return pc2() ? $(".ele__pisos li.actual button") : $("#eBarra"); },
@@ -1281,7 +1514,7 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
       ancla: function () { var r = rect("#ePanel .phone"); return pc2() ? { x: r.left - tam() - 34, y: r.top + 20 } : { x: r.right + 6, y: r.top + 10 }; } },
     giros: { traje: "lentes", cara: "lado", pose: "flota", texto: "Busca el de tu giro. Todos se pueden probar.", tiempo: 6000,
       apunta: function () { var c = $$(".giro"), m = null, d = 1e9; c.forEach(function (g) { var r = g.getBoundingClientRect(), x = Math.abs(r.left + r.width / 2 - innerWidth / 2); if (x < d) { d = x; m = g; } }); return m && m.querySelector(".phone"); },
-      ancla: function () { var r = rect("#track"); return { x: innerWidth - tam() - (pc2() ? 40 : 12), y: r.top - tam() * 1.25 - 6 }; } },
+      ancla: function () { var r = rect("#track"), n = rect(".giros__nav"); return pc2() ? { x: n.left - tam() - 24, y: n.top + n.height / 2 - tam() * .7 } : { x: innerWidth - tam() - 12, y: r.top - tam() * 1.25 - 6 }; } },
     frase: { traje: "mono", cara: "corazones", pose: "flota", texto: "Esta me la sé de memoria.",
       ancla: function () { var r = rect("#frase"); return { x: pc2() ? r.right - tam() * .3 : innerWidth - tam() - 12, y: r.top - tam() * 1.4 }; } },
     pasos: { traje: "gafas", cara: "pensando", pose: "gira", texto: "Tres pasos. Ni yo me pierdo.", apunta: "#pasos .pasos li:first-child b",
@@ -1300,8 +1533,7 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
     if (chatST.progress > .7) ir("contesta"); else ir("nadie");
   } });
   ScrollTrigger.create({ start: function () { return eleST.start - innerHeight * .3; }, end: function () { return eleST.end; }, onUpdate: function () {
-    var pe = eleST.progress;
-    if (pe > .93) ir("azotea"); else if (pe > .45) ir("pisos"); else ir("sube");
+    if (actual > 0) ir("pisos"); else ir("sube");
   } });
   ScrollTrigger.create({ start: function () { return ladoST.start - innerHeight * .3; }, end: function () { return ladoST.end; }, onToggle: function (s) { if (s.isActive) ir("giros"); },
     onUpdate: function () { if (G.escena === "giros" && !G.vuelo) G.hasta = performance.now() + 1500; } });
@@ -1311,7 +1543,10 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
 
   // Recalcular cuando carguen fuentes e imágenes
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
-  addEventListener("load", function () { ScrollTrigger.refresh(); });
+  addEventListener("load", function () {
+    ScrollTrigger.refresh();
+    if (location.hash.length > 1) { var a = document.getElementById(location.hash.slice(1)); if (a) setTimeout(function () { a.scrollIntoView(); }, 60); }
+  });
 })();
 </script>
 <script src="videos/lista.js" defer></script>

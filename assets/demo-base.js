@@ -21,9 +21,10 @@
 (function () {
   "use strict";
 
-  /* Número de ejemplo: en producción va el WhatsApp real del negocio */
-  var WHATSAPP_EJEMPLO = "5200000000000";
+  /* WhatsApp real de ZOLKO: todos los botones de WhatsApp de las demos llegan aquí */
+  var WHATSAPP_ZOLKO = "523343230958";
   var CFG = window.DEMO_CONFIG || { negocio: "Negocio de ejemplo", simulado: [], produccion: [] };
+  var nombreDemo = (CFG.negocio || "").replace(/\s*\(.*\)\s*$/, "");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   document.documentElement.classList.remove("no-js");
@@ -94,43 +95,26 @@
   if ("ResizeObserver" in window) new ResizeObserver(medir).observe(bar);
 
   /* ------------------------------------------------------------------
-     2. WhatsApp: enlace con número de ejemplo + vista previa del mensaje
+     2. WhatsApp: cada botón abre el WhatsApp REAL de ZOLKO con el mensaje
+        "Vi la demo de … y quiero esto para mi negocio." ya escrito.
+        Con data-wa-pedido, además se incluye el pedido de prueba (menú).
      ------------------------------------------------------------------ */
-  // Un enlace puede llevar su propio número con data-wa-num="52..." (por ejemplo, el WhatsApp real de ZOLKO)
-  function urlWhatsApp(msg, num) {
-    return "https://wa.me/" + (num || WHATSAPP_EJEMPLO) + "?text=" + encodeURIComponent(msg);
+  function mensajeWA(a) {
+    var msg = "Hola, Ricardo. Vi la demo de " + nombreDemo + " y quiero esto para mi negocio.";
+    var extra = a.getAttribute("data-wa");
+    if (a.hasAttribute("data-wa-pedido") && extra) msg += "\n\nAsí llegó mi pedido de prueba:\n" + extra;
+    return msg;
   }
+  function urlWhatsApp(msg) { return "https://wa.me/" + WHATSAPP_ZOLKO + "?text=" + encodeURIComponent(msg); }
   document.querySelectorAll("[data-wa]").forEach(function (a) {
-    a.href = urlWhatsApp(a.getAttribute("data-wa") || "Hola, quiero información.", a.getAttribute("data-wa-num"));
+    a.href = urlWhatsApp(mensajeWA(a));
     a.target = "_blank";
     a.rel = "noopener";
   });
-
-  var waDialog = el("dialog", { class: "demo-dialog", "aria-labelledby": "wa-title" },
-    '<div class="demo-dialog__body">' +
-      '<p class="demo-dialog__tag">WHATSAPP · SIMULADO</p>' +
-      '<h2 id="wa-title">Así le llegaría el mensaje al negocio</h2>' +
-      '<div class="wa-preview"><div class="wa-preview__bubble" data-wa-text></div>' +
-      '<p class="wa-preview__meta" data-wa-para></p></div>' +
-      '<p style="margin:14px 0 0;font-size:.92rem;color:#b9b9c6">En la página real se abre el WhatsApp del negocio con este texto ya escrito. ZOLKO lo conecta con respuestas y seguimiento.</p>' +
-    "</div>" +
-    '<div class="demo-dialog__foot">' +
-      '<button type="button" data-close>Cerrar</button>' +
-      '<a class="is-main" data-wa-go target="_blank" rel="noopener">Abrir WhatsApp de ejemplo</a>' +
-    "</div>");
-  document.body.appendChild(waDialog);
-
+  // El texto se arma al tocar (el menú cambia su pedido antes de este momento)
   document.addEventListener("click", function (e) {
     var a = e.target.closest("[data-wa]");
-    if (!a) return;
-    e.preventDefault();
-    var msg = a.getAttribute("data-wa"), num = a.getAttribute("data-wa-num");
-    waDialog.querySelector("[data-wa-text]").textContent = msg;
-    waDialog.querySelector("[data-wa-para]").textContent = num ? "Para: +" + num + " (WhatsApp real de ZOLKO)" : "Para: +" + WHATSAPP_EJEMPLO + " (número de ejemplo)";
-    var go = waDialog.querySelector("[data-wa-go]");
-    go.href = urlWhatsApp(msg, num);
-    go.textContent = num ? "Abrir WhatsApp" : "Abrir WhatsApp de ejemplo";
-    abrir(waDialog);
+    if (a) a.href = urlWhatsApp(mensajeWA(a));
   });
 
   /* ------------------------------------------------------------------
@@ -200,10 +184,7 @@
 
   /* ------------------------------------------------------------------
      4b. Bloque final "¿Quieres esto para tu negocio?" → WhatsApp REAL de ZOLKO
-         (los botones de la demo siguen con el número de ejemplo)
      ------------------------------------------------------------------ */
-  var WHATSAPP_ZOLKO = "523343230958";
-  var nombreDemo = (CFG.negocio || "").replace(/\s*\(.*\)\s*$/, "");
   var cierre = el("aside", { class: "zolko-cta", "aria-label": "Contactar a ZOLKO INTEGRATIONS" },
     '<div class="zolko-cta__in">' +
       '<div><p class="zolko-cta__tag">HECHO POR ZOLKO INTEGRATIONS</p>' +

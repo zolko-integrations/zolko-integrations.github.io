@@ -13,7 +13,7 @@
 <style>
   /* =================================================================
      ARM de "Ola Azul Autolavado" (negocio de ejemplo)
-     ARM = gestión de clientes con un agente de IA: el agente lee cada
+     ARM = el CRM de ZOLKO, con un agente de IA: el agente lee cada
      conversación, cambia la etapa y programa el siguiente contacto.
      ================================================================= */
   :root {
@@ -40,14 +40,14 @@
   .hero h1 em { font-style: normal; background: linear-gradient(90deg, #a48bff, #5fa0ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .hero .lead { color: var(--c-muted); max-width: 52ch; margin: 0; }
 
-  /* CRM vs ARM */
+  /* Sin ARM vs con ARM */
   .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; max-width: 640px; }
   .vs div { border-radius: 16px; padding: 14px; border: 1px solid var(--c-line); background: rgba(255, 255, 255, .03); }
   .vs b { display: block; font: 800 1.05rem var(--font-display); margin-bottom: 4px; }
   .vs p { margin: 0; font-size: .86rem; color: var(--c-muted); line-height: 1.4; }
   .vs .arm { border-color: color-mix(in srgb, var(--agente) 65%, transparent); background: linear-gradient(160deg, rgba(139, 108, 255, .22), rgba(47, 123, 255, .08)); box-shadow: 0 0 40px -14px var(--agente); }
   .vs .arm b { color: #c9bbff; }
-  .vs .crm b { color: var(--c-muted); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: rgba(255, 255, 255, .35); }
+  .vs .crm b { color: var(--c-muted);  }
 
   /* ---------- Escenario ---------- */
   .stage { padding: 8px 0 40px; }
@@ -182,10 +182,10 @@
     <div class="in">
       <span class="eyebrow reveal">ARM · Demo</span>
       <h1 id="h-arm" class="reveal">Tu agente de clientes: <em>mueve a cada cliente de etapa</em> y te dice cuándo contactarlo.</h1>
-      <p class="lead reveal">El CRM solo guarda datos y alguien tiene que actualizarlo. En el ARM, un agente de IA lee cada conversación, decide en qué etapa va el cliente y agenda el siguiente contacto.</p>
+      <p class="lead reveal">Registra, organiza y da seguimiento a cada cliente: un agente de IA lee cada conversación, decide en qué etapa va el cliente y agenda el siguiente contacto.</p>
       <div class="vs reveal">
-        <div class="crm"><b>CRM</b><p>Tú capturas, tú cambias la etapa, tú te acuerdas de escribir.</p></div>
-        <div class="arm"><b>ARM</b><p>El agente lee, cambia la etapa y te dice cuándo escribir.</p></div>
+        <div class="crm"><b>Sin ARM</b><p>Tú capturas, tú cambias la etapa, tú te acuerdas de escribir.</p></div>
+        <div class="arm"><b>Con ARM</b><p>El agente lee, cambia la etapa y te dice cuándo escribir.</p></div>
       </div>
     </div>
   </section>
@@ -248,7 +248,6 @@
         <li class="reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg></span><div><b>Cambia la etapa solo</b><p>Nadie tiene que capturar ni mover tarjetas a mano.</p></div></li>
         <li class="reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Te dice cuándo escribir</b><p>Recordatorios, seguimiento y reseñas a tiempo, sin que se te pase nadie.</p></div></li>
       </ul>
-      <p class="nota">ARM: gestión de clientes con un agente de IA. Un paso más allá del CRM tradicional.</p>
     </div>
   </section>
 </main>
