@@ -151,9 +151,78 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 .m.ve { opacity: 1; transform: none; }
 @media (max-width: 520px) { .versus { gap: 8px; } .m { font-size: .78rem; padding: 7px 9px 5px; } .chat__top { padding: 9px 10px; font-size: .78rem; } .chat__top small { font-size: .6rem; } .chat__msgs { padding: 9px; min-height: 180px; } }
 
-/* ---------- Final de la prueba ---------- */
-.siguiente { text-align: left; }
-.siguiente .frase { margin-bottom: 26px; }
+
+/* ---------- Pisos 3 a 7: un visual sencillo por piso ---------- */
+.visual { position: relative; width: min(360px, 100%); justify-self: center; margin: 0; padding: 18px; border-radius: 24px; list-style: none;
+  background: rgba(10, 9, 18, .84); border: 1px solid var(--linea); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 40px 90px -50px rgba(124, 92, 255, .9); }
+.visual small { font-weight: 600; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(201, 197, 230, .6); }
+.visual__t { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 0 0 14px; font-weight: 700; font-size: .9rem; }
+
+/* Piso 3 · ARM: el cliente baja solo de etapa en etapa */
+.tablero { padding-bottom: 20px; }
+.etapas { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.etapas li { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 46px; padding: 8px 14px 8px 60px; border-radius: 14px; background: rgba(244, 244, 247, .04); border: 1px solid var(--linea); transition: border-color .8s var(--suave), background .8s var(--suave); }
+.etapas b { font-size: .9rem; } .etapas span { font-size: .74rem; color: rgba(201, 197, 230, .7); text-align: right; }
+.etapas li.aqui { border-color: rgba(169, 147, 255, .55); background: rgba(124, 92, 255, .12); }
+.etapas li.caliente.aqui { border-color: rgba(37, 211, 102, .6); background: rgba(37, 211, 102, .12); }
+.etapas li.caliente.aqui b { color: var(--verde); }
+.cliente { position: absolute; left: 26px; top: 0; display: flex; align-items: center; gap: 6px; transform: translateY(var(--c-y, 60px)); transition: transform 1.1s var(--suave); }
+.cliente i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font: 700 .72rem var(--f-texto); font-style: normal; color: var(--verde-oscuro); background: linear-gradient(135deg, var(--verde), #9af0bb); box-shadow: 0 0 0 3px rgba(37, 211, 102, .2); }
+.cliente span { display: none; }
+
+/* Piso 4 · Automatizaciones: mensajes que salen solos */
+.linea { display: grid; gap: 10px; }
+.linea li { position: relative; display: grid; gap: 2px; padding: 12px 14px 12px 40px; border-radius: 16px; background: rgba(244, 244, 247, .04); border: 1px solid var(--linea); opacity: .25; transition: opacity .9s var(--suave), border-color .9s var(--suave); }
+.linea li::before { content: ""; position: absolute; left: 16px; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: rgba(244, 244, 247, .3); transition: background .9s, box-shadow .9s; }
+.linea time { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--violeta-luz); }
+.linea b { font-size: .92rem; font-weight: 600; }
+.linea span { font-size: .74rem; color: rgba(201, 197, 230, .7); }
+.linea li.ve { opacity: 1; border-color: rgba(37, 211, 102, .35); }
+.linea li.ve::before { background: var(--verde); box-shadow: 0 0 10px var(--verde); }
+.linea li.ve span { color: var(--verde); }
+
+/* Piso 5 · Que te encuentre la IA */
+.busca { display: grid; gap: 12px; }
+.busca__q { margin: 0; padding: 12px 14px; border-radius: 16px; background: rgba(244, 244, 247, .06); font-size: .92rem; }
+.busca__q span { color: var(--violeta-luz); margin-right: 4px; }
+.busca__r { padding: 14px; border-radius: 16px; border: 1px solid rgba(37, 211, 102, .4); background: rgba(37, 211, 102, .06); }
+.busca__r p { margin: 0; }
+.busca__n { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 700; }
+.busca__e { margin-top: 4px !important; font-size: .78rem; color: var(--lavanda); }
+.estrellas { color: #f5c04a; letter-spacing: 1px; }
+.busca__a { display: flex; gap: 8px; margin-top: 12px !important; font-size: .78rem; font-weight: 600; }
+.busca__a span { padding: 7px 11px; border-radius: 999px; border: 1px solid var(--linea); }
+.busca__a .wa { background: var(--verde); color: var(--verde-oscuro); border-color: transparent; }
+
+/* Piso 6 · Tarjeta de lealtad */
+.sellos__t { display: grid; gap: 2px; margin: 0 0 14px; font: 600 1.3rem/1.1 var(--f-display); }
+.sellos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.sellos__grid i { aspect-ratio: 1; border-radius: 50%; border: 1.5px dashed rgba(244, 244, 247, .3); transition: background .6s var(--suave), border-color .6s, transform .6s var(--suave); }
+.sellos__grid i.ve { background: radial-gradient(circle at 35% 30%, #9af0bb, var(--verde) 60%); border: 1.5px solid var(--verde); transform: scale(1.04); }
+.sellos__p { margin: 14px 0 0; font-size: .84rem; color: var(--lavanda); }
+.sellos__p b { color: var(--verde); }
+
+/* Piso 7 · Capacitación */
+.modulos { display: grid; gap: 10px; }
+.modulos li { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; background: rgba(244, 244, 247, .04); border: 1px solid var(--linea); }
+.modulos b { font: 500 1.5rem/1 var(--f-display); color: var(--violeta-luz); }
+.modulos span { font-weight: 600; }
+
+/* Azotea · Próximamente */
+.proximo { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px; border-radius: 999px; font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--violeta-luz); border: 1px solid rgba(169, 147, 255, .45); background: rgba(13, 10, 28, .6); }
+.fuente { margin: 22px 0 0; font-size: .76rem; line-height: 1.5; color: rgba(201, 197, 230, .62); max-width: 30rem; }
+
+@media (min-width: 1100px) { .escena .dos { padding-right: 170px; } }   /* deja libre el indicador de pisos */
+@media (max-width: 899px) {
+  .visual { width: 100%; padding: 14px; border-radius: 20px; }
+  .escena .dos { gap: 22px; }
+  .escena .dos .frase { margin: 14px 0 18px; }
+  .linea li { padding: 9px 12px 9px 36px; } .linea li::before { left: 14px; top: 15px; }
+  .etapas li { min-height: 40px; }
+  .modulos li { padding: 10px 12px; }
+  .sellos__grid { gap: 8px; } .sellos__grid i { max-width: 52px; justify-self: center; width: 100%; }
+}
 
 @media (max-width: 899px) {
   .escena { align-items: flex-end; }
@@ -176,6 +245,8 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <figure data-fondo="calle"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/calle-960.webp"><img src="../assets/v6/torre/calle.webp" alt="" loading="lazy"></picture></figure>
   <figure data-fondo="oficina"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/oficina-960.webp"><img src="../assets/v6/torre/oficina.webp" alt="" loading="lazy"></picture></figure>
   <figure data-fondo="elevador"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/elevador-960.webp"><img src="../assets/v6/torre/elevador.webp" alt="" loading="lazy"></picture></figure>
+  <figure data-fondo="azotea"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/azotea-960.webp"><img src="../assets/v6/torre/azotea.webp" alt="" loading="lazy"></picture></figure>
+  <figure data-fondo="ciudad"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/ciudad-960.webp"><img src="../assets/v6/torre/ciudad.webp" alt="" loading="lazy"></picture></figure>
 </div>
 
 <header class="header">
@@ -183,8 +254,9 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     <a href="#llegada" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="../assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="84" height="28"></a>
     <nav aria-label="Principal"><ul>
       <li><a href="#cimientos">Cómo empezamos</a></li>
-      <li><a href="#piso1">Piso 1</a></li>
-      <li><a href="#piso2">Piso 2</a></li>
+      <li><a href="#piso1">Servicios</a></li>
+      <li><a href="#piso3">ARM</a></li>
+      <li><a href="#azotea">Próximamente</a></li>
     </ul></nav>
     <a class="btn btn--verde btn--chico" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">DIAGNÓSTICO</a>
   </div>
@@ -194,19 +266,25 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <li><a href="#llegada" data-ir="llegada"><span>Llegada</span><i></i></a></li>
   <li><a href="#torre" data-ir="torre"><span>Tu torre</span><i></i></a></li>
   <li><a href="#cimientos" data-ir="cimientos"><span>Cimientos</span><i></i></a></li>
-  <li><a href="#piso1" data-ir="piso1"><span>Piso 1</span><i></i></a></li>
-  <li><a href="#piso2" data-ir="piso2"><span>Piso 2</span><i></i></a></li>
-  <li><a href="#sigue" data-ir="sigue"><span>Siguientes pisos</span><i></i></a></li>
+  <li><a href="#piso1" data-ir="piso1"><span>1 · Página y tarjetas</span><i></i></a></li>
+  <li><a href="#piso2" data-ir="piso2"><span>2 · Respuestas</span><i></i></a></li>
+  <li><a href="#piso3" data-ir="piso3"><span>3 · ARM</span><i></i></a></li>
+  <li><a href="#piso4" data-ir="piso4"><span>4 · Automatizaciones</span><i></i></a></li>
+  <li><a href="#piso5" data-ir="piso5"><span>5 · Que te encuentre la IA</span><i></i></a></li>
+  <li><a href="#piso6" data-ir="piso6"><span>6 · Lealtad</span><i></i></a></li>
+  <li><a href="#piso7" data-ir="piso7"><span>7 · IA para tu negocio</span><i></i></a></li>
+  <li><a href="#azotea" data-ir="azotea"><span>Azotea · Próximamente</span><i></i></a></li>
+  <li><a href="#cierre" data-ir="cierre"><span>Diagnóstico</span><i></i></a></li>
 </ol>
 
 <!-- La mascota: cambia de pose y de lugar en cada escena -->
 <div class="mascota" id="mascota" aria-hidden="true"><div class="mascota__in">
-  <img data-pose="saluda" class="on" src="../assets/v6/mascota/saluda.webp" alt="" width="640" height="630">
-  <img data-pose="arriba" src="../assets/v6/mascota/arriba.webp" alt="" width="640" height="572">
-  <img data-pose="piensa" src="../assets/v6/mascota/piensa.webp" alt="" width="567" height="640">
-  <img data-pose="senala" src="../assets/v6/mascota/senala.webp" alt="" width="640" height="488">
-  <img data-pose="celebra" src="../assets/v6/mascota/celebra.webp" alt="" width="447" height="640">
-  <img data-pose="salta" src="../assets/v6/mascota/salta.webp" alt="" width="640" height="571">
+  <img data-pose="saluda" class="on" src="../assets/v6/mascota/saluda.webp" alt="" width="640" height="607">
+  <img data-pose="arriba" src="../assets/v6/mascota/arriba.webp" alt="" width="595" height="640">
+  <img data-pose="piensa" src="../assets/v6/mascota/piensa.webp" alt="" width="538" height="640">
+  <img data-pose="senala" src="../assets/v6/mascota/senala.webp" alt="" width="640" height="543">
+  <img data-pose="celebra" src="../assets/v6/mascota/celebra.webp" alt="" width="380" height="640">
+  <img data-pose="salta" src="../assets/v6/mascota/salta.webp" alt="" width="640" height="523">
 </div></div>
 
 <main>
@@ -242,7 +320,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   </section>
 
   <!-- PISO 1 -->
-  <section class="escena" id="piso1" data-fondo="oficina" data-pose="senala" aria-labelledby="t-p1">
+  <section class="escena" id="piso1" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p1">
     <div class="in dos">
       <div class="texto">
         <p class="eyebrow aparece">Piso 1 · Que te encuentren</p>
@@ -286,13 +364,120 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     </div></div>
   </section>
 
-  <!-- SIGUIENTES PISOS (prueba) -->
-  <section class="escena siguiente" id="sigue" data-fondo="elevador" data-pose="arriba" aria-labelledby="t-sig">
+  <!-- PISO 3 · ARM -->
+  <section class="escena" id="piso3" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p3">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 3 · Adiós CRM</p>
+        <h2 id="t-p3" class="aparece">El CRM ya no existe. <em>Ahora es el ARM.</em></h2>
+        <p class="frase aparece">Tu base de clientes con seguimiento automático: los pasa de etapa en etapa y te los deja calientes para cerrar.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/arm.html">Probar el ARM</a></div>
+      </div>
+      <div class="visual tablero aparece" role="img" aria-label="Ejemplo: un cliente avanza solo de Nuevo a Interesado, Cotizado y Listo para comprar.">
+        <p class="visual__t">ARM · Tus clientes <small>Ejemplo</small></p>
+        <ol class="etapas" data-etapas>
+          <li><b>Nuevo</b><span>Escribió hoy</span></li>
+          <li><b>Interesado</b><span>Pidió precio</span></li>
+          <li><b>Cotizado</b><span>Seguimiento solo</span></li>
+          <li class="caliente"><b>Listo para comprar</b><span>Te avisa a ti</span></li>
+        </ol>
+        <div class="cliente" data-cliente><i>LM</i><span>Laura M.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 4 · AUTOMATIZACIONES -->
+  <section class="escena" id="piso4" data-fondo="elevador" data-pose="arriba" data-ancla="visual" aria-labelledby="t-p4">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 4 · Automatizaciones</p>
+        <h2 id="t-p4" class="aparece">Los seguimientos <em>se hacen solos.</em></h2>
+        <p class="frase aparece">Confirmaciones, recordatorios y recompras salen a tiempo, sin que tú te acuerdes.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/automatizacion.html">Ver al agente de IA</a></div>
+      </div>
+      <ul class="visual linea aparece" data-linea aria-label="Ejemplo de seguimientos automáticos">
+        <li><time>Hoy · 19:00</time><b>Confirma tu cita de mañana</b><span>Enviado ✓</span></li>
+        <li><time>Mañana · 9:00</time><b>Recordatorio: te esperamos a las 10</b><span>Enviado ✓</span></li>
+        <li><time>En 30 días</time><b>¿Te agendo de nuevo?</b><span>Programado</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PISO 5 · QUE TE ENCUENTRE LA IA -->
+  <section class="escena" id="piso5" data-fondo="acerca" data-pose="piensa" data-ancla="visual" aria-labelledby="t-p5">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 5 · Que te encuentre la IA</p>
+        <h2 id="t-p5" class="aparece">Que ChatGPT y Google <em>hablen de ti.</em></h2>
+        <p class="frase aparece">Preparamos tu ficha de Google Maps, tus reseñas y tu página para que la IA te encuentre cuando alguien busca lo que vendes.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/landing-sucursal.html">Probar la página con reseñas</a></div>
+      </div>
+      <div class="visual busca aparece" role="img" aria-label="Ejemplo: alguien pregunta a una inteligencia artificial por tacos cerca y aparece una taquería con su ubicación, sus reseñas y su botón de WhatsApp.">
+        <p class="busca__q"><span>✦</span> ¿Dónde hay buenos tacos cerca de mí?</p>
+        <div class="busca__r">
+          <p class="busca__n">Taquería La Lumbre <small>Ejemplo</small></p>
+          <p class="busca__e"><span class="estrellas">★★★★★</span> Reseñas en Google · Abierto ahora</p>
+          <p class="busca__a"><span>📍 Cómo llegar</span><span class="wa">Pedir por WhatsApp</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 6 · LEALTAD -->
+  <section class="escena" id="piso6" data-fondo="calle" data-pose="celebra" data-ancla="visual" aria-labelledby="t-p6">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 6 · Que regresen</p>
+        <h2 id="t-p6" class="aparece">Clientes que <em>vuelven solos.</em></h2>
+        <p class="frase aparece">Tarjeta de lealtad en el celular de tu cliente: suma sellos y le recuerda volver.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/tarjeta-lealtad.html">Probar la tarjeta de lealtad</a></div>
+      </div>
+      <div class="visual sellos aparece" role="img" aria-label="Ejemplo de tarjeta de lealtad en el celular: los sellos se llenan hasta la recompensa.">
+        <p class="sellos__t">Casa Brasa <small>Tarjeta de lealtad · Ejemplo</small></p>
+        <div class="sellos__grid" data-sellos><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="sellos__p">Al juntar 8: <b>tu recompensa</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 7 · IA PARA TU NEGOCIO -->
+  <section class="escena" id="piso7" data-fondo="oficina" data-pose="saluda" data-ancla="visual" aria-labelledby="t-p7">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 7 · IA para tu negocio</p>
+        <h2 id="t-p7" class="aparece">Tú y tu equipo, <em>usando la IA.</em></h2>
+        <p class="frase aparece">Talleres prácticos para contestar, cotizar y vender mejor con inteligencia artificial.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/capacitacion.html">Ver la capacitación</a></div>
+      </div>
+      <ul class="visual modulos aparece" aria-label="Lo que aprende tu equipo">
+        <li><b>01</b><span>Contestar rápido y bien</span></li>
+        <li><b>02</b><span>IA en el día a día</span></li>
+        <li><b>03</b><span>Seguimiento con el ARM</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- AZOTEA · PRÓXIMAMENTE -->
+  <section class="escena" id="azotea" data-fondo="azotea" data-pose="senala" data-ancla="boton" aria-labelledby="t-az">
     <div class="in"><div class="texto">
-      <p class="eyebrow aparece">Siguiente: pisos 3 al 7</p>
-      <h2 id="t-sig" class="aparece">El CRM ya no existe. <em>Ahora es el ARM.</em></h2>
-      <p class="frase aparece">En el siguiente paso subimos: ARM, automatizaciones, que te encuentre la IA, lealtad y capacitación.</p>
-      <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">Agenda tu diagnóstico</a></div>
+      <p class="eyebrow aparece">Azotea · Próximamente</p>
+      <h2 id="t-az" class="aparece">Checador digital: <em>la nueva ley ya viene.</em></h2>
+      <p class="frase aparece">Desde 2027, los negocios deberán registrar de forma electrónica las entradas, salidas y horas extra de su equipo. ¿El tuyo ya está listo?</p>
+      <div class="acciones aparece">
+        <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=CHECADOR" target="_blank" rel="noopener">Quiero estar listo</a>
+        <span class="proximo">Próximamente en ZOLKO</span>
+      </div>
+      <p class="fuente aparece">Reforma a la Ley Federal del Trabajo publicada en el Diario Oficial el 1 de mayo de 2026. La STPS publicará las reglas del registro.</p>
+    </div></div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="escena" id="cierre" data-fondo="ciudad" data-pose="salta" data-ancla="boton" aria-labelledby="t-cierre">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Tu siguiente paso</p>
+      <h2 id="t-cierre" class="aparece">¿Subimos <em>tu negocio?</em></h2>
+      <p class="frase aparece">Los precios los ves directo con Ricardo. Mándale la palabra DIAGNÓSTICO y empezamos por entender tu negocio.</p>
+      <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Escribir DIAGNÓSTICO</a></div>
     </div></div>
   </section>
 </main>
@@ -314,34 +499,51 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 
   // Dónde se para la mascota en cada escena (en celular y en computadora).
   // En los pisos con demo se acomoda junto al teléfono o al botón, nunca encima del texto.
+  var PROP = { saluda: .948, arriba: 1.076, piensa: 1.19, senala: .848, celebra: 1.684, salta: .817 };   // alto / ancho de cada pose
   function rect(sel) { return document.querySelector(sel).getBoundingClientRect(); }
   function lugar(id) {
     var W = innerWidth, H = innerHeight, cel = W < 900, w = cel ? Math.min(130, W * .32) : Math.min(230, W * .17);
-    if (id === "piso1") {
-      var f = rect("#piso1 .fone");
-      w = cel ? Math.min(104, W * .26) : Math.min(200, W * .14);
-      return cel ? { x: Math.max(6, f.left - w - 2), y: f.top + f.height * .22, w: w }
-                 : { x: f.left - w - 28, y: f.top + f.height * .1, w: w };
+    if (id === "piso1" && cel) {
+      var f = rect("#piso1 .fone"); w = Math.min(104, W * .26);
+      return { x: Math.max(6, f.left - w - 2), y: f.top + f.height * .22, w: w };
     }
     if (id === "piso2") {
       if (cel) {
-        var b = rect("#piso2 [data-apunta]"); w = Math.min(84, W * .21);
-        return { x: Math.min(W - w - 6, b.right + 10), y: b.top + b.height / 2 - w * 1.43 * .62, w: w };
+        var b = rect("#piso2 [data-apunta]"), vs = rect("#piso2 .versus"); w = Math.min(78, W * .2);
+        return { x: Math.min(W - w - 6, b.right + 10), y: Math.max(vs.bottom + 8, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
       }
       var v = rect("#piso2 .versus"); w = Math.min(200, W * .14);
       return { x: v.right + 36, y: v.top - 20, w: w };
     }
     if (id === "llegada" && cel) {
       var t = rect("#llegada .eyebrow"), libre = t.top - 84 - 8;   // entre el menú y el título
-      w = Math.max(70, Math.min(124, libre / .98));
-      return { x: W - w - 14, y: Math.max(84, t.top - w * .98 - 8), w: w };
+      w = Math.max(70, Math.min(124, libre / PROP.saluda));
+      return { x: W - w - 14, y: Math.max(84, t.top - w * PROP.saluda - 8), w: w };
+    }
+    var sec = document.getElementById(id), tipo = sec.dataset.ancla, alto = PROP[sec.dataset.pose] || 1;
+    if (tipo === "visual") {
+      var v = sec.querySelector(".visual, .fone").getBoundingClientRect();
+      // computadora: parada sobre la esquina de arriba del visual, como asomándose a lo que muestra
+      if (!cel) { w = Math.min(160, W * .11); return { x: v.right - w * .62, y: Math.max(96, v.top - w * alto - 16), w: w }; }
+      // celular: junto al botón si cabe; si no, asomado en la esquina de arriba del visual
+      var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - 14;
+      // celular: en el hueco a la derecha del botón, sin tocar la frase de arriba ni el visual de abajo
+      var fr = sec.querySelector(".frase").getBoundingClientRect(), arriba = fr.bottom + 14, abajo = v.top - 6;   // +14: deja aire para el flote de 10 px
+      w = Math.max(48, Math.min(92, libre, (abajo - arriba) / alto));
+      var y = Math.min(abajo - w * alto, Math.max(arriba, bt.top + bt.height / 2 - w * alto * .55));
+      return { x: W - w - 6, y: y, w: w };
+    }
+    if (tipo === "boton") {
+      var bb = sec.querySelector("[data-apunta]").getBoundingClientRect();
+      if (cel) { var t2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco = t2.top - 84 - 8;
+        w = Math.max(70, Math.min(124, hueco / alto)); return { x: W - w - 14, y: Math.max(84, t2.top - w * alto - 8), w: w }; }
+      w = Math.min(220, W * .16); return { x: Math.max(bb.right + 260, W * .6), y: bb.top + bb.height / 2 - w * alto * .7, w: w };
     }
     var p = {
       llegada:   cel ? { x: W - w - 14, y: H * .2 } : { x: W * .62, y: H * .3 },
       torre:     cel ? { x: W - w - 14, y: H * .22 } : { x: W * .66, y: H * .24 },
-      cimientos: cel ? { x: W - w - 14, y: H * .22 } : { x: W * .64, y: H * .34 },
-      sigue:     cel ? { x: W - w - 14, y: H * .2 } : { x: W * .66, y: H * .26 }
-    }[id];
+      cimientos: cel ? { x: W - w - 14, y: H * .22 } : { x: W * .64, y: H * .34 }
+    }[id] || { x: W - w - 14, y: H * .2 };
     return { x: p.x, y: p.y, w: w };
   }
   function ponerMascota(id, pose) {
@@ -357,7 +559,28 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     marcas.forEach(function (a) { a.classList.toggle("on", a.dataset.ir === sec.id); });
     document.querySelectorAll(".apuntado").forEach(function (b) { b.classList.remove("apuntado"); });
     var b = sec.querySelector("[data-apunta]"); if (b) setTimeout(function () { b.classList.add("apuntado"); }, reduce ? 0 : 900);
+    // el texto entra subiendo ~1 s: al terminar, la mascota se reacomoda con el texto ya en su lugar
+    setTimeout(function () { if (actual === sec) ponerMascota(sec.id, sec.dataset.pose); }, reduce ? 0 : 1350);
     if (sec.id === "piso2") contar(sec);
+    if (sec.id === "piso3") etapas(sec);
+    if (sec.id === "piso4") pasos(sec.querySelectorAll("[data-linea] li"), 1100);
+    if (sec.id === "piso6") pasos(sec.querySelectorAll("[data-sellos] i"), 420);
+  }
+  // Piso 3: el cliente avanza solo de etapa en etapa hasta "Listo para comprar"
+  var etapasHechas = false;
+  function etapas(sec) {
+    if (etapasHechas) return; etapasHechas = true;
+    var filas = [].slice.call(sec.querySelectorAll("[data-etapas] li")), chip = sec.querySelector("[data-cliente]");
+    filas.forEach(function (li, i) {
+      setTimeout(function () {
+        filas.forEach(function (f) { f.classList.toggle("aqui", f === li); });
+        chip.style.setProperty("--c-y", (li.offsetTop + li.offsetHeight / 2 - 17) + "px");
+      }, reduce ? 0 : 400 + i * 1300);
+    });
+  }
+  // Pisos 4 y 6: los elementos se encienden con calma, uno por uno
+  function pasos(lista, cada) {
+    [].slice.call(lista).forEach(function (el, i) { setTimeout(function () { el.classList.add("ve"); }, reduce ? 0 : 500 + i * cada); });
   }
   // Piso 2: los mensajes llegan con calma, uno por uno, en los dos chats al mismo tiempo
   var contado = false;
@@ -381,6 +604,8 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   var pendiente = false;
   addEventListener("scroll", function () { if (pendiente) return; pendiente = true; requestAnimationFrame(function () { pendiente = false; revisar(); }); }, { passive: true });
   addEventListener("resize", function () { if (actual) ponerMascota(actual.id, actual.dataset.pose); revisar(); });
+  var ch = document.querySelector("[data-cliente]"), li0 = document.querySelector("[data-etapas] li");
+  if (ch && li0) ch.style.setProperty("--c-y", (li0.offsetTop + li0.offsetHeight / 2 - 17) + "px");
   revisar();
 })();
 </script>
