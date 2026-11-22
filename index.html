@@ -441,7 +441,8 @@ html { scroll-padding-top: calc(var(--header-h) + 18px); }
 
 /* 1 · ARM explicado una sola vez, en el inicio */
 .hero__arm { margin: -14px 0 26px; max-width: 34em; font-size: clamp(.98rem, 1.4vw, 1.1rem); line-height: 1.5; color: var(--blanco); text-shadow: 0 2px 16px rgba(0, 0, 0, .8); }
-.hero__arm b { display: inline-block; margin-right: 4px; padding: 1px 9px; border-radius: 999px; font-weight: 700; letter-spacing: .04em; color: #0b0918; background: var(--violeta-luz); }
+.hero__arm strong { color: var(--verde, #25d366); }
+.hero__arm b { display: inline-block; margin-right: 6px; padding: 1px 9px; border-radius: 999px; font-weight: 700; letter-spacing: .04em; color: #0b0918; background: var(--violeta-luz); }
 
 /* 4 · Inicio: etiquetas fuera del texto del teléfono; título nítido */
 #heroLabel::before { background: var(--violeta-luz); box-shadow: 0 0 8px var(--violeta); animation: none; }
@@ -560,6 +561,29 @@ html { scroll-padding-top: calc(var(--header-h) + 18px); }
 .pie__legal p { margin: 0; }
 .pie__nota { width: 100%; color: rgba(183, 178, 217, .7); }
 
+/* =====================================================================
+   v5 · Verde de marca (el mismo del botón DIAGNÓSTICO) y teléfono limpio
+   ===================================================================== */
+:root { --verde: #25d366; --verde-oscuro: #04210f; }
+/* Botones principales de WhatsApp en verde */
+a.btn[href*="wa.me"]:not(.btn--linea) { background: var(--verde); color: var(--verde-oscuro); font-weight: 700; }
+a.btn[href*="wa.me"]:not(.btn--linea):hover { box-shadow: 0 0 0 6px rgba(37, 211, 102, .22), 0 18px 40px -16px rgba(37, 211, 102, .85); }
+.hero__acts a.btn[href*="wa.me"] { box-shadow: 0 14px 40px -12px rgba(37, 211, 102, .7); }
+/* Detalles en verde */
+.hcard li::before { background: var(--verde); box-shadow: 0 0 8px var(--verde); }
+.chip b { color: var(--verde); }
+#heroLabel::before { background: var(--verde); box-shadow: 0 0 8px var(--verde); }
+.para__lista li::before { background: var(--verde); box-shadow: 0 0 18px rgba(37, 211, 102, .6); color: var(--verde-oscuro); }
+.costo__cta { border-color: rgba(37, 211, 102, .45); box-shadow: 0 30px 70px -30px rgba(37, 211, 102, .55); }
+.chat__b h2 em { color: var(--verde); }
+.msg.out { background: linear-gradient(135deg, #1f8f4e, #25a75a); }
+/* Teléfono del inicio: la página de ejemplo llena toda la pantalla, sin cortes */
+#heroScreen .hero__shot img { object-fit: cover; object-position: top; }
+/* El botón flotante se esconde cuando ya hay un botón de WhatsApp a la vista */
+body.hay-wa .fab { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(16px) scale(.9); }
+.hero__fone .phone { box-shadow: 0 0 0 1px rgba(244, 244, 247, .18), 0 40px 90px -30px rgba(124, 92, 255, .9), 0 0 60px -20px rgba(37, 211, 102, .35); }
+@media (max-width: 760px) { .hero__fone .chip { display: none; } }
+
 @media (prefers-reduced-motion: reduce) {
   .marquesina__pista { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
   .marquesina__fila[aria-hidden="true"] { display: none; }
@@ -612,7 +636,7 @@ html { scroll-padding-top: calc(var(--header-h) + 18px); }
     <div class="container hero__in" id="heroIn">
       <h1 id="h-title"><span class="ln"><span>Primero entendemos.</span></span><span class="ln"><span><em>Después integramos.</em></span></span></h1>
       <p class="hero__sub">Tu negocio vendiendo solo, piso por piso.</p>
-      <p class="hero__arm"><b>ARM</b>, el CRM de Zolko: registra, organiza y da seguimiento a cada cliente.</p>
+      <p class="hero__arm"><b>Adiós CRM</b> El CRM ya no existe: ahora es el <strong>ARM</strong>. Tienes tu base de clientes, el sistema les da seguimiento en automático, los pasa de etapa en etapa y te los deja calientes para cerrar.</p>
       <div class="hero__acts">
         <a class="btn" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg> Agenda tu diagnóstico</a>
         <a class="btn btn--linea" href="#sistema">Ver el sistema</a>
@@ -686,7 +710,7 @@ html { scroll-padding-top: calc(var(--header-h) + 18px); }
             <li data-key="nfc" data-demo="demos/tarjeta-digital.html" data-grupo="Atraer" data-nombre="Tarjeta digital NFC" data-que="Una tarjeta que no se pierde en un cajón: con un toque guardan tu contacto, te escriben o te siguen." data-res="Tu tarjeta de papel termina olvidada."><button type="button" aria-controls="ePanel"><span>Tarjeta digital NFC</span><small>4</small></button></li>
             <li data-key="whatsapp" data-demo="demos/automatizacion.html" data-grupo="Contestar" data-nombre="WhatsApp que contesta" data-que="Contesta con tus palabras, pregunta lo necesario y aparta la cita, aunque estés ocupado." data-res="Contestas tarde y el cliente ya le compró a otro."><button type="button" aria-controls="ePanel"><span>WhatsApp que contesta</span><small>5</small></button></li>
             <li data-key="menu" data-demo="demos/menu-digital.html" data-grupo="Vender" data-nombre="Menú digital" data-que="Tu cliente elige desde la mesa y el pedido te llega por WhatsApp, con total y forma de entrega." data-res="Todo depende de que tú tomes cada pedido."><button type="button" aria-controls="ePanel"><span>Menú digital</span><small>6</small></button></li>
-            <li data-key="arm" data-demo="demos/arm.html" data-grupo="Dar seguimiento" data-nombre="ARM, agente de clientes" data-que="Un agente de IA lee cada conversación, mueve al cliente de etapa y te dice cuándo contactarlo." data-res="Cotizas y nadie da seguimiento."><button type="button" aria-controls="ePanel"><span>ARM, agente de clientes</span><small>7</small></button></li>
+            <li data-key="arm" data-demo="demos/arm.html" data-grupo="Dar seguimiento" data-nombre="ARM, agente de clientes" data-que="El CRM ya no existe: ahora es el ARM. Tu base de clientes con seguimiento automático que los pasa de etapa en etapa y te los deja calientes para cerrar." data-res="Cotizas, nadie da seguimiento y el cliente se enfría."><button type="button" aria-controls="ePanel"><span>ARM, agente de clientes</span><small>7</small></button></li>
             <li data-key="wallet" data-demo="demos/tarjeta-lealtad.html" data-grupo="Que regresen" data-nombre="Lealtad en Wallet" data-que="Se guarda en Apple o Google Wallet sin descargar apps; sumas sellos y mandas avisos a su pantalla." data-res="Te compran una vez y no regresan."><button type="button" aria-controls="ePanel"><span>Lealtad en Wallet</span><small>8</small></button></li>
             <li data-key="capacitacion" data-demo="demos/capacitacion.html" data-grupo="Tu equipo" data-nombre="Capacitación" data-que="Un taller práctico para quienes atienden WhatsApp, cotizan y dan seguimiento, con herramientas de IA para su día a día." data-res="Tu equipo contesta lento y cada quien lo hace a su manera."><button type="button" aria-controls="ePanel"><span>Capacitación</span><small>9</small></button></li>
           </ul>
@@ -722,12 +746,12 @@ html { scroll-padding-top: calc(var(--header-h) + 18px); }
       </div>
       <div class="giros__nav"><button type="button" id="gAnt" aria-label="Ver giros anteriores" aria-controls="track">‹</button><button type="button" id="gSig" aria-label="Ver más giros" aria-controls="track">›</button></div>
     </div>
-    <div class="giros__track" id="track" tabindex="0" role="region" aria-label="Seis páginas de ejemplo por giro; desliza o usa las flechas">
-      <a class="giro" href="demos/restaurante.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/restaurante.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Restaurante</h3><p>Pedir por WhatsApp</p></a>
-      <a class="giro" href="demos/car-wash.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/car-wash.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Car wash</h3><p>Agendar lavado</p></a>
+    <div class="giros__track" id="track" tabindex="0" role="region" aria-label="Páginas de ejemplo por giro: taquería, panadería, uñas, joyería, car wash y consultorio; desliza o usa las flechas">
+      <a class="giro" href="demos/taqueria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/taqueria.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Taquería</h3><p>Pedir tacos por WhatsApp</p></a>
+      <a class="giro" href="demos/panaderia.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/panaderia.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Panadería</h3><p>Apartar pan y pasteles</p></a>
+      <a class="giro" href="demos/unas.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/unas.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Uñas</h3><p>Agendar cita</p></a>
       <a class="giro" href="demos/joyeria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/joyeria.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Joyería</h3><p>Ver catálogo y escribir</p></a>
-      <a class="giro" href="demos/academia.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/academia.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Academia</h3><p>Agendar clase muestra</p></a>
-      <a class="giro" href="demos/inmobiliaria.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/inmobiliaria.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Inmobiliaria</h3><p>Agendar visita</p></a>
+      <a class="giro" href="demos/car-wash.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/car-wash.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Car wash</h3><p>Agendar lavado</p></a>
       <a class="giro" href="demos/consultorio.html"><div class="phone"><div class="phone__screen"><img src="assets/vitrina/consultorio.webp" alt="" loading="eager" decoding="async" width="360" height="2123"></div></div><h3>Consultorio</h3><p>Agendar cita</p></a>
     </div>
   </section>
@@ -787,7 +811,7 @@ html { scroll-padding-top: calc(var(--header-h) + 18px); }
             <h3>Lo que va detrás de la página</h3>
             <ul>
               <li>Formulario o chat de máximo tres datos.</li>
-              <li>ARM: un agente de IA mueve a cada cliente de etapa y te dice cuándo escribirle.</li>
+              <li>ARM (lo que antes era el CRM): seguimiento automático que pasa a cada cliente de etapa y te lo deja caliente para cerrar.</li>
               <li>Seguimiento por WhatsApp: confirmación, recordatorio y seguimiento automáticos.</li>
               <li>Medición: visitas, clics y solicitudes, y de dónde llegan.</li>
             </ul>
@@ -1333,6 +1357,20 @@ window.ZC = { cam: Object.assign({}, TOMAS.inicio), lit: .42, piso: 0 };
       else if (r.bottom > innerHeight - 20) window.scrollBy({ top: Math.min(r.top - tope, r.bottom - innerHeight + 30), behavior: "smooth" });
     });
   });
+
+  /* ---------- Botón flotante: no tapa a otro botón de WhatsApp ---------- */
+  if ("IntersectionObserver" in window) {
+    var waVisibles = [];
+    var waIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var i = waVisibles.indexOf(e.target);
+        if (e.isIntersecting && i < 0) waVisibles.push(e.target);
+        if (!e.isIntersecting && i > -1) waVisibles.splice(i, 1);
+      });
+      document.body.classList.toggle("hay-wa", waVisibles.length > 0);
+    });
+    $$('main a.btn[href*="wa.me"]').forEach(function (a) { waIO.observe(a); });
+  }
 
   /* ---------- Año del pie ---------- */
   var anio = $("#anio"); if (anio) anio.textContent = new Date().getFullYear();

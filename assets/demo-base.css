@@ -316,6 +316,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: 1rem; transition: border-color .2s, box-shadow .2s;
 }
 .field textarea { min-height: 96px; resize: vertical; }
+/* iPhone: el campo de fecha tiene un ancho mínimo propio y se salía de la tarjeta */
+.field input[type="date"] { -webkit-appearance: none; appearance: none; min-width: 0; max-width: 100%; display: block; min-height: 52px; text-align: left; }
+.field input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+.field { min-width: 0; }
 .field input:hover, .field select:hover, .field textarea:hover { border-color: color-mix(in srgb, var(--c-text) 55%, transparent); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-primary) 22%, transparent); }
 .field [aria-invalid="true"] { border-color: var(--c-error); }

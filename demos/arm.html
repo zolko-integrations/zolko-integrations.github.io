@@ -47,7 +47,7 @@
   .vs p { margin: 0; font-size: .86rem; color: var(--c-muted); line-height: 1.4; }
   .vs .arm { border-color: color-mix(in srgb, var(--agente) 65%, transparent); background: linear-gradient(160deg, rgba(139, 108, 255, .22), rgba(47, 123, 255, .08)); box-shadow: 0 0 40px -14px var(--agente); }
   .vs .arm b { color: #c9bbff; }
-  .vs .crm b { color: var(--c-muted);  }
+  .vs .crm b { color: var(--c-muted); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: rgba(255, 90, 110, .7); }
 
   /* ---------- Escenario ---------- */
   .stage { padding: 8px 0 40px; }
@@ -180,12 +180,12 @@
 <main>
   <section class="hero" aria-labelledby="h-arm">
     <div class="in">
-      <span class="eyebrow reveal">ARM · Demo</span>
+      <span class="eyebrow reveal">El CRM ya no existe · Ahora es ARM</span>
       <h1 id="h-arm" class="reveal">Tu agente de clientes: <em>mueve a cada cliente de etapa</em> y te dice cuándo contactarlo.</h1>
-      <p class="lead reveal">Registra, organiza y da seguimiento a cada cliente: un agente de IA lee cada conversación, decide en qué etapa va el cliente y agenda el siguiente contacto.</p>
+      <p class="lead reveal">Tienes tu base de clientes y el sistema les da seguimiento en automático: un agente de IA lee cada conversación, pasa al cliente de etapa en etapa, agenda el siguiente contacto y te lo deja caliente para cerrar.</p>
       <div class="vs reveal">
-        <div class="crm"><b>Sin ARM</b><p>Tú capturas, tú cambias la etapa, tú te acuerdas de escribir.</p></div>
-        <div class="arm"><b>Con ARM</b><p>El agente lee, cambia la etapa y te dice cuándo escribir.</p></div>
+        <div class="crm"><b>CRM · ya no</b><p>Tú capturas, tú cambias la etapa, tú te acuerdas de escribir. Y el cliente se enfría.</p></div>
+        <div class="arm"><b>ARM · ahora</b><p>El agente lee, cambia la etapa, da el seguimiento y te deja al cliente listo para comprar.</p></div>
       </div>
     </div>
   </section>
