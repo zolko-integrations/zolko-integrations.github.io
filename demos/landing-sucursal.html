@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/v6/demo-base.css">
 <style>
   /* =================================================================
      IDENTIDAD · CASA BRASA (negocio de ejemplo)
@@ -80,13 +80,19 @@
   :focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) { .chispa { display: none; } .b { transition: none; } }
 </style>
+<link rel="stylesheet" href="../assets/v6/zolko-servicio.css">
+<style>
+  /* Ajustes a la marca ZOLKO (noche, violeta y verde) */
+  .b--google { background: linear-gradient(180deg, #4fe38b, #25d366 55%, #1aa950); color: var(--zk-verde-oscuro); box-shadow: 0 12px 30px -12px rgba(37, 211, 102, .9); }
+  .chispa { background: #a993ff; box-shadow: 0 0 10px #7c5cff; }
+</style>
 <script>
   window.DEMO_CONFIG = {
     negocio: "Casa Brasa · página por sucursal",
     simulado: [
       "Casa Brasa y sus sucursales son de ejemplo.",
       "Los botones de reseña, redes y ubicación muestran un aviso en lugar de abrir cuentas reales.",
-      "El WhatsApp usa un número de ejemplo y muestra una vista previa del mensaje.",
+      "El botón de WhatsApp abre el WhatsApp real de ZOLKO con un mensaje listo para pedir esta página para tu negocio.",
       "El selector de sucursal solo existe en la demo: en la vida real cada NFC abre directo su página."
     ],
     produccion: [
@@ -187,6 +193,6 @@
   aviso.addEventListener("click", function (e) { if (e.target === aviso) aviso.close(); });
 })();
 </script>
-<script src="../assets/demo-base.js"></script>
+<script src="../assets/v6/demo-base.js"></script>
 </body>
 </html>

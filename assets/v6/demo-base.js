@@ -31,7 +31,7 @@
 
   /* Cuando la demo se abre DENTRO de la torre (en el celular o la laptop de un piso):
      ?embed=1 quita la barra de arriba (la torre pone la suya) y &auto=1 la deja moviéndose sola como vista previa. */
-  var EMBED = /[?&]embed=1/.test(location.search), AUTO = /[?&]auto=1/.test(location.search);
+  var EMBED = /[?&]embed=1/.test(location.search) || /^zk-(embed|auto)$/.test(window.name), AUTO = /[?&]auto=1/.test(location.search) || window.name === "zk-auto";
   if (EMBED) document.documentElement.classList.add("zk-embed");
   if (AUTO) document.documentElement.classList.add("zk-auto");
   if (EMBED) document.addEventListener("click", function (e) {
@@ -63,13 +63,13 @@
     "tarjeta-lealtad": ["Tarjeta de lealtad", "piso6"], "capacitacion": ["Capacitación en IA", "piso7"], "restaurante": ["Página de restaurante", "piso1"]
   }[archivo];
   if (FICHA) nombreDemo = FICHA[0]; else FICHA = [nombreDemo, "piso1"];
-  var torre = "../index.html#" + FICHA[1];
+  var torre = "../#" + FICHA[1];
   var DIAG = "https://wa.me/" + WHATSAPP_ZOLKO + "?text=" + encodeURIComponent("DIAGNÓSTICO");
   var flecha = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg>';
   var bar = el("div", { class: "demo-bar", role: "region", "aria-label": "Demo de ZOLKO INTEGRATIONS" },
     '<div class="demo-bar__inner">' +
       '<a class="demo-bar__back" href="' + torre + '" aria-label="Volver a la torre de ZOLKO">' + flecha + "<span>Torre</span></a>" +
-      '<a class="demo-bar__logo" href="../index.html" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="../../assets/zolko-logo.svg" alt="" width="84" height="28"></a>' +
+      '<a class="demo-bar__logo" href="../" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="../assets/zolko-logo.svg" alt="" width="84" height="28"></a>' +
       '<p class="demo-bar__text"><span class="demo-bar__pill">Demo</span><strong>' + FICHA[0] + "</strong></p>" +
       '<button type="button" class="demo-bar__sim" aria-haspopup="dialog" aria-label="Ver qué está simulado en esta demo"><i aria-hidden="true">i</i><span>Qué es simulado</span></button>' +
       '<a class="demo-bar__diag" href="' + DIAG + '" target="_blank" rel="noopener">DIAGNÓSTICO</a>' +
@@ -213,7 +213,7 @@
   var wa = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>';
   var cierre = el("aside", { class: "zolko-cta", "aria-label": "Contactar a ZOLKO INTEGRATIONS" },
     '<div class="zolko-cta__in">' +
-      '<img class="zolko-cta__mascota" src="../../assets/v6/mascota/senala-900.webp" alt="" aria-hidden="true" width="900" height="764" loading="lazy">' +
+      '<img class="zolko-cta__mascota" src="../assets/v6/mascota/senala-900.webp" alt="" aria-hidden="true" width="900" height="764" loading="lazy">' +
       '<div><p class="zolko-cta__tag">Hecho por ZOLKO INTEGRATIONS</p>' +
       '<p class="zolko-cta__title">¿Lo quieres <em>para tu negocio?</em></p>' +
       '<p class="zolko-cta__text">Esto es una demo. Te lo hacemos con tu marca y tus datos reales. La inversión la vemos en tu diagnóstico, con la radiografía de tu negocio.</p>' +

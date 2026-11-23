@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/v6/demo-base.css">
 <style>
   /* =================================================================
      IDENTIDAD · Consultorio Vida Plena (negocio de ejemplo)
@@ -76,6 +76,16 @@
   .wa__top { background: linear-gradient(90deg, #075e54, #0b6f78); }
   .wa__chat { background-color: #efeae2; background-image: radial-gradient(rgba(7, 94, 84, .07) 1.2px, transparent 1.3px), radial-gradient(rgba(7, 94, 84, .05) 1px, transparent 1.1px); background-size: 18px 18px, 11px 11px; background-position: 0 0, 7px 9px; }
   .log li.is-on .ic { background: var(--c-primary); color: #fff; }
+</style>
+<link rel="stylesheet" href="../assets/v6/zolko-servicio.css">
+<style>
+  /* Ajustes a la marca ZOLKO (noche, violeta y verde) */
+  /* El chat es WhatsApp de verdad: conserva sus colores y su texto oscuro */
+  .wa { color: #111b21; box-shadow: 0 0 0 1px rgba(244, 244, 247, .12), 0 50px 100px -40px rgba(124, 92, 255, .9); }
+  .wa__top { color: #fff; }
+  .log li { background: rgba(16, 13, 31, .86); border: 1px solid var(--c-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .log li.is-on { box-shadow: 0 20px 50px -30px rgba(37, 211, 102, .8); }
+  .log li.is-on .ic { color: var(--zk-verde-oscuro); }
 </style>
 <script>
   window.DEMO_CONFIG = {
@@ -198,6 +208,6 @@ function gracias() {
 document.getElementById("reiniciar").addEventListener("click", inicio);
 inicio();
 </script>
-<script src="../assets/demo-base.js"></script>
+<script src="../assets/v6/demo-base.js"></script>
 </body>
 </html>

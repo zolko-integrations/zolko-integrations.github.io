@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/v6/demo-base.css">
 <style>
   /* =================================================================
      IDENTIDAD DEL NEGOCIO · Casa Brasa (mismos colores que su demo)
@@ -101,6 +101,17 @@
   .stamps { padding: 14px 16px; background: linear-gradient(rgba(25, 14, 8, .5), rgba(25, 14, 8, .72)), url(../assets/fotos/parrillada-640.webp) center / cover; }
   .stamp { background: rgba(0, 0, 0, .28); border-color: rgba(255, 210, 150, .7); }
   .stamp.on { background: rgba(233, 162, 59, .32); }
+</style>
+<link rel="stylesheet" href="../assets/v6/zolko-servicio.css">
+<style>
+  /* Ajustes a la marca ZOLKO (noche, violeta y verde) */
+  .step { background: rgba(16, 13, 31, .86); border: 1px solid var(--c-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .pass__qr small { color: #333; }
+  .notif { color: #111; }
+  /* Los botones de la Wallet en verde: en la torre, todo lo verde se toca */
+  .wallet-btns .btn--black { --_bg: var(--zk-verde); --_fg: var(--zk-verde-oscuro); border-color: transparent; box-shadow: 0 14px 34px -16px rgba(37, 211, 102, .85); }
+  .wallet-btns .btn--black:hover { --_bg: #3be07a; }
+  .wallet-btns .btn--black small { color: inherit; opacity: .72; }
 </style>
 <script>
   window.DEMO_CONFIG = {
@@ -298,6 +309,6 @@ document.getElementById("reiniciar").addEventListener("click", function () {
   document.getElementById("l-nombre").focus();
 });
 </script>
-<script src="../assets/demo-base.js"></script>
+<script src="../assets/v6/demo-base.js"></script>
 </body>
 </html>

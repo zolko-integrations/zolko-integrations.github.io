@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/v6/demo-base.css">
 <style>
   /* =================================================================
      ARM de "Ola Azul Autolavado" (negocio de ejemplo)
@@ -157,6 +157,12 @@
     .live i, .bot .ojo, .agent.pensando .bot, .typing i { animation: none; }
     .rail__fill, .think li, .next { transition: none; }
   }
+</style>
+<link rel="stylesheet" href="../assets/v6/zolko-servicio.css">
+<style>
+  /* Ajustes a la marca ZOLKO (noche, violeta y verde) */
+  .hero h1 em { font-style: italic; background: none; color: var(--zk-violeta-luz); }
+  .hero::before { background: radial-gradient(50% 50% at 70% 40%, rgba(124, 92, 255, .4), transparent 70%), radial-gradient(40% 40% at 10% 20%, rgba(37, 211, 102, .12), transparent 70%); }
 </style>
 <script>
   window.DEMO_CONFIG = {
@@ -367,6 +373,6 @@
   }
 })();
 </script>
-<script src="../assets/demo-base.js"></script>
+<script src="../assets/v6/demo-base.js"></script>
 </body>
 </html>

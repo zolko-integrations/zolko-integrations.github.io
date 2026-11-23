@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/demo-base.css">
+<link rel="stylesheet" href="../assets/v6/demo-base.css">
 <style>
   /* =================================================================
      IDENTIDAD · Estudio Clave (academia de ejemplo)
@@ -91,6 +91,15 @@
   .intro, .intro h1 { color: #fff; }
   .intro .lead { color: rgba(255, 255, 255, .86); }
   .intro .eyebrow { color: var(--c-accent); }
+</style>
+<link rel="stylesheet" href="../assets/v6/zolko-servicio.css">
+<style>
+  /* Ajustes a la marca ZOLKO (noche, violeta y verde) */
+  .day { background: rgba(16, 13, 31, .86); border: 1px solid var(--c-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--c-text); }
+  .day.on, .day[aria-pressed="true"] { border-color: var(--zk-verde); box-shadow: 0 0 0 1px var(--zk-verde), 0 20px 50px -30px rgba(37, 211, 102, .8); }
+  .arrows button { background: rgba(244, 244, 247, .08); color: var(--c-text); }
+  .detail { background: rgba(16, 13, 31, .86); border: 1px solid var(--c-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .poll button { color: #1f2a44; }
 </style>
 <script>
   window.DEMO_CONFIG = {
@@ -229,6 +238,6 @@ document.getElementById("otraIdea").addEventListener("click", function () {
   out.classList.remove("flash"); void out.offsetWidth; out.classList.add("flash");
 });
 </script>
-<script src="../assets/demo-base.js"></script>
+<script src="../assets/v6/demo-base.js"></script>
 </body>
 </html>
