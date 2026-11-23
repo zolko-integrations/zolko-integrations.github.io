@@ -113,16 +113,25 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 
 /* ---------- Elevador ---------- */
 /* Celular: riel de 1 px en la orilla derecha; el piso actual brilla y su número aparece 2 s */
-.riel { position: fixed; right: 9px; top: 50%; z-index: 44; width: 14px; height: 210px; transform: translateY(-50%); pointer-events: none; opacity: 0; transition: opacity .8s var(--suave); }
-.riel.ve { opacity: 1; }
-.riel::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); background: linear-gradient(180deg, transparent, rgba(244, 244, 247, .28) 12%, rgba(244, 244, 247, .28) 88%, transparent); }
-.riel::after { content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: var(--lleno, 0%); transform: translateX(-50%); background: linear-gradient(180deg, transparent, var(--verde) 30%); box-shadow: 0 0 8px rgba(37, 211, 102, .6); transition: height 1.1s var(--suave); }
-.riel i { position: absolute; left: 50%; width: 5px; height: 1px; transform: translateX(-50%); background: rgba(244, 244, 247, .45); transition: all .6s var(--suave); }
-.riel i.aqui { width: 7px; height: 7px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 10px var(--verde), 0 0 0 3px rgba(37, 211, 102, .18); transform: translate(-50%, -3px); }
-.riel b { position: absolute; right: 16px; top: var(--y, 0%); transform: translateY(-50%); padding: 5px 8px; border-radius: 10px; background: rgba(5, 5, 5, .55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  font: italic 500 15px/1 var(--f-display); color: var(--blanco); white-space: nowrap; opacity: 0; transition: opacity .6s var(--suave), top 1.1s var(--suave); }
+.riel { position: fixed; right: 9px; top: 50%; z-index: 44; width: 14px; height: 210px; transform: translateY(-50%); pointer-events: none; --lleno: 0%; }
+/* la vía: una línea de 1 px; lo recorrido se llena de verde poco a poco, desde el primer momento */
+.riel::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); background: rgba(244, 244, 247, .26); }
+.riel::after { content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: var(--lleno); transform: translateX(-50%); background: var(--verde); box-shadow: 0 0 8px rgba(37, 211, 102, .6); transition: height .25s linear; }
+.riel i { position: absolute; left: 50%; width: 3px; height: 1px; transform: translateX(-50%); background: rgba(244, 244, 247, .4); transition: background .5s; }
+.riel i.piso { width: 7px; background: rgba(244, 244, 247, .55); }
+.riel i.ok { background: var(--verde); }
+/* la punta: un puntito verde que va bajando contigo */
+.riel__punta { position: absolute; left: 50%; top: var(--lleno); width: 7px; height: 7px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--verde); box-shadow: 0 0 10px var(--verde), 0 0 0 3px rgba(37, 211, 102, .18); transition: top .25s linear; }
+.riel b { position: absolute; right: 16px; top: var(--lleno); transform: translateY(-50%); padding: 5px 8px; border-radius: 10px; background: rgba(5, 5, 5, .55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font: italic 500 15px/1 var(--f-display); color: var(--blanco); white-space: nowrap; opacity: 0; transition: opacity .6s var(--suave), top .25s linear; }
 .riel b small { display: block; margin-bottom: 3px; text-align: right; font: 600 8px var(--f-texto); font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: var(--verde); }
 .riel b.ve { opacity: 1; }
+/* Si te quedas quieto: una luz baja por la vía y aparece una flechita al final, invitando a seguir */
+.riel__pulso { position: absolute; left: 50%; top: var(--lleno); width: 3px; height: 16px; border-radius: 3px; transform: translateX(-50%); background: linear-gradient(180deg, rgba(37, 211, 102, 0), var(--verde)); box-shadow: 0 0 8px rgba(37, 211, 102, .8); opacity: 0; }
+.riel.invita .riel__pulso { animation: pulso-baja 1.7s cubic-bezier(.55, 0, .3, 1) infinite; }
+@keyframes pulso-baja { 0% { top: var(--lleno); opacity: 0; } 18%, 80% { opacity: 1; } 100% { top: calc(100% - 16px); opacity: 0; } }
+.riel__baja { position: absolute; left: 50%; top: calc(100% + 5px); width: 14px; height: 14px; margin-left: -7px; color: var(--verde); opacity: 0; transition: opacity .5s var(--suave); }
+.riel.invita .riel__baja { opacity: 1; animation: baja 1.7s var(--suave) infinite; }
 /* Celular: al llegar, una línea fina con un puntito que cae; se va en cuanto bajas */
 .desliza { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 44; display: grid; justify-items: center; gap: 7px; transform: translateX(-50%); pointer-events: none; transition: opacity .6s var(--suave); }
 .desliza span { position: relative; width: 1px; height: 38px; overflow: hidden; background: linear-gradient(180deg, rgba(244, 244, 247, 0), rgba(244, 244, 247, .35)); }
@@ -138,7 +147,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   #llegada { padding-bottom: 110px; }
 }
 @media (max-width: 899px) { #llegada { padding-bottom: 104px; } }   /* espacio para el "desliza" */
-@media (prefers-reduced-motion: reduce) { .desliza span::after { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .desliza span::after, .riel.invita .riel__pulso, .riel.invita .riel__baja { animation: none; } .riel.invita .riel__pulso { opacity: 0; } }
 
 /* ---------- La mascota que guía ---------- */
 .mascota { position: fixed; z-index: 45; left: 0; top: 0; width: var(--m-w, 190px); pointer-events: none;
@@ -154,6 +163,8 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 @keyframes j-brinco { 0% { transform: none; } 20% { transform: translateY(6%) scale(1.08, .9); } 50% { transform: translateY(-34%) scale(.95, 1.06); } 78% { transform: translateY(0) scale(1.06, .94); } 100% { transform: none; } }
 @keyframes j-giro { 0% { transform: none; } 45% { transform: translateY(-22%) rotate(180deg) scale(1.05); } 100% { transform: rotate(360deg); } }
 @keyframes j-hola { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-10deg); } 40% { transform: rotate(9deg); } 60% { transform: rotate(-7deg); } 80% { transform: rotate(4deg); } }
+.mascota.j-baja .mascota__juego { animation: j-baja 1.25s ease-in-out 2; }
+@keyframes j-baja { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-7%); } 55% { transform: translateY(6%); } 70% { transform: translateY(2%); } 85% { transform: translateY(6%); } }
 @keyframes j-latido { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.14); } 55% { transform: scale(.96); } 75% { transform: scale(1.05); } }
 /* Chispas verdes y violetas que salen del monito */
 .chispas { position: absolute; left: 50%; top: 45%; width: 0; height: 0; pointer-events: none; }
@@ -435,7 +446,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 </ol>
 
 <!-- Elevador: en celular un riel fino en la orilla; en computadora una pastilla abajo -->
-<div class="riel" id="riel" aria-hidden="true"><i style="top:0.0000%"></i><i style="top:16.6667%"></i><i style="top:33.3333%"></i><i style="top:50.0000%"></i><i style="top:66.6667%"></i><i style="top:83.3333%"></i><i style="top:100.0000%"></i><b id="rielTxt"></b></div>
+<div class="riel" id="riel" aria-hidden="true"><span class="riel__punta"></span><em class="riel__pulso"></em><b id="rielTxt"></b><svg class="riel__baja" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l4 4 4-4"/></svg></div>
 <div class="desliza" id="desliza" aria-hidden="true"><span></span><small>Desliza</small></div>
 
 <!-- La mascota: cambia de pose y de lugar en cada escena -->
@@ -446,6 +457,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <img data-pose="senala" src="../assets/v6/mascota/senala-900.webp" alt="" width="900" height="764">
   <img data-pose="celebra" src="../assets/v6/mascota/celebra-900.webp?v=2" alt="" width="535" height="900">
   <img data-pose="salta" src="../assets/v6/mascota/salta-900.webp" alt="" width="900" height="736">
+  <img data-pose="abajo" src="../assets/v6/mascota/abajo-900.webp" alt="" width="817" height="900" loading="lazy">
 </span><span class="mascota__toca" aria-hidden="true">¡Tócame!</span><span class="chispas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div>
 
 <main>
@@ -705,14 +717,15 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 
   // Dónde se para la mascota en cada escena (en celular y en computadora).
   // En los pisos con demo se acomoda junto al teléfono o al botón, nunca encima del texto.
-  var PROP = { saluda: .948, arriba: 1.076, piensa: 1.19, senala: .848, celebra: 1.684, salta: .817 };   // alto / ancho de cada pose
+  var PROP = { saluda: .948, arriba: 1.076, piensa: 1.19, senala: .848, celebra: 1.684, salta: .817, abajo: 1.102 };
+  var ORILLA = 30;   // en celular la mascota deja libre la orilla derecha, donde va el riel   // alto / ancho de cada pose
   function rect(sel) { return document.querySelector(sel).getBoundingClientRect(); }
   function lugar(id) {
     var W = innerWidth, H = innerHeight, cel = W < 900, w = cel ? Math.min(130, W * .32) : Math.min(230, W * .17);
     if (id === "piso3") {
       if (cel) {
         var b = rect("#piso3 [data-apunta]"), vs = rect("#piso3 .versus"); w = Math.min(78, W * .2);
-        return { x: Math.min(W - w - 6, b.right + 10), y: Math.max(vs.bottom + 14, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
+        return { x: Math.min(W - w - ORILLA, b.right + 10), y: Math.max(vs.bottom + 14, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
       }
       var v = rect("#piso3 .versus"); w = Math.min(200, W * .14);
       return { x: v.right + 36, y: v.top - 20, w: w };
@@ -720,7 +733,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     if (id === "llegada" && cel) {
       var t = rect("#llegada .eyebrow"), libre = t.top - 84 - 8;   // entre el menú y el título
       w = Math.max(70, Math.min(124, libre / PROP.saluda));
-      return { x: W - w - 14, y: Math.max(84, t.top - w * PROP.saluda - 8), w: w };
+      return { x: W - w - ORILLA, y: Math.max(84, t.top - w * PROP.saluda - 8), w: w };
     }
     var sec = document.getElementById(id), tipo = sec.dataset.ancla, alto = PROP[sec.dataset.pose] || 1;
     if (tipo === "visual") {
@@ -729,7 +742,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       if (!cel) { var libreArriba = v.top - 96 - 16; w = Math.min(160, W * .11, libreArriba / alto);   // cabe arriba del visual o se hace más chico
         return { x: v.right - w * .62, y: Math.max(96, v.top - w * alto - 16), w: Math.max(w, 60), oculta: w < 60 }; }
       // celular: junto al botón si cabe; si no, asomado en la esquina de arriba del visual
-      var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - 14;
+      var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - ORILLA - 6;
       // celular: en el hueco a la derecha del botón, sin tocar la frase de arriba ni el visual de abajo
       var ac = sec.querySelector(".acciones"), fr = ac.previousElementSibling.getBoundingClientRect(), sig = ac.nextElementSibling, arriba = fr.bottom + 14,
         abajo = Math.min(v.top, sig ? sig.getBoundingClientRect().top : v.top) - 6;   // ni la frase de arriba ni lo que va debajo del botón   // +14: deja aire para el flote de 10 px
@@ -738,32 +751,35 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       w = Math.max(48, Math.min(92, libre, (abajo - arriba) / alto));
       // si no cabe entero, primero cuida el texto de arriba (puede asomarse sobre la esquina de la tarjeta, nunca sobre letras)
       var y = Math.max(arriba, Math.min(abajo - w * alto, bt.top + bt.height / 2 - w * alto * .55));
-      return { x: W - w - 6, y: y, w: w, pose: pose2 };
+      return { x: W - w - ORILLA, y: y, w: w, pose: pose2, oculta: libre < 48 };   // si no cabe junto al botón, se desvanece
     }
     if (tipo === "confian") {
       // brincando de gusto arriba de la cinta de logos, sin tocar el título ni los logos
       var cin = sec.querySelector(".marquesina, .vitrina").getBoundingClientRect(), tt = sec.querySelector("h2").getBoundingClientRect();
       if (cel) { var e2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco2 = e2.top - 92; w = Math.max(64, Math.min(110, hueco2 / alto));
-        return { x: W - w - 14, y: Math.max(84, e2.top - w * alto - 10), w: w, oculta: hueco2 < 64 * alto }; }
+        return { x: W - w - ORILLA, y: Math.max(84, e2.top - w * alto - 10), w: w, oculta: hueco2 < 64 * alto }; }
       w = Math.min(170, W * .12); return { x: Math.max(tt.right + 40, W * .64), y: cin.top - w * alto - 22, w: w };
     }
     if (tipo === "boton") {
       var bb = sec.querySelector("[data-apunta]").getBoundingClientRect();
       if (cel) { var t2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco = t2.top - 84 - 8;
-        w = Math.max(70, Math.min(124, hueco / alto)); return { x: W - w - 14, y: Math.max(84, t2.top - w * alto - 8), w: w }; }
+        w = Math.max(70, Math.min(124, hueco / alto)); return { x: W - w - ORILLA, y: Math.max(84, t2.top - w * alto - 8), w: w }; }
       w = Math.min(220, W * .16); return { x: Math.max(bb.right + 260, W * .6), y: bb.top + bb.height / 2 - w * alto * .7, w: w };
     }
     var p = {
-      llegada:   cel ? { x: W - w - 14, y: H * .2 } : { x: W * .62, y: H * .3 },
-      torre:     cel ? { x: W - w - 14, y: H * .22 } : { x: W * .66, y: H * .24 },
-      cimientos: cel ? { x: W - w - 14, y: H * .22 } : { x: W * .64, y: H * .34 }
-    }[id] || { x: W - w - 14, y: H * .2 };
+      llegada:   cel ? { x: W - w - ORILLA, y: H * .2 } : { x: W * .62, y: H * .3 },
+      torre:     cel ? { x: W - w - ORILLA, y: H * .22 } : { x: W * .66, y: H * .24 },
+      cimientos: cel ? { x: W - w - ORILLA, y: H * .22 } : { x: W * .64, y: H * .34 }
+    }[id] || { x: W - w - ORILLA, y: H * .2 };
     return { x: p.x, y: p.y, w: w };
   }
-  var poseJuego = null;   // pose de la reacción al tocarla (manda sobre la de la escena un momento)
+  var poseJuego = null, poseInvita = null;   // pose de la reacción al tocarla (manda sobre la de la escena un momento)
   function ponerMascota(id, pose) {
     var l = lugar(id);
-    pose = poseJuego || l.pose || pose;
+    var base = l.pose || pose;
+    // el gesto de "sigue bajando" ocupa el mismo hueco que la pose de la escena (si es más alta, se achica)
+    if (poseInvita && !poseJuego && PROP.abajo > PROP[base]) l.w = l.w * PROP[base] / PROP.abajo;
+    pose = poseJuego || poseInvita || base;
     mascota.style.setProperty("--m-x", l.x + "px"); mascota.style.setProperty("--m-y", l.y + "px"); mascota.style.setProperty("--m-w", l.w + "px");
     Object.keys(poses).forEach(function (k) { poses[k].classList.toggle("on", k === pose); });
     // Si está a la derecha de lo que señala, se voltea para apuntarle (la pose mira a la derecha)
@@ -807,19 +823,24 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   // ---- Elevador: qué piso es y cuál sigue ----
   var NOMBRES = { llegada: "Llegada", torre: "Tu torre", cimientos: "Cimientos", piso1: "Piso 1 · Tu página", piso2: "Piso 2 · Tu contenido", piso3: "Piso 3 · Tu WhatsApp",
     piso4: "Piso 4 · Tu ARM", piso5: "Piso 5 · Tu local", piso6: "Piso 6 · Que regresen", piso7: "Piso 7 · Tu equipo", azotea: "Azotea · Próximamente", fundador: "El fundador", confian: "Referencias", cierre: "Diagnóstico" };
-  var riel = document.getElementById("riel"), rielTxt = document.getElementById("rielTxt"), rielMarcas = [].slice.call(riel.querySelectorAll("i"));
-  var rielT = null;
-  function numPiso(id) { var m = /^piso(\d)$/.exec(id); if (m) return +m[1]; return ["azotea", "fundador", "confian", "cierre"].indexOf(id) >= 0 ? 8 : 0; }
+  var riel = document.getElementById("riel"), rielTxt = document.getElementById("rielTxt"), rielMarcas = [], rielT = null;
+  function numPiso(id) { var m = /^piso(\d)$/.exec(id); return m ? +m[1] : 0; }
+  // Una marquita por escena, en el punto del recorrido donde empieza (las de los 7 pisos son un poco más largas)
+  function marcarRiel() {
+    rielMarcas.forEach(function (m) { m.remove(); }); rielMarcas = [];
+    var max = document.documentElement.scrollHeight - innerHeight; if (max <= 0) return;
+    escenas.forEach(function (sec) {
+      var m = document.createElement("i"), pos = Math.min(100, sec.offsetTop / max * 100);
+      m.style.top = pos + "%"; m._pos = pos; if (numPiso(sec.id)) m.className = "piso";
+      riel.appendChild(m); rielMarcas.push(m);
+    });
+  }
+  // Al entrar a un piso, su número aparece 2 segundos junto a la punta
   function elevador(sec) {
     var n = numPiso(sec.id);
-    riel.classList.toggle("ve", sec.id !== "llegada");
-    riel.style.setProperty("--lleno", (n <= 1 ? 0 : Math.min(100, (n - 1) / 6 * 100)) + "%");
-    rielMarcas.forEach(function (m, k) { m.classList.toggle("aqui", k + 1 === n); });
-    if (n >= 1) {
-      rielTxt.innerHTML = n <= 7 ? "<small>Piso</small>0" + n : "<small>Arriba</small>✓";
-      rielTxt.style.setProperty("--y", (Math.min(n, 7) - 1) / 6 * 100 + "%");
-      rielTxt.classList.add("ve"); clearTimeout(rielT); rielT = setTimeout(function () { rielTxt.classList.remove("ve"); }, 2000);
-    } else rielTxt.classList.remove("ve");
+    if (!n) { rielTxt.classList.remove("ve"); return; }
+    rielTxt.innerHTML = "<small>Piso</small>0" + n;
+    rielTxt.classList.add("ve"); clearTimeout(rielT); rielT = setTimeout(function () { rielTxt.classList.remove("ve"); }, 2000);
   }
   // "Desliza": se va en cuanto el cliente empieza a bajar, y ya no regresa
   var desliza = document.getElementById("desliza");
@@ -873,14 +894,41 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     escenas.forEach(function (s) { var r = s.getBoundingClientRect(); if (r.top <= mitad && r.bottom > mitad) mejor = s; });
     activar(mejor);
     if (actual) ponerMascota(actual.id, actual.dataset.pose);   // la sigue con calma mientras bajas
-    var max = document.documentElement.scrollHeight - innerHeight;
-    document.getElementById("avance").style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
+    var max = document.documentElement.scrollHeight - innerHeight, prog = max > 0 ? Math.max(0, Math.min(1, scrollY / max)) : 0;
+    document.getElementById("avance").style.transform = "scaleX(" + prog + ")";
+    riel.style.setProperty("--lleno", (prog * 100).toFixed(2) + "%");   // la barrita se llena poco a poco con el recorrido
+    rielMarcas.forEach(function (m) { m.classList.toggle("ok", m._pos <= prog * 100 + .4); });
+    progreso = prog;
   }
+  // ---- Si el cliente se queda quieto, lo invitamos a seguir bajando ----
+  // Una luz baja por el riel y la mascota señala hacia abajo un momento; se repite con calma hasta que baja.
+  var progreso = 0, quieto = null, gesto = null, QUIETO_MS = 7000, REPITE_MS = 9000;
+  function finGesto() { clearTimeout(gesto); mascota.classList.remove("j-baja"); if (poseInvita) { poseInvita = null; if (actual) ponerMascota(actual.id, actual.dataset.pose); } }
+  function invitar() {
+    clearTimeout(quieto);
+    var puede = !document.hidden && actual && progreso < .985 && !document.querySelector("dialog[open]");
+    if (puede) {
+      riel.classList.add("invita");
+      if (!ocupada && !mascota.classList.contains("fuera")) {
+        poseInvita = "abajo"; ponerMascota(actual.id, actual.dataset.pose);
+        if (!reduce) mascota.classList.add("j-baja");
+        gesto = setTimeout(finGesto, 2700);
+      }
+    }
+    quieto = setTimeout(invitar, REPITE_MS);
+  }
+  function actividad() { riel.classList.remove("invita"); finGesto(); clearTimeout(quieto); quieto = setTimeout(invitar, QUIETO_MS); }
+  ["scroll", "pointerdown", "keydown", "wheel", "touchstart"].forEach(function (ev) { addEventListener(ev, actividad, { passive: true }); });
+  if (pista) pista.addEventListener("scroll", actividad, { passive: true });
+  actividad();
+
   var pendiente = false;
   addEventListener("scroll", function () { if (pendiente) return; pendiente = true; requestAnimationFrame(function () { pendiente = false; revisar(); }); }, { passive: true });
-  addEventListener("resize", function () { if (actual) ponerMascota(actual.id, actual.dataset.pose); revisar(); });
+  addEventListener("resize", function () { marcarRiel(); if (actual) ponerMascota(actual.id, actual.dataset.pose); revisar(); });
+  addEventListener("load", function () { marcarRiel(); revisar(); });
   var ch = document.querySelector("[data-cliente]"), li0 = document.querySelector("[data-etapas] li");
   if (ch && li0) ch.style.setProperty("--c-y", (li0.offsetTop + li0.offsetHeight / 2 - 17) + "px");
+  marcarRiel();
   revisar();
 })();
 </script>
