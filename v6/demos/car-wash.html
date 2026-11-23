@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Ola Azul · Autolavado (demo)</title>
+<meta name="description" content="Demo de ZOLKO: autolavado que agenda por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&amp;family=Barlow:wght@400;500;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/v6/demo-base.css">
+<link rel="stylesheet" href="../../assets/giro.css">
+<link rel="preload" as="image" href="../../assets/fotos/carwash.webp" fetchpriority="high">
+<style>
+  /* Identidad del negocio de ejemplo (colores y fuentes) */
+  :root {
+    --c-bg: #f4f8fc;
+    --c-surface: #e3eef8;
+    --c-text: #0b2540;        /* azul marino */
+    --c-muted: #45607a;
+    --c-primary: #0059c9;     /* azul agua */
+    --c-primary-hover: #00479f;
+    --c-on-primary: #ffffff;
+    --c-accent: #ffd23f;      /* amarillo brillo */
+    --c-dark: #0b2540;
+    --c-on-dark: #eef5fc;
+    --c-line: rgba(11, 37, 64, .14);
+    --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --font-body: "Barlow", system-ui, sans-serif;
+    --radius: 12px;
+    --radius-btn: 10px;
+    --c-surface-2: #ffffff;
+  }
+  .g-hero { --hero-pos: 40% center; }
+</style>
+<script>
+  /* Lo que la banda de demo explica en el panel "Ver qué está simulado" */
+  window.DEMO_CONFIG = {
+    negocio: "Ola Azul Autolavado (car wash de ejemplo)",
+    simulado: [
+      "Los precios son de ejemplo (pesos mexicanos).",
+      "El negocio, sus servicios y sus textos son de ejemplo.",
+      "La agenda: el formulario no aparta ningún horario ni envía datos.",
+      "Los botones de WhatsApp abren el WhatsApp real de ZOLKO con un mensaje listo para pedir esta página para tu negocio.",
+      "Las fotos son ilustrativas, generadas para la demo: no son del negocio."
+    ],
+    produccion: [
+      "Agenda real con horarios disponibles y confirmación inmediata.",
+      "Cada cita entra al ARM con nombre, tipo de lavado y día.",
+      "Recordatorio automático por WhatsApp antes de la cita y aviso de “tu auto está listo”.",
+      "Mensaje de seguimiento para el siguiente lavado y medición de citas por canal."
+    ]
+  };
+</script>
+</head>
+<body class="g-body">
+
+<header class="g-head">
+  <div class="g-head__in">
+    <a class="g-brand" href="#inicio" aria-label="Ola Azul, inicio"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0059c9"/><path d="M6 24c4-4 8-4 12 0s8 4 12 0 6-3 6-3v9H6z" fill="#fff"/><path d="M20 7c3 5 6 8 6 11a6 6 0 0 1-12 0c0-3 3-6 6-11z" fill="#ffd23f"/></svg><span>Ola Azul</span></a>
+    <a class="btn btn--wa" href="#" data-wa="Hola, Ola Azul. Quiero agendar un lavado.">Agendar lavado</a>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="g-hero" id="inicio">
+    <img class="g-hero__img" src="../../assets/fotos/carwash.webp" alt="" width="1280" height="720" fetchpriority="high">
+    <div class="g-hero__in">
+      <span class="g-eyebrow">Autolavado con cita</span>
+      <h1>Tu auto impecable <em>sin hacer fila.</em></h1>
+      <p>Agenda tu lavado en un minuto y te avisamos cuando esté listo.</p>
+      <div class="g-acts">
+        <a class="btn btn--wa" href="#" data-wa="Hola, Ola Azul. Quiero agendar un lavado."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Agendar lavado</a>
+        <a class="btn g-ghost" href="#servicios">Ver servicios</a>
+      </div>
+      <ul class="g-chips"><li>Con cita</li><li>Precio claro desde antes</li><li>Aviso cuando está listo</li></ul>
+    </div>
+  </section>
+
+  <section class="g-dark g-sec" id="servicios" aria-labelledby="t-cards">
+    <div class="g-sec__in">
+      <h2 id="t-cards">Elige tu lavado</h2>
+      <p class="g-sec__sub">Precios de referencia; te confirmamos según tu vehículo.</p>
+      <div class="g-rail">
+        <article class="g-card reveal" style="--d:0">
+          <div class="g-card__img"><img src="../../assets/fotos/carwash-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Más pedido</span>
+          <div class="g-card__body"><h3>Lavado completo</h3><p>Exterior, aspirado, tablero y puertas por dentro.</p>
+            <div class="g-card__foot"><span class="g-price">Desde $250</span><a class="g-mini" href="#" data-wa="Hola, Ola Azul. Quiero agendar un lavado completo."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:1">
+          <div class="g-card__img"><img src="../../assets/fotos/cw-exterior-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Exterior</span>
+          <div class="g-card__body"><h3>Lavado exterior</h3><p>Carrocería, rines y cristales. Para el día a día.</p>
+            <div class="g-card__foot"><span class="g-price">Desde $150</span><a class="g-mini" href="#" data-wa="Hola, Ola Azul. Quiero agendar un lavado exterior."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:2">
+          <div class="g-card__img"><img src="../../assets/fotos/cw-interior-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Interiores</span>
+          <div class="g-card__body"><h3>Detallado de interiores</h3><p>Vestiduras, alfombras y plásticos a fondo.</p>
+            <div class="g-card__foot"><span class="g-price">Desde $650</span><a class="g-mini" href="#" data-wa="Hola, Ola Azul. Quiero agendar un detallado de interiores."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:3">
+          <div class="g-card__img"><img src="../../assets/fotos/cw-encerado-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Brillo</span>
+          <div class="g-card__body"><h3>Encerado y abrillantado</h3><p>Protege la pintura y le devuelve el brillo.</p>
+            <div class="g-card__foot"><span class="g-price">Desde $450</span><a class="g-mini" href="#" data-wa="Hola, Ola Azul. Quiero agendar un encerado."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+      </div>
+      <p class="g-swipe" aria-hidden="true">Desliza para ver más →</p>
+    </div>
+  </section>
+
+  <section class="g-sec" aria-labelledby="t-pasos">
+    <div class="g-sec__in">
+      <h2 id="t-pasos">Así de fácil</h2>
+      <p class="g-sec__sub">Todo por WhatsApp, sin llamadas ni apps.</p>
+      <ol class="g-steps">
+          <li class="reveal" style="--d:0"><div><b>Eliges el servicio</b><span>Y el día que te acomoda.</span></div></li>
+          <li class="reveal" style="--d:1"><div><b>Te confirmamos</b><span>Hora y precio por WhatsApp.</span></div></li>
+          <li class="reveal" style="--d:2"><div><b>Te avisamos</b><span>Cuando tu auto está listo.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-sec" id="agendar" aria-labelledby="form-titulo" style="padding-top:0">
+    <div class="g-sec__in g-form">
+      <div>
+        <h2 id="form-titulo">Agenda tu lavado</h2>
+        <p class="g-sec__sub">Te confirmamos la hora por WhatsApp.</p>
+        <p class="g-alt">¿Prefieres escribir directo? <a class="link-arrow" href="#" data-wa="Hola, Ola Azul. Quiero agendar un lavado.">Abrir WhatsApp →</a></p>
+      </div>
+      <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
+          <div class="field">
+            <label for="cw-whatsapp">Tu WhatsApp</label>
+            <input id="cw-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="cw-whatsapp-error cw-whatsapp-hint">
+            <p class="hint" id="cw-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+            <p class="field__error" id="cw-whatsapp-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="cw-servicio">Tipo de lavado</label>
+            <select id="cw-servicio" name="servicio" required data-msg="Elige el tipo de lavado." aria-describedby="cw-servicio-error"><option value="">Elige una opción</option><option>Lavado exterior</option><option>Lavado completo</option><option>Detallado de interiores</option><option>Encerado y abrillantado</option></select>
+            
+            <p class="field__error" id="cw-servicio-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="cw-dia">¿Qué día te acomoda?</label>
+            <input id="cw-dia" name="dia" type="date" required data-msg="Elige el día para tu lavado." aria-describedby="cw-dia-error">
+            
+            <p class="field__error" id="cw-dia-error" aria-live="polite"></p>
+          </div>
+        <button class="btn btn--block" type="submit">Agendar mi lavado</button>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se envió ni se guardó ningún dato.</span></div>
+        <p class="form-legal">Demo: este formulario no envía información.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="g-foot">
+  <div class="g-foot__in"><b>Ola Azul</b><span>Negocio de ejemplo · Página hecha por ZOLKO INTEGRATIONS</span></div>
+</footer>
+
+<div class="mobile-cta" role="region" aria-label="Acción rápida">
+  <a class="btn btn--wa" href="#" data-wa="Hola, Ola Azul. Quiero agendar un lavado."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Agendar lavado</a>
+</div>
+
+<script src="../../assets/v6/demo-base.js"></script>
+</body>
+</html>

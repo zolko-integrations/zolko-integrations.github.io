@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Raíz Inmobiliaria (demo)</title>
+<meta name="description" content="Demo de ZOLKO: inmobiliaria que agenda visitas por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Manrope:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/v6/demo-base.css">
+<link rel="stylesheet" href="../../assets/giro.css">
+<link rel="preload" as="image" href="../../assets/fotos/casa.webp" fetchpriority="high">
+<style>
+  /* Identidad del negocio de ejemplo (colores y fuentes) */
+  :root {
+    --c-bg: #f6f3ec;          /* arena clara */
+    --c-surface: #ebe5d8;
+    --c-text: #1e2b24;        /* verde casi negro */
+    --c-muted: #56635b;
+    --c-primary: #2f5d4a;     /* verde bosque */
+    --c-primary-hover: #234838;
+    --c-on-primary: #ffffff;
+    --c-accent: #c9a66b;      /* arena dorada */
+    --c-dark: #1e2b24;
+    --c-on-dark: #f6f3ec;
+    --c-line: rgba(30, 43, 36, .14);
+    --font-display: "DM Serif Display", Georgia, serif;
+    --font-body: "Manrope", system-ui, sans-serif;
+    --radius: 16px;
+    --radius-btn: 12px;
+    --c-surface-2: #fffdf8;
+  }
+  .g-hero { --hero-pos: center 60%; }
+</style>
+<script>
+  /* Lo que la banda de demo explica en el panel "Ver qué está simulado" */
+  window.DEMO_CONFIG = {
+    negocio: "Raíz Inmobiliaria (inmobiliaria de ejemplo)",
+    simulado: [
+      "Los precios son de ejemplo (pesos mexicanos).",
+      "La inmobiliaria, las propiedades y los textos son de ejemplo (las fotos son ilustrativas, generadas para la demo).",
+      "La agenda de visitas: el formulario no aparta ninguna cita ni envía datos.",
+      "Los botones de WhatsApp abren el WhatsApp real de ZOLKO con un mensaje listo para pedir esta página para tu negocio.",
+      "Las fotos son ilustrativas, generadas para la demo: no son del negocio."
+    ],
+    produccion: [
+      "Agenda real de visitas por propiedad y por asesor.",
+      "Cada prospecto entra al ARM con la propiedad que le interesa y el día propuesto.",
+      "Confirmación, recordatorio y seguimiento automático por WhatsApp después de la visita.",
+      "Medición de qué propiedades generan más visitas agendadas."
+    ]
+  };
+</script>
+</head>
+<body class="g-body">
+
+<header class="g-head">
+  <div class="g-head__in">
+    <a class="g-brand" href="#inicio" aria-label="Raíz, inicio"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2f5d4a"/><path d="M8 20l12-10 12 10v12H8z" fill="none" stroke="#f6f3ec" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 32v-9M20 26l-4-3M20 24l4-3" stroke="#c9a66b" stroke-width="2.4" stroke-linecap="round"/></svg><span>Raíz</span></a>
+    <a class="btn btn--wa" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero agendar una visita.">Agendar visita</a>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="g-hero" id="inicio">
+    <img class="g-hero__img" src="../../assets/fotos/casa.webp" alt="" width="1280" height="720" fetchpriority="high">
+    <div class="g-hero__in">
+      <span class="g-eyebrow">Casas y departamentos</span>
+      <h1>Conócela en persona <em>antes de decidir.</em></h1>
+      <p>Elige la propiedad, agenda tu visita y te mandamos la ubicación por WhatsApp.</p>
+      <div class="g-acts">
+        <a class="btn btn--wa" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero agendar una visita."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Agendar visita</a>
+        <a class="btn g-ghost" href="#propiedades">Ver propiedades</a>
+      </div>
+      <ul class="g-chips"><li>Visitas con cita</li><li>Te acompaña un asesor</li><li>Ubicación por WhatsApp</li></ul>
+    </div>
+  </section>
+
+  <section class="g-dark g-sec" id="propiedades" aria-labelledby="t-cards">
+    <div class="g-sec__in">
+      <h2 id="t-cards">Propiedades disponibles</h2>
+      <p class="g-sec__sub">Precios de ejemplo.</p>
+      <div class="g-rail">
+        <article class="g-card reveal" style="--d:0">
+          <div class="g-card__img"><img src="../../assets/fotos/casa-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Venta</span>
+          <div class="g-card__body"><h3>Casa con jardín</h3><p>Dos plantas, cochera techada y jardín para la familia.</p>
+            <div class="g-card__foot"><span class="g-price">$3,850,000</span><a class="g-mini" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero visitar la casa con jardín."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:1">
+          <div class="g-card__img"><img src="../../assets/fotos/depto-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Renta</span>
+          <div class="g-card__body"><h3>Departamento con terraza</h3><p>Luminoso, con terraza privada y vigilancia.</p>
+            <div class="g-card__foot"><span class="g-price">$14,500<small>al mes</small></span><a class="g-mini" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero visitar el departamento con terraza."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:2">
+          <div class="g-card__img"><img src="../../assets/fotos/casa1-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Venta</span>
+          <div class="g-card__body"><h3>Casa de una planta</h3><p>Todo en un nivel, ideal para quien no quiere escaleras.</p>
+            <div class="g-card__foot"><span class="g-price">$2,950,000</span><a class="g-mini" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero visitar la casa de una planta."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Pedir info</a></div></div>
+        </article>
+      </div>
+      <p class="g-swipe" aria-hidden="true">Desliza para ver más →</p>
+    </div>
+  </section>
+
+  <section class="g-sec" aria-labelledby="t-pasos">
+    <div class="g-sec__in">
+      <h2 id="t-pasos">Así de fácil</h2>
+      <p class="g-sec__sub">Todo por WhatsApp, sin llamadas ni apps.</p>
+      <ol class="g-steps">
+          <li class="reveal" style="--d:0"><div><b>Eliges la propiedad</b><span>Y el día que te acomoda.</span></div></li>
+          <li class="reveal" style="--d:1"><div><b>Te confirmamos</b><span>Hora y ubicación.</span></div></li>
+          <li class="reveal" style="--d:2"><div><b>La visitas</b><span>Con un asesor.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-sec" id="agendar" aria-labelledby="form-titulo" style="padding-top:0">
+    <div class="g-sec__in g-form">
+      <div>
+        <h2 id="form-titulo">Agenda tu visita</h2>
+        <p class="g-sec__sub">Te confirmamos por WhatsApp con la ubicación.</p>
+        <p class="g-alt">¿Prefieres escribir directo? <a class="link-arrow" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero agendar una visita.">Abrir WhatsApp →</a></p>
+      </div>
+      <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
+          <div class="field">
+            <label for="i-whatsapp">Tu WhatsApp</label>
+            <input id="i-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="i-whatsapp-error i-whatsapp-hint">
+            <p class="hint" id="i-whatsapp-hint">Solo lo usamos para confirmarte por WhatsApp.</p>
+            <p class="field__error" id="i-whatsapp-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="i-propiedad">Propiedad que quieres visitar</label>
+            <select id="i-propiedad" name="propiedad" required data-msg="Elige la propiedad que quieres visitar." aria-describedby="i-propiedad-error"><option value="">Elige una opción</option><option>Casa con jardín</option><option>Departamento con terraza</option><option>Casa de una planta</option><option>Busco otra opción</option></select>
+            
+            <p class="field__error" id="i-propiedad-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="i-dia">¿Qué día te acomoda?</label>
+            <input id="i-dia" name="dia" type="date" required data-msg="Elige el día de tu visita." aria-describedby="i-dia-error">
+            
+            <p class="field__error" id="i-dia-error" aria-live="polite"></p>
+          </div>
+        <button class="btn btn--block" type="submit">Agendar mi visita</button>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se envió ni se guardó ningún dato.</span></div>
+        <p class="form-legal">Demo: este formulario no envía información.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="g-foot">
+  <div class="g-foot__in"><b>Raíz</b><span>Negocio de ejemplo · Página hecha por ZOLKO INTEGRATIONS</span></div>
+</footer>
+
+<div class="mobile-cta" role="region" aria-label="Acción rápida">
+  <a class="btn btn--wa" href="#" data-wa="Hola, Raíz Inmobiliaria. Quiero agendar una visita."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Agendar visita</a>
+</div>
+
+<script src="../../assets/v6/demo-base.js"></script>
+</body>
+</html>

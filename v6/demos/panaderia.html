@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Panadería La Espiga (demo)</title>
+<meta name="description" content="Demo de ZOLKO: panadería que aparta pan y pasteles por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&amp;family=Nunito+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/v6/demo-base.css">
+<link rel="stylesheet" href="../../assets/giro.css">
+<link rel="preload" as="image" href="../../assets/fotos/panaderia.webp" fetchpriority="high">
+<style>
+  /* Identidad del negocio de ejemplo (colores y fuentes) */
+  :root {
+    --c-bg: #fdf8ef;
+    --c-surface: #f5e9d3;
+    --c-text: #3a2614;
+    --c-muted: #7a5f45;
+    --c-primary: #8a4b17;
+    --c-primary-hover: #6e3a10;
+    --c-on-primary: #ffffff;
+    --c-accent: #e3a74a;
+    --c-dark: #3a2614;
+    --c-on-dark: #fdf8ef;
+    --c-line: rgba(58, 38, 20, .14);
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "Nunito Sans", system-ui, sans-serif;
+    --radius: 20px;
+    --c-surface-2: #fffdf8;
+  }
+  .g-hero { --hero-pos: center 50%; }
+</style>
+<script>
+  /* Lo que la banda de demo explica en el panel "Ver qué está simulado" */
+  window.DEMO_CONFIG = {
+    negocio: "Panadería La Espiga (panadería de ejemplo)",
+    simulado: [
+      "Los precios son de ejemplo (pesos mexicanos).",
+      "El negocio, sus productos y sus textos son de ejemplo.",
+      "Los botones de WhatsApp abren el WhatsApp real de ZOLKO con un mensaje listo para pedir esta página para tu negocio.",
+      "El formulario para apartar no envía ni guarda datos: solo muestra una confirmación simulada.",
+      "Las fotos son ilustrativas, generadas para la demo: no son del negocio."
+    ],
+    produccion: [
+      "WhatsApp real de la panadería con el pedido ya escrito.",
+      "Cada encargo entra al ARM con nombre, pan o pastel y hora de recoger.",
+      "Aviso automático por WhatsApp cuando el pedido está listo y recordatorio de encargos.",
+      "Medición de visitas, clics a WhatsApp y encargos por día."
+    ]
+  };
+</script>
+</head>
+<body class="g-body">
+
+<header class="g-head">
+  <div class="g-head__in">
+    <a class="g-brand" href="#inicio" aria-label="La Espiga, inicio"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#5b3a1e"/><path d="M20 9v22" stroke="#f3d9a4" stroke-width="2" stroke-linecap="round"/><path d="M20 13c-4-1-6-4-6-4s3 0 6 2m0 5c-4-1-6-4-6-4s3 0 6 2m0 5c-4-1-6-4-6-4s3 0 6 2M20 13c4-1 6-4 6-4s-3 0-6 2m0 5c4-1 6-4 6-4s-3 0-6 2m0 5c4-1 6-4 6-4s-3 0-6 2" fill="none" stroke="#f3d9a4" stroke-width="1.8" stroke-linecap="round"/></svg><span>La Espiga</span></a>
+    <a class="btn btn--wa" href="#" data-wa="Hola, La Espiga. Quiero apartar pan.">Apartar por WhatsApp</a>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="g-hero" id="inicio">
+    <img class="g-hero__img" src="../../assets/fotos/panaderia.webp" alt="" width="1280" height="720" fetchpriority="high">
+    <div class="g-hero__in">
+      <span class="g-eyebrow">Pan dulce y salado del día</span>
+      <h1>Pan recién horneado, <em>apartado por WhatsApp.</em></h1>
+      <p>Aparta tu pan o encarga tu pastel. Te avisamos cuando está listo para recoger.</p>
+      <div class="g-acts">
+        <a class="btn btn--wa" href="#" data-wa="Hola, La Espiga. Quiero apartar pan."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Apartar por WhatsApp</a>
+        <a class="btn g-ghost" href="#pan">Ver el pan del día</a>
+      </div>
+      <ul class="g-chips"><li>Sale del horno a las 7:00</li><li>Encargos de pastel</li><li>Recoges sin hacer fila</li></ul>
+    </div>
+  </section>
+
+  <section class="g-dark g-sec" id="pan" aria-labelledby="t-cards">
+    <div class="g-sec__in">
+      <h2 id="t-cards">El pan de hoy</h2>
+      <p class="g-sec__sub">Precios de ejemplo. Toca “Apartar” y el mensaje ya va escrito.</p>
+      <div class="g-rail">
+        <article class="g-card reveal" style="--d:0">
+          <div class="g-card__img"><img src="../../assets/fotos/p-conchas-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">El clásico</span>
+          <div class="g-card__body"><h3>Conchas</h3><p>De vainilla y de chocolate, suavecitas.</p>
+            <div class="g-card__foot"><span class="g-price">$14<small>pieza</small></span><a class="g-mini" href="#" data-wa="Hola, La Espiga. Quiero apartar conchas."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Apartar</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:1">
+          <div class="g-card__img"><img src="../../assets/fotos/p-pastel-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Por encargo</span>
+          <div class="g-card__body"><h3>Pastel de tres leches</h3><p>Con fresas y crema batida. Para 10 a 12 personas.</p>
+            <div class="g-card__foot"><span class="g-price">$420</span><a class="g-mini" href="#" data-wa="Hola, La Espiga. Quiero encargar un pastel de tres leches."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Apartar</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:2">
+          <div class="g-card__img"><img src="../../assets/fotos/p-bolillo-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Para la comida</span>
+          <div class="g-card__body"><h3>Bolillos y teleras</h3><p>Crujientes por fuera, recién salidos.</p>
+            <div class="g-card__foot"><span class="g-price">$4<small>pieza</small></span><a class="g-mini" href="#" data-wa="Hola, La Espiga. Quiero apartar bolillos."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Apartar</a></div></div>
+        </article>
+        <article class="g-card reveal" style="--d:3">
+          <div class="g-card__img"><img src="../../assets/fotos/p-cafe-640.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></div>
+          <span class="g-card__tag">Para acompañar</span>
+          <div class="g-card__body"><h3>Café de olla</h3><p>Con canela y piloncillo, para llevar.</p>
+            <div class="g-card__foot"><span class="g-price">$30</span><a class="g-mini" href="#" data-wa="Hola, La Espiga. Quiero un café de olla."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Apartar</a></div></div>
+        </article>
+      </div>
+      <p class="g-swipe" aria-hidden="true">Desliza para ver más →</p>
+    </div>
+  </section>
+
+  <section class="g-sec" aria-labelledby="t-pasos">
+    <div class="g-sec__in">
+      <h2 id="t-pasos">Así de fácil</h2>
+      <p class="g-sec__sub">Todo por WhatsApp, sin llamadas ni apps.</p>
+      <ol class="g-steps">
+          <li class="reveal" style="--d:0"><div><b>Eliges tu pan</b><span>O el pastel que quieres.</span></div></li>
+          <li class="reveal" style="--d:1"><div><b>Lo apartas</b><span>Por WhatsApp, en un minuto.</span></div></li>
+          <li class="reveal" style="--d:2"><div><b>Lo recoges</b><span>Listo y sin hacer fila.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="g-sec" id="agendar" aria-labelledby="form-titulo" style="padding-top:0">
+    <div class="g-sec__in g-form">
+      <div>
+        <h2 id="form-titulo">Aparta tu pan o tu pastel</h2>
+        <p class="g-sec__sub">Te confirmamos por WhatsApp a qué hora está listo.</p>
+        <p class="g-alt">¿Prefieres escribir directo? <a class="link-arrow" href="#" data-wa="Hola, La Espiga. Quiero apartar pan.">Abrir WhatsApp →</a></p>
+      </div>
+      <form class="form-card reveal" data-demo-form novalidate aria-labelledby="form-titulo">
+          <div class="field">
+            <label for="p-whatsapp">Tu WhatsApp</label>
+            <input id="p-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required data-msg="Escribe tu WhatsApp para confirmarte." aria-describedby="p-whatsapp-error p-whatsapp-hint">
+            <p class="hint" id="p-whatsapp-hint">Solo lo usamos para avisarte cuando esté listo.</p>
+            <p class="field__error" id="p-whatsapp-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="p-pedido">¿Qué quieres apartar?</label>
+            <textarea id="p-pedido" name="pedido" required data-msg="Cuéntanos qué pan o pastel quieres." aria-describedby="p-pedido-error p-pedido-hint"></textarea>
+            <p class="hint" id="p-pedido-hint">Ejemplo: 6 conchas y 10 bolillos.</p>
+            <p class="field__error" id="p-pedido-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="p-dia">¿Qué día lo recoges?</label>
+            <input id="p-dia" name="dia" type="date" required data-msg="Elige el día para recogerlo." aria-describedby="p-dia-error">
+            
+            <p class="field__error" id="p-dia-error" aria-live="polite"></p>
+          </div>
+        <button class="btn btn--block" type="submit">Apartar mi pedido</button>
+        <div class="form-status" role="status" tabindex="-1">Solicitud recibida (simulación)<span>Es una demo: no se envió ni se guardó ningún dato.</span></div>
+        <p class="form-legal">Demo: este formulario no envía información.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="g-foot">
+  <div class="g-foot__in"><b>La Espiga</b><span>Negocio de ejemplo · Página hecha por ZOLKO INTEGRATIONS</span></div>
+</footer>
+
+<div class="mobile-cta" role="region" aria-label="Acción rápida">
+  <a class="btn btn--wa" href="#" data-wa="Hola, La Espiga. Quiero apartar pan."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Apartar por WhatsApp</a>
+</div>
+
+<script src="../../assets/v6/demo-base.js"></script>
+</body>
+</html>

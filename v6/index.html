@@ -117,6 +117,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 .mascota__in { animation: flota 4.2s ease-in-out infinite; }
 .mascota img { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transform: scale(.92); transition: opacity .6s var(--suave), transform .8s var(--suave); filter: drop-shadow(0 24px 40px rgba(124, 92, 255, .45)); }
 .mascota img.on { position: relative; opacity: 1; transform: none; }
+.mascota.voltea img.on { transform: scaleX(-1); }
 @keyframes flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* ---------- Piso 1: el celular con la página ---------- */
@@ -326,7 +327,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
         <p class="eyebrow aparece">Piso 1 · Que te encuentren</p>
         <h2 id="t-p1" class="aparece">Que te encuentren <em>y te escriban.</em></h2>
         <p class="frase aparece">Tu página, tus tarjetas NFC y tu contenido llevan al cliente directo a tu WhatsApp.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/restaurante.html">Probar la demo</a></div>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/restaurante.html">Probar la demo</a></div>
       </div>
       <figure class="fone aparece" style="margin:0">
         <div class="fone__pantalla"><img src="../assets/vitrina/hero-restaurante.webp" alt="Página de ejemplo de un restaurante: foto del platillo y botón para pedir por WhatsApp" loading="lazy" width="390" height="844"></div>
@@ -360,7 +361,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
           </div>
         </div>
       </div>
-      <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/automatizacion.html">Probar el WhatsApp con IA</a></div>
+      <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/automatizacion.html">Probar el WhatsApp con IA</a></div>
     </div></div>
   </section>
 
@@ -371,7 +372,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
         <p class="eyebrow aparece">Piso 3 · Adiós CRM</p>
         <h2 id="t-p3" class="aparece">El CRM ya no existe. <em>Ahora es el ARM.</em></h2>
         <p class="frase aparece">Tu base de clientes con seguimiento automático: los pasa de etapa en etapa y te los deja calientes para cerrar.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/arm.html">Probar el ARM</a></div>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/arm.html">Probar el ARM</a></div>
       </div>
       <div class="visual tablero aparece" role="img" aria-label="Ejemplo: un cliente avanza solo de Nuevo a Interesado, Cotizado y Listo para comprar.">
         <p class="visual__t">ARM · Tus clientes <small>Ejemplo</small></p>
@@ -393,7 +394,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
         <p class="eyebrow aparece">Piso 4 · Automatizaciones</p>
         <h2 id="t-p4" class="aparece">Los seguimientos <em>se hacen solos.</em></h2>
         <p class="frase aparece">Confirmaciones, recordatorios y recompras salen a tiempo, sin que tú te acuerdes.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/automatizacion.html">Ver al agente de IA</a></div>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/automatizacion.html">Ver al agente de IA</a></div>
       </div>
       <ul class="visual linea aparece" data-linea aria-label="Ejemplo de seguimientos automáticos">
         <li><time>Hoy · 19:00</time><b>Confirma tu cita de mañana</b><span>Enviado ✓</span></li>
@@ -410,7 +411,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
         <p class="eyebrow aparece">Piso 5 · Que te encuentre la IA</p>
         <h2 id="t-p5" class="aparece">Que ChatGPT y Google <em>hablen de ti.</em></h2>
         <p class="frase aparece">Preparamos tu ficha de Google Maps, tus reseñas y tu página para que la IA te encuentre cuando alguien busca lo que vendes.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/landing-sucursal.html">Probar la página con reseñas</a></div>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/landing-sucursal.html">Probar la página con reseñas</a></div>
       </div>
       <div class="visual busca aparece" role="img" aria-label="Ejemplo: alguien pregunta a una inteligencia artificial por tacos cerca y aparece una taquería con su ubicación, sus reseñas y su botón de WhatsApp.">
         <p class="busca__q"><span>✦</span> ¿Dónde hay buenos tacos cerca de mí?</p>
@@ -430,7 +431,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
         <p class="eyebrow aparece">Piso 6 · Que regresen</p>
         <h2 id="t-p6" class="aparece">Clientes que <em>vuelven solos.</em></h2>
         <p class="frase aparece">Tarjeta de lealtad en el celular de tu cliente: suma sellos y le recuerda volver.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/tarjeta-lealtad.html">Probar la tarjeta de lealtad</a></div>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/tarjeta-lealtad.html">Probar la tarjeta de lealtad</a></div>
       </div>
       <div class="visual sellos aparece" role="img" aria-label="Ejemplo de tarjeta de lealtad en el celular: los sellos se llenan hasta la recompensa.">
         <p class="sellos__t">Casa Brasa <small>Tarjeta de lealtad · Ejemplo</small></p>
@@ -447,7 +448,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
         <p class="eyebrow aparece">Piso 7 · IA para tu negocio</p>
         <h2 id="t-p7" class="aparece">Tú y tu equipo, <em>usando la IA.</em></h2>
         <p class="frase aparece">Talleres prácticos para contestar, cotizar y vender mejor con inteligencia artificial.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="../demos/capacitacion.html">Ver la capacitación</a></div>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/capacitacion.html">Ver la capacitación</a></div>
       </div>
       <ul class="visual modulos aparece" aria-label="Lo que aprende tu equipo">
         <li><b>01</b><span>Contestar rápido y bien</span></li>
@@ -550,6 +551,10 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     var l = lugar(id);
     mascota.style.setProperty("--m-x", l.x + "px"); mascota.style.setProperty("--m-y", l.y + "px"); mascota.style.setProperty("--m-w", l.w + "px");
     Object.keys(poses).forEach(function (k) { poses[k].classList.toggle("on", k === pose); });
+    // Si está a la derecha de lo que señala, se voltea para apuntarle (la pose mira a la derecha)
+    var meta = document.getElementById(id).querySelector("[data-apunta]"), voltea = false;
+    if (meta && pose === "senala") { var r = meta.getBoundingClientRect(); voltea = l.x + l.w / 2 > r.left + r.width / 2; }
+    mascota.classList.toggle("voltea", voltea);
   }
   function activar(sec) {
     if (actual === sec) return; actual = sec;

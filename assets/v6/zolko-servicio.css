@@ -1,0 +1,46 @@
+/* =====================================================================
+   ZOLKO · Marca de las demos de SERVICIOS (ARM, lealtad, WhatsApp con IA,
+   contenido, tarjeta NFC, página con reseñas, capacitación, menú).
+   Se carga DESPUÉS del <style> de cada demo: cambia sus variables a la
+   marca de la torre (noche, violeta y el verde del DIAGNÓSTICO).
+   ===================================================================== */
+:root {
+  --c-bg: #050505; --c-surface: #100d1f; --c-surface-2: #16122b; --c-text: #f4f4f7; --c-muted: #c9c5e6;
+  --c-primary: #25d366; --c-primary-hover: #3be07a; --c-on-primary: #04210f;
+  --c-accent: #a993ff; --c-dark: #050505; --c-on-dark: #f4f4f7; --c-line: rgba(244, 244, 247, .14);
+  --c-error: #ff7a85; --c-ok: #25d366;
+  --font-display: "Bodoni Moda", Georgia, serif; --font-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-display: "Bodoni Moda", Georgia, serif; --f-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --radius: 20px; --radius-btn: 999px;
+  --zk-violeta: #7c5cff; --zk-violeta-luz: #a993ff; --zk-lavanda: #c9c5e6; --zk-verde: #25d366; --zk-verde-oscuro: #04210f;
+  --zk-vidrio: rgba(13, 10, 28, .78); --zk-suave: cubic-bezier(.22, .61, .36, 1);
+}
+html { background: #050505; }
+body { background: transparent; color: var(--c-text); font-family: var(--font-body); }
+/* Fondo: el interior de la torre, muy oscuro, para que se sienta el mismo edificio */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 5, 5, .72) 0%, rgba(5, 5, 5, .9) 45%, #050505 100%), url(torre/oficina-960.webp) center top / cover no-repeat; }
+@media (min-width: 900px) { body::before { background-image: linear-gradient(180deg, rgba(5, 5, 5, .7) 0%, rgba(5, 5, 5, .9) 45%, #050505 100%), url(torre/oficina.webp); } }
+
+/* Tipografía de la torre */
+h1, h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; text-wrap: balance; text-transform: none; }
+h1 em, h2 em { font-style: italic; color: var(--zk-violeta-luz); background: none; -webkit-background-clip: initial; background-clip: initial; }
+h3 { font-family: var(--font-body); font-weight: 700; letter-spacing: -.005em; }
+
+/* Etiqueta verde con rayita (como en la torre) */
+.zk-eyebrow, .eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 600 .78rem/1.2 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--zk-verde); }
+.zk-eyebrow::before, .eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; flex: none; }
+
+/* Botones */
+.btn, .btn--primary { border-radius: 999px; font-family: var(--font-body); font-weight: 700; }
+.btn--primary { background: var(--zk-verde); color: var(--zk-verde-oscuro); border-color: transparent; box-shadow: 0 14px 40px -16px rgba(37, 211, 102, .8); }
+.btn--primary:hover { background: #3be07a; }
+
+/* Tarjetas en vidrio oscuro */
+.zk-vidrio { background: var(--zk-vidrio); border: 1px solid var(--c-line); border-radius: var(--radius); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+/* Formularios en noche */
+.field input, .field select, .field textarea, input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+  background: rgba(244, 244, 247, .05); color: var(--c-text); border-color: rgba(244, 244, 247, .2); }
+.field input::placeholder, textarea::placeholder { color: rgba(201, 197, 230, .5); }
+:focus-visible { outline-color: var(--zk-verde); }

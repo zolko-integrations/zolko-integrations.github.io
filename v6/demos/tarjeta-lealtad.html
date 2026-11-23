@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tarjeta de lealtad en Wallet · Demo | ZOLKO</title>
+<meta name="description" content="Demo de ZOLKO INTEGRATIONS: tarjeta de lealtad con código QR que se guarda en Apple Wallet o Google Wallet y recibe avisos. Restaurante de ejemplo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/v6/demo-base.css">
+<style>
+  /* =================================================================
+     IDENTIDAD DEL NEGOCIO · Casa Brasa (mismos colores que su demo)
+     ================================================================= */
+  :root {
+    --c-bg: #fbf5ec; --c-surface: #f3e7d6; --c-text: #2b1d14; --c-muted: #6b5747;
+    --c-primary: #b0361b; --c-primary-hover: #922a13; --c-on-primary: #fff;
+    --c-accent: #e9a23b; --c-dark: #2b1d14; --c-on-dark: #fbf5ec; --c-line: rgba(43, 29, 20, .14);
+    --font-display: "Fraunces", Georgia, serif; --font-body: "DM Sans", system-ui, sans-serif; --radius: 18px;
+  }
+  body { padding-bottom: 0; }
+  .wrap { width: min(1160px, 100% - 32px); margin: 28px auto 80px; }
+  .intro { max-width: 780px; margin-bottom: 28px; }
+  .intro h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  .grid { display: grid; gap: 28px; align-items: start; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 980px) { .grid { grid-template-columns: minmax(0, 1fr) 380px; gap: 48px; } .phone-col { position: sticky; top: calc(var(--demo-bar-h) + 16px); order: 2; } }
+
+  /* ---------- Pasos (cliente y negocio) ---------- */
+  .step { background: #fff; border: 1px solid var(--c-line); border-radius: 20px; padding: 22px; margin-bottom: 18px; }
+  .step__n { font: 700 11px "JetBrains Mono", monospace; letter-spacing: .1em; color: var(--c-primary); }
+  .step h2 { font-size: 1.45rem; margin: 4px 0 6px; }
+  .step > p { color: var(--c-muted); margin-bottom: 14px; }
+  .step[aria-disabled="true"] { opacity: .55; }
+  .wallet-btns { display: grid; gap: 10px; grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .wallet-btns { grid-template-columns: 1fr 1fr; } }
+  .btn--black { --_bg: #111; --_fg: #fff; }
+  .btn--black:hover { --_bg: #2a2a2a; }
+  .btn small { font-weight: 500; opacity: .75; font-size: .78rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .quota { font-size: .88rem; color: var(--c-muted); margin: 10px 0 0; }
+  .quota b { color: var(--c-text); }
+  .rules { margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--c-surface); font-size: .88rem; color: var(--c-muted); }
+  .templates { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .templates button { border: 1px solid var(--c-line); background: var(--c-bg); border-radius: 999px; padding: 7px 12px; cursor: pointer; font-weight: 600; font-size: .85rem; transition: background .2s, border-color .2s; }
+  .templates button:hover { border-color: var(--c-primary); }
+  .templates button[aria-pressed="true"] { background: var(--c-dark); color: #fff; border-color: var(--c-dark); }
+
+  /* ---------- Celular con la Wallet ---------- */
+  .phone { width: min(360px, 100%); margin: 0 auto; background: #111; border-radius: 40px; padding: 10px; box-shadow: 0 40px 80px -40px rgba(43, 29, 20, .7); }
+  .screen { position: relative; border-radius: 32px; overflow: hidden; background: linear-gradient(180deg, #1c1c1f, #0f0f11); min-height: 600px; padding: 46px 14px 18px; color: #fff; }
+  .screen__title { font: 700 1.5rem var(--font-body); margin: 0 4px 12px; }
+  .screen__empty { border: 2px dashed rgba(255, 255, 255, .2); border-radius: 18px; padding: 28px 18px; text-align: center; color: rgba(255, 255, 255, .6); font-size: .92rem; }
+  .other-pass { height: 46px; border-radius: 14px 14px 0 0; margin-bottom: -10px; background: #2d4f8f; opacity: .7; font: 600 .78rem var(--font-body); padding: 10px 14px; }
+  .other-pass + .other-pass { background: #3d6b4a; }
+  /* La tarjeta */
+  .pass { position: relative; border-radius: 16px; overflow: hidden; background: linear-gradient(160deg, #3a2618, #2b1d14 60%); box-shadow: 0 -6px 20px rgba(0, 0, 0, .4); }
+  .pass.is-new { animation: entra .8s cubic-bezier(.2, .9, .2, 1); }
+  @keyframes entra { from { transform: translateY(120%) rotate(-4deg); opacity: 0; } to { transform: none; opacity: 1; } }
+  .pass__top { display: flex; align-items: center; gap: 10px; padding: 14px 16px 6px; }
+  .pass__top svg { width: 30px; height: 30px; flex: none; }
+  .pass__top b { font: 800 1.05rem var(--font-display); }
+  .pass__top span { margin-left: auto; text-align: right; font-size: .62rem; letter-spacing: .08em; opacity: .7; line-height: 1.2; }
+  .pass__top span strong { display: block; font-size: 1rem; letter-spacing: 0; opacity: 1; color: var(--c-accent); }
+  .stamps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 10px 16px; }
+  .stamp { aspect-ratio: 1; border-radius: 50%; border: 2px dashed rgba(233, 162, 59, .5); display: grid; place-items: center; }
+  .stamp svg { width: 60%; height: 60%; opacity: 0; transform: scale(.4); transition: opacity .3s, transform .4s cubic-bezier(.2, 1.4, .4, 1); }
+  .stamp.on { border-style: solid; border-color: var(--c-accent); background: rgba(233, 162, 59, .15); }
+  .stamp.on svg { opacity: 1; transform: none; }
+  .pass__fields { display: flex; justify-content: space-between; gap: 10px; padding: 4px 16px 10px; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; opacity: .9; }
+  .pass__fields b { display: block; font-size: .9rem; letter-spacing: 0; text-transform: none; }
+  .pass__msg { margin: 0 16px 10px; padding: 8px 10px; border-radius: 10px; background: rgba(255, 255, 255, .08); font-size: .8rem; min-height: 0; }
+  .pass__msg:empty { display: none; }
+  .pass__qr { background: #fff; margin: 4px 16px 16px; border-radius: 12px; padding: 12px; display: grid; place-items: center; }
+  .pass__qr .qr-wrap svg { width: 120px; height: 120px; opacity: .55; }
+  .pass__qr small { color: #333; font-size: .7rem; margin-top: 6px; }
+  /* Notificación en pantalla bloqueada */
+  .notif { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 5; display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 11px 12px; border-radius: 18px; background: rgba(245, 245, 247, .94); color: #111; box-shadow: 0 12px 30px rgba(0, 0, 0, .45); transform: translateY(-130%); transition: transform .45s cubic-bezier(.2, .9, .2, 1); }
+  .notif.is-on { transform: none; }
+  .notif i { width: 34px; height: 34px; border-radius: 9px; background: #2b1d14; display: grid; place-items: center; font-style: normal; }
+  .notif i svg { width: 20px; height: 20px; }
+  .notif small { display: flex; justify-content: space-between; font-size: .7rem; color: #555; text-transform: uppercase; letter-spacing: .04em; }
+  .notif b { display: block; font-size: .88rem; }
+  .notif p { margin: 0; font-size: .85rem; line-height: 1.3; }
+  .phone-note { text-align: center; font-size: .82rem; color: var(--c-muted); margin: 10px 0 0; }
+  /* Aviso flotante cuando el celular no está a la vista */
+  .float-notif { position: fixed; left: 50%; top: calc(var(--demo-bar-h) + 10px); z-index: 65; width: min(380px, calc(100% - 24px)); transform: translate(-50%, -160%); transition: transform .4s cubic-bezier(.2, .9, .2, 1); }
+  .float-notif.is-on { transform: translate(-50%, 0); }
+  .float-notif .notif { position: static; transform: none; }
+  .celebrate { animation: brinco .6s ease; }
+  @keyframes brinco { 30% { transform: scale(1.04) rotate(-1deg); } 60% { transform: scale(.99); } }
+
+  /* ---------- Portada con foto y tira de foto en la tarjeta (v3) ---------- */
+  body { position: relative; }
+  body::before { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 560px;
+    background: linear-gradient(180deg, rgba(30, 18, 10, .7) 0%, rgba(30, 18, 10, .9) 60%, var(--c-bg) 100%), url(../../assets/fotos/arrachera.webp) center 40% / cover; }
+  .intro, .intro h1 { color: #fff; }
+  .intro .lead { color: rgba(255, 255, 255, .86); }
+  .intro .eyebrow { color: var(--c-accent); }
+  .stamps { padding: 14px 16px; background: linear-gradient(rgba(25, 14, 8, .5), rgba(25, 14, 8, .72)), url(../../assets/fotos/parrillada-640.webp) center / cover; }
+  .stamp { background: rgba(0, 0, 0, .28); border-color: rgba(255, 210, 150, .7); }
+  .stamp.on { background: rgba(233, 162, 59, .32); }
+</style>
+<link rel="stylesheet" href="../../assets/v6/zolko-servicio.css">
+<style>
+  /* Ajustes a la marca ZOLKO (noche, violeta y verde) */
+  .step { background: rgba(16, 13, 31, .86); border: 1px solid var(--c-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .pass__qr small { color: #333; }
+  .notif { color: #111; }
+</style>
+<script>
+  window.DEMO_CONFIG = {
+    negocio: "Tarjeta de lealtad de Casa Brasa (restaurante de ejemplo)",
+    simulado: [
+      "La tarjeta no se agrega de verdad a Apple Wallet ni a Google Wallet: se dibuja en el celular de la pantalla.",
+      "El código QR es de ejemplo y no funciona.",
+      "Los sellos y avisos solo ocurren en esta página; no se manda ninguna notificación real.",
+      "El formulario no envía ni guarda datos. El restaurante y la recompensa son de ejemplo."
+    ],
+    produccion: [
+      "Tarjeta real para Apple Wallet y Google Wallet, con la marca del negocio, creada desde una plataforma de pases o un desarrollo propio.",
+      "Requisitos: cuenta del Apple Developer Program (para firmar las tarjetas de Apple) y cuenta emisora de Google Wallet.",
+      "En caja se escanea el QR con un celular o tableta y el sello se suma solo.",
+      "Avisos a la pantalla de bloqueo cuando la tarjeta cambia: sellos, recompensa lista o la promoción del día. Google limita a tres avisos por tarjeta cada 24 horas; Apple pide que los avisos tengan que ver con la tarjeta.",
+      "Cada cliente queda en el ARM con su WhatsApp para seguimiento, y se mide cuántas tarjetas se guardan y cuántas visitas regresan."
+    ]
+  };
+</script>
+</head>
+<body>
+<main class="wrap">
+  <div class="intro reveal">
+    <span class="eyebrow">Tarjeta de lealtad en Wallet · Demo</span>
+    <h1>Tu tarjeta de sellos, en el celular de tus clientes. Y con avisos directo a su pantalla.</h1>
+    <p class="lead">Sin app que descargar ni tarjeta de cartón que se pierde: se guarda en Apple Wallet o Google Wallet con un toque. Prueba los dos lados: primero como cliente y luego como negocio.</p>
+  </div>
+
+  <div class="grid">
+    <!-- ======== Celular ======== -->
+    <div class="phone-col reveal">
+      <div class="phone" id="phone">
+        <div class="screen" id="screen" aria-live="polite">
+          <div class="notif" id="notif" role="status"><i aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 9c3 5 8 7 8 14a8 8 0 0 1-16 0c0-4 2-6 4-8 0 3 1 5 3 5-1-4 0-8 1-11z" fill="#e9a23b"/></svg></i><div><small><span>Wallet · Casa Brasa</span><span>ahora</span></small><b id="notifTitle"></b><p id="notifText"></p></div></div>
+          <p class="screen__title">Wallet</p>
+          <div class="other-pass" aria-hidden="true">Tarjeta de transporte</div>
+          <div class="other-pass" aria-hidden="true">Boleto de cine</div>
+          <div id="slot" style="margin-top:14px"><div class="screen__empty">Aquí aparecerá la tarjeta de Casa Brasa cuando la agregues.</div></div>
+        </div>
+      </div>
+      <p class="phone-note">Simulación de la app Wallet. No se agrega nada a tu celular.</p>
+    </div>
+
+    <!-- ======== Controles ======== -->
+    <div>
+      <section class="step reveal" id="paso1" aria-labelledby="p1">
+        <span class="step__n">PASO 1 · COMO CLIENTE</span>
+        <h2 id="p1">Únete al club de Casa Brasa</h2>
+        <p>Escanea el QR del mostrador, deja tus datos y guarda la tarjeta. Al juntar 8 sellos recibes 15 % de descuento en tu siguiente cuenta (beneficio de ejemplo).</p>
+        <form id="unirse" novalidate>
+          <div class="field">
+            <label for="l-nombre">Tu nombre</label>
+            <input id="l-nombre" name="nombre" type="text" autocomplete="given-name" aria-describedby="l-nombre-error">
+            <p class="field__error" id="l-nombre-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="l-whatsapp">Tu WhatsApp</label>
+            <input id="l-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="l-whatsapp-hint l-whatsapp-error">
+            <p class="hint" id="l-whatsapp-hint">Para avisarte de tus recompensas. Demo: no se guarda.</p>
+            <p class="field__error" id="l-whatsapp-error" aria-live="polite"></p>
+          </div>
+          <div class="wallet-btns">
+            <button class="btn btn--black" type="submit" value="apple">Agregar a Apple Wallet <small>(simulado)</small></button>
+            <button class="btn btn--black" type="submit" value="google">Agregar a Google Wallet <small>(simulado)</small></button>
+          </div>
+        </form>
+      </section>
+
+      <section class="step reveal" id="paso2" aria-labelledby="p2" aria-disabled="true">
+        <span class="step__n">PASO 2 · COMO NEGOCIO, EN CAJA</span>
+        <h2 id="p2">Escanea el QR y suma un sello</h2>
+        <p>El cajero escanea la tarjeta con el celular del negocio. El sello aparece al instante en la Wallet del cliente.</p>
+        <div class="row">
+          <button class="btn" type="button" id="sello" disabled>Escanear QR y sumar sello</button>
+          <button class="btn btn--ghost" type="button" id="reiniciar">Reiniciar demo</button>
+        </div>
+      </section>
+
+      <section class="step reveal" id="paso3" aria-labelledby="p3" aria-disabled="true">
+        <span class="step__n">PASO 3 · COMO NEGOCIO, DESDE EL PANEL</span>
+        <h2 id="p3">Manda un aviso a la pantalla de tus clientes</h2>
+        <p>Cambias el mensaje de la tarjeta y le llega como notificación, aunque no tenga tu app ni tu número guardado.</p>
+        <div class="templates" role="group" aria-label="Mensajes sugeridos">
+          <button type="button" aria-pressed="true" data-t="Hoy jueves de arrachera: muestra tu tarjeta en caja y pregunta por la promoción.">Promoción del día</button>
+          <button type="button" aria-pressed="false" data-t="Te extrañamos. Te faltan pocos sellos para tu recompensa.">Te extrañamos</button>
+          <button type="button" aria-pressed="false" data-t="Este fin de semana abrimos más temprano. ¡Te esperamos!">Aviso del negocio</button>
+        </div>
+        <div class="field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" maxlength="140" aria-describedby="mensaje-error">Hoy jueves de arrachera: muestra tu tarjeta en caja y pregunta por la promoción.</textarea>
+          <p class="field__error" id="mensaje-error" aria-live="polite"></p>
+        </div>
+        <button class="btn" type="button" id="enviar" disabled>Enviar aviso a la tarjeta</button>
+        <p class="quota" id="quota" aria-live="polite">Avisos enviados hoy a esta tarjeta: <b>0 de 3</b></p>
+        <p class="rules">Reglas reales: Google Wallet permite hasta tres avisos con notificación por tarjeta cada 24 horas; después, el mensaje se actualiza sin sonar. Apple muestra el aviso cuando cambia la información de la tarjeta, así que se usa para promociones y recompensas, no para saturar.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div class="float-notif" id="floatNotif" aria-hidden="true"></div>
+
+<script>
+/* ===== Tarjeta de lealtad simulada: todo vive en esta página ===== */
+var META = 8, sellos = 0, avisos = 0, nombre = "", ultimoMsg = "";
+var FLAMA = '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6c4 6 10 9 10 17a10 10 0 0 1-20 0c0-5 3-8 5-10 0 4 1 6 4 6-1-5 0-9 1-13z" fill="#e9a23b"/><path d="M20 20c2 3 5 4 5 8a5 5 0 0 1-10 0c0-2 1-4 2-5 .5 2 1 2.5 2.5 2.5-.5-2-.5-4 .5-5.5z" fill="#b0361b"/></svg>';
+var QR = '<span class="qr-wrap"><svg viewBox="0 0 29 29" role="img" aria-label="Código QR ilustrativo (no funciona)" shape-rendering="crispEdges"><g fill="#2b1d14"><path d="M1 1h7v7H1zM21 1h7v7h-7zM1 21h7v7H1z"/></g><g fill="#fff"><path d="M2 2h5v5H2zM22 2h5v5h-5zM2 22h5v5H2z"/></g><g fill="#2b1d14"><path d="M3 3h3v3H3zM23 3h3v3h-3zM3 23h3v3H3zM10 1h2v2h-2zM13 2h2v3h-2zM16 1h3v2h-3zM10 5h4v2h-4zM17 5h2v3h-2zM10 9h2v2h-2zM14 9h3v2h-3zM19 10h3v2h-3zM24 10h4v2h-4zM1 10h3v2H1zM5 12h3v2H5zM9 13h4v2H9zM15 13h2v4h-2zM19 14h2v2h-2zM23 14h3v2h-3zM2 15h2v3H2zM6 16h3v2H6zM11 17h3v2h-3zM18 18h4v2h-4zM24 18h4v2h-4zM10 21h2v3h-2zM13 22h4v2h-4zM19 22h2v2h-2zM23 22h2v3h-2zM26 23h2v2h-2zM10 26h3v2h-3zM15 25h3v3h-3zM20 26h4v2h-4z"/></g></svg><span class="ex-badge" aria-hidden="true">QR DE EJEMPLO<br>NO FUNCIONA</span></span>';
+var slot = document.getElementById("slot");
+
+function pintarTarjeta(nueva) {
+  var st = ""; for (var i = 0; i < META; i++) st += '<span class="stamp' + (i < sellos ? " on" : "") + '">' + FLAMA + "</span>";
+  slot.innerHTML = '<div class="pass' + (nueva ? " is-new" : "") + '" id="pass" aria-label="Tarjeta de lealtad de Casa Brasa">' +
+    '<div class="pass__top">' + FLAMA.replace('aria-hidden="true"', 'aria-hidden="true" style="width:30px;height:30px"') + '<b>Casa Brasa</b><span>SELLOS<strong id="cuenta">' + sellos + " / " + META + "</strong></span></div>" +
+    '<div class="stamps">' + st + "</div>" +
+    '<div class="pass__fields"><span>Miembro<b>' + nombre + '</b></span><span style="text-align:right">Recompensa<b>15 % en tu cuenta</b></span></div>' +
+    '<p class="pass__msg" id="passMsg">' + ultimoMsg.replace(/</g, "&lt;") + '</p>' +
+    '<div class="pass__qr">' + QR + "<small>Muéstralo en caja</small></div></div>";
+}
+function habilitar(on) {
+  ["paso2", "paso3"].forEach(function (id) { document.getElementById(id).setAttribute("aria-disabled", on ? "false" : "true"); });
+  document.getElementById("sello").disabled = !on;
+  document.getElementById("enviar").disabled = !on || avisos >= 3;
+}
+
+/* Notificación: dentro del celular y, si el celular no se ve, también arriba de la página */
+var notif = document.getElementById("notif"), floatN = document.getElementById("floatNotif");
+// La notificación del celular sale arriba de la pantalla: ¿se ve esa parte?
+function phoneVisible() { var r = document.getElementById("screen").getBoundingClientRect(); return r.top >= 0 && r.top + 120 <= innerHeight; }
+function avisar(titulo, texto) {
+  document.getElementById("notifTitle").textContent = titulo;
+  document.getElementById("notifText").textContent = texto;
+  notif.classList.remove("is-on"); void notif.offsetWidth; notif.classList.add("is-on");
+  clearTimeout(notif._t); notif._t = setTimeout(function () { notif.classList.remove("is-on"); }, 4200);
+  if (!phoneVisible()) {
+    floatN.innerHTML = notif.outerHTML.replace('id="notif"', "").replace('id="notifTitle"', "").replace('id="notifText"', "");
+    floatN.classList.add("is-on");
+    clearTimeout(floatN._t); floatN._t = setTimeout(function () { floatN.classList.remove("is-on"); }, 4200);
+  }
+}
+
+/* PASO 1: unirse (validación, nada se envía) */
+var form = document.getElementById("unirse");
+function err(id, msg) { var i = document.getElementById(id); i.setAttribute("aria-invalid", msg ? "true" : "false"); document.getElementById(id + "-error").textContent = msg; return !msg; }
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  var n = document.getElementById("l-nombre").value.trim(), w = document.getElementById("l-whatsapp").value.replace(/[\s\-().+]/g, "");
+  var ok1 = err("l-nombre", n.length < 2 ? "Escribe tu nombre para ponerlo en la tarjeta." : "");
+  var ok2 = err("l-whatsapp", /^\d{10,13}$/.test(w) ? "" : "Revisa tu número: escríbelo completo, con lada.");
+  if (!ok1) { document.getElementById("l-nombre").focus(); return; }
+  if (!ok2) { document.getElementById("l-whatsapp").focus(); return; }
+  var donde = e.submitter && e.submitter.value === "google" ? "Google Wallet" : "Apple Wallet";
+  nombre = n.split(" ")[0].replace(/[<>&"]/g, ""); sellos = 1; avisos = 0; ultimoMsg = "";
+  form.reset();
+  pintarTarjeta(true); habilitar(true); cuota();
+  setTimeout(function () { avisar("¡Bienvenido, " + nombre + "!", "Tu tarjeta se guardó en " + donde + " (simulado). Ya tienes tu primer sello."); }, 700);
+});
+
+/* PASO 2: sumar sello */
+document.getElementById("sello").addEventListener("click", function () {
+  if (sellos >= META) { sellos = 0; }
+  sellos++;
+  pintarTarjeta(false);
+  var p = document.getElementById("pass"); p.classList.add("celebrate");
+  if (sellos === META) avisar("¡Recompensa lista!", "Completaste tus " + META + " sellos. Muestra tu tarjeta en caja para usar tu 15 %.");
+  else avisar("Sumaste un sello", "Llevas " + sellos + " de " + META + ". Te faltan " + (META - sellos) + " para tu recompensa.");
+});
+
+/* PASO 3: aviso a la tarjeta (máx. 3 con notificación cada 24 h, como Google Wallet) */
+var msg = document.getElementById("mensaje");
+document.querySelectorAll(".templates button").forEach(function (b) {
+  b.addEventListener("click", function () {
+    document.querySelectorAll(".templates button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+    msg.value = b.getAttribute("data-t");
+  });
+});
+function cuota() {
+  document.getElementById("quota").innerHTML = avisos >= 3
+    ? "Llegaste al límite de hoy: <b>3 de 3</b>. Los siguientes cambios se guardan en la tarjeta sin notificación."
+    : "Avisos enviados hoy a esta tarjeta: <b>" + avisos + " de 3</b>";
+  document.getElementById("enviar").disabled = !nombre || avisos >= 3;
+}
+document.getElementById("enviar").addEventListener("click", function () {
+  var t = msg.value.trim();
+  if (!err("mensaje", t.length < 5 ? "Escribe el mensaje que verá tu cliente." : "")) { msg.focus(); return; }
+  avisos++;
+  ultimoMsg = t; document.getElementById("passMsg").textContent = t;
+  avisar("Casa Brasa", t);
+  cuota();
+});
+
+document.getElementById("reiniciar").addEventListener("click", function () {
+  sellos = 0; avisos = 0; nombre = ""; ultimoMsg = "";
+  slot.innerHTML = '<div class="screen__empty">Aquí aparecerá la tarjeta de Casa Brasa cuando la agregues.</div>';
+  habilitar(false); cuota();
+  document.getElementById("l-nombre").focus();
+});
+</script>
+<script src="../../assets/v6/demo-base.js"></script>
+</body>
+</html>
