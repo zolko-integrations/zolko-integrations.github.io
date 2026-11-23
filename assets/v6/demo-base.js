@@ -46,9 +46,9 @@
   // Qué servicio es cada demo y a qué piso de la torre regresa
   var archivo = (location.pathname.split("/").pop() || "").replace(/\.html$/, "");
   var FICHA = {
-    "arm": ["ARM", "piso3"], "automatizacion": ["WhatsApp con IA", "piso2"], "tarjeta-lealtad": ["Tarjeta de lealtad", "piso6"],
-    "contenido": ["Contenido", "piso1"], "tarjeta-digital": ["Tarjeta NFC", "piso1"], "landing-sucursal": ["Página con reseñas", "piso5"],
-    "capacitacion": ["Capacitación en IA", "piso7"], "menu-digital": ["Menú digital", "piso1"], "restaurante": ["Página de restaurante", "piso1"]
+    "contenido": ["Contenido", "piso2"], "automatizacion": ["WhatsApp con IA", "piso3"], "arm": ["ARM", "piso4"],
+    "landing-sucursal": ["Página con reseñas", "piso5"], "menu-digital": ["Menú digital", "piso5"], "tarjeta-digital": ["Tarjeta NFC", "fundador"],
+    "tarjeta-lealtad": ["Tarjeta de lealtad", "piso6"], "capacitacion": ["Capacitación en IA", "piso7"], "restaurante": ["Página de restaurante", "piso1"]
   }[archivo];
   if (FICHA) nombreDemo = FICHA[0]; else FICHA = [nombreDemo, "piso1"];
   var torre = "../index.html#" + FICHA[1];

@@ -197,6 +197,23 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 @media (max-width: 899px) { .marquesina__fila li { height: 92px; padding: 0 24px; } .marquesina__fila img.medio { height: 44px; } .marquesina__fila img.cuadrado { height: 66px; } .marquesina__fila img.ancho { height: 30px; max-width: 190px; } }
 @media (prefers-reduced-motion: reduce) { .marquesina__pista { animation: none !important; } }
 
+/* ---------- Piso 1: elige tu giro ---------- */
+.giros { list-style: none; margin: -12px 0 26px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; max-width: 32rem; }
+.giros button { min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(244, 244, 247, .22); background: rgba(8, 7, 14, .55); color: var(--lavanda); font: 600 .88rem var(--f-texto); cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
+.giros button:hover { color: var(--blanco); border-color: rgba(244, 244, 247, .45); }
+.giros button[aria-pressed="true"] { background: var(--verde); border-color: var(--verde); color: var(--verde-oscuro); }
+.fone__pantalla img { transition: opacity .28s var(--suave); }
+.fone__pantalla img.cambia { opacity: 0; }
+.tambien { margin: 18px 0 0; font-size: .9rem; color: var(--lavanda); }
+.tambien a { color: var(--blanco); font-weight: 600; text-decoration-color: rgba(37, 211, 102, .6); text-underline-offset: 4px; }
+@media (max-width: 899px) {
+  .dos { grid-template-columns: minmax(0, 1fr); }
+  .dos > .texto { min-width: 0; }
+  .giros { max-width: none; flex-wrap: nowrap; overflow-x: auto; margin: -4px -20px 18px; padding: 2px 20px 6px; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+  .giros::-webkit-scrollbar { display: none; }
+  .giros li { flex: none; }
+}
+
 /* ---------- Piso 1: el celular con la página ---------- */
 .dos { display: grid; gap: 36px; align-items: end; }
 @media (min-width: 900px) { .dos { grid-template-columns: minmax(0, 1fr) auto; gap: 80px; align-items: center; } }
@@ -333,7 +350,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     <nav aria-label="Principal"><ul>
       <li><a href="#cimientos">Cómo empezamos</a></li>
       <li><a href="#piso1">Servicios</a></li>
-      <li><a href="#piso3">ARM</a></li>
+      <li><a href="#piso4">ARM</a></li>
       <li><a href="#azotea">Próximamente</a></li>
       <li><a href="#fundador">Quién soy</a></li>
     </ul></nav>
@@ -345,13 +362,13 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <li><a href="#llegada" data-ir="llegada"><span>Llegada</span><i></i></a></li>
   <li><a href="#torre" data-ir="torre"><span>Tu torre</span><i></i></a></li>
   <li><a href="#cimientos" data-ir="cimientos"><span>Cimientos</span><i></i></a></li>
-  <li><a href="#piso1" data-ir="piso1"><span>1 · Página y tarjetas</span><i></i></a></li>
-  <li><a href="#piso2" data-ir="piso2"><span>2 · Respuestas</span><i></i></a></li>
-  <li><a href="#piso3" data-ir="piso3"><span>3 · ARM</span><i></i></a></li>
-  <li><a href="#piso4" data-ir="piso4"><span>4 · Automatizaciones</span><i></i></a></li>
-  <li><a href="#piso5" data-ir="piso5"><span>5 · Que te encuentre la IA</span><i></i></a></li>
-  <li><a href="#piso6" data-ir="piso6"><span>6 · Lealtad</span><i></i></a></li>
-  <li><a href="#piso7" data-ir="piso7"><span>7 · IA para tu negocio</span><i></i></a></li>
+  <li><a href="#piso1" data-ir="piso1"><span>1 · Tu página</span><i></i></a></li>
+  <li><a href="#piso2" data-ir="piso2"><span>2 · Tu contenido</span><i></i></a></li>
+  <li><a href="#piso3" data-ir="piso3"><span>3 · Tu WhatsApp</span><i></i></a></li>
+  <li><a href="#piso4" data-ir="piso4"><span>4 · Tu ARM</span><i></i></a></li>
+  <li><a href="#piso5" data-ir="piso5"><span>5 · Tu local</span><i></i></a></li>
+  <li><a href="#piso6" data-ir="piso6"><span>6 · Que regresen</span><i></i></a></li>
+  <li><a href="#piso7" data-ir="piso7"><span>7 · Tu equipo</span><i></i></a></li>
   <li><a href="#azotea" data-ir="azotea"><span>Azotea · Próximamente</span><i></i></a></li>
   <li><a href="#fundador" data-ir="fundador"><span>El fundador</span><i></i></a></li>
   <li><a href="#confian" data-ir="confian"><span>Referencias</span><i></i></a></li>
@@ -400,27 +417,45 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     </div></div>
   </section>
 
-  <!-- PISO 1 -->
+  <!-- PISO 1 · TU PÁGINA (un ejemplo por giro) -->
   <section class="escena" id="piso1" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p1">
     <div class="in dos">
       <div class="texto">
-        <p class="eyebrow aparece">Piso 1 · Que te encuentren</p>
+        <p class="eyebrow aparece">Piso 1 · Tu página</p>
         <h2 id="t-p1" class="aparece">Que te encuentren <em>y te escriban.</em></h2>
-        <p class="frase aparece">Tu página, tus tarjetas NFC y tu contenido llevan al cliente directo a tu WhatsApp.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/restaurante.html">Probar la demo</a></div>
+        <p class="frase aparece">Una página para tu negocio que lleva al cliente directo a tu WhatsApp. Toca tu giro:</p>
+        <ul class="giros aparece" aria-label="Elige un giro para ver su página de ejemplo"><li><button type="button" data-giro="restaurante" data-img="../assets/vitrina/hero-restaurante.webp" data-alt="Página de ejemplo de un restaurante: foto del platillo y botón para pedir por WhatsApp" aria-pressed="true">Restaurante</button></li><li><button type="button" data-giro="taqueria" data-img="../assets/vitrina/taqueria.webp" data-alt="Página de ejemplo de una taquería" aria-pressed="false">Taquería</button></li><li><button type="button" data-giro="panaderia" data-img="../assets/vitrina/panaderia.webp" data-alt="Página de ejemplo de una panadería" aria-pressed="false">Panadería</button></li><li><button type="button" data-giro="unas" data-img="../assets/vitrina/unas.webp" data-alt="Página de ejemplo de un estudio de uñas" aria-pressed="false">Uñas</button></li><li><button type="button" data-giro="joyeria" data-img="../assets/vitrina/joyeria.webp" data-alt="Página de ejemplo de una joyería" aria-pressed="false">Joyería</button></li><li><button type="button" data-giro="car-wash" data-img="../assets/vitrina/car-wash.webp" data-alt="Página de ejemplo de un car wash" aria-pressed="false">Car wash</button></li><li><button type="button" data-giro="consultorio" data-img="../assets/vitrina/consultorio.webp" data-alt="Página de ejemplo de un consultorio" aria-pressed="false">Consultorio</button></li><li><button type="button" data-giro="academia" data-img="../assets/vitrina/academia.webp" data-alt="Página de ejemplo de una academia" aria-pressed="false">Academia</button></li><li><button type="button" data-giro="inmobiliaria" data-img="../assets/vitrina/inmobiliaria.webp" data-alt="Página de ejemplo de una inmobiliaria" aria-pressed="false">Inmobiliaria</button></li></ul>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta id="giroIr" href="demos/restaurante.html">Probar la página de <span id="giroNombre">restaurante</span></a></div>
       </div>
       <figure class="fone aparece" style="margin:0">
-        <div class="fone__pantalla"><img src="../assets/vitrina/hero-restaurante.webp" alt="Página de ejemplo de un restaurante: foto del platillo y botón para pedir por WhatsApp" loading="lazy" width="390" height="844"></div>
-        <figcaption class="fone__etiqueta">Demo: página de restaurante</figcaption>
+        <div class="fone__pantalla"><img id="giroImg" src="../assets/vitrina/hero-restaurante.webp" alt="Página de ejemplo de un restaurante: foto del platillo y botón para pedir por WhatsApp" loading="lazy" width="390" height="844"></div>
+        <figcaption class="fone__etiqueta" id="giroEtiqueta">Demo: página de restaurante</figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- PISO 2 -->
-  <section class="escena" id="piso2" data-fondo="oficina" data-pose="celebra" aria-labelledby="t-p2">
+  <!-- PISO 2 · TU CONTENIDO -->
+  <section class="escena" id="piso2" data-fondo="elevador" data-pose="arriba" data-ancla="visual" aria-labelledby="t-p2">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 2 · Tu contenido</p>
+        <h2 id="t-p2" class="aparece">Publicaciones que hacen <em>que te escriban.</em></h2>
+        <p class="frase aparece">Cada publicación responde lo que tus clientes ya preguntan y termina invitando a escribirte.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/contenido.html">Ver una semana de contenido</a></div>
+      </div>
+      <ul class="visual linea aparece" data-linea aria-label="Ejemplo de una semana de publicaciones">
+        <li><time>Lunes · Reel</time><b>¿Nunca has tocado un instrumento?</b><span>Cierra con: «Escríbenos»</span></li>
+        <li><time>Miércoles · Historia</time><b>Encuesta: ¿qué te gustaría aprender?</b><span>Cierra con: «Responde y te contamos»</span></li>
+        <li><time>Viernes · Carrusel</time><b>Mitos de aprender música de adulto</b><span>Cierra con: «Agenda tu clase muestra»</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PISO 3 · TU WHATSAPP -->
+  <section class="escena" id="piso3" data-fondo="oficina" data-pose="celebra" aria-labelledby="t-p3">
     <div class="in"><div class="texto" style="max-width:48rem">
-      <p class="eyebrow aparece">Piso 2 · Que nadie se quede sin respuesta</p>
-      <h2 id="t-p2" class="aparece">Sin respuesta, se van. <em>Con ZOLKO, compran.</em></h2>
+      <p class="eyebrow aparece">Piso 3 · Tu WhatsApp</p>
+      <h2 id="t-p3" class="aparece">Sin respuesta, se van. <em>Con ZOLKO, compran.</em></h2>
       <div class="versus aparece" role="img" aria-label="El mismo cliente escribe a dos negocios. Sin ZOLKO nadie contesta y se va con la competencia. Con ZOLKO le contestan al momento y aparta su cita.">
         <div class="chat chat--sin">
           <div class="chat__top">Tu negocio hoy <small>Sin ZOLKO</small></div>
@@ -445,13 +480,13 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     </div></div>
   </section>
 
-  <!-- PISO 3 · ARM -->
-  <section class="escena" id="piso3" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p3">
+  <!-- PISO 4 · TU ARM (incluye las automatizaciones) -->
+  <section class="escena" id="piso4" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p4">
     <div class="in dos">
       <div class="texto">
-        <p class="eyebrow aparece">Piso 3 · Adiós CRM</p>
-        <h2 id="t-p3" class="aparece">El CRM ya no existe. <em>Ahora es el ARM.</em></h2>
-        <p class="frase aparece">Tu base de clientes con seguimiento automático: los pasa de etapa en etapa y te los deja calientes para cerrar.</p>
+        <p class="eyebrow aparece">Piso 4 · Tu ARM</p>
+        <h2 id="t-p4" class="aparece">El CRM ya no existe. <em>Ahora es el ARM.</em></h2>
+        <p class="frase aparece">Tu base de clientes con seguimiento automático: confirmaciones, recordatorios y recompras salen solas, y cada cliente pasa de etapa hasta quedar listo para comprar.</p>
         <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/arm.html">Probar el ARM</a></div>
       </div>
       <div class="visual tablero aparece" role="img" aria-label="Ejemplo: un cliente avanza solo de Nuevo a Interesado, Cotizado y Listo para comprar.">
@@ -467,31 +502,15 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     </div>
   </section>
 
-  <!-- PISO 4 · AUTOMATIZACIONES -->
-  <section class="escena" id="piso4" data-fondo="elevador" data-pose="arriba" data-ancla="visual" aria-labelledby="t-p4">
-    <div class="in dos">
-      <div class="texto">
-        <p class="eyebrow aparece">Piso 4 · Automatizaciones</p>
-        <h2 id="t-p4" class="aparece">Los seguimientos <em>se hacen solos.</em></h2>
-        <p class="frase aparece">Confirmaciones, recordatorios y recompras salen a tiempo, sin que tú te acuerdes.</p>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/automatizacion.html">Ver al agente de IA</a></div>
-      </div>
-      <ul class="visual linea aparece" data-linea aria-label="Ejemplo de seguimientos automáticos">
-        <li><time>Hoy · 19:00</time><b>Confirma tu cita de mañana</b><span>Enviado ✓</span></li>
-        <li><time>Mañana · 9:00</time><b>Recordatorio: te esperamos a las 10</b><span>Enviado ✓</span></li>
-        <li><time>En 30 días</time><b>¿Te agendo de nuevo?</b><span>Programado</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PISO 5 · QUE TE ENCUENTRE LA IA -->
+  <!-- PISO 5 · TU LOCAL (QR, NFC y reseñas → Google y la IA) -->
   <section class="escena" id="piso5" data-fondo="acerca" data-pose="piensa" data-ancla="visual" aria-labelledby="t-p5">
     <div class="in dos">
       <div class="texto">
-        <p class="eyebrow aparece">Piso 5 · Que te encuentre la IA</p>
-        <h2 id="t-p5" class="aparece">Que ChatGPT y Google <em>hablen de ti.</em></h2>
-        <p class="frase aparece">Preparamos tu ficha de Google Maps, tus reseñas y tu página para que la IA te encuentre cuando alguien busca lo que vendes.</p>
+        <p class="eyebrow aparece">Piso 5 · Tu local</p>
+        <h2 id="t-p5" class="aparece">Del mostrador <em>a Google.</em></h2>
+        <p class="frase aparece">Menú por QR, NFC para dejar reseña y tarjetas para tu equipo. Más reseñas hacen que Google Maps y la IA te recomienden.</p>
         <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/landing-sucursal.html">Probar la página con reseñas</a></div>
+        <p class="tambien aparece">También en tu local: <a href="demos/menu-digital.html">Menú digital por QR</a> · <a href="demos/tarjeta-digital.html">Tarjeta NFC</a></p>
       </div>
       <div class="visual busca aparece" role="img" aria-label="Ejemplo: alguien pregunta a una inteligencia artificial por tacos cerca y aparece una taquería con su ubicación, sus reseñas y su botón de WhatsApp.">
         <p class="busca__q"><span>✦</span> ¿Dónde hay buenos tacos cerca de mí?</p>
@@ -525,7 +544,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <section class="escena" id="piso7" data-fondo="oficina" data-pose="saluda" data-ancla="visual" aria-labelledby="t-p7">
     <div class="in dos">
       <div class="texto">
-        <p class="eyebrow aparece">Piso 7 · IA para tu negocio</p>
+        <p class="eyebrow aparece">Piso 7 · Tu equipo</p>
         <h2 id="t-p7" class="aparece">Tú y tu equipo, <em>usando la IA.</em></h2>
         <p class="frase aparece">Talleres prácticos para contestar, cotizar y vender mejor con inteligencia artificial.</p>
         <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/capacitacion.html">Ver la capacitación</a></div>
@@ -631,12 +650,12 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       var f = rect("#piso1 .fone"); w = Math.min(104, W * .26);
       return { x: Math.max(6, f.left - w - 2), y: f.top + f.height * .22, w: w };
     }
-    if (id === "piso2") {
+    if (id === "piso3") {
       if (cel) {
-        var b = rect("#piso2 [data-apunta]"), vs = rect("#piso2 .versus"); w = Math.min(78, W * .2);
+        var b = rect("#piso3 [data-apunta]"), vs = rect("#piso3 .versus"); w = Math.min(78, W * .2);
         return { x: Math.min(W - w - 6, b.right + 10), y: Math.max(vs.bottom + 14, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
       }
-      var v = rect("#piso2 .versus"); w = Math.min(200, W * .14);
+      var v = rect("#piso3 .versus"); w = Math.min(200, W * .14);
       return { x: v.right + 36, y: v.top - 20, w: w };
     }
     if (id === "llegada" && cel) {
@@ -652,7 +671,8 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       // celular: junto al botón si cabe; si no, asomado en la esquina de arriba del visual
       var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - 14;
       // celular: en el hueco a la derecha del botón, sin tocar la frase de arriba ni el visual de abajo
-      var fr = sec.querySelector(".acciones").previousElementSibling.getBoundingClientRect(), arriba = fr.bottom + 14, abajo = v.top - 6;   // +14: deja aire para el flote de 10 px
+      var ac = sec.querySelector(".acciones"), fr = ac.previousElementSibling.getBoundingClientRect(), sig = ac.nextElementSibling, arriba = fr.bottom + 14,
+        abajo = Math.min(v.top, sig ? sig.getBoundingClientRect().top : v.top) - 6;   // ni la frase de arriba ni lo que va debajo del botón   // +14: deja aire para el flote de 10 px
       var pose2 = null;
       if ((abajo - arriba) / alto < 56 && alto > 1.2) { pose2 = "salta"; alto = PROP.salta; }   // si la pose alta no cabe, brinca (pose más baja)
       w = Math.max(48, Math.min(92, libre, (abajo - arriba) / alto));
@@ -694,6 +714,16 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   // Pausar los logos (para quien prefiere leerlos quietos)
   var mq = document.querySelector(".marquesina"), mqB = document.getElementById("mqPausa");
   if (mq && mqB) mqB.addEventListener("click", function () { var p = mq.classList.toggle("pausada"); mqB.setAttribute("aria-pressed", p); mqB.textContent = p ? "Continuar" : "Pausar"; });
+  // Piso 1: al tocar un giro cambia la página del celular y el botón lleva a esa demo
+  var gImg = document.getElementById("giroImg"), gIr = document.getElementById("giroIr"), gNom = document.getElementById("giroNombre"), gEt = document.getElementById("giroEtiqueta");
+  [].slice.call(document.querySelectorAll(".giros button")).forEach(function (b, _, todos) {
+    b.addEventListener("click", function () {
+      todos.forEach(function (o) { o.setAttribute("aria-pressed", o === b); });
+      gImg.classList.add("cambia");
+      setTimeout(function () { gImg.src = b.dataset.img; gImg.alt = b.dataset.alt; gImg.classList.remove("cambia"); }, reduce ? 0 : 280);
+      gIr.href = "demos/" + b.dataset.giro + ".html"; gNom.textContent = b.textContent.toLowerCase(); gEt.textContent = "Demo: página de " + b.textContent.toLowerCase();
+    });
+  });
   // ---- Tocar a la mascota: reacciona y vuelve a su pose, sin mover nada de la página ----
   var REACCIONES = [["j-brinco", "salta"], ["j-hola", "saluda"], ["j-giro", "celebra"], ["j-latido", "arriba"]], turno = 0, ocupada = false;
   var boton = mascota.querySelector(".mascota__in");
@@ -725,9 +755,9 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     var b = sec.querySelector("[data-apunta]"); if (b) setTimeout(function () { b.classList.add("apuntado"); }, reduce ? 0 : 900);
     // el texto entra subiendo ~1 s: al terminar, la mascota se reacomoda con el texto ya en su lugar
     setTimeout(function () { if (actual === sec) ponerMascota(sec.id, sec.dataset.pose); }, reduce ? 0 : 1350);
-    if (sec.id === "piso2") contar(sec);
-    if (sec.id === "piso3") etapas(sec);
-    if (sec.id === "piso4") pasos(sec.querySelectorAll("[data-linea] li"), 1100);
+    if (sec.id === "piso3") contar(sec);
+    if (sec.id === "piso4") etapas(sec);
+    if (sec.id === "piso2") pasos(sec.querySelectorAll("[data-linea] li"), 1100);
     if (sec.id === "piso6") pasos(sec.querySelectorAll("[data-sellos] i"), 420);
   }
   // Piso 3: el cliente avanza solo de etapa en etapa hasta "Listo para comprar"
