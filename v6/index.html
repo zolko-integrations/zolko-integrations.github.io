@@ -142,6 +142,9 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 .mascota img { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transform: scale(.92); transition: opacity .6s var(--suave), transform .8s var(--suave); filter: drop-shadow(0 24px 40px rgba(124, 92, 255, .45)); }
 .mascota img.on { position: relative; opacity: 1; transform: none; }
 .mascota.voltea img.on { transform: scaleX(-1); }
+.mascota { transition: transform 1.2s var(--suave), width 1.2s var(--suave), opacity .5s var(--suave); }
+.mascota.fuera { opacity: 0; pointer-events: none; }
+.mascota.fuera .mascota__in { pointer-events: none; }
 @keyframes flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* ---------- Quién te atiende: Ricardo ---------- */
@@ -197,21 +200,48 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 @media (max-width: 899px) { .marquesina__fila li { height: 92px; padding: 0 24px; } .marquesina__fila img.medio { height: 44px; } .marquesina__fila img.cuadrado { height: 66px; } .marquesina__fila img.ancho { height: 30px; max-width: 190px; } }
 @media (prefers-reduced-motion: reduce) { .marquesina__pista { animation: none !important; } }
 
-/* ---------- Piso 1: elige tu giro ---------- */
-.giros { list-style: none; margin: -12px 0 26px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; max-width: 32rem; }
-.giros button { min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(244, 244, 247, .22); background: rgba(8, 7, 14, .55); color: var(--lavanda); font: 600 .88rem var(--f-texto); cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
-.giros button:hover { color: var(--blanco); border-color: rgba(244, 244, 247, .45); }
-.giros button[aria-pressed="true"] { background: var(--verde); border-color: var(--verde); color: var(--verde-oscuro); }
-.fone__pantalla img { transition: opacity .28s var(--suave); }
-.fone__pantalla img.cambia { opacity: 0; }
+/* ---------- Piso 1: celulares de ejemplo que se deslizan de lado ---------- */
+.escena.columna { flex-direction: column; justify-content: flex-end; align-items: stretch; gap: clamp(20px, 3.4vh, 34px); }
+#piso1 .frase { margin-bottom: 0; }
+#piso1 .texto { max-width: 46rem; }
+#piso1 h2 { font-size: clamp(2.3rem, 4vw, 3.6rem); }
+@media (min-width: 900px) { #piso1 { padding-top: calc(var(--header-h) + 14px); padding-bottom: 28px; } #piso1 .frase { margin-top: 14px; } }
+.vitrina { --tel: clamp(168px, 13.4vw, 196px); }
+.vitrina__pista { list-style: none; margin: 0; display: flex; gap: clamp(18px, 2.4vw, 34px); overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 14px max(20px, calc((100vw - 1180px) / 2)) 8px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.vitrina__pista::-webkit-scrollbar { display: none; }
+.vitrina__pista:focus-visible { outline: 2px solid var(--verde); outline-offset: -2px; }
+.vitrina__pista li { flex: none; width: var(--tel); scroll-snap-align: center; text-align: center; }
+.tel { position: relative; display: block; width: 100%; aspect-ratio: 390 / 844; padding: 7px; border-radius: 30px; text-decoration: none;
+  background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28); box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 30px 60px -30px rgba(124, 92, 255, .9);
+  transition: transform .5s var(--suave), box-shadow .5s var(--suave); }
+.tel::before { content: ""; position: absolute; z-index: 2; top: 13px; left: 50%; width: 30%; height: 13px; transform: translateX(-50%); border-radius: 999px; background: #050505; }
+.tel:hover, .tel:focus-visible { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(37, 211, 102, .6), 0 36px 70px -30px rgba(37, 211, 102, .7); }
+.tel__pantalla { display: block; width: 100%; height: 100%; border-radius: 24px; overflow: hidden; background: #000; }
+.tel__pantalla img { display: block; width: 100%; height: auto; }
+/* La página baja sola, despacio, como si alguien la estuviera viendo */
+.escena.activa .tel__pantalla img { animation: recorre 18s ease-in-out var(--d, 0s) infinite alternate; }
+.tel:hover .tel__pantalla img { animation-play-state: paused; }
+@keyframes recorre { 0%, 12% { transform: translateY(0); } 88%, 100% { transform: translateY(-53%); } }
+.tel__nombre { margin: 12px 0 0; font-weight: 600; font-size: .92rem; color: var(--blanco); }
+.tel__nombre small { display: block; margin-bottom: 2px; font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--verde); }
+.vitrina__mando { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 10px; padding: 0 20px; }
+.vitrina__mando p { margin: 0; font-size: .86rem; color: var(--lavanda); text-align: center; }
+.vitrina__flecha { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(244, 244, 247, .25); background: rgba(8, 7, 14, .6); color: var(--blanco); cursor: pointer; transition: background .3s, border-color .3s; }
+.vitrina__flecha svg { width: 18px; height: 18px; }
+.vitrina__flecha:hover { border-color: var(--verde); background: rgba(37, 211, 102, .14); }
+@media (max-width: 899px) {
+  .vitrina { --tel: 52vw; }
+  .vitrina__pista { padding-inline: calc(50vw - 26vw); }
+  .vitrina__mando p { font-size: .8rem; }
+}
+@media (prefers-reduced-motion: reduce) { .tel__pantalla img { animation: none !important; } }
 .tambien { margin: 18px 0 0; font-size: .9rem; color: var(--lavanda); }
 .tambien a { color: var(--blanco); font-weight: 600; text-decoration-color: rgba(37, 211, 102, .6); text-underline-offset: 4px; }
 @media (max-width: 899px) {
   .dos { grid-template-columns: minmax(0, 1fr); }
   .dos > .texto { min-width: 0; }
-  .giros { max-width: none; flex-wrap: nowrap; overflow-x: auto; margin: -4px -20px 18px; padding: 2px 20px 6px; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
-  .giros::-webkit-scrollbar { display: none; }
-  .giros li { flex: none; }
 }
 
 /* ---------- Piso 1: el celular con la página ---------- */
@@ -224,7 +254,6 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 .fone__pantalla img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .fone__etiqueta { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; font: 600 .8rem var(--f-texto); background: rgba(13, 10, 28, .95); border: 1px solid rgba(169, 147, 255, .45); }
 .fone__etiqueta::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 8px var(--verde); }
-@media (max-width: 899px) { #piso1 .fone { width: min(170px, 42vw); } #piso1 .dos { gap: 26px; } }
 
 /* ---------- Piso 2: sin respuesta vs. con respuesta ---------- */
 .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 6px 0 26px; max-width: 760px; }
@@ -417,20 +446,20 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     </div></div>
   </section>
 
-  <!-- PISO 1 · TU PÁGINA (un ejemplo por giro) -->
-  <section class="escena" id="piso1" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p1">
-    <div class="in dos">
-      <div class="texto">
-        <p class="eyebrow aparece">Piso 1 · Tu página</p>
-        <h2 id="t-p1" class="aparece">Que te encuentren <em>y te escriban.</em></h2>
-        <p class="frase aparece">Una página para tu negocio que lleva al cliente directo a tu WhatsApp. Toca tu giro:</p>
-        <ul class="giros aparece" aria-label="Elige un giro para ver su página de ejemplo"><li><button type="button" data-giro="restaurante" data-img="../assets/vitrina/hero-restaurante.webp" data-alt="Página de ejemplo de un restaurante: foto del platillo y botón para pedir por WhatsApp" aria-pressed="true">Restaurante</button></li><li><button type="button" data-giro="taqueria" data-img="../assets/vitrina/taqueria.webp" data-alt="Página de ejemplo de una taquería" aria-pressed="false">Taquería</button></li><li><button type="button" data-giro="panaderia" data-img="../assets/vitrina/panaderia.webp" data-alt="Página de ejemplo de una panadería" aria-pressed="false">Panadería</button></li><li><button type="button" data-giro="unas" data-img="../assets/vitrina/unas.webp" data-alt="Página de ejemplo de un estudio de uñas" aria-pressed="false">Uñas</button></li><li><button type="button" data-giro="joyeria" data-img="../assets/vitrina/joyeria.webp" data-alt="Página de ejemplo de una joyería" aria-pressed="false">Joyería</button></li><li><button type="button" data-giro="car-wash" data-img="../assets/vitrina/car-wash.webp" data-alt="Página de ejemplo de un car wash" aria-pressed="false">Car wash</button></li><li><button type="button" data-giro="consultorio" data-img="../assets/vitrina/consultorio.webp" data-alt="Página de ejemplo de un consultorio" aria-pressed="false">Consultorio</button></li><li><button type="button" data-giro="academia" data-img="../assets/vitrina/academia.webp" data-alt="Página de ejemplo de una academia" aria-pressed="false">Academia</button></li><li><button type="button" data-giro="inmobiliaria" data-img="../assets/vitrina/inmobiliaria.webp" data-alt="Página de ejemplo de una inmobiliaria" aria-pressed="false">Inmobiliaria</button></li></ul>
-        <div class="acciones aparece"><a class="btn btn--verde" data-apunta id="giroIr" href="demos/restaurante.html">Probar la página de <span id="giroNombre">restaurante</span></a></div>
+  <!-- PISO 1 · TU PÁGINA: ejemplos en celulares reales que se deslizan de lado -->
+  <section class="escena columna" id="piso1" data-fondo="oficina" data-pose="senala" data-ancla="confian" aria-labelledby="t-p1">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Piso 1 · Tu página</p>
+      <h2 id="t-p1" class="aparece">Que te encuentren <em>y te escriban.</em></h2>
+      <p class="frase aparece">Estos son ejemplos. Hacemos la página de tu negocio, sea cual sea, y lleva al cliente directo a tu WhatsApp.</p>
+    </div></div>
+    <div class="vitrina aparece">
+      <ul class="vitrina__pista" id="vitrina" tabindex="0" aria-label="Páginas de ejemplo. Desliza de lado para ver más y toca una para abrirla."><li><a class="tel" href="demos/taqueria.html" aria-label="Ver la página de ejemplo de taquería"><span class="tel__pantalla"><img src="../assets/v6/vitrina/taqueria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:0s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Taquería</p></li><li><a class="tel" href="demos/restaurante.html" aria-label="Ver la página de ejemplo de restaurante"><span class="tel__pantalla"><img src="../assets/v6/vitrina/restaurante.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:2s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Restaurante</p></li><li><a class="tel" href="demos/unas.html" aria-label="Ver la página de ejemplo de estudio de uñas"><span class="tel__pantalla"><img src="../assets/v6/vitrina/unas.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:4s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Estudio de uñas</p></li><li><a class="tel" href="demos/panaderia.html" aria-label="Ver la página de ejemplo de panadería"><span class="tel__pantalla"><img src="../assets/v6/vitrina/panaderia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:6s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Panadería</p></li><li><a class="tel" href="demos/joyeria.html" aria-label="Ver la página de ejemplo de joyería"><span class="tel__pantalla"><img src="../assets/v6/vitrina/joyeria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:8s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Joyería</p></li><li><a class="tel" href="demos/car-wash.html" aria-label="Ver la página de ejemplo de car wash"><span class="tel__pantalla"><img src="../assets/v6/vitrina/car-wash.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:10s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Car wash</p></li><li><a class="tel" href="demos/consultorio.html" aria-label="Ver la página de ejemplo de consultorio"><span class="tel__pantalla"><img src="../assets/v6/vitrina/consultorio.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:12s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Consultorio</p></li><li><a class="tel" href="demos/academia.html" aria-label="Ver la página de ejemplo de academia de música"><span class="tel__pantalla"><img src="../assets/v6/vitrina/academia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:14s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Academia de música</p></li><li><a class="tel" href="demos/inmobiliaria.html" aria-label="Ver la página de ejemplo de inmobiliaria"><span class="tel__pantalla"><img src="../assets/v6/vitrina/inmobiliaria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:16s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Inmobiliaria</p></li></ul>
+      <div class="vitrina__mando">
+        <button type="button" class="vitrina__flecha" data-dir="-1" aria-label="Ejemplo anterior"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <p>Desliza y toca un celular para ver la página completa</p>
+        <button type="button" class="vitrina__flecha" data-dir="1" aria-label="Siguiente ejemplo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <figure class="fone aparece" style="margin:0">
-        <div class="fone__pantalla"><img id="giroImg" src="../assets/vitrina/hero-restaurante.webp" alt="Página de ejemplo de un restaurante: foto del platillo y botón para pedir por WhatsApp" loading="lazy" width="390" height="844"></div>
-        <figcaption class="fone__etiqueta" id="giroEtiqueta">Demo: página de restaurante</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -646,10 +675,6 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   function rect(sel) { return document.querySelector(sel).getBoundingClientRect(); }
   function lugar(id) {
     var W = innerWidth, H = innerHeight, cel = W < 900, w = cel ? Math.min(130, W * .32) : Math.min(230, W * .17);
-    if (id === "piso1" && cel) {
-      var f = rect("#piso1 .fone"); w = Math.min(104, W * .26);
-      return { x: Math.max(6, f.left - w - 2), y: f.top + f.height * .22, w: w };
-    }
     if (id === "piso3") {
       if (cel) {
         var b = rect("#piso3 [data-apunta]"), vs = rect("#piso3 .versus"); w = Math.min(78, W * .2);
@@ -682,9 +707,9 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     }
     if (tipo === "confian") {
       // brincando de gusto arriba de la cinta de logos, sin tocar el título ni los logos
-      var cin = sec.querySelector(".marquesina").getBoundingClientRect(), tt = sec.querySelector("h2").getBoundingClientRect();
-      if (cel) { var e2 = sec.querySelector(".eyebrow").getBoundingClientRect(); w = Math.max(64, Math.min(110, (e2.top - 92) / alto));
-        return { x: W - w - 14, y: Math.max(84, e2.top - w * alto - 10), w: w }; }
+      var cin = sec.querySelector(".marquesina, .vitrina").getBoundingClientRect(), tt = sec.querySelector("h2").getBoundingClientRect();
+      if (cel) { var e2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco2 = e2.top - 92; w = Math.max(64, Math.min(110, hueco2 / alto));
+        return { x: W - w - 14, y: Math.max(84, e2.top - w * alto - 10), w: w, oculta: hueco2 < 64 * alto }; }
       w = Math.min(170, W * .12); return { x: Math.max(tt.right + 40, W * .64), y: cin.top - w * alto - 22, w: w };
     }
     if (tipo === "boton") {
@@ -710,18 +735,17 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     var meta = document.getElementById(id).querySelector("[data-apunta]"), voltea = false;
     if (meta && pose === "senala") { var r = meta.getBoundingClientRect(); voltea = l.x + l.w / 2 > r.left + r.width / 2; }
     mascota.classList.toggle("voltea", voltea);
+    mascota.classList.toggle("fuera", !!l.oculta);   // sin lugar libre: se desvanece en vez de taparte algo
   }
   // Pausar los logos (para quien prefiere leerlos quietos)
   var mq = document.querySelector(".marquesina"), mqB = document.getElementById("mqPausa");
   if (mq && mqB) mqB.addEventListener("click", function () { var p = mq.classList.toggle("pausada"); mqB.setAttribute("aria-pressed", p); mqB.textContent = p ? "Continuar" : "Pausar"; });
-  // Piso 1: al tocar un giro cambia la página del celular y el botón lleva a esa demo
-  var gImg = document.getElementById("giroImg"), gIr = document.getElementById("giroIr"), gNom = document.getElementById("giroNombre"), gEt = document.getElementById("giroEtiqueta");
-  [].slice.call(document.querySelectorAll(".giros button")).forEach(function (b, _, todos) {
-    b.addEventListener("click", function () {
-      todos.forEach(function (o) { o.setAttribute("aria-pressed", o === b); });
-      gImg.classList.add("cambia");
-      setTimeout(function () { gImg.src = b.dataset.img; gImg.alt = b.dataset.alt; gImg.classList.remove("cambia"); }, reduce ? 0 : 280);
-      gIr.href = "demos/" + b.dataset.giro + ".html"; gNom.textContent = b.textContent.toLowerCase(); gEt.textContent = "Demo: página de " + b.textContent.toLowerCase();
+  // Piso 1: flechas para pasar de un ejemplo a otro (también se puede deslizar con el dedo)
+  var pista = document.getElementById("vitrina");
+  [].slice.call(document.querySelectorAll(".vitrina__flecha")).forEach(function (f) {
+    f.addEventListener("click", function () {
+      var li = pista.querySelector("li"), paso = li ? li.getBoundingClientRect().width + parseFloat(getComputedStyle(pista).columnGap || 24) : 240;
+      pista.scrollBy({ left: paso * Number(f.dataset.dir), behavior: reduce ? "auto" : "smooth" });
     });
   });
   // ---- Tocar a la mascota: reacciona y vuelve a su pose, sin mover nada de la página ----
