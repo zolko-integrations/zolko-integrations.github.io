@@ -180,18 +180,17 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 .equipo--tabh .equipo__marco::before, .equipo--tabv .equipo__marco::before { content: ""; position: absolute; left: 50%; top: 5px; width: 5px; height: 5px; margin-left: -2px; border-radius: 50%; background: #3a3848; }
 /* celular plegable: llega cerrado y se abre como libro */
 .equipo--fold { --eq: min(500px, 40vw); }
-.fold { display: grid; grid-template-columns: 1fr 1fr; transform-style: preserve-3d; opacity: 0; transform: translate3d(0, 12%, -560px) rotateX(12deg); transition: transform 1.3s var(--suave), opacity .9s var(--suave); }
+.fold { position: relative; display: grid; grid-template-columns: 1fr 1fr; transform-style: flat; opacity: 0; transform: translate3d(0, 14%, -620px) rotateX(14deg) rotateY(16deg); transition: transform 1.3s var(--suave), opacity .9s var(--suave); }
 .escena.activa .fold { opacity: 1; transform: rotateX(3deg) rotateY(-5deg); }
-.fold__hoja { position: relative; padding: 9px; background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28); box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 50px 100px -40px rgba(124, 92, 255, .95); }
-.fold__der { border-radius: 4px 26px 26px 4px; padding-left: 5px; }
-.fold__izq { border-radius: 26px 4px 4px 26px; padding-right: 5px; transform-style: preserve-3d; transform-origin: 100% 50%; transform: rotateY(178deg); transition: transform 1.5s var(--suave) .7s; z-index: 2; }
-.escena.activa .fold__izq { transform: rotateY(0deg); }
-.fold__cara { position: relative; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.fold__tapa { position: absolute; inset: 0; border-radius: 4px 26px 26px 4px; transform: rotateY(180deg); backface-visibility: hidden; -webkit-backface-visibility: hidden; background: linear-gradient(145deg, #1d1b28, #0c0b12 55%, #2c2a38); box-shadow: inset 0 0 0 1px rgba(244, 244, 247, .14); }
-.fold__tapa i { position: absolute; right: 12%; top: 6%; width: 22%; aspect-ratio: 1 / 2.1; border-radius: 16px; background: #07060d; box-shadow: inset 0 0 0 1px rgba(244, 244, 247, .14), 0 0 18px rgba(124, 92, 255, .5); }
+/* llega entreabierto, como un libro, y se abre hasta quedar plano */
+.fold__hoja { position: relative; padding: 9px; background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28); box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 50px 100px -40px rgba(124, 92, 255, .95); transition: transform 1.5s var(--suave) .6s; }
+.fold__izq { border-radius: 26px 4px 4px 26px; padding-right: 5px; transform-origin: 100% 50%; transform: perspective(1100px) rotateY(68deg); }
+.fold__der { border-radius: 4px 26px 26px 4px; padding-left: 5px; transform-origin: 0 50%; transform: perspective(1100px) rotateY(-68deg); }
+.escena.activa .fold__hoja { transform: none; }
+.fold::after { content: ""; position: absolute; left: 50%; top: 4%; bottom: 4%; width: 2px; margin-left: -1px; border-radius: 2px; background: linear-gradient(180deg, transparent, rgba(244, 244, 247, .22) 20%, rgba(244, 244, 247, .22) 80%, transparent); pointer-events: none; }
 .fold .equipo__pantalla { border-radius: 18px; aspect-ratio: 390 / 700; }
-.fold__der .equipo__toca, .fold__cara .equipo__toca { padding-bottom: 9%; }
-.fold__der { position: relative; }
+.equipo--fold .equipo__toca--izq { inset: 0 50% 0 0; padding-bottom: 5%; }
+.equipo--fold .equipo__toca--der { inset: 0 0 0 50%; padding-bottom: 5%; }
 /* "Toca para probarlo": toda la pantalla es botón */
 .equipo__toca { position: absolute; inset: 0; z-index: 3; display: grid; align-items: end; justify-items: center; padding: 0 0 12%; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .equipo--tabh .equipo__toca { padding-bottom: 8%; }
@@ -261,7 +260,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   .versus.versus--tels { gap: 8px; } .versus--tels .chat { border-width: 5px; border-radius: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .equipo__marco, .fold, .fold__izq, .versus--tels .chat, .redes li { transform: none !important; opacity: 1 !important; }
+  .equipo__marco, .fold, .fold__hoja, .versus--tels .chat, .redes li { transform: none !important; opacity: 1 !important; }
   .equipo__flota, .redes li { animation: none !important; }
 }
 
@@ -748,12 +747,11 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
       </div>
       <div class="equipo equipo--fold" data-tipo="fold">
         <div class="equipo__flota"><div class="fold">
-          <div class="fold__hoja fold__izq">
-            <div class="fold__cara"><div class="equipo__pantalla" data-demo="demos/landing-sucursal.html" data-nombre="Página con reseñas"></div><button type="button" class="equipo__toca" data-demo="demos/landing-sucursal.html" data-nombre="Página con reseñas" aria-label="Probar la demo: Página con reseñas"><span>Reseñas</span></button></div>
-            <div class="fold__tapa" aria-hidden="true"><i></i></div>
-          </div>
-          <div class="fold__hoja fold__der"><div class="equipo__pantalla" data-demo="demos/menu-digital.html" data-nombre="Menú digital"></div><button type="button" class="equipo__toca" data-demo="demos/menu-digital.html" data-nombre="Menú digital" aria-label="Probar la demo: Menú digital"><span>Menú QR</span></button></div>
+          <div class="fold__hoja fold__izq"><div class="equipo__pantalla" data-demo="demos/landing-sucursal.html" data-nombre="Página con reseñas"></div></div>
+          <div class="fold__hoja fold__der"><div class="equipo__pantalla" data-demo="demos/menu-digital.html" data-nombre="Menú digital"></div></div>
         </div></div>
+        <button type="button" class="equipo__toca equipo__toca--izq" data-demo="demos/landing-sucursal.html" data-nombre="Página con reseñas" aria-label="Probar la demo: Página con reseñas"><span>Reseñas</span></button>
+        <button type="button" class="equipo__toca equipo__toca--der" data-demo="demos/menu-digital.html" data-nombre="Menú digital" aria-label="Probar la demo: Menú digital"><span>Menú QR</span></button>
       </div>
     </div>
   </section>
