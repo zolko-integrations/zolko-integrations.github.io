@@ -652,9 +652,12 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - 14;
       // celular: en el hueco a la derecha del botón, sin tocar la frase de arriba ni el visual de abajo
       var fr = sec.querySelector(".acciones").previousElementSibling.getBoundingClientRect(), arriba = fr.bottom + 14, abajo = v.top - 6;   // +14: deja aire para el flote de 10 px
+      var pose2 = null;
+      if ((abajo - arriba) / alto < 56 && alto > 1.2) { pose2 = "salta"; alto = PROP.salta; }   // si la pose alta no cabe, brinca (pose más baja)
       w = Math.max(48, Math.min(92, libre, (abajo - arriba) / alto));
-      var y = Math.min(abajo - w * alto, Math.max(arriba, bt.top + bt.height / 2 - w * alto * .55));
-      return { x: W - w - 6, y: y, w: w };
+      // si no cabe entero, primero cuida el texto de arriba (puede asomarse sobre la esquina de la tarjeta, nunca sobre letras)
+      var y = Math.max(arriba, Math.min(abajo - w * alto, bt.top + bt.height / 2 - w * alto * .55));
+      return { x: W - w - 6, y: y, w: w, pose: pose2 };
     }
     if (tipo === "confian") {
       // brincando de gusto arriba de la cinta de logos, sin tocar el título ni los logos
@@ -678,8 +681,8 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   }
   var poseJuego = null;   // pose de la reacción al tocarla (manda sobre la de la escena un momento)
   function ponerMascota(id, pose) {
-    pose = poseJuego || pose;
     var l = lugar(id);
+    pose = poseJuego || l.pose || pose;
     mascota.style.setProperty("--m-x", l.x + "px"); mascota.style.setProperty("--m-y", l.y + "px"); mascota.style.setProperty("--m-w", l.w + "px");
     Object.keys(poses).forEach(function (k) { poses[k].classList.toggle("on", k === pose); });
     // Si está a la derecha de lo que señala, se voltea para apuntarle (la pose mira a la derecha)
