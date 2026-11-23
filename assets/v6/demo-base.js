@@ -34,6 +34,12 @@
   var EMBED = /[?&]embed=1/.test(location.search), AUTO = /[?&]auto=1/.test(location.search);
   if (EMBED) document.documentElement.classList.add("zk-embed");
   if (AUTO) document.documentElement.classList.add("zk-auto");
+  if (EMBED) document.addEventListener("click", function (e) {
+    var a = e.target.closest('a[href^="#"]'); if (!a) return;
+    var id = a.getAttribute("href").slice(1), destino = id && document.getElementById(id);
+    if (!destino) return;
+    e.preventDefault(); destino.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+  });
 
   /* Atajo para crear elementos */
   function el(tag, attrs, html) {
@@ -210,7 +216,7 @@
       '<img class="zolko-cta__mascota" src="../../assets/v6/mascota/senala-900.webp" alt="" aria-hidden="true" width="900" height="764" loading="lazy">' +
       '<div><p class="zolko-cta__tag">Hecho por ZOLKO INTEGRATIONS</p>' +
       '<p class="zolko-cta__title">¿Lo quieres <em>para tu negocio?</em></p>' +
-      '<p class="zolko-cta__text">Esto es una demo. Te lo hacemos con tu marca y tus datos reales. Los precios los ves directo con Ricardo en tu diagnóstico.</p>' +
+      '<p class="zolko-cta__text">Esto es una demo. Te lo hacemos con tu marca y tus datos reales. La inversión la vemos en tu diagnóstico, con la radiografía de tu negocio.</p>' +
       '<div class="zolko-cta__acciones"><a class="zolko-cta__btn" target="_blank" rel="noopener" href="https://wa.me/' + WHATSAPP_ZOLKO + "?text=" +
         encodeURIComponent("Hola, Ricardo. Vi la demo de " + nombreDemo + " y quiero esto para mi negocio.") + '">' + wa + "Quiero esto para mi negocio</a>" +
       '<a class="zolko-cta__sec" href="' + torre + '">← Volver a la torre</a></div></div>' +
