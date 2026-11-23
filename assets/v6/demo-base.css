@@ -411,3 +411,13 @@ body { padding-bottom: 84px; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* =====================================================================
+   8. DEMO DENTRO DE LA TORRE (?embed=1 / &auto=1)
+   ===================================================================== */
+.zk-embed .demo-bar { display: none; }
+.zk-embed body { padding-top: 0; }
+.zk-embed .zolko-cta__sec { display: none; }
+.zk-auto { scroll-behavior: auto !important; scrollbar-width: none; }
+.zk-auto::-webkit-scrollbar { display: none; }
+.zk-auto .mobile-cta { display: none; }

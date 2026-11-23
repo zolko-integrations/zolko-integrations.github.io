@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>PROPUESTA · ZOLKO INTEGRATIONS · Primero entendemos. Después integramos.</title>
+<meta name="description" content="ZOLKO INTEGRATIONS: inteligencia artificial que se adapta a tu negocio, no al revés. La integramos para que vendas más. Primero entendemos. Después integramos.">
+<meta name="theme-color" content="#050505">
+<link rel="icon" href="../assets/zolko-anillo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../assets/v6/torre/lejana-movil.webp" media="(max-aspect-ratio: 1/1)">
+<link rel="preload" as="image" imagesrcset="../assets/v6/torre/lejana-1600.webp 1600w, ../assets/v6/torre/lejana-2560.webp 2560w, ../assets/v6/torre/lejana-3840.webp 3840w" imagesizes="100vw" media="(min-aspect-ratio: 1/1)">
+<style>
+/* =====================================================================
+   ZOLKO · v6 "Tu torre" (página de prueba)
+   Reglas de diseño:
+   · Una sola idea por pantalla: título corto, una frase y un botón.
+   · Transiciones lentas y seguras: fundidos de ~1 s, sin desenfoques
+     ni temblores. La foto de fondo se acerca muy despacio.
+   · La mascota solo se mueve al cambiar de escena y señala qué tocar.
+   · Marca: noche, violeta y el verde del botón DIAGNÓSTICO.
+   ===================================================================== */
+:root {
+  --noche: #050505; --tinta: #0d0a1c;
+  --violeta: #7c5cff; --violeta-luz: #a993ff; --lavanda: #c9c5e6;
+  --verde: #25d366; --verde-oscuro: #04210f; --rojo: #ff6b7a;
+  --blanco: #f4f4f7; --linea: rgba(244, 244, 247, .14);
+  --f-display: "Bodoni Moda", Georgia, serif; --f-texto: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --lento: 1.1s; --suave: cubic-bezier(.22, .61, .36, 1);
+  --header-h: 76px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-snap-type: y proximity; scroll-padding-top: 0; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--noche); color: var(--blanco); font: 400 1.06rem/1.6 var(--f-texto); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; border-radius: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--blanco); color: #000; padding: 10px 14px; border-radius: 8px; font-weight: 700; }
+.skip:focus { top: 12px; }
+
+/* ---------- Fondo: escenas de la torre que se funden ---------- */
+.fondo { position: fixed; inset: 0; z-index: -2; overflow: hidden; background: var(--noche); }
+.fondo figure { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity var(--lento) var(--suave); }
+.fondo figure.on { opacity: 1; }
+.fondo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 9s var(--suave); }
+.fondo figure.on img { transform: scale(1); }
+.fondo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5,5,5,.55) 0%, rgba(5,5,5,.05) 30%, rgba(5,5,5,.25) 55%, rgba(5,5,5,.88) 100%),
+              linear-gradient(90deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.15) 55%, rgba(5,5,5,0) 100%); }
+
+/* ---------- Encabezado ---------- */
+.header { position: fixed; top: 12px; left: 0; right: 0; z-index: 50; pointer-events: none; }
+.header__in { pointer-events: auto; width: min(1180px, 100% - 24px); margin: auto; display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 8px 8px 8px 20px; border-radius: 999px;
+  background: rgba(8, 7, 14, .55); border: 1px solid var(--linea); backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3); }
+.header__in img { height: 26px; width: auto; }
+.header nav { margin-left: auto; }
+.header nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+.header nav a { display: block; padding: 9px 14px; border-radius: 999px; text-decoration: none; color: var(--lavanda); font-weight: 500; font-size: .94rem; transition: color .3s, background .3s; }
+.header nav a:hover, .header nav a.on { color: var(--blanco); background: rgba(244, 244, 247, .08); }
+@media (max-width: 860px) { .header nav { display: none; } .header .btn { margin-left: auto; } }
+
+/* ---------- Botones ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 26px; border-radius: 999px; border: 1px solid transparent; font: 700 1rem var(--f-texto); text-decoration: none; cursor: pointer; transition: transform .35s var(--suave), box-shadow .5s var(--suave), background .3s; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn--verde { background: var(--verde); color: var(--verde-oscuro); box-shadow: 0 14px 40px -14px rgba(37, 211, 102, .8); }
+.btn--verde:hover { transform: translateY(-2px); box-shadow: 0 0 0 6px rgba(37, 211, 102, .2), 0 18px 44px -14px rgba(37, 211, 102, .9); }
+.btn--linea { background: rgba(8, 7, 14, .35); color: var(--blanco); border-color: rgba(244, 244, 247, .35); backdrop-filter: blur(8px); }
+.btn--linea:hover { background: rgba(244, 244, 247, .1); }
+.btn--chico { min-height: 44px; padding: 10px 18px; font-size: .92rem; }
+/* El botón que la mascota señala: un aro verde que respira despacio */
+.btn.apuntado { position: relative; }
+.btn.apuntado::after { content: ""; position: absolute; inset: -6px; border-radius: inherit; border: 2px solid var(--verde); opacity: 0; animation: respira 2.6s var(--suave) infinite; pointer-events: none; }
+@keyframes respira { 0% { opacity: 0; transform: scale(.96); } 35% { opacity: .9; } 100% { opacity: 0; transform: scale(1.12); } }
+
+/* ---------- Escenas ---------- */
+.escena { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; padding: calc(var(--header-h) + 30px) 0 clamp(40px, 9vh, 96px); scroll-snap-align: start; }
+.in { width: min(1180px, 100% - 40px); margin: 0 auto; }
+.texto { max-width: 34rem; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; font: 600 .8rem/1 var(--f-texto); letter-spacing: .16em; text-transform: uppercase; color: var(--verde); }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+h1, h2 { font-family: var(--f-display); font-weight: 500; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.8rem, 7vw, 6.2rem); line-height: .96; }
+h2 { font-size: clamp(2.3rem, 5.4vw, 4.6rem); line-height: .98; }
+h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
+.frase { margin: 22px 0 30px; font-size: clamp(1.06rem, 1.6vw, 1.28rem); line-height: 1.55; color: var(--lavanda); max-width: 30em; }
+.acciones { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.bajar { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--lavanda); text-decoration: none; font-weight: 600; }
+.bajar span { display: inline-block; animation: baja 2.4s var(--suave) infinite; }
+@keyframes baja { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+/* Aparición tranquila del texto de cada escena */
+.aparece { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--suave), transform .9s var(--suave); }
+.escena.activa .aparece { opacity: 1; transform: none; }
+.escena.activa .aparece:nth-child(2) { transition-delay: .12s; }
+.escena.activa .aparece:nth-child(3) { transition-delay: .24s; }
+.escena.activa .aparece:nth-child(4) { transition-delay: .36s; }
+
+/* ---------- Indicador de pisos (computadora) ---------- */
+.pisos { position: fixed; right: 26px; top: 50%; z-index: 40; transform: translateY(-50%); list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.pisos a { display: flex; align-items: center; justify-content: flex-end; gap: 12px; min-height: 30px; text-decoration: none; color: rgba(201, 197, 230, .55); font-size: .8rem; font-weight: 600; letter-spacing: .04em; transition: color .5s; }
+.pisos a i { width: 8px; height: 8px; border-radius: 50%; background: rgba(244, 244, 247, .25); transition: background .5s, box-shadow .5s, transform .5s var(--suave); }
+.pisos a span { opacity: 0; transform: translateX(6px); transition: opacity .5s, transform .5s var(--suave); }
+.pisos:hover a span, .pisos a.on span { opacity: 1; transform: none; }
+.pisos a.on { color: var(--blanco); }
+.pisos a.on i { background: var(--verde); box-shadow: 0 0 12px var(--verde); transform: scale(1.4); }
+@media (max-width: 1099px) { .pisos { display: none; } }
+/* Celular: barra delgada de avance arriba */
+.avance { position: fixed; left: 0; top: 0; z-index: 60; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--violeta), var(--verde)); }
+
+/* ---------- Elevador ---------- */
+/* Celular: riel de 1 px en la orilla derecha; el piso actual brilla y su número aparece 2 s */
+.riel { position: fixed; right: 9px; top: 50%; z-index: 44; width: 14px; height: 210px; transform: translateY(-50%); pointer-events: none; --lleno: 0%; }
+/* la vía: una línea de 1 px; lo recorrido se llena de verde poco a poco, desde el primer momento */
+.riel::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); background: rgba(244, 244, 247, .26); }
+.riel::after { content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: var(--lleno); transform: translateX(-50%); background: var(--verde); box-shadow: 0 0 8px rgba(37, 211, 102, .6); transition: height .25s linear; }
+.riel i { position: absolute; left: 50%; width: 3px; height: 1px; transform: translateX(-50%); background: rgba(244, 244, 247, .4); transition: background .5s; }
+.riel i.piso { width: 7px; background: rgba(244, 244, 247, .55); }
+.riel i.ok { background: var(--verde); }
+/* la punta: un puntito verde que va bajando contigo */
+.riel__punta { position: absolute; left: 50%; top: var(--lleno); width: 7px; height: 7px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--verde); box-shadow: 0 0 10px var(--verde), 0 0 0 3px rgba(37, 211, 102, .18); transition: top .25s linear; }
+.riel b { position: absolute; right: 16px; top: var(--lleno); transform: translateY(-50%); padding: 5px 8px; border-radius: 10px; background: rgba(5, 5, 5, .55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font: italic 500 15px/1 var(--f-display); color: var(--blanco); white-space: nowrap; opacity: 0; transition: opacity .6s var(--suave), top .25s linear; }
+.riel b small { display: block; margin-bottom: 3px; text-align: right; font: 600 8px var(--f-texto); font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: var(--verde); }
+.riel b.ve { opacity: 1; }
+/* Si te quedas quieto: una luz baja por la vía y aparece una flechita al final, invitando a seguir */
+.riel__pulso { position: absolute; left: 50%; top: var(--lleno); width: 3px; height: 16px; border-radius: 3px; transform: translateX(-50%); background: linear-gradient(180deg, rgba(37, 211, 102, 0), var(--verde)); box-shadow: 0 0 8px rgba(37, 211, 102, .8); opacity: 0; }
+.riel.invita .riel__pulso { animation: pulso-baja 1.7s cubic-bezier(.55, 0, .3, 1) infinite; }
+@keyframes pulso-baja { 0% { top: var(--lleno); opacity: 0; } 18%, 80% { opacity: 1; } 100% { top: calc(100% - 16px); opacity: 0; } }
+.riel__baja { position: absolute; left: 50%; top: calc(100% + 5px); width: 14px; height: 14px; margin-left: -7px; color: var(--verde); opacity: 0; transition: opacity .5s var(--suave); }
+.riel.invita .riel__baja { opacity: 1; animation: baja 1.7s var(--suave) infinite; }
+/* Celular: al llegar, una línea fina con un puntito que cae; se va en cuanto bajas */
+.desliza { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 44; display: grid; justify-items: center; gap: 7px; transform: translateX(-50%); pointer-events: none; transition: opacity .6s var(--suave); }
+.desliza span { position: relative; width: 1px; height: 38px; overflow: hidden; background: linear-gradient(180deg, rgba(244, 244, 247, 0), rgba(244, 244, 247, .35)); }
+.desliza span::after { content: ""; position: absolute; left: -2px; top: -6px; width: 5px; height: 5px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 8px var(--verde); animation: cae 2s cubic-bezier(.6, 0, .3, 1) infinite; }
+.desliza small { font: 500 9px var(--f-texto); letter-spacing: .32em; text-transform: uppercase; color: rgba(201, 197, 230, .7); }
+.desliza.ido { opacity: 0; }
+@keyframes cae { 0% { top: -6px; opacity: 0; } 20%, 80% { opacity: 1; } 100% { top: 38px; opacity: 0; } }
+/* Computadora: el mismo riel, un poco más alto; reemplaza la lista de pisos de la derecha */
+@media (min-width: 900px) {
+  .riel { right: 22px; height: 280px; }
+  .riel b { font-size: 17px; }
+  .pisos { display: none !important; }
+  #llegada { padding-bottom: 110px; }
+}
+@media (max-width: 899px) { #llegada { padding-bottom: 104px; } }   /* espacio para el "desliza" */
+@media (prefers-reduced-motion: reduce) { .desliza span::after, .riel.invita .riel__pulso, .riel.invita .riel__baja { animation: none; } .riel.invita .riel__pulso { opacity: 0; } }
+
+/* ---------- PROPUESTA: equipo con la demo viva en cada piso ---------- */
+.equipo { position: relative; justify-self: center; width: var(--eq, min(250px, 58vw)); perspective: 1500px; }
+.equipo__flota { transform-style: preserve-3d; }
+.escena.activa .equipo__flota { animation: eq-flota 6s ease-in-out 1.7s infinite; }
+@keyframes eq-flota { 0%, 100% { transform: translateY(0) rotateY(0); } 50% { transform: translateY(-8px) rotateY(2.5deg); } }
+.equipo__marco { position: relative; padding: 9px; border-radius: 38px; background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28);
+  box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 50px 100px -40px rgba(124, 92, 255, .95), 0 0 70px -20px rgba(37, 211, 102, .35);
+  transform-origin: 50% 100%; transition: transform 1.5s var(--suave), opacity 1s var(--suave); }
+.equipo__pantalla { position: relative; overflow: hidden; border-radius: 30px; aspect-ratio: 390 / 844; background: #07060d; }
+.equipo__pantalla::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(169, 147, 255, .12) 50%, transparent 70%) 0 0 / 200% 100%; animation: eq-carga 1.6s linear infinite; }
+@keyframes eq-carga { to { background-position: -200% 0; } }
+.equipo__pantalla iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; pointer-events: none; opacity: 0; transition: opacity .8s var(--suave); background: #050505; }
+.equipo__pantalla iframe.lista { opacity: 1; }
+.equipo__base { display: none; }
+/* celular: llega de lejos, girando, y se acomoda */
+.equipo--tel .equipo__marco { opacity: 0; transform: translate3d(34%, -16%, -760px) rotateY(-42deg) rotateX(16deg); }
+.equipo--tel .equipo__marco::before { content: ""; position: absolute; z-index: 2; top: 17px; left: 50%; width: 30%; height: 17px; transform: translateX(-50%); border-radius: 999px; background: #050505; }
+.escena.activa .equipo--tel .equipo__marco { opacity: 1; transform: rotateY(-9deg) rotateX(3deg); }
+/* laptop: la tapa se abre */
+.equipo--lap { --eq: min(560px, 44vw); perspective: 1800px; }
+.equipo--lap .equipo__marco { padding: 10px 10px 12px; border-radius: 16px 16px 4px 4px; transform: rotateX(-88deg); }
+.equipo--lap .equipo__pantalla { border-radius: 8px; aspect-ratio: 1280 / 800; }
+.escena.activa .equipo--lap .equipo__marco { transform: rotateX(0); }
+.equipo--lap .equipo__base { display: block; position: relative; height: 14px; margin: 0 -7%; border-radius: 3px 3px 14px 14px; background: linear-gradient(180deg, #3a3848, #15141d); box-shadow: 0 30px 50px -18px rgba(0, 0, 0, .9), 0 0 0 1px rgba(244, 244, 247, .1); }
+.equipo--lap .equipo__base::before { content: ""; position: absolute; left: 50%; top: 0; width: 16%; height: 5px; transform: translateX(-50%); border-radius: 0 0 8px 8px; background: #0c0b12; }
+/* "Toca para probarlo": toda la pantalla es botón */
+.equipo__toca { position: absolute; inset: 0; z-index: 3; display: grid; align-items: end; justify-items: center; padding: 0 0 12%; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.equipo--lap .equipo__toca { padding-bottom: 9%; }
+.equipo__toca span { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 9px 18px; border-radius: 999px; background: var(--verde); color: var(--verde-oscuro); font: 700 .88rem var(--f-texto); box-shadow: 0 14px 34px -10px rgba(0, 0, 0, .8); opacity: 0; transform: translateY(8px); transition: opacity .6s var(--suave) 1.5s, transform .6s var(--suave) 1.5s; }
+.equipo__toca span::after { content: ""; position: absolute; inset: -6px; border-radius: inherit; border: 2px solid var(--verde); opacity: 0; animation: respira 2.6s var(--suave) infinite; }
+.escena.activa .equipo__toca span { opacity: 1; transform: none; }
+.equipo__toca:focus-visible { outline: 2px solid var(--verde); outline-offset: 6px; border-radius: 30px; }
+@media (max-width: 899px) { .equipo { --eq: min(230px, 60vw); margin-top: 6px; } }
+@media (prefers-reduced-motion: reduce) { .equipo__marco { transform: none !important; opacity: 1 !important; } .equipo__flota { animation: none !important; } }
+
+/* ---------- PROPUESTA: visor de demos encima de la torre ---------- */
+.visor { position: fixed; inset: 0; z-index: 90; display: grid; grid-template-rows: auto 1fr; background: rgba(5, 5, 5, .82); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); opacity: 0; transition: opacity .45s var(--suave); }
+.visor[hidden] { display: none; }
+.visor.abierto { opacity: 1; }
+.visor__barra { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+.visor__barra p { margin: 0 auto 0 4px; display: grid; min-width: 0; line-height: 1.15; }
+.visor__barra small { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--verde); }
+.visor__barra b { font-weight: 600; font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.visor__cerrar { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px 0 10px; border-radius: 999px; border: 1px solid rgba(244, 244, 247, .22); background: rgba(8, 7, 14, .6); color: var(--blanco); font: 600 .88rem var(--f-texto); cursor: pointer; }
+.visor__cerrar svg { width: 16px; height: 16px; }
+.visor__cerrar:hover { border-color: rgba(244, 244, 247, .5); }
+.visor__escena { display: grid; place-items: center; min-height: 0; padding: 0 10px 10px; perspective: 1600px; }
+.visor__equipo { width: 100%; height: 100%; max-height: 100%; display: grid; grid-template-rows: 1fr auto; opacity: 0; transform: translate3d(0, 6%, -500px) rotateX(14deg); transition: transform .9s var(--suave), opacity .6s var(--suave); }
+.visor.abierto .visor__equipo { opacity: 1; transform: none; }
+.visor__pantalla { min-height: 0; overflow: hidden; border-radius: 26px; padding: 7px; background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28); box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 40px 100px -30px rgba(124, 92, 255, .9); }
+.visor__pantalla iframe { display: block; width: 100%; height: 100%; border: 0; border-radius: 20px; background: #050505; }
+.visor__base { display: none; }
+@media (max-width: 899px) { .visor__cerrar span { display: none; } .visor__cerrar { padding: 0 12px; } }
+@media (min-width: 900px) {
+  .visor__barra { padding: 14px max(20px, calc((100vw - 1180px) / 2)); }
+  .visor__escena { padding: 4px 24px 26px; }
+  .visor--tel .visor__equipo { width: 404px; height: min(100%, 860px); }
+  .visor--tel .visor__pantalla { border-radius: 42px; padding: 9px; }
+  .visor--tel .visor__pantalla iframe { border-radius: 33px; }
+  .visor--lap .visor__equipo { width: min(1180px, 100%); height: min(100%, 760px); }
+  .visor--lap .visor__pantalla { border-radius: 16px 16px 4px 4px; padding: 10px 10px 12px; }
+  .visor--lap .visor__pantalla iframe { border-radius: 7px; }
+  .visor--lap .visor__base { display: block; height: 14px; margin: 0 -3%; border-radius: 3px 3px 14px 14px; background: linear-gradient(180deg, #3a3848, #15141d); box-shadow: 0 30px 50px -18px rgba(0, 0, 0, .9); }
+}
+html.con-visor { overflow: hidden; }
+html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .visor__equipo { transform: none !important; } }
+
+/* ---------- La mascota que guía ---------- */
+.mascota { position: fixed; z-index: 45; left: 0; top: 0; width: var(--m-w, 190px); pointer-events: none;
+  transform: translate3d(var(--m-x, 70vw), var(--m-y, 40vh), 0); transition: transform 1.2s var(--suave), width 1.2s var(--suave); }
+.mascota__in { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; pointer-events: auto; -webkit-tap-highlight-color: transparent; animation: flota 4.2s ease-in-out infinite; }
+.mascota__in:focus-visible { outline: 2px solid var(--verde); outline-offset: 6px; border-radius: 50%; }
+.mascota__juego { position: relative; display: block; transform-origin: 50% 85%; }
+/* Al tocarla: cuatro reacciones que se turnan, cortas y sin mover nada más de la página */
+.mascota.j-brinco .mascota__juego { animation: j-brinco .9s cubic-bezier(.3, .7, .3, 1); }
+.mascota.j-giro .mascota__juego { animation: j-giro 1s cubic-bezier(.45, .05, .25, 1); }
+.mascota.j-hola .mascota__juego { animation: j-hola 1s ease-in-out; }
+.mascota.j-latido .mascota__juego { animation: j-latido .8s ease-in-out; }
+@keyframes j-brinco { 0% { transform: none; } 20% { transform: translateY(6%) scale(1.08, .9); } 50% { transform: translateY(-34%) scale(.95, 1.06); } 78% { transform: translateY(0) scale(1.06, .94); } 100% { transform: none; } }
+@keyframes j-giro { 0% { transform: none; } 45% { transform: translateY(-22%) rotate(180deg) scale(1.05); } 100% { transform: rotate(360deg); } }
+@keyframes j-hola { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-10deg); } 40% { transform: rotate(9deg); } 60% { transform: rotate(-7deg); } 80% { transform: rotate(4deg); } }
+.mascota.j-baja .mascota__juego { animation: j-baja 1.25s ease-in-out 2; }
+@keyframes j-baja { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-7%); } 55% { transform: translateY(6%); } 70% { transform: translateY(2%); } 85% { transform: translateY(6%); } }
+@keyframes j-latido { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.14); } 55% { transform: scale(.96); } 75% { transform: scale(1.05); } }
+/* Chispas verdes y violetas que salen del monito */
+.chispas { position: absolute; left: 50%; top: 45%; width: 0; height: 0; pointer-events: none; }
+.chispas i { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; opacity: 0; background: var(--verde); box-shadow: 0 0 10px currentColor; color: var(--verde); }
+.chispas i:nth-child(even) { background: var(--violeta-luz); color: var(--violeta); width: 6px; height: 6px; }
+.mascota.chispea .chispas i { animation: chispa .9s cubic-bezier(.2, .7, .3, 1) forwards; }
+.chispas i:nth-child(1) { --dx: 0px; --dy: -90px; } .chispas i:nth-child(2) { --dx: 64px; --dy: -64px; }
+.chispas i:nth-child(3) { --dx: 90px; --dy: 0px; } .chispas i:nth-child(4) { --dx: 64px; --dy: 64px; }
+.chispas i:nth-child(5) { --dx: 0px; --dy: 80px; } .chispas i:nth-child(6) { --dx: -64px; --dy: 64px; }
+.chispas i:nth-child(7) { --dx: -90px; --dy: 0px; } .chispas i:nth-child(8) { --dx: -64px; --dy: -64px; }
+@keyframes chispa { 0% { opacity: 1; transform: translate(0, 0) scale(.4); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
+/* Una sola vez por visita: un aviso discreto de que se puede tocar */
+.mascota__toca { position: absolute; right: 100%; top: 38%; margin-right: 4px; white-space: nowrap; padding: 4px 10px; border-radius: 999px; font: 600 .7rem var(--f-texto); letter-spacing: .04em; color: var(--blanco); background: rgba(13, 10, 28, .9); border: 1px solid rgba(169, 147, 255, .45); opacity: 0; transition: opacity .6s; pointer-events: none; }
+.mascota.pista .mascota__toca { opacity: 1; }
+.mascota img { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transform: scale(.92); transition: opacity .6s var(--suave), transform .8s var(--suave); filter: drop-shadow(0 24px 40px rgba(124, 92, 255, .45)); }
+.mascota img.on { position: relative; opacity: 1; transform: none; }
+.mascota.voltea img.on { transform: scaleX(-1); }
+.mascota { transition: transform 1.2s var(--suave), width 1.2s var(--suave), opacity .5s var(--suave); }
+.mascota.fuera { opacity: 0; pointer-events: none; }
+.mascota.fuera .mascota__in { pointer-events: none; }
+@keyframes flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------- Quién te atiende: Ricardo ---------- */
+#fundador h2 { font-size: clamp(2.3rem, 4.2vw, 3.8rem); }
+#fundador .texto { max-width: 30rem; }
+.cara { display: none; }
+@media (min-width: 900px) { #fundador .dos { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 64px; } }
+.datos { list-style: none; margin: -8px 0 26px; padding: 0; display: flex; gap: 12px; }
+.datos li { display: grid; gap: 2px; min-width: 136px; padding: 12px 16px; border-radius: 18px; background: rgba(13, 10, 28, .72); border: 1px solid rgba(169, 147, 255, .35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.datos b { font: 500 2.2rem/1 var(--f-display); color: var(--verde); }
+.datos span { font-size: .84rem; color: var(--lavanda); }
+.ayudo { list-style: none; margin: -12px 0 28px; padding: 0; display: grid; gap: 10px; }
+.ayudo li { display: flex; align-items: center; gap: 12px; color: var(--blanco); font-weight: 500; }
+.ayudo b { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font: 500 1rem var(--f-display); color: var(--violeta-luz); border: 1px solid rgba(169, 147, 255, .5); }
+.retrato { position: relative; margin: 0; width: min(420px, 100%); justify-self: center; border-radius: 28px; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(244, 244, 247, .14), 0 50px 100px -40px rgba(124, 92, 255, .95), 0 0 70px -20px rgba(37, 211, 102, .25); }
+.retrato img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+.retrato figcaption { position: absolute; left: 14px; bottom: 14px; display: grid; gap: 1px; padding: 9px 14px; border-radius: 16px; background: rgba(8, 7, 14, .78); border: 1px solid rgba(244, 244, 247, .14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.retrato figcaption b { font: 500 1.05rem var(--f-display); }
+.retrato figcaption span { font-size: .74rem; color: var(--lavanda); }
+@media (max-width: 899px) {
+  #fundador .dos { gap: 22px; }
+  .datos { margin: -4px 0 20px; } .datos li { min-width: 0; flex: 1; padding: 10px 14px; } .datos b { font-size: 1.9rem; }
+  /* En celular tu cara aparece desde el primer momento, junto al título */
+  .cara { display: block; float: right; width: 84px; height: 84px; margin: 4px 0 6px 12px; border-radius: 50%; object-fit: cover;
+    box-shadow: 0 0 0 2px rgba(169, 147, 255, .7), 0 0 0 6px rgba(124, 92, 255, .18), 0 14px 30px -10px rgba(124, 92, 255, .8); }
+  .retrato { border-radius: 22px; }
+  .retrato img { aspect-ratio: 4 / 5; }
+  #fundador .frase { margin-bottom: 18px; }
+  .ayudo { margin: -2px 0 20px; gap: 8px; font-size: .95rem; }
+}
+
+/* ---------- Han confiado en nosotros: logos que corren despacio ---------- */
+.confian { flex-direction: column; justify-content: flex-end; align-items: stretch; gap: clamp(26px, 5vh, 46px); }
+.confian h2 { font-size: clamp(2.1rem, 4.6vw, 4rem); }
+.confian .texto { max-width: 46rem; }
+.escena.confian { align-items: stretch; }   /* en celular .escena alinea a la derecha: aquí la cinta va de lado a lado */
+.marquesina { width: 100%; min-width: 0; overflow: hidden; display: grid; gap: 8px; padding-block: 10px; background: rgba(5, 5, 5, .55); border-block: 1px solid var(--linea); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquesina__pista { display: flex; width: max-content; animation: correr 70s linear infinite; }
+.marquesina:hover .marquesina__pista, .marquesina.pausada .marquesina__pista { animation-play-state: paused; }
+.marquesina__fila { list-style: none; display: flex; align-items: center; margin: 0; padding: 0; }
+.marquesina__fila li { flex: none; display: grid; place-items: center; height: 120px; padding: 0 clamp(30px, 3.6vw, 56px); }
+/* Logos en blanco (un solo color), todos con el mismo peso visual */
+.marquesina__fila img { width: auto; height: 50px; max-width: 240px; object-fit: contain; opacity: .78; transition: opacity .4s; }
+.marquesina__fila img.medio { height: 58px; }
+.marquesina__fila img.cuadrado { height: 86px; }
+.marquesina__fila img.ancho { height: 40px; }
+.marquesina__fila li:hover img { opacity: 1; }
+@keyframes correr { to { transform: translateX(-50%); } }
+.pausa { min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--linea); background: rgba(8, 7, 14, .5); color: var(--lavanda); font: 500 .9rem var(--f-texto); cursor: pointer; }
+.pausa:hover { color: var(--blanco); border-color: rgba(244, 244, 247, .3); }
+@media (max-width: 899px) { .marquesina__fila li { height: 92px; padding: 0 24px; } .marquesina__fila img.medio { height: 44px; } .marquesina__fila img.cuadrado { height: 66px; } .marquesina__fila img.ancho { height: 30px; max-width: 190px; } }
+@media (prefers-reduced-motion: reduce) { .marquesina__pista { animation: none !important; } }
+
+/* ---------- Piso 1: celulares de ejemplo que se deslizan de lado ---------- */
+.escena.columna { flex-direction: column; justify-content: flex-end; align-items: stretch; gap: clamp(20px, 3.4vh, 34px); }
+#piso1 .frase { margin-bottom: 0; }
+#piso1 .texto { max-width: 46rem; }
+@media (min-width: 900px) { #piso1 .texto { max-width: 62rem; } #piso1 .frase { max-width: 40em; } }
+#piso1 h2 { font-size: clamp(2.3rem, 3.8vw, 3.3rem); }
+@media (min-width: 900px) { #piso1 { padding-top: calc(var(--header-h) + 14px); padding-bottom: 28px; } #piso1 .frase { margin-top: 14px; } }
+.vitrina { --tel: clamp(150px, 11.6vw, 178px); }
+.vitrina__pista { list-style: none; margin: 0; display: flex; gap: clamp(18px, 2.4vw, 34px); overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 14px max(20px, calc((100vw - 1180px) / 2)) 8px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.vitrina__pista::-webkit-scrollbar { display: none; }
+.vitrina__pista:focus-visible { outline: 2px solid var(--verde); outline-offset: -2px; }
+.vitrina__pista li { flex: none; width: var(--tel); scroll-snap-align: center; text-align: center; }
+.tel { position: relative; display: block; width: 100%; aspect-ratio: 390 / 844; padding: 7px; border-radius: 30px; text-decoration: none;
+  background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28); box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 30px 60px -30px rgba(124, 92, 255, .9);
+  transition: transform .5s var(--suave), box-shadow .5s var(--suave); }
+.tel::before { content: ""; position: absolute; z-index: 2; top: 13px; left: 50%; width: 30%; height: 13px; transform: translateX(-50%); border-radius: 999px; background: #050505; }
+.tel:hover, .tel:focus-visible { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(37, 211, 102, .6), 0 36px 70px -30px rgba(37, 211, 102, .7); }
+.tel__pantalla { display: block; width: 100%; height: 100%; border-radius: 24px; overflow: hidden; background: #000; }
+.tel__pantalla img { display: block; width: 100%; height: auto; }
+/* La página baja sola, despacio, como si alguien la estuviera viendo */
+.escena.activa .tel__pantalla img { animation: recorre 18s ease-in-out var(--d, 0s) infinite alternate; }
+.tel:hover .tel__pantalla img { animation-play-state: paused; }
+@keyframes recorre { 0%, 12% { transform: translateY(0); } 88%, 100% { transform: translateY(-53%); } }
+.tel__nombre { margin: 12px 0 0; font-weight: 600; font-size: .92rem; color: var(--blanco); }
+.tel__nombre small { display: block; margin-bottom: 2px; font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--verde); }
+.vitrina__mando { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 10px; padding: 0 20px; }
+.vitrina__mando p { margin: 0; font-size: .86rem; color: var(--lavanda); text-align: center; }
+.vitrina__flecha { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(244, 244, 247, .25); background: rgba(8, 7, 14, .6); color: var(--blanco); cursor: pointer; transition: background .3s, border-color .3s; }
+.vitrina__flecha svg { width: 18px; height: 18px; }
+.vitrina__flecha:hover { border-color: var(--verde); background: rgba(37, 211, 102, .14); }
+@media (max-width: 899px) {
+  .vitrina { --tel: 52vw; }
+  .vitrina__pista { padding-inline: calc(50vw - 26vw); }
+  .vitrina__mando p { font-size: .8rem; }
+}
+@media (prefers-reduced-motion: reduce) { .tel__pantalla img { animation: none !important; } }
+.tambien { margin: 18px 0 0; font-size: .9rem; color: var(--lavanda); }
+.tambien a { color: var(--blanco); font-weight: 600; text-decoration-color: rgba(37, 211, 102, .6); text-underline-offset: 4px; }
+@media (max-width: 899px) {
+  .dos { grid-template-columns: minmax(0, 1fr); }
+  .dos > .texto { min-width: 0; }
+}
+
+/* ---------- Piso 1: el celular con la página ---------- */
+.dos { display: grid; gap: 36px; align-items: end; }
+@media (min-width: 900px) { .dos { grid-template-columns: minmax(0, 1fr) auto; gap: 80px; align-items: center; } }
+.fone { position: relative; width: min(250px, 58vw); aspect-ratio: 390 / 844; border-radius: 40px; padding: 9px; justify-self: center;
+  background: linear-gradient(145deg, #2c2a38, #0c0b12 40%, #1d1b28); box-shadow: 0 0 0 1px rgba(244, 244, 247, .16), 0 50px 100px -40px rgba(124, 92, 255, .95), 0 0 70px -20px rgba(37, 211, 102, .35); }
+.fone::before { content: ""; position: absolute; z-index: 2; top: 17px; left: 50%; width: 30%; height: 18px; transform: translateX(-50%); border-radius: 999px; background: #050505; }
+.fone__pantalla { width: 100%; height: 100%; border-radius: 32px; overflow: hidden; background: #000; }
+.fone__pantalla img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.fone__etiqueta { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; font: 600 .8rem var(--f-texto); background: rgba(13, 10, 28, .95); border: 1px solid rgba(169, 147, 255, .45); }
+.fone__etiqueta::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); box-shadow: 0 0 8px var(--verde); }
+
+/* ---------- Piso 2: sin respuesta vs. con respuesta ---------- */
+.versus { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 6px 0 26px; max-width: 760px; }
+.chat { border-radius: 22px; overflow: hidden; background: rgba(10, 9, 18, .82); border: 1px solid var(--linea); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.chat__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 14px; font-weight: 700; font-size: .86rem; border-bottom: 1px solid var(--linea); }
+.chat__top small { font-weight: 600; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+.chat--sin .chat__top small { color: var(--rojo); }
+.chat--con { border-color: rgba(37, 211, 102, .45); box-shadow: 0 30px 70px -40px rgba(37, 211, 102, .7); }
+.chat--con .chat__top small { color: var(--verde); }
+.chat__msgs { display: grid; gap: 7px; padding: 12px; min-height: 196px; align-content: start; }
+.m { max-width: 92%; padding: 8px 11px 6px; border-radius: 14px; font-size: .86rem; line-height: 1.35; opacity: 0; transform: translateY(10px); transition: opacity .7s var(--suave), transform .7s var(--suave); }
+.m small { display: block; margin-top: 2px; font-size: .68rem; text-align: right; color: rgba(201, 197, 230, .7); }
+.m.in { justify-self: start; background: #1c1928; border-bottom-left-radius: 4px; }
+.m.out { justify-self: end; background: linear-gradient(135deg, #1f8f4e, #25a75a); color: #fff; border-bottom-right-radius: 4px; }
+.m.out small { color: rgba(255, 255, 255, .85); }
+.m.aviso { justify-self: center; max-width: 100%; text-align: center; font-size: .76rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; }
+.chat--sin .m.aviso { color: var(--rojo); background: rgba(255, 107, 122, .1); border: 1px solid rgba(255, 107, 122, .35); }
+.chat--con .m.aviso { color: var(--verde); background: rgba(37, 211, 102, .1); border: 1px solid rgba(37, 211, 102, .4); }
+.m.ve { opacity: 1; transform: none; }
+@media (max-width: 520px) { .versus { gap: 8px; } .m { font-size: .78rem; padding: 7px 9px 5px; } .chat__top { padding: 9px 10px; font-size: .78rem; } .chat__top small { font-size: .6rem; } .chat__msgs { padding: 9px; min-height: 180px; } }
+
+
+/* ---------- Pisos 3 a 7: un visual sencillo por piso ---------- */
+.visual { position: relative; width: min(360px, 100%); justify-self: center; margin: 0; padding: 18px; border-radius: 24px; list-style: none;
+  background: rgba(10, 9, 18, .84); border: 1px solid var(--linea); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 40px 90px -50px rgba(124, 92, 255, .9); }
+.visual small { font-weight: 600; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(201, 197, 230, .6); }
+.visual__t { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 0 0 14px; font-weight: 700; font-size: .9rem; }
+
+/* Piso 3 · ARM: el cliente baja solo de etapa en etapa */
+.tablero { padding-bottom: 20px; }
+.etapas { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.etapas li { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 46px; padding: 8px 14px 8px 60px; border-radius: 14px; background: rgba(244, 244, 247, .04); border: 1px solid var(--linea); transition: border-color .8s var(--suave), background .8s var(--suave); }
+.etapas b { font-size: .9rem; } .etapas span { font-size: .74rem; color: rgba(201, 197, 230, .7); text-align: right; }
+.etapas li.aqui { border-color: rgba(169, 147, 255, .55); background: rgba(124, 92, 255, .12); }
+.etapas li.caliente.aqui { border-color: rgba(37, 211, 102, .6); background: rgba(37, 211, 102, .12); }
+.etapas li.caliente.aqui b { color: var(--verde); }
+.cliente { position: absolute; left: 26px; top: 0; display: flex; align-items: center; gap: 6px; transform: translateY(var(--c-y, 60px)); transition: transform 1.1s var(--suave); }
+.cliente i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font: 700 .72rem var(--f-texto); font-style: normal; color: var(--verde-oscuro); background: linear-gradient(135deg, var(--verde), #9af0bb); box-shadow: 0 0 0 3px rgba(37, 211, 102, .2); }
+.cliente span { display: none; }
+
+/* Piso 4 · Automatizaciones: mensajes que salen solos */
+.linea { display: grid; gap: 10px; }
+.linea li { position: relative; display: grid; gap: 2px; padding: 12px 14px 12px 40px; border-radius: 16px; background: rgba(244, 244, 247, .04); border: 1px solid var(--linea); opacity: .25; transition: opacity .9s var(--suave), border-color .9s var(--suave); }
+.linea li::before { content: ""; position: absolute; left: 16px; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: rgba(244, 244, 247, .3); transition: background .9s, box-shadow .9s; }
+.linea time { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--violeta-luz); }
+.linea b { font-size: .92rem; font-weight: 600; }
+.linea span { font-size: .74rem; color: rgba(201, 197, 230, .7); }
+.linea li.ve { opacity: 1; border-color: rgba(37, 211, 102, .35); }
+.linea li.ve::before { background: var(--verde); box-shadow: 0 0 10px var(--verde); }
+.linea li.ve span { color: var(--verde); }
+
+/* Piso 5 · Que te encuentre la IA */
+.busca { display: grid; gap: 12px; }
+.busca__q { margin: 0; padding: 12px 14px; border-radius: 16px; background: rgba(244, 244, 247, .06); font-size: .92rem; }
+.busca__q span { color: var(--violeta-luz); margin-right: 4px; }
+.busca__r { padding: 14px; border-radius: 16px; border: 1px solid rgba(37, 211, 102, .4); background: rgba(37, 211, 102, .06); }
+.busca__r p { margin: 0; }
+.busca__n { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 700; }
+.busca__e { margin-top: 4px !important; font-size: .78rem; color: var(--lavanda); }
+.estrellas { color: #f5c04a; letter-spacing: 1px; }
+.busca__a { display: flex; gap: 8px; margin-top: 12px !important; font-size: .78rem; font-weight: 600; }
+.busca__a span { padding: 7px 11px; border-radius: 999px; border: 1px solid var(--linea); }
+.busca__a .wa { background: var(--verde); color: var(--verde-oscuro); border-color: transparent; }
+
+/* Piso 6 · Tarjeta de lealtad */
+.sellos__t { display: grid; gap: 2px; margin: 0 0 14px; font: 600 1.3rem/1.1 var(--f-display); }
+.sellos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.sellos__grid i { aspect-ratio: 1; border-radius: 50%; border: 1.5px dashed rgba(244, 244, 247, .3); transition: background .6s var(--suave), border-color .6s, transform .6s var(--suave); }
+.sellos__grid i.ve { background: radial-gradient(circle at 35% 30%, #9af0bb, var(--verde) 60%); border: 1.5px solid var(--verde); transform: scale(1.04); }
+.sellos__p { margin: 14px 0 0; font-size: .84rem; color: var(--lavanda); }
+.sellos__p b { color: var(--verde); }
+
+/* Piso 7 · Capacitación */
+.modulos { display: grid; gap: 10px; }
+.modulos li { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; background: rgba(244, 244, 247, .04); border: 1px solid var(--linea); }
+.modulos b { font: 500 1.5rem/1 var(--f-display); color: var(--violeta-luz); }
+.modulos span { font-weight: 600; }
+
+/* Azotea · Próximamente */
+.proximo { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px; border-radius: 999px; font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--violeta-luz); border: 1px solid rgba(169, 147, 255, .45); background: rgba(13, 10, 28, .6); }
+.fuente { margin: 22px 0 0; font-size: .76rem; line-height: 1.5; color: rgba(201, 197, 230, .62); max-width: 30rem; }
+
+@media (min-width: 1100px) { .escena .dos { padding-right: 170px; } }   /* deja libre el indicador de pisos */
+@media (max-width: 899px) {
+  .visual { width: 100%; padding: 14px; border-radius: 20px; }
+  .escena .dos { gap: 22px; }
+  .escena .dos .frase { margin: 14px 0 18px; }
+  .linea li { padding: 9px 12px 9px 36px; } .linea li::before { left: 14px; top: 15px; }
+  .etapas li { min-height: 40px; }
+  .modulos li { padding: 10px 12px; }
+  .sellos__grid { gap: 8px; } .sellos__grid i { max-width: 52px; justify-self: center; width: 100%; }
+}
+
+@media (max-width: 899px) {
+  .escena { align-items: flex-end; }
+  .fondo::after { background: linear-gradient(180deg, rgba(5,5,5,.55) 0%, rgba(5,5,5,.08) 28%, rgba(5,5,5,.55) 55%, rgba(5,5,5,.94) 100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .aparece, .m { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#llegada">Saltar al contenido</a>
+<div class="avance" id="avance" aria-hidden="true"></div>
+
+<!-- Fondo: una escena de la torre por sección -->
+<div class="fondo" aria-hidden="true">
+  <figure data-fondo="lejana" class="on"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/lejana-movil.webp"><img src="../assets/v6/torre/lejana-2560.webp" srcset="../assets/v6/torre/lejana-1600.webp 1600w, ../assets/v6/torre/lejana-2560.webp 2560w, ../assets/v6/torre/lejana-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="acerca"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/acerca-movil.webp"><img src="../assets/v6/torre/acerca-2560.webp" srcset="../assets/v6/torre/acerca-1600.webp 1600w, ../assets/v6/torre/acerca-2560.webp 2560w, ../assets/v6/torre/acerca-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="calle"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/calle-movil.webp"><img src="../assets/v6/torre/calle-2560.webp" srcset="../assets/v6/torre/calle-1600.webp 1600w, ../assets/v6/torre/calle-2560.webp 2560w, ../assets/v6/torre/calle-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="oficina"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/oficina-movil.webp"><img src="../assets/v6/torre/oficina-2560.webp" srcset="../assets/v6/torre/oficina-1600.webp 1600w, ../assets/v6/torre/oficina-2560.webp 2560w, ../assets/v6/torre/oficina-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="elevador"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/elevador-movil.webp"><img src="../assets/v6/torre/elevador-2560.webp" srcset="../assets/v6/torre/elevador-1600.webp 1600w, ../assets/v6/torre/elevador-2560.webp 2560w, ../assets/v6/torre/elevador-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="azotea"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/azotea-movil.webp"><img src="../assets/v6/torre/azotea-2560.webp" srcset="../assets/v6/torre/azotea-1600.webp 1600w, ../assets/v6/torre/azotea-2560.webp 2560w, ../assets/v6/torre/azotea-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="ciudad"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/ciudad-movil.webp"><img src="../assets/v6/torre/ciudad-2560.webp" srcset="../assets/v6/torre/ciudad-1600.webp 1600w, ../assets/v6/torre/ciudad-2560.webp 2560w, ../assets/v6/torre/ciudad-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+</div>
+
+<header class="header">
+  <div class="header__in">
+    <a href="#llegada" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="../assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="84" height="28"></a>
+    <nav aria-label="Principal"><ul>
+      <li><a href="#cimientos">Cómo empezamos</a></li>
+      <li><a href="#piso1">Servicios</a></li>
+      <li><a href="#piso4">ARM</a></li>
+      <li><a href="#azotea">Próximamente</a></li>
+      <li><a href="#fundador">Quién soy</a></li>
+    </ul></nav>
+    <a class="btn btn--verde btn--chico" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">DIAGNÓSTICO</a>
+  </div>
+</header>
+
+<ol class="pisos" aria-label="Pisos de la torre">
+  <li><a href="#llegada" data-ir="llegada"><span>Llegada</span><i></i></a></li>
+  <li><a href="#torre" data-ir="torre"><span>Tu torre</span><i></i></a></li>
+  <li><a href="#cimientos" data-ir="cimientos"><span>Cimientos</span><i></i></a></li>
+  <li><a href="#piso1" data-ir="piso1"><span>1 · Tu página</span><i></i></a></li>
+  <li><a href="#piso2" data-ir="piso2"><span>2 · Tu contenido</span><i></i></a></li>
+  <li><a href="#piso3" data-ir="piso3"><span>3 · Tu WhatsApp</span><i></i></a></li>
+  <li><a href="#piso4" data-ir="piso4"><span>4 · Tu ARM</span><i></i></a></li>
+  <li><a href="#piso5" data-ir="piso5"><span>5 · Tu local</span><i></i></a></li>
+  <li><a href="#piso6" data-ir="piso6"><span>6 · Que regresen</span><i></i></a></li>
+  <li><a href="#piso7" data-ir="piso7"><span>7 · Tu equipo</span><i></i></a></li>
+  <li><a href="#azotea" data-ir="azotea"><span>Azotea · Próximamente</span><i></i></a></li>
+  <li><a href="#fundador" data-ir="fundador"><span>El fundador</span><i></i></a></li>
+  <li><a href="#confian" data-ir="confian"><span>Referencias</span><i></i></a></li>
+  <li><a href="#cierre" data-ir="cierre"><span>Diagnóstico</span><i></i></a></li>
+</ol>
+
+<!-- Elevador: en celular un riel fino en la orilla; en computadora una pastilla abajo -->
+<div class="riel" id="riel" aria-hidden="true"><span class="riel__punta"></span><em class="riel__pulso"></em><b id="rielTxt"></b><svg class="riel__baja" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l4 4 4-4"/></svg></div>
+<div class="desliza" id="desliza" aria-hidden="true"><span></span><small>Desliza</small></div>
+
+<!-- La mascota: cambia de pose y de lugar en cada escena -->
+<div class="mascota" id="mascota"><button class="mascota__in" type="button" aria-label="Tocar a la mascota de ZOLKO"><span class="mascota__juego">
+  <img data-pose="saluda" class="on" src="../assets/v6/mascota/saluda-900.webp" alt="" width="900" height="853">
+  <img data-pose="arriba" src="../assets/v6/mascota/arriba-900.webp" alt="" width="837" height="900">
+  <img data-pose="piensa" src="../assets/v6/mascota/piensa-900.webp" alt="" width="757" height="900">
+  <img data-pose="senala" src="../assets/v6/mascota/senala-900.webp" alt="" width="900" height="764">
+  <img data-pose="celebra" src="../assets/v6/mascota/celebra-900.webp?v=2" alt="" width="535" height="900">
+  <img data-pose="salta" src="../assets/v6/mascota/salta-900.webp" alt="" width="900" height="736">
+  <img data-pose="abajo" src="../assets/v6/mascota/abajo-900.webp" alt="" width="817" height="900" loading="lazy">
+</span><span class="mascota__toca" aria-hidden="true">¡Tócame!</span><span class="chispas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div>
+
+<!-- Visor: la demo se abre aquí, encima de la torre, dentro de un celular o una laptop -->
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-labelledby="visorNombre" hidden>
+  <div class="visor__barra">
+    <button type="button" class="visor__cerrar" id="visorCerrar"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg><span>Volver a la torre</span></button>
+    <p><small>Demo</small><b id="visorNombre"></b></p>
+    <a class="btn btn--verde btn--chico" id="visorQuiero" target="_blank" rel="noopener" href="https://wa.me/523343230958">Quiero esto</a>
+  </div>
+  <div class="visor__escena"><div class="visor__equipo" id="visorEquipo"><div class="visor__pantalla"><iframe id="visorMarco" title="Demo"></iframe></div><div class="visor__base"></div></div></div>
+</div>
+
+<main>
+  <!-- LLEGADA -->
+  <section class="escena" id="llegada" data-fondo="lejana" data-pose="saluda" aria-labelledby="t-llegada">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">ZOLKO INTEGRATIONS</p>
+      <h1 id="t-llegada" class="aparece">Primero entendemos. <em>Después integramos.</em></h1>
+      <p class="frase aparece">Inteligencia artificial que se adapta a tu negocio, no al revés. La integramos para que vendas más.</p>
+      <div class="acciones aparece">
+        <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Agenda tu diagnóstico</a>
+        <a class="bajar" href="#torre">Sube a la torre <span aria-hidden="true">↓</span></a>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- TU TORRE -->
+  <section class="escena" id="torre" data-fondo="acerca" data-pose="arriba" aria-labelledby="t-torre">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Tu torre</p>
+      <h2 id="t-torre" class="aparece">Tu negocio, <em>piso por piso.</em></h2>
+      <p class="frase aparece">Cada piso es algo que hacemos por ti. Súbete y míralo funcionando.</p>
+    </div></div>
+  </section>
+
+  <!-- CIMIENTOS -->
+  <section class="escena" id="cimientos" data-fondo="calle" data-pose="piensa" aria-labelledby="t-cim">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Cimientos</p>
+      <h2 id="t-cim" class="aparece">Primero entendemos <em>tu negocio.</em></h2>
+      <p class="frase aparece">Un diagnóstico de 30 minutos: la radiografía de cómo vendes hoy y dónde se te van los clientes.</p>
+    </div></div>
+  </section>
+
+  <!-- PISO 1 · TU PÁGINA: ejemplos en celulares reales que se deslizan de lado -->
+  <section class="escena columna" id="piso1" data-fondo="oficina" data-pose="senala" data-ancla="confian" aria-labelledby="t-p1">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Piso 1 · Tu página</p>
+      <h2 id="t-p1" class="aparece">Que te encuentren <em>y te escriban.</em></h2>
+      <p class="frase aparece">Estos son ejemplos. Hacemos la página de tu negocio, sea cual sea, y lleva al cliente directo a tu WhatsApp.</p>
+    </div></div>
+    <div class="vitrina aparece">
+      <ul class="vitrina__pista" id="vitrina" tabindex="0" aria-label="Páginas de ejemplo. Desliza de lado para ver más y toca una para abrirla."><li><a class="tel" href="demos/taqueria.html" aria-label="Ver la página de ejemplo de taquería"><span class="tel__pantalla"><img src="../assets/v6/vitrina/taqueria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:0s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Taquería</p></li><li><a class="tel" href="demos/restaurante.html" aria-label="Ver la página de ejemplo de restaurante"><span class="tel__pantalla"><img src="../assets/v6/vitrina/restaurante.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:2s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Restaurante</p></li><li><a class="tel" href="demos/unas.html" aria-label="Ver la página de ejemplo de estudio de uñas"><span class="tel__pantalla"><img src="../assets/v6/vitrina/unas.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:4s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Estudio de uñas</p></li><li><a class="tel" href="demos/panaderia.html" aria-label="Ver la página de ejemplo de panadería"><span class="tel__pantalla"><img src="../assets/v6/vitrina/panaderia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:6s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Panadería</p></li><li><a class="tel" href="demos/joyeria.html" aria-label="Ver la página de ejemplo de joyería"><span class="tel__pantalla"><img src="../assets/v6/vitrina/joyeria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:8s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Joyería</p></li><li><a class="tel" href="demos/car-wash.html" aria-label="Ver la página de ejemplo de car wash"><span class="tel__pantalla"><img src="../assets/v6/vitrina/car-wash.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:10s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Car wash</p></li><li><a class="tel" href="demos/consultorio.html" aria-label="Ver la página de ejemplo de consultorio"><span class="tel__pantalla"><img src="../assets/v6/vitrina/consultorio.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:12s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Consultorio</p></li><li><a class="tel" href="demos/academia.html" aria-label="Ver la página de ejemplo de academia de música"><span class="tel__pantalla"><img src="../assets/v6/vitrina/academia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:14s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Academia de música</p></li><li><a class="tel" href="demos/inmobiliaria.html" aria-label="Ver la página de ejemplo de inmobiliaria"><span class="tel__pantalla"><img src="../assets/v6/vitrina/inmobiliaria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:16s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Inmobiliaria</p></li></ul>
+      <div class="vitrina__mando">
+        <button type="button" class="vitrina__flecha" data-dir="-1" aria-label="Ejemplo anterior"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <p>Desliza y toca un celular para ver la página completa</p>
+        <button type="button" class="vitrina__flecha" data-dir="1" aria-label="Siguiente ejemplo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 2 · TU CONTENIDO -->
+  <section class="escena" id="piso2" data-fondo="elevador" data-pose="arriba" data-ancla="visual" aria-labelledby="t-p2">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 2 · Tu contenido</p>
+        <h2 id="t-p2" class="aparece">Publicaciones que hacen <em>que te escriban.</em></h2>
+        <p class="frase aparece">Cada publicación responde lo que tus clientes ya preguntan y termina invitando a escribirte.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/contenido.html">Ver una semana de contenido</a></div>
+      </div>
+      <ul class="visual linea aparece" data-linea aria-label="Ejemplo de una semana de publicaciones">
+        <li><time>Lunes · Reel</time><b>¿Nunca has tocado un instrumento?</b><span>Cierra con: «Escríbenos»</span></li>
+        <li><time>Miércoles · Historia</time><b>Encuesta: ¿qué te gustaría aprender?</b><span>Cierra con: «Responde y te contamos»</span></li>
+        <li><time>Viernes · Carrusel</time><b>Mitos de aprender música de adulto</b><span>Cierra con: «Agenda tu clase muestra»</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PISO 3 · TU WHATSAPP -->
+  <section class="escena" id="piso3" data-fondo="oficina" data-pose="celebra" aria-labelledby="t-p3">
+    <div class="in"><div class="texto" style="max-width:48rem">
+      <p class="eyebrow aparece">Piso 3 · Tu WhatsApp</p>
+      <h2 id="t-p3" class="aparece">Sin respuesta, se van. <em>Con ZOLKO, compran.</em></h2>
+      <div class="versus aparece" role="img" aria-label="El mismo cliente escribe a dos negocios. Sin ZOLKO nadie contesta y se va con la competencia. Con ZOLKO le contestan al momento y aparta su cita.">
+        <div class="chat chat--sin">
+          <div class="chat__top">Tu negocio hoy <small>Sin ZOLKO</small></div>
+          <div class="chat__msgs" data-chat>
+            <div class="m in">Hola, ¿tienen lugar para hoy?<small>11:48 p.m.</small></div>
+            <div class="m in">¿Cuánto cuesta?<small>11:52 p.m.</small></div>
+            <div class="m in">Bueno, ya no 👋<small>12:30 a.m.</small></div>
+            <div class="m aviso">Se fue con la competencia</div>
+          </div>
+        </div>
+        <div class="chat chat--con">
+          <div class="chat__top">Tu negocio con ZOLKO <small>Al momento</small></div>
+          <div class="chat__msgs" data-chat>
+            <div class="m in">Hola, ¿tienen lugar para hoy?<small>11:48 p.m.</small></div>
+            <div class="m out">¡Sí! Hay a las 10:00 y a las 12:30. ¿Te aparto?<small>11:48 p.m.</small></div>
+            <div class="m in">A las 10, porfa<small>11:49 p.m.</small></div>
+            <div class="m aviso">Cita apartada ✓</div>
+          </div>
+        </div>
+      </div>
+      <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/automatizacion.html">Probar el WhatsApp con IA</a></div>
+    </div></div>
+  </section>
+
+  <!-- PISO 4 · TU ARM (incluye las automatizaciones) -->
+  <section class="escena" id="piso4" data-fondo="oficina" data-pose="senala" data-ancla="visual" aria-labelledby="t-p4">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 4 · Tu ARM</p>
+        <h2 id="t-p4" class="aparece">El CRM ya no existe. <em>Ahora es el ARM.</em></h2>
+        <p class="frase aparece">Tu base de clientes con seguimiento automático: confirmaciones, recordatorios y recompras salen solas, y cada cliente pasa de etapa hasta quedar listo para comprar.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/arm.html">Probar el ARM</a></div>
+      </div>
+      <div class="equipo" data-demo="demos/arm.html" data-nombre="ARM" data-tipo="lap">
+        <div class="equipo__flota"><div class="equipo__marco"><div class="equipo__pantalla"></div></div><div class="equipo__base"></div></div>
+        <button type="button" class="equipo__toca" aria-label="Probar la demo de ARM"><span>Toca para probarlo</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 5 · TU LOCAL (QR, NFC y reseñas → Google y la IA) -->
+  <section class="escena" id="piso5" data-fondo="acerca" data-pose="piensa" data-ancla="visual" aria-labelledby="t-p5">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 5 · Tu local</p>
+        <h2 id="t-p5" class="aparece">Del mostrador <em>a Google.</em></h2>
+        <p class="frase aparece">Menú por QR, NFC para dejar reseña y tarjetas para tu equipo. Más reseñas hacen que Google Maps y la IA te recomienden.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/landing-sucursal.html">Probar la página con reseñas</a></div>
+        <p class="tambien aparece">También en tu local: <a href="demos/menu-digital.html">Menú digital por QR</a> · <a href="demos/tarjeta-digital.html">Tarjeta NFC</a></p>
+      </div>
+      <div class="visual busca aparece" role="img" aria-label="Ejemplo: alguien pregunta a una inteligencia artificial por tacos cerca y aparece una taquería con su ubicación, sus reseñas y su botón de WhatsApp.">
+        <p class="busca__q"><span>✦</span> ¿Dónde hay buenos tacos cerca de mí?</p>
+        <div class="busca__r">
+          <p class="busca__n">Taquería La Lumbre <small>Ejemplo</small></p>
+          <p class="busca__e"><span class="estrellas">★★★★★</span> Reseñas en Google · Abierto ahora</p>
+          <p class="busca__a"><span>📍 Cómo llegar</span><span class="wa">Pedir por WhatsApp</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 6 · LEALTAD -->
+  <section class="escena" id="piso6" data-fondo="calle" data-pose="celebra" data-ancla="visual" aria-labelledby="t-p6">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 6 · Que regresen</p>
+        <h2 id="t-p6" class="aparece">Clientes que <em>vuelven solos.</em></h2>
+        <p class="frase aparece">Tarjeta de lealtad en el celular de tu cliente: suma sellos y le recuerda volver.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/tarjeta-lealtad.html">Probar la tarjeta de lealtad</a></div>
+      </div>
+      <div class="equipo" data-demo="demos/tarjeta-lealtad.html" data-nombre="Tarjeta de lealtad" data-tipo="tel">
+        <div class="equipo__flota"><div class="equipo__marco"><div class="equipo__pantalla"></div></div><div class="equipo__base"></div></div>
+        <button type="button" class="equipo__toca" aria-label="Probar la demo de Tarjeta de lealtad"><span>Toca para probarlo</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PISO 7 · IA PARA TU NEGOCIO -->
+  <section class="escena" id="piso7" data-fondo="oficina" data-pose="saluda" data-ancla="visual" aria-labelledby="t-p7">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Piso 7 · Tu equipo</p>
+        <h2 id="t-p7" class="aparece">Tú y tu equipo, <em>usando la IA.</em></h2>
+        <p class="frase aparece">Talleres prácticos para contestar, cotizar y vender mejor con inteligencia artificial.</p>
+        <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="demos/capacitacion.html">Ver la capacitación</a></div>
+      </div>
+      <ul class="visual modulos aparece" aria-label="Lo que aprende tu equipo">
+        <li><b>01</b><span>Contestar rápido y bien</span></li>
+        <li><b>02</b><span>IA en el día a día</span></li>
+        <li><b>03</b><span>Seguimiento con el ARM</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- AZOTEA · PRÓXIMAMENTE -->
+  <section class="escena" id="azotea" data-fondo="azotea" data-pose="senala" data-ancla="boton" aria-labelledby="t-az">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Azotea · Próximamente</p>
+      <h2 id="t-az" class="aparece">Checador digital: <em>la nueva ley ya viene.</em></h2>
+      <p class="frase aparece">Desde 2027, los negocios deberán registrar de forma electrónica las entradas, salidas y horas extra de su equipo. ¿El tuyo ya está listo?</p>
+      <div class="acciones aparece">
+        <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=CHECADOR" target="_blank" rel="noopener">Quiero estar listo</a>
+        <span class="proximo">Próximamente en ZOLKO</span>
+      </div>
+      <p class="fuente aparece">Reforma a la Ley Federal del Trabajo publicada en el Diario Oficial el 1 de mayo de 2026. La STPS publicará las reglas del registro.</p>
+    </div></div>
+  </section>
+
+  <!-- EL FUNDADOR (al terminar los pisos) -->
+  <section class="escena" id="fundador" data-fondo="lejana" data-pose="saluda" data-ancla="visual" aria-labelledby="t-fun">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">El fundador de esta torre</p>
+        <h2 id="t-fun" class="aparece"><img class="cara" src="../assets/v6/ricardo/ricardo-cara.webp" alt="" width="240" height="240">Ricardo Vergara. <em>Así lo hacemos.</em></h2>
+        <p class="frase aparece">Fundador de ZOLKO INTEGRATIONS. IA, automatización y estrategia comercial para que tu negocio venda más.</p>
+        <ul class="datos aparece" aria-label="Experiencia de Ricardo">
+          <li><b>+8</b><span>años en ventas</span></li>
+          <li><b>4</b><span>años en franquicias</span></li>
+        </ul>
+        <ul class="ayudo aparece" aria-label="Cómo te ayudo">
+          <li><b>1</b><span>Hago tu diagnóstico y entiendo cómo vendes hoy.</span></li>
+          <li><b>2</b><span>Integro tu página, tu WhatsApp con IA y tu ARM.</span></li>
+          <li><b>3</b><span>Te enseño a ti y a tu equipo a usarlos.</span></li>
+        </ul>
+        <div class="acciones aparece">
+          <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Escríbeme DIAGNÓSTICO</a>
+          <a class="bajar" href="demos/tarjeta-digital.html">Ver mi tarjeta →</a>
+        </div>
+      </div>
+      <figure class="retrato aparece">
+        <img src="../assets/v6/ricardo/fundador.webp" srcset="../assets/v6/ricardo/fundador-600.webp 600w, ../assets/v6/ricardo/fundador.webp 1140w" sizes="(min-width: 900px) 420px, 100vw" alt="Ricardo Vergara, fundador de ZOLKO INTEGRATIONS, con los brazos cruzados y sonriendo" width="1140" height="1425" loading="lazy" decoding="async">
+        <figcaption><b>Ricardo Vergara</b><span>Fundador · ZOLKO INTEGRATIONS</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- HAN CONFIADO EN NOSOTROS (debajo del fundador) -->
+  <section class="escena confian" id="confian" data-fondo="ciudad" data-pose="salta" data-ancla="confian" aria-labelledby="t-conf">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Nuestras referencias</p>
+      <h2 id="t-conf" class="aparece">Negocios que ya confiaron <em>en Ricardo y en ZOLKO.</em></h2>
+    </div></div>
+    <div class="marquesina aparece" role="region" aria-label="Negocios que han trabajado con ZOLKO">
+      <div class="marquesina__pista"><ul class="marquesina__fila"><li><img class="ancho" src="../assets/v6/clientes/maria-montero-blanco.webp" alt="María Montero" width="640" height="95" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/los-parados-blanco.webp" alt="Los Parados de Sinaloa" width="314" height="320" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/eloisa-montero-blanco.webp" alt="Eloisa Montero Diamantes" width="693" height="318" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/vybra-blanco.webp" alt="VYBRA Sound & Light" width="306" height="320" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/plataforma-blanco.webp" alt="Plataforma Joyería" width="289" height="320" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/dhamira-blanco.webp" alt="Dhamira" width="311" height="320" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/el-marquez-blanco.webp" alt="Joyas El Márquez" width="847" height="320" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/guadalayork-blanco.webp" alt="Guadalayork Dance Festival" width="707" height="285" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/brillo-eterno-blanco.webp" alt="Brillo Eterno Joyería" width="471" height="260" decoding="async"></li><li><img class="ancho" src="../assets/v6/clientes/fisiomate-blanco.webp" alt="Fisiomate" width="753" height="221" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/dogs-california-blanco.webp" alt="Dogs California" width="323" height="320" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/mcommands-blanco.webp" alt="Mcommands" width="409" height="320" decoding="async"></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img class="ancho" src="../assets/v6/clientes/maria-montero-blanco.webp" alt="" width="640" height="95" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/los-parados-blanco.webp" alt="" width="314" height="320" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/eloisa-montero-blanco.webp" alt="" width="693" height="318" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/vybra-blanco.webp" alt="" width="306" height="320" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/plataforma-blanco.webp" alt="" width="289" height="320" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/dhamira-blanco.webp" alt="" width="311" height="320" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/el-marquez-blanco.webp" alt="" width="847" height="320" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/guadalayork-blanco.webp" alt="" width="707" height="285" decoding="async"></li><li><img class="medio" src="../assets/v6/clientes/brillo-eterno-blanco.webp" alt="" width="471" height="260" decoding="async"></li><li><img class="ancho" src="../assets/v6/clientes/fisiomate-blanco.webp" alt="" width="753" height="221" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/dogs-california-blanco.webp" alt="" width="323" height="320" decoding="async"></li><li><img class="cuadrado" src="../assets/v6/clientes/mcommands-blanco.webp" alt="" width="409" height="320" decoding="async"></li></ul></div>
+    </div>
+    <div class="in"><div class="acciones aparece">
+      <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">Quiero ser el siguiente</a>
+      <button class="pausa" type="button" id="mqPausa" aria-pressed="false">Pausar</button>
+    </div></div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="escena" id="cierre" data-fondo="ciudad" data-pose="senala" data-ancla="boton" aria-labelledby="t-cierre">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Tu siguiente paso</p>
+      <h2 id="t-cierre" class="aparece">¿Subimos <em>tu negocio?</em></h2>
+      <p class="frase aparece">La inversión la vemos juntos en tu diagnóstico. Con la radiografía de tu negocio calculamos el retorno de inversión que puedes esperar. Mándale a Ricardo la palabra DIAGNÓSTICO.</p>
+      <div class="acciones aparece"><a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Escribir DIAGNÓSTICO</a></div>
+    </div></div>
+  </section>
+</main>
+
+<script>
+/* =====================================================================
+   Escenas: al entrar a cada una cambia el fondo, la mascota se mueve a su
+   lugar con su pose, y el botón que importa respira en verde.
+   ===================================================================== */
+(function () {
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var escenas = [].slice.call(document.querySelectorAll(".escena"));
+  var fondos = {}; [].slice.call(document.querySelectorAll(".fondo figure")).forEach(function (f) { fondos[f.dataset.fondo] = f; });
+  var mascota = document.getElementById("mascota");
+  var poses = {}; [].slice.call(mascota.querySelectorAll("img")).forEach(function (i) { poses[i.dataset.pose] = i; });
+  var marcas = [].slice.call(document.querySelectorAll(".pisos a"));
+  var actual = null;
+
+  // Dónde se para la mascota en cada escena (en celular y en computadora).
+  // En los pisos con demo se acomoda junto al teléfono o al botón, nunca encima del texto.
+  var PROP = { saluda: .948, arriba: 1.076, piensa: 1.19, senala: .848, celebra: 1.684, salta: .817, abajo: 1.102 };
+  var ORILLA = 30;   // en celular la mascota deja libre la orilla derecha, donde va el riel   // alto / ancho de cada pose
+  function rect(sel) { return document.querySelector(sel).getBoundingClientRect(); }
+  function lugar(id) {
+    var W = innerWidth, H = innerHeight, cel = W < 900, w = cel ? Math.min(130, W * .32) : Math.min(230, W * .17);
+    if (id === "piso3") {
+      if (cel) {
+        var b = rect("#piso3 [data-apunta]"), vs = rect("#piso3 .versus"); w = Math.min(78, W * .2);
+        return { x: Math.min(W - w - ORILLA, b.right + 10), y: Math.max(vs.bottom + 14, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
+      }
+      var v = rect("#piso3 .versus"); w = Math.min(200, W * .14);
+      return { x: v.right + 36, y: v.top - 20, w: w };
+    }
+    if (id === "llegada" && cel) {
+      var t = rect("#llegada .eyebrow"), libre = t.top - 84 - 8;   // entre el menú y el título
+      w = Math.max(70, Math.min(124, libre / PROP.saluda));
+      return { x: W - w - ORILLA, y: Math.max(84, t.top - w * PROP.saluda - 8), w: w };
+    }
+    var sec = document.getElementById(id), tipo = sec.dataset.ancla, alto = PROP[sec.dataset.pose] || 1;
+    if (tipo === "visual") {
+      var v = sec.querySelector(".visual, .fone, .retrato, .equipo").getBoundingClientRect();
+      // computadora: parada sobre la esquina de arriba del visual, como asomándose a lo que muestra
+      if (!cel) { var libreArriba = v.top - 96 - 16; w = Math.min(160, W * .11, libreArriba / alto);   // cabe arriba del visual o se hace más chico
+        return { x: v.right - w * .62, y: Math.max(96, v.top - w * alto - 16), w: Math.max(w, 60), oculta: w < 60 }; }
+      // celular: junto al botón si cabe; si no, asomado en la esquina de arriba del visual
+      var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - ORILLA - 6;
+      // celular: en el hueco a la derecha del botón, sin tocar la frase de arriba ni el visual de abajo
+      var ac = sec.querySelector(".acciones"), fr = ac.previousElementSibling.getBoundingClientRect(), sig = ac.nextElementSibling, arriba = fr.bottom + 14,
+        abajo = Math.min(v.top, sig ? sig.getBoundingClientRect().top : v.top) - 6;   // ni la frase de arriba ni lo que va debajo del botón   // +14: deja aire para el flote de 10 px
+      var pose2 = null;
+      if ((abajo - arriba) / alto < 56 && alto > 1.2) { pose2 = "salta"; alto = PROP.salta; }   // si la pose alta no cabe, brinca (pose más baja)
+      w = Math.max(48, Math.min(92, libre, (abajo - arriba) / alto));
+      // si no cabe entero, primero cuida el texto de arriba (puede asomarse sobre la esquina de la tarjeta, nunca sobre letras)
+      var y = Math.max(arriba, Math.min(abajo - w * alto, bt.top + bt.height / 2 - w * alto * .55));
+      return { x: W - w - ORILLA, y: y, w: w, pose: pose2, oculta: libre < 48 };   // si no cabe junto al botón, se desvanece
+    }
+    if (tipo === "confian") {
+      // brincando de gusto arriba de la cinta de logos, sin tocar el título ni los logos
+      var cin = sec.querySelector(".marquesina, .vitrina").getBoundingClientRect(), tt = sec.querySelector("h2").getBoundingClientRect();
+      if (cel) { var e2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco2 = e2.top - 92; w = Math.max(64, Math.min(110, hueco2 / alto));
+        return { x: W - w - ORILLA, y: Math.max(84, e2.top - w * alto - 10), w: w, oculta: hueco2 < 64 * alto }; }
+      w = Math.min(170, W * .12); return { x: Math.max(tt.right + 40, W * .64), y: cin.top - w * alto - 22, w: w };
+    }
+    if (tipo === "boton") {
+      var bb = sec.querySelector("[data-apunta]").getBoundingClientRect();
+      if (cel) { var t2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco = t2.top - 84 - 8;
+        w = Math.max(70, Math.min(124, hueco / alto)); return { x: W - w - ORILLA, y: Math.max(84, t2.top - w * alto - 8), w: w }; }
+      w = Math.min(220, W * .16); return { x: Math.max(bb.right + 260, W * .6), y: bb.top + bb.height / 2 - w * alto * .7, w: w };
+    }
+    var p = {
+      llegada:   cel ? { x: W - w - ORILLA, y: H * .2 } : { x: W * .62, y: H * .3 },
+      torre:     cel ? { x: W - w - ORILLA, y: H * .22 } : { x: W * .66, y: H * .24 },
+      cimientos: cel ? { x: W - w - ORILLA, y: H * .22 } : { x: W * .64, y: H * .34 }
+    }[id] || { x: W - w - ORILLA, y: H * .2 };
+    return { x: p.x, y: p.y, w: w };
+  }
+  var poseJuego = null, poseInvita = null;   // pose de la reacción al tocarla (manda sobre la de la escena un momento)
+  function ponerMascota(id, pose) {
+    var l = lugar(id);
+    var base = l.pose || pose;
+    // el gesto de "sigue bajando" ocupa el mismo hueco que la pose de la escena (si es más alta, se achica)
+    if (poseInvita && !poseJuego && PROP.abajo > PROP[base]) l.w = l.w * PROP[base] / PROP.abajo;
+    pose = poseJuego || poseInvita || base;
+    mascota.style.setProperty("--m-x", l.x + "px"); mascota.style.setProperty("--m-y", l.y + "px"); mascota.style.setProperty("--m-w", l.w + "px");
+    Object.keys(poses).forEach(function (k) { poses[k].classList.toggle("on", k === pose); });
+    // Si está a la derecha de lo que señala, se voltea para apuntarle (la pose mira a la derecha)
+    var meta = document.getElementById(id).querySelector("[data-apunta]"), voltea = false;
+    if (meta && pose === "senala") { var r = meta.getBoundingClientRect(); voltea = l.x + l.w / 2 > r.left + r.width / 2; }
+    mascota.classList.toggle("voltea", voltea);
+    mascota.classList.toggle("fuera", !!l.oculta);   // sin lugar libre: se desvanece en vez de taparte algo
+  }
+  // Pausar los logos (para quien prefiere leerlos quietos)
+  var mq = document.querySelector(".marquesina"), mqB = document.getElementById("mqPausa");
+  if (mq && mqB) mqB.addEventListener("click", function () { var p = mq.classList.toggle("pausada"); mqB.setAttribute("aria-pressed", p); mqB.textContent = p ? "Continuar" : "Pausar"; });
+  // Piso 1: flechas para pasar de un ejemplo a otro (también se puede deslizar con el dedo)
+  var pista = document.getElementById("vitrina");
+  [].slice.call(document.querySelectorAll(".vitrina__flecha")).forEach(function (f) {
+    f.addEventListener("click", function () {
+      var li = pista.querySelector("li"), paso = li ? li.getBoundingClientRect().width + parseFloat(getComputedStyle(pista).columnGap || 24) : 240;
+      pista.scrollBy({ left: paso * Number(f.dataset.dir), behavior: reduce ? "auto" : "smooth" });
+    });
+  });
+  // ================= PROPUESTA: equipos con la demo viva + visor =================
+  var GIROS = /demos\/(restaurante|taqueria|panaderia|unas|joyeria|car-wash|consultorio|academia|inmobiliaria)\.html/;
+  var listaEquipos = [].slice.call(document.querySelectorAll(".equipo"));
+  function medirEquipo(eq) {
+    var lap = eq.dataset.tipo === "lap" && innerWidth >= 900, f = eq.querySelector("iframe"), pan = eq.querySelector(".equipo__pantalla");
+    eq.classList.toggle("equipo--lap", lap); eq.classList.toggle("equipo--tel", !lap);
+    if (!f) return;
+    var w = lap ? 1280 : 390, h = lap ? 800 : 844;
+    f.style.width = w + "px"; f.style.height = h + "px"; f.style.transform = "scale(" + (pan.clientWidth / w) + ")";
+  }
+  listaEquipos.forEach(medirEquipo);
+  // La demo solo se carga en el piso que estás viendo (y se descarga al alejarte): la torre sigue ligera
+  function equipos(sec) {
+    var i = escenas.indexOf(sec);
+    listaEquipos.forEach(function (eq) {
+      var d = Math.abs(escenas.indexOf(eq.closest(".escena")) - i), f = eq.querySelector("iframe");
+      if (d === 0 && !f) {
+        f = document.createElement("iframe"); f.title = "Vista previa: " + eq.dataset.nombre; f.setAttribute("tabindex", "-1"); f.setAttribute("aria-hidden", "true"); f.loading = "lazy";
+        f.addEventListener("load", function () { f.classList.add("lista"); });
+        f.src = eq.dataset.demo + "?embed=1&auto=1"; eq.querySelector(".equipo__pantalla").appendChild(f); medirEquipo(eq);
+      } else if (d > 1 && f) f.remove();
+    });
+  }
+  addEventListener("resize", function () { listaEquipos.forEach(medirEquipo); });
+  listaEquipos.forEach(function (eq) { eq.querySelector(".equipo__toca").addEventListener("click", function () { abrirVisor(eq.dataset.demo, eq.dataset.nombre, eq.dataset.tipo); }); });
+
+  // Visor: la demo se abre encima de la torre; al cerrar sigues en el mismo piso
+  var visor = document.getElementById("visor"), visorMarco = document.getElementById("visorMarco"), visorAntes = null;
+  function abrirVisor(url, nombre, tipo) {
+    visorAntes = document.activeElement;
+    visor.classList.toggle("visor--lap", tipo === "lap"); visor.classList.toggle("visor--tel", tipo !== "lap");
+    document.getElementById("visorNombre").textContent = nombre;
+    document.getElementById("visorQuiero").href = "https://wa.me/523343230958?text=" + encodeURIComponent("Hola, Ricardo. Vi la demo de " + nombre + " y quiero esto para mi negocio.");
+    visorMarco.title = "Demo: " + nombre; visorMarco.src = url + "?embed=1";
+    visor.hidden = false; document.documentElement.classList.add("con-visor");
+    requestAnimationFrame(function () { requestAnimationFrame(function () { visor.classList.add("abierto"); }); });
+    document.getElementById("visorCerrar").focus();
+    history.pushState({ visor: 1 }, "");   // el botón "atrás" del celular cierra la demo, no la torre
+  }
+  function cerrarVisor(desdeAtras) {
+    if (visor.hidden) return;
+    visor.classList.remove("abierto"); document.documentElement.classList.remove("con-visor");
+    setTimeout(function () { visor.hidden = true; visorMarco.src = "about:blank"; }, reduce ? 0 : 450);
+    if (!desdeAtras && history.state && history.state.visor) history.back();
+    if (visorAntes && visorAntes.focus) visorAntes.focus();
+    actividad();
+  }
+  document.getElementById("visorCerrar").addEventListener("click", function () { cerrarVisor(false); });
+  addEventListener("popstate", function () { cerrarVisor(true); });
+  addEventListener("keydown", function (e) { if (e.key === "Escape") cerrarVisor(false); });
+  // Todos los enlaces a demos se abren en el visor (si algo falla, el enlace normal sigue funcionando)
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest('a[href^="demos/"]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    var href = a.getAttribute("href"), nombre = a.dataset.nombre || (a.getAttribute("aria-label") || a.textContent).replace(/^(Probar|Ver)( la| el| una| mi)?( página de ejemplo de| demo de)?\s*/i, "").replace(/→/g, "").trim();
+    abrirVisor(href, nombre.charAt(0).toUpperCase() + nombre.slice(1), GIROS.test(href) ? "tel" : "lap");
+  });
+
+  // ---- Tocar a la mascota: reacciona y vuelve a su pose, sin mover nada de la página ----
+  var REACCIONES = [["j-brinco", "salta"], ["j-hola", "saluda"], ["j-giro", "celebra"], ["j-latido", "arriba"]], turno = 0, ocupada = false;
+  var boton = mascota.querySelector(".mascota__in");
+  boton.addEventListener("click", function () {
+    try { localStorage.setItem("zk-tocada", "1"); } catch (e) {}
+    mascota.classList.remove("pista");
+    if (ocupada || !actual) return; ocupada = true;
+    var r = REACCIONES[turno++ % REACCIONES.length];
+    poseJuego = r[1]; ponerMascota(actual.id, actual.dataset.pose);
+    if (navigator.vibrate) navigator.vibrate(12);
+    if (!reduce) { mascota.classList.add(r[0], "chispea"); }
+    setTimeout(function () {
+      mascota.classList.remove(r[0], "chispea");
+      poseJuego = null; if (actual) ponerMascota(actual.id, actual.dataset.pose);
+      ocupada = false;
+    }, reduce ? 600 : 1100);
+  });
+  // La primera vez, después de unos segundos, avisa en chiquito que se puede tocar
+  var yaTocada = false; try { yaTocada = localStorage.getItem("zk-tocada") === "1"; } catch (e) {}
+  if (!yaTocada) setTimeout(function () { mascota.classList.add("pista"); setTimeout(function () { mascota.classList.remove("pista"); }, 4200); }, 3500);
+
+  // ---- Elevador: qué piso es y cuál sigue ----
+  var NOMBRES = { llegada: "Llegada", torre: "Tu torre", cimientos: "Cimientos", piso1: "Piso 1 · Tu página", piso2: "Piso 2 · Tu contenido", piso3: "Piso 3 · Tu WhatsApp",
+    piso4: "Piso 4 · Tu ARM", piso5: "Piso 5 · Tu local", piso6: "Piso 6 · Que regresen", piso7: "Piso 7 · Tu equipo", azotea: "Azotea · Próximamente", fundador: "El fundador", confian: "Referencias", cierre: "Diagnóstico" };
+  var riel = document.getElementById("riel"), rielTxt = document.getElementById("rielTxt"), rielMarcas = [], rielT = null;
+  function numPiso(id) { var m = /^piso(\d)$/.exec(id); return m ? +m[1] : 0; }
+  // Una marquita por escena, en el punto del recorrido donde empieza (las de los 7 pisos son un poco más largas)
+  function marcarRiel() {
+    rielMarcas.forEach(function (m) { m.remove(); }); rielMarcas = [];
+    var max = document.documentElement.scrollHeight - innerHeight; if (max <= 0) return;
+    escenas.forEach(function (sec) {
+      var m = document.createElement("i"), pos = Math.min(100, sec.offsetTop / max * 100);
+      m.style.top = pos + "%"; m._pos = pos; if (numPiso(sec.id)) m.className = "piso";
+      riel.appendChild(m); rielMarcas.push(m);
+    });
+  }
+  // Al entrar a un piso, su número aparece 2 segundos junto a la punta
+  function elevador(sec) {
+    var n = numPiso(sec.id);
+    if (!n) { rielTxt.classList.remove("ve"); return; }
+    rielTxt.innerHTML = "<small>Piso</small>0" + n;
+    rielTxt.classList.add("ve"); clearTimeout(rielT); rielT = setTimeout(function () { rielTxt.classList.remove("ve"); }, 2000);
+  }
+  // "Desliza": se va en cuanto el cliente empieza a bajar, y ya no regresa
+  var desliza = document.getElementById("desliza");
+  addEventListener("scroll", function () { if (scrollY > 40) desliza.classList.add("ido"); }, { passive: true });
+
+  function activar(sec) {
+    if (actual === sec) return; actual = sec;
+    escenas.forEach(function (s) { s.classList.toggle("activa", s === sec); });
+    elevador(sec);
+    equipos(sec);
+    Object.keys(fondos).forEach(function (k) { fondos[k].classList.toggle("on", k === sec.dataset.fondo); });
+    ponerMascota(sec.id, sec.dataset.pose);
+    marcas.forEach(function (a) { a.classList.toggle("on", a.dataset.ir === sec.id); });
+    document.querySelectorAll(".apuntado").forEach(function (b) { b.classList.remove("apuntado"); });
+    var b = sec.querySelector("[data-apunta]"); if (b) setTimeout(function () { b.classList.add("apuntado"); }, reduce ? 0 : 900);
+    // el texto entra subiendo ~1 s: al terminar, la mascota se reacomoda con el texto ya en su lugar
+    setTimeout(function () { if (actual === sec) ponerMascota(sec.id, sec.dataset.pose); }, reduce ? 0 : 1350);
+    if (sec.id === "piso3") contar(sec);
+    if (sec.id === "piso4") etapas(sec);
+    if (sec.id === "piso2") pasos(sec.querySelectorAll("[data-linea] li"), 1100);
+    if (sec.id === "piso6") pasos(sec.querySelectorAll("[data-sellos] i"), 420);
+  }
+  // Piso 3: el cliente avanza solo de etapa en etapa hasta "Listo para comprar"
+  var etapasHechas = false;
+  function etapas(sec) {
+    if (etapasHechas || !sec.querySelector("[data-cliente]")) return; etapasHechas = true;
+    var filas = [].slice.call(sec.querySelectorAll("[data-etapas] li")), chip = sec.querySelector("[data-cliente]");
+    filas.forEach(function (li, i) {
+      setTimeout(function () {
+        filas.forEach(function (f) { f.classList.toggle("aqui", f === li); });
+        chip.style.setProperty("--c-y", (li.offsetTop + li.offsetHeight / 2 - 17) + "px");
+      }, reduce ? 0 : 400 + i * 1300);
+    });
+  }
+  // Pisos 4 y 6: los elementos se encienden con calma, uno por uno
+  function pasos(lista, cada) {
+    [].slice.call(lista).forEach(function (el, i) { setTimeout(function () { el.classList.add("ve"); }, reduce ? 0 : 500 + i * cada); });
+  }
+  // Piso 2: los mensajes llegan con calma, uno por uno, en los dos chats al mismo tiempo
+  var contado = false;
+  function contar(sec) {
+    if (contado) return; contado = true;
+    var chats = [].slice.call(sec.querySelectorAll("[data-chat]"));
+    var filas = Math.max.apply(null, chats.map(function (c) { return c.children.length; }));
+    for (var i = 0; i < filas; i++) (function (i) {
+      setTimeout(function () { chats.forEach(function (c) { if (c.children[i]) c.children[i].classList.add("ve"); }); }, reduce ? 0 : 500 + i * 900);
+    })(i);
+  }
+  // La escena activa es la que ocupa el centro de la pantalla
+  function revisar() {
+    var mitad = innerHeight * .5, mejor = escenas[0];
+    escenas.forEach(function (s) { var r = s.getBoundingClientRect(); if (r.top <= mitad && r.bottom > mitad) mejor = s; });
+    activar(mejor);
+    if (actual) ponerMascota(actual.id, actual.dataset.pose);   // la sigue con calma mientras bajas
+    var max = document.documentElement.scrollHeight - innerHeight, prog = max > 0 ? Math.max(0, Math.min(1, scrollY / max)) : 0;
+    document.getElementById("avance").style.transform = "scaleX(" + prog + ")";
+    riel.style.setProperty("--lleno", (prog * 100).toFixed(2) + "%");   // la barrita se llena poco a poco con el recorrido
+    rielMarcas.forEach(function (m) { m.classList.toggle("ok", m._pos <= prog * 100 + .4); });
+    progreso = prog;
+  }
+  // ---- Si el cliente se queda quieto, lo invitamos a seguir bajando ----
+  // Una luz baja por el riel y la mascota señala hacia abajo un momento; se repite con calma hasta que baja.
+  var progreso = 0, quieto = null, gesto = null, QUIETO_MS = 7000, REPITE_MS = 9000;
+  function finGesto() { clearTimeout(gesto); mascota.classList.remove("j-baja"); if (poseInvita) { poseInvita = null; if (actual) ponerMascota(actual.id, actual.dataset.pose); } }
+  function invitar() {
+    clearTimeout(quieto);
+    var puede = !document.hidden && actual && progreso < .985 && !document.querySelector("dialog[open]") && visor.hidden;
+    if (puede) {
+      riel.classList.add("invita");
+      if (!ocupada && !mascota.classList.contains("fuera")) {
+        poseInvita = "abajo"; ponerMascota(actual.id, actual.dataset.pose);
+        if (!reduce) mascota.classList.add("j-baja");
+        gesto = setTimeout(finGesto, 2700);
+      }
+    }
+    quieto = setTimeout(invitar, REPITE_MS);
+  }
+  function actividad() { riel.classList.remove("invita"); finGesto(); clearTimeout(quieto); quieto = setTimeout(invitar, QUIETO_MS); }
+  ["scroll", "pointerdown", "keydown", "wheel", "touchstart"].forEach(function (ev) { addEventListener(ev, actividad, { passive: true }); });
+  if (pista) pista.addEventListener("scroll", actividad, { passive: true });
+  actividad();
+
+  var pendiente = false;
+  addEventListener("scroll", function () { if (pendiente) return; pendiente = true; requestAnimationFrame(function () { pendiente = false; revisar(); }); }, { passive: true });
+  addEventListener("resize", function () { marcarRiel(); if (actual) ponerMascota(actual.id, actual.dataset.pose); revisar(); });
+  addEventListener("load", function () { marcarRiel(); revisar(); });
+  var ch = document.querySelector("[data-cliente]"), li0 = document.querySelector("[data-etapas] li");
+  if (ch && li0) ch.style.setProperty("--c-y", (li0.offsetTop + li0.offsetHeight / 2 - 17) + "px");
+  marcarRiel();
+  revisar();
+})();
+</script>
+</body>
+</html>

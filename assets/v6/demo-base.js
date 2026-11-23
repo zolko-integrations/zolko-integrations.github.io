@@ -29,6 +29,12 @@
 
   document.documentElement.classList.remove("no-js");
 
+  /* Cuando la demo se abre DENTRO de la torre (en el celular o la laptop de un piso):
+     ?embed=1 quita la barra de arriba (la torre pone la suya) y &auto=1 la deja moviéndose sola como vista previa. */
+  var EMBED = /[?&]embed=1/.test(location.search), AUTO = /[?&]auto=1/.test(location.search);
+  if (EMBED) document.documentElement.classList.add("zk-embed");
+  if (AUTO) document.documentElement.classList.add("zk-auto");
+
   /* Atajo para crear elementos */
   function el(tag, attrs, html) {
     var n = document.createElement(tag);
@@ -213,6 +219,26 @@
   if (pie) pie.parentNode.insertBefore(cierre, pie);
   else if (principal) principal.parentNode.insertBefore(cierre, principal.nextSibling);
   else document.body.insertBefore(cierre, document.body.querySelector(":scope > script"));
+
+  /* ------------------------------------------------------------------
+     4c. Vista previa que se mueve sola (solo con &auto=1, dentro de la torre)
+     ------------------------------------------------------------------ */
+  if (AUTO) {
+    var foco = document.querySelector("[data-auto-foco], .wa, .app");
+    if (foco) {
+      // demos con "pantalla" propia (chat, tablero): se centra ahí y se toca sola la primera opción
+      setTimeout(function () { window.scrollTo(0, foco.getBoundingClientRect().top + window.scrollY - 10); }, 350);
+      setInterval(function () { var b = document.querySelector("#opts button"); if (b) b.click(); }, 2400);
+    } else if (!reduceMotion) {
+      // las demás: la página baja despacio y vuelve a empezar, como alguien viéndola
+      var yy = 0, pausa = 90;
+      (function baja() {
+        var max = Math.min(document.documentElement.scrollHeight - window.innerHeight, 2600);
+        if (pausa > 0) pausa--; else { yy += .7; if (yy >= max) { yy = 0; pausa = 120; } }
+        window.scrollTo(0, yy); requestAnimationFrame(baja);
+      })();
+    }
+  }
 
   /* ------------------------------------------------------------------
      5. Aparición suave de secciones
