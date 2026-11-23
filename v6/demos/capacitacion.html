@@ -66,6 +66,14 @@
   .site-header .brand { visibility: hidden; }
   .site-header { background: rgba(8, 7, 14, .82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
   .hero { background: radial-gradient(60% 50% at 50% 0%, rgba(124, 92, 255, .4), transparent 70%); }
+  /* Títulos como en la torre (sin mayúsculas forzadas) */
+  .hero h1, .section h2 { text-transform: none; font-weight: 500; }
+  /* Pasos: el número va arriba de su tarjeta y nunca encima del texto */
+  .steps li::before { font-family: "Bodoni Moda", Georgia, serif; font-weight: 500; font-size: 1.15rem; }
+  @media (max-width: 760px) {
+    .steps li { padding: 60px 14px 16px; }
+    .steps li::before { left: 14px; top: 14px; width: 34px; height: 34px; font-size: 1rem; }
+  }
 </style>
 <script>
   window.DEMO_CONFIG = {
