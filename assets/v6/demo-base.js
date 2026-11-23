@@ -201,7 +201,7 @@
   var wa = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>';
   var cierre = el("aside", { class: "zolko-cta", "aria-label": "Contactar a ZOLKO INTEGRATIONS" },
     '<div class="zolko-cta__in">' +
-      '<img class="zolko-cta__mascota" src="../../assets/v6/mascota/senala.webp" alt="" aria-hidden="true" width="640" height="543" loading="lazy">' +
+      '<img class="zolko-cta__mascota" src="../../assets/v6/mascota/senala-900.webp" alt="" aria-hidden="true" width="900" height="764" loading="lazy">' +
       '<div><p class="zolko-cta__tag">Hecho por ZOLKO INTEGRATIONS</p>' +
       '<p class="zolko-cta__title">¿Lo quieres <em>para tu negocio?</em></p>' +
       '<p class="zolko-cta__text">Esto es una demo. Te lo hacemos con tu marca y tus datos reales. Los precios los ves directo con Ricardo en tu diagnóstico.</p>' +

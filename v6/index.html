@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="../assets/v6/torre/lejana-960.webp" media="(max-width: 900px)">
-<link rel="preload" as="image" href="../assets/v6/torre/lejana.webp" media="(min-width: 901px)">
+<link rel="preload" as="image" href="../assets/v6/torre/lejana-movil.webp" media="(max-aspect-ratio: 1/1)">
+<link rel="preload" as="image" imagesrcset="../assets/v6/torre/lejana-1600.webp 1600w, ../assets/v6/torre/lejana-2560.webp 2560w, ../assets/v6/torre/lejana-3840.webp 3840w" imagesizes="100vw" media="(min-aspect-ratio: 1/1)">
 <style>
 /* =====================================================================
    ZOLKO · v6 "Tu torre" (página de prueba)
@@ -114,11 +114,60 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 /* ---------- La mascota que guía ---------- */
 .mascota { position: fixed; z-index: 45; left: 0; top: 0; width: var(--m-w, 190px); pointer-events: none;
   transform: translate3d(var(--m-x, 70vw), var(--m-y, 40vh), 0); transition: transform 1.2s var(--suave), width 1.2s var(--suave); }
-.mascota__in { animation: flota 4.2s ease-in-out infinite; }
+.mascota__in { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; pointer-events: auto; -webkit-tap-highlight-color: transparent; animation: flota 4.2s ease-in-out infinite; }
+.mascota__in:focus-visible { outline: 2px solid var(--verde); outline-offset: 6px; border-radius: 50%; }
+.mascota__juego { position: relative; display: block; transform-origin: 50% 85%; }
+/* Al tocarla: cuatro reacciones que se turnan, cortas y sin mover nada más de la página */
+.mascota.j-brinco .mascota__juego { animation: j-brinco .9s cubic-bezier(.3, .7, .3, 1); }
+.mascota.j-giro .mascota__juego { animation: j-giro 1s cubic-bezier(.45, .05, .25, 1); }
+.mascota.j-hola .mascota__juego { animation: j-hola 1s ease-in-out; }
+.mascota.j-latido .mascota__juego { animation: j-latido .8s ease-in-out; }
+@keyframes j-brinco { 0% { transform: none; } 20% { transform: translateY(6%) scale(1.08, .9); } 50% { transform: translateY(-34%) scale(.95, 1.06); } 78% { transform: translateY(0) scale(1.06, .94); } 100% { transform: none; } }
+@keyframes j-giro { 0% { transform: none; } 45% { transform: translateY(-22%) rotate(180deg) scale(1.05); } 100% { transform: rotate(360deg); } }
+@keyframes j-hola { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-10deg); } 40% { transform: rotate(9deg); } 60% { transform: rotate(-7deg); } 80% { transform: rotate(4deg); } }
+@keyframes j-latido { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.14); } 55% { transform: scale(.96); } 75% { transform: scale(1.05); } }
+/* Chispas verdes y violetas que salen del monito */
+.chispas { position: absolute; left: 50%; top: 45%; width: 0; height: 0; pointer-events: none; }
+.chispas i { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; opacity: 0; background: var(--verde); box-shadow: 0 0 10px currentColor; color: var(--verde); }
+.chispas i:nth-child(even) { background: var(--violeta-luz); color: var(--violeta); width: 6px; height: 6px; }
+.mascota.chispea .chispas i { animation: chispa .9s cubic-bezier(.2, .7, .3, 1) forwards; }
+.chispas i:nth-child(1) { --dx: 0px; --dy: -90px; } .chispas i:nth-child(2) { --dx: 64px; --dy: -64px; }
+.chispas i:nth-child(3) { --dx: 90px; --dy: 0px; } .chispas i:nth-child(4) { --dx: 64px; --dy: 64px; }
+.chispas i:nth-child(5) { --dx: 0px; --dy: 80px; } .chispas i:nth-child(6) { --dx: -64px; --dy: 64px; }
+.chispas i:nth-child(7) { --dx: -90px; --dy: 0px; } .chispas i:nth-child(8) { --dx: -64px; --dy: -64px; }
+@keyframes chispa { 0% { opacity: 1; transform: translate(0, 0) scale(.4); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
+/* Una sola vez por visita: un aviso discreto de que se puede tocar */
+.mascota__toca { position: absolute; left: 50%; bottom: -26px; transform: translateX(-50%); white-space: nowrap; padding: 4px 10px; border-radius: 999px; font: 600 .7rem var(--f-texto); letter-spacing: .04em; color: var(--blanco); background: rgba(13, 10, 28, .9); border: 1px solid rgba(169, 147, 255, .45); opacity: 0; transition: opacity .6s; pointer-events: none; }
+.mascota.pista .mascota__toca { opacity: 1; }
 .mascota img { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transform: scale(.92); transition: opacity .6s var(--suave), transform .8s var(--suave); filter: drop-shadow(0 24px 40px rgba(124, 92, 255, .45)); }
 .mascota img.on { position: relative; opacity: 1; transform: none; }
 .mascota.voltea img.on { transform: scaleX(-1); }
 @keyframes flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------- Quién te atiende: Ricardo ---------- */
+#ricardo h2 { font-size: clamp(2.3rem, 4.2vw, 3.8rem); }
+#ricardo .texto { max-width: 30rem; }
+.cara { display: none; }
+@media (min-width: 900px) { #ricardo .dos { grid-template-columns: minmax(0, 1fr) minmax(0, 500px); gap: 56px; } }
+.ayudo { list-style: none; margin: -12px 0 28px; padding: 0; display: grid; gap: 10px; }
+.ayudo li { display: flex; align-items: center; gap: 12px; color: var(--blanco); font-weight: 500; }
+.ayudo b { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font: 500 1rem var(--f-display); color: var(--violeta-luz); border: 1px solid rgba(169, 147, 255, .5); }
+.retrato { position: relative; margin: 0; width: min(560px, 100%); justify-self: center; border-radius: 28px; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(244, 244, 247, .14), 0 50px 100px -40px rgba(124, 92, 255, .95), 0 0 70px -20px rgba(37, 211, 102, .25); }
+.retrato img { width: 100%; height: auto; aspect-ratio: 2400 / 1340; object-fit: cover; }
+.retrato figcaption { position: absolute; left: 14px; bottom: 14px; display: grid; gap: 1px; padding: 9px 14px; border-radius: 16px; background: rgba(8, 7, 14, .78); border: 1px solid rgba(244, 244, 247, .14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.retrato figcaption b { font: 500 1.05rem var(--f-display); }
+.retrato figcaption span { font-size: .74rem; color: var(--lavanda); }
+@media (max-width: 899px) {
+  #ricardo .dos { gap: 22px; }
+  /* En celular tu cara aparece desde el primer momento, junto al título */
+  .cara { display: block; float: right; width: 84px; height: 84px; margin: 4px 0 6px 12px; border-radius: 50%; object-fit: cover;
+    box-shadow: 0 0 0 2px rgba(169, 147, 255, .7), 0 0 0 6px rgba(124, 92, 255, .18), 0 14px 30px -10px rgba(124, 92, 255, .8); }
+  .retrato { border-radius: 22px; }
+  .retrato img { aspect-ratio: 4 / 3; }
+  #ricardo .frase { margin-bottom: 18px; }
+  .ayudo { margin: -2px 0 20px; gap: 8px; font-size: .95rem; }
+}
 
 /* ---------- Piso 1: el celular con la página ---------- */
 .dos { display: grid; gap: 36px; align-items: end; }
@@ -241,13 +290,13 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 
 <!-- Fondo: una escena de la torre por sección -->
 <div class="fondo" aria-hidden="true">
-  <figure data-fondo="lejana" class="on"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/lejana-960.webp"><img src="../assets/v6/torre/lejana.webp" alt=""></picture></figure>
-  <figure data-fondo="acerca"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/acerca-960.webp"><img src="../assets/v6/torre/acerca.webp" alt="" loading="lazy"></picture></figure>
-  <figure data-fondo="calle"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/calle-960.webp"><img src="../assets/v6/torre/calle.webp" alt="" loading="lazy"></picture></figure>
-  <figure data-fondo="oficina"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/oficina-960.webp"><img src="../assets/v6/torre/oficina.webp" alt="" loading="lazy"></picture></figure>
-  <figure data-fondo="elevador"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/elevador-960.webp"><img src="../assets/v6/torre/elevador.webp" alt="" loading="lazy"></picture></figure>
-  <figure data-fondo="azotea"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/azotea-960.webp"><img src="../assets/v6/torre/azotea.webp" alt="" loading="lazy"></picture></figure>
-  <figure data-fondo="ciudad"><picture><source media="(max-width: 900px)" srcset="../assets/v6/torre/ciudad-960.webp"><img src="../assets/v6/torre/ciudad.webp" alt="" loading="lazy"></picture></figure>
+  <figure data-fondo="lejana" class="on"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/lejana-movil.webp"><img src="../assets/v6/torre/lejana-2560.webp" srcset="../assets/v6/torre/lejana-1600.webp 1600w, ../assets/v6/torre/lejana-2560.webp 2560w, ../assets/v6/torre/lejana-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="acerca"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/acerca-movil.webp"><img src="../assets/v6/torre/acerca-2560.webp" srcset="../assets/v6/torre/acerca-1600.webp 1600w, ../assets/v6/torre/acerca-2560.webp 2560w, ../assets/v6/torre/acerca-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="calle"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/calle-movil.webp"><img src="../assets/v6/torre/calle-2560.webp" srcset="../assets/v6/torre/calle-1600.webp 1600w, ../assets/v6/torre/calle-2560.webp 2560w, ../assets/v6/torre/calle-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="oficina"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/oficina-movil.webp"><img src="../assets/v6/torre/oficina-2560.webp" srcset="../assets/v6/torre/oficina-1600.webp 1600w, ../assets/v6/torre/oficina-2560.webp 2560w, ../assets/v6/torre/oficina-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="elevador"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/elevador-movil.webp"><img src="../assets/v6/torre/elevador-2560.webp" srcset="../assets/v6/torre/elevador-1600.webp 1600w, ../assets/v6/torre/elevador-2560.webp 2560w, ../assets/v6/torre/elevador-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="azotea"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/azotea-movil.webp"><img src="../assets/v6/torre/azotea-2560.webp" srcset="../assets/v6/torre/azotea-1600.webp 1600w, ../assets/v6/torre/azotea-2560.webp 2560w, ../assets/v6/torre/azotea-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
+  <figure data-fondo="ciudad"><picture><source media="(max-aspect-ratio: 1/1)" srcset="../assets/v6/torre/ciudad-movil.webp"><img src="../assets/v6/torre/ciudad-2560.webp" srcset="../assets/v6/torre/ciudad-1600.webp 1600w, ../assets/v6/torre/ciudad-2560.webp 2560w, ../assets/v6/torre/ciudad-3840.webp 3840w" sizes="100vw" alt="" loading="lazy" decoding="async"></picture></figure>
 </div>
 
 <header class="header">
@@ -255,6 +304,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     <a href="#llegada" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="../assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="84" height="28"></a>
     <nav aria-label="Principal"><ul>
       <li><a href="#cimientos">Cómo empezamos</a></li>
+      <li><a href="#ricardo">Quién soy</a></li>
       <li><a href="#piso1">Servicios</a></li>
       <li><a href="#piso3">ARM</a></li>
       <li><a href="#azotea">Próximamente</a></li>
@@ -267,6 +317,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <li><a href="#llegada" data-ir="llegada"><span>Llegada</span><i></i></a></li>
   <li><a href="#torre" data-ir="torre"><span>Tu torre</span><i></i></a></li>
   <li><a href="#cimientos" data-ir="cimientos"><span>Cimientos</span><i></i></a></li>
+  <li><a href="#ricardo" data-ir="ricardo"><span>Ricardo</span><i></i></a></li>
   <li><a href="#piso1" data-ir="piso1"><span>1 · Página y tarjetas</span><i></i></a></li>
   <li><a href="#piso2" data-ir="piso2"><span>2 · Respuestas</span><i></i></a></li>
   <li><a href="#piso3" data-ir="piso3"><span>3 · ARM</span><i></i></a></li>
@@ -279,14 +330,14 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 </ol>
 
 <!-- La mascota: cambia de pose y de lugar en cada escena -->
-<div class="mascota" id="mascota" aria-hidden="true"><div class="mascota__in">
-  <img data-pose="saluda" class="on" src="../assets/v6/mascota/saluda.webp" alt="" width="640" height="607">
-  <img data-pose="arriba" src="../assets/v6/mascota/arriba.webp" alt="" width="595" height="640">
-  <img data-pose="piensa" src="../assets/v6/mascota/piensa.webp" alt="" width="538" height="640">
-  <img data-pose="senala" src="../assets/v6/mascota/senala.webp" alt="" width="640" height="543">
-  <img data-pose="celebra" src="../assets/v6/mascota/celebra.webp" alt="" width="380" height="640">
-  <img data-pose="salta" src="../assets/v6/mascota/salta.webp" alt="" width="640" height="523">
-</div></div>
+<div class="mascota" id="mascota"><button class="mascota__in" type="button" aria-label="Tocar a la mascota de ZOLKO"><span class="mascota__juego">
+  <img data-pose="saluda" class="on" src="../assets/v6/mascota/saluda-900.webp" alt="" width="900" height="853">
+  <img data-pose="arriba" src="../assets/v6/mascota/arriba-900.webp" alt="" width="837" height="900">
+  <img data-pose="piensa" src="../assets/v6/mascota/piensa-900.webp" alt="" width="757" height="900">
+  <img data-pose="senala" src="../assets/v6/mascota/senala-900.webp" alt="" width="900" height="764">
+  <img data-pose="celebra" src="../assets/v6/mascota/celebra-900.webp" alt="" width="535" height="900">
+  <img data-pose="salta" src="../assets/v6/mascota/salta-900.webp" alt="" width="900" height="736">
+</span><span class="mascota__toca" aria-hidden="true">¡Tócame!</span><span class="chispas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div>
 
 <main>
   <!-- LLEGADA -->
@@ -318,6 +369,33 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       <h2 id="t-cim" class="aparece">Primero entendemos <em>tu negocio.</em></h2>
       <p class="frase aparece">Un diagnóstico de 30 minutos: cómo vendes hoy y dónde se te van los clientes.</p>
     </div></div>
+  </section>
+
+  <!-- RICARDO -->
+  <section class="escena" id="ricardo" data-fondo="oficina" data-pose="saluda" data-ancla="visual" aria-labelledby="t-ric">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">Quién te atiende</p>
+        <h2 id="t-ric" class="aparece"><img class="cara" src="../assets/v6/ricardo/ricardo-cara.webp" alt="" width="240" height="240">Soy Ricardo. <em>Te ayudo a vender más.</em></h2>
+        <p class="frase aparece">Fundador de ZOLKO INTEGRATIONS. IA, automatización y estrategia comercial para que tu negocio venda más.</p>
+        <ul class="ayudo aparece" aria-label="Cómo te ayudo">
+          <li><b>1</b><span>Hago tu diagnóstico y entiendo cómo vendes hoy.</span></li>
+          <li><b>2</b><span>Integro tu página, tu WhatsApp con IA y tu ARM.</span></li>
+          <li><b>3</b><span>Te enseño a ti y a tu equipo a usarlos.</span></li>
+        </ul>
+        <div class="acciones aparece">
+          <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Escríbeme DIAGNÓSTICO</a>
+          <a class="bajar" href="demos/tarjeta-digital.html">Ver mi tarjeta →</a>
+        </div>
+      </div>
+      <figure class="retrato aparece">
+        <picture>
+          <source media="(max-width: 899px)" srcset="../assets/v6/ricardo/ricardo-movil.webp" type="image/webp">
+          <img src="../assets/v6/ricardo/ricardo-escritorio.webp" srcset="../assets/v6/ricardo/ricardo-escritorio-1200.webp 1200w, ../assets/v6/ricardo/ricardo-escritorio.webp 2400w" sizes="(min-width: 900px) 560px, 100vw" alt="Ricardo Vergara, fundador de ZOLKO INTEGRATIONS, sonriendo en su escritorio junto a la mascota de ZOLKO" width="2400" height="1340" loading="lazy" decoding="async">
+        </picture>
+        <figcaption><b>Ricardo Vergara</b><span>Fundador · ZOLKO INTEGRATIONS</span></figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- PISO 1 -->
@@ -511,7 +589,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     if (id === "piso2") {
       if (cel) {
         var b = rect("#piso2 [data-apunta]"), vs = rect("#piso2 .versus"); w = Math.min(78, W * .2);
-        return { x: Math.min(W - w - 6, b.right + 10), y: Math.max(vs.bottom + 8, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
+        return { x: Math.min(W - w - 6, b.right + 10), y: Math.max(vs.bottom + 14, b.top + b.height / 2 - w * PROP.celebra * .6), w: w };
       }
       var v = rect("#piso2 .versus"); w = Math.min(200, W * .14);
       return { x: v.right + 36, y: v.top - 20, w: w };
@@ -523,13 +601,13 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     }
     var sec = document.getElementById(id), tipo = sec.dataset.ancla, alto = PROP[sec.dataset.pose] || 1;
     if (tipo === "visual") {
-      var v = sec.querySelector(".visual, .fone").getBoundingClientRect();
+      var v = sec.querySelector(".visual, .fone, .retrato").getBoundingClientRect();
       // computadora: parada sobre la esquina de arriba del visual, como asomándose a lo que muestra
       if (!cel) { w = Math.min(160, W * .11); return { x: v.right - w * .62, y: Math.max(96, v.top - w * alto - 16), w: w }; }
       // celular: junto al botón si cabe; si no, asomado en la esquina de arriba del visual
       var bt = sec.querySelector("[data-apunta]").getBoundingClientRect(), libre = W - bt.right - 14;
       // celular: en el hueco a la derecha del botón, sin tocar la frase de arriba ni el visual de abajo
-      var fr = sec.querySelector(".frase").getBoundingClientRect(), arriba = fr.bottom + 14, abajo = v.top - 6;   // +14: deja aire para el flote de 10 px
+      var fr = sec.querySelector(".acciones").previousElementSibling.getBoundingClientRect(), arriba = fr.bottom + 14, abajo = v.top - 6;   // +14: deja aire para el flote de 10 px
       w = Math.max(48, Math.min(92, libre, (abajo - arriba) / alto));
       var y = Math.min(abajo - w * alto, Math.max(arriba, bt.top + bt.height / 2 - w * alto * .55));
       return { x: W - w - 6, y: y, w: w };
@@ -547,7 +625,9 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     }[id] || { x: W - w - 14, y: H * .2 };
     return { x: p.x, y: p.y, w: w };
   }
+  var poseJuego = null;   // pose de la reacción al tocarla (manda sobre la de la escena un momento)
   function ponerMascota(id, pose) {
+    pose = poseJuego || pose;
     var l = lugar(id);
     mascota.style.setProperty("--m-x", l.x + "px"); mascota.style.setProperty("--m-y", l.y + "px"); mascota.style.setProperty("--m-w", l.w + "px");
     Object.keys(poses).forEach(function (k) { poses[k].classList.toggle("on", k === pose); });
@@ -556,6 +636,27 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     if (meta && pose === "senala") { var r = meta.getBoundingClientRect(); voltea = l.x + l.w / 2 > r.left + r.width / 2; }
     mascota.classList.toggle("voltea", voltea);
   }
+  // ---- Tocar a la mascota: reacciona y vuelve a su pose, sin mover nada de la página ----
+  var REACCIONES = [["j-brinco", "salta"], ["j-hola", "saluda"], ["j-giro", "celebra"], ["j-latido", "arriba"]], turno = 0, ocupada = false;
+  var boton = mascota.querySelector(".mascota__in");
+  boton.addEventListener("click", function () {
+    try { localStorage.setItem("zk-tocada", "1"); } catch (e) {}
+    mascota.classList.remove("pista");
+    if (ocupada || !actual) return; ocupada = true;
+    var r = REACCIONES[turno++ % REACCIONES.length];
+    poseJuego = r[1]; ponerMascota(actual.id, actual.dataset.pose);
+    if (navigator.vibrate) navigator.vibrate(12);
+    if (!reduce) { mascota.classList.add(r[0], "chispea"); }
+    setTimeout(function () {
+      mascota.classList.remove(r[0], "chispea");
+      poseJuego = null; if (actual) ponerMascota(actual.id, actual.dataset.pose);
+      ocupada = false;
+    }, reduce ? 600 : 1100);
+  });
+  // La primera vez, después de unos segundos, avisa en chiquito que se puede tocar
+  var yaTocada = false; try { yaTocada = localStorage.getItem("zk-tocada") === "1"; } catch (e) {}
+  if (!yaTocada) setTimeout(function () { mascota.classList.add("pista"); setTimeout(function () { mascota.classList.remove("pista"); }, 4200); }, 3500);
+
   function activar(sec) {
     if (actual === sec) return; actual = sec;
     escenas.forEach(function (s) { s.classList.toggle("activa", s === sec); });
