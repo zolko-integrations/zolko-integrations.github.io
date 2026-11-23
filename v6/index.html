@@ -137,7 +137,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 .chispas i:nth-child(7) { --dx: -90px; --dy: 0px; } .chispas i:nth-child(8) { --dx: -64px; --dy: -64px; }
 @keyframes chispa { 0% { opacity: 1; transform: translate(0, 0) scale(.4); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
 /* Una sola vez por visita: un aviso discreto de que se puede tocar */
-.mascota__toca { position: absolute; left: 50%; bottom: -26px; transform: translateX(-50%); white-space: nowrap; padding: 4px 10px; border-radius: 999px; font: 600 .7rem var(--f-texto); letter-spacing: .04em; color: var(--blanco); background: rgba(13, 10, 28, .9); border: 1px solid rgba(169, 147, 255, .45); opacity: 0; transition: opacity .6s; pointer-events: none; }
+.mascota__toca { position: absolute; right: 100%; top: 38%; margin-right: 4px; white-space: nowrap; padding: 4px 10px; border-radius: 999px; font: 600 .7rem var(--f-texto); letter-spacing: .04em; color: var(--blanco); background: rgba(13, 10, 28, .9); border: 1px solid rgba(169, 147, 255, .45); opacity: 0; transition: opacity .6s; pointer-events: none; }
 .mascota.pista .mascota__toca { opacity: 1; }
 .mascota img { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transform: scale(.92); transition: opacity .6s var(--suave), transform .8s var(--suave); filter: drop-shadow(0 24px 40px rgba(124, 92, 255, .45)); }
 .mascota img.on { position: relative; opacity: 1; transform: none; }
@@ -173,6 +173,30 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   #fundador .frase { margin-bottom: 18px; }
   .ayudo { margin: -2px 0 20px; gap: 8px; font-size: .95rem; }
 }
+
+/* ---------- Han confiado en nosotros: logos que corren despacio ---------- */
+.confian { flex-direction: column; justify-content: flex-end; align-items: stretch; gap: clamp(26px, 5vh, 46px); }
+.confian h2 { font-size: clamp(2.1rem, 4.6vw, 4rem); }
+.confian .texto { max-width: 46rem; }
+.escena.confian { align-items: stretch; }   /* en celular .escena alinea a la derecha: aquí la cinta va de lado a lado */
+.marquesina { width: 100%; min-width: 0; overflow: hidden; display: grid; gap: 8px; padding-block: 10px; background: rgba(5, 5, 5, .55); border-block: 1px solid var(--linea); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquesina__pista { display: flex; width: max-content; animation: correr 64s linear infinite; }
+.marquesina__pista.viene { animation-duration: 72s; animation-direction: reverse; }
+.marquesina:hover .marquesina__pista, .marquesina.pausada .marquesina__pista { animation-play-state: paused; }
+.marquesina__fila { list-style: none; display: flex; align-items: center; margin: 0; padding: 0; }
+.marquesina__fila li { flex: none; display: grid; place-items: center; height: 84px; padding: 0 clamp(30px, 4.4vw, 60px); opacity: .86; transition: opacity .3s; }
+.marquesina__fila li:hover { opacity: 1; }
+.marquesina__fila img { width: auto; max-width: 230px; height: 40px; object-fit: contain; }
+.marquesina__fila img.alto { height: 76px; }
+.marca { font: 500 clamp(1.45rem, 2.4vw, 2rem)/1 var(--f-display); letter-spacing: .02em; white-space: nowrap; color: var(--blanco); }
+.marca--mayus { font-family: var(--f-texto); font-weight: 700; letter-spacing: .3em; text-transform: uppercase; font-size: clamp(.98rem, 1.6vw, 1.25rem); }
+.marca--ital { font-style: italic; }
+@keyframes correr { to { transform: translateX(-25%); } }
+.pausa { min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--linea); background: rgba(8, 7, 14, .5); color: var(--lavanda); font: 500 .9rem var(--f-texto); cursor: pointer; }
+.pausa:hover { color: var(--blanco); border-color: rgba(244, 244, 247, .3); }
+@media (max-width: 899px) { .marquesina__fila li { height: 68px; } .marquesina__fila img { height: 32px; } .marquesina__fila img.alto { height: 60px; } }
+@media (prefers-reduced-motion: reduce) { .marquesina__pista { animation: none !important; } }
 
 /* ---------- Piso 1: el celular con la página ---------- */
 .dos { display: grid; gap: 36px; align-items: end; }
@@ -331,6 +355,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <li><a href="#piso7" data-ir="piso7"><span>7 · IA para tu negocio</span><i></i></a></li>
   <li><a href="#azotea" data-ir="azotea"><span>Azotea · Próximamente</span><i></i></a></li>
   <li><a href="#fundador" data-ir="fundador"><span>El fundador</span><i></i></a></li>
+  <li><a href="#confian" data-ir="confian"><span>Referencias</span><i></i></a></li>
   <li><a href="#cierre" data-ir="cierre"><span>Diagnóstico</span><i></i></a></li>
 </ol>
 
@@ -556,8 +581,24 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     </div>
   </section>
 
+  <!-- HAN CONFIADO EN NOSOTROS (debajo del fundador) -->
+  <section class="escena confian" id="confian" data-fondo="ciudad" data-pose="salta" data-ancla="confian" aria-labelledby="t-conf">
+    <div class="in"><div class="texto">
+      <p class="eyebrow aparece">Nuestras referencias</p>
+      <h2 id="t-conf" class="aparece">Negocios que ya confiaron <em>en Ricardo y en ZOLKO.</em></h2>
+    </div></div>
+    <div class="marquesina aparece" role="region" aria-label="Negocios que han trabajado con ZOLKO">
+      <div class="marquesina__pista va"><ul class="marquesina__fila"><li><img src="../assets/v6/clientes/maria-montero.png" alt="María Montero" width="640" height="95" ></li><li><span class="marca marca--ital">Eloisa Montero</span></li><li><img class="alto" src="../assets/v6/clientes/plataforma.png" alt="Plataforma Joyería" width="308" height="340" ></li><li><span class="marca">El Marqués</span></li><li><span class="marca marca--ital">Brillo Eterno</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img src="../assets/v6/clientes/maria-montero.png" alt="" width="640" height="95" ></li><li><span class="marca marca--ital">Eloisa Montero</span></li><li><img class="alto" src="../assets/v6/clientes/plataforma.png" alt="" width="308" height="340" ></li><li><span class="marca">El Marqués</span></li><li><span class="marca marca--ital">Brillo Eterno</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img src="../assets/v6/clientes/maria-montero.png" alt="" width="640" height="95" ></li><li><span class="marca marca--ital">Eloisa Montero</span></li><li><img class="alto" src="../assets/v6/clientes/plataforma.png" alt="" width="308" height="340" ></li><li><span class="marca">El Marqués</span></li><li><span class="marca marca--ital">Brillo Eterno</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img src="../assets/v6/clientes/maria-montero.png" alt="" width="640" height="95" ></li><li><span class="marca marca--ital">Eloisa Montero</span></li><li><img class="alto" src="../assets/v6/clientes/plataforma.png" alt="" width="308" height="340" ></li><li><span class="marca">El Marqués</span></li><li><span class="marca marca--ital">Brillo Eterno</span></li></ul></div>
+      <div class="marquesina__pista viene"><ul class="marquesina__fila"><li><span class="marca marca--mayus">Panadería Damira</span></li><li><span class="marca">Comanx</span></li><li><span class="marca marca--ital">Los Parados de Sinaloa</span></li><li><span class="marca marca--mayus">VYBRA Sound &amp; Light</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><span class="marca marca--mayus">Panadería Damira</span></li><li><span class="marca">Comanx</span></li><li><span class="marca marca--ital">Los Parados de Sinaloa</span></li><li><span class="marca marca--mayus">VYBRA Sound &amp; Light</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><span class="marca marca--mayus">Panadería Damira</span></li><li><span class="marca">Comanx</span></li><li><span class="marca marca--ital">Los Parados de Sinaloa</span></li><li><span class="marca marca--mayus">VYBRA Sound &amp; Light</span></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><span class="marca marca--mayus">Panadería Damira</span></li><li><span class="marca">Comanx</span></li><li><span class="marca marca--ital">Los Parados de Sinaloa</span></li><li><span class="marca marca--mayus">VYBRA Sound &amp; Light</span></li></ul></div>
+    </div>
+    <div class="in"><div class="acciones aparece">
+      <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">Quiero ser el siguiente</a>
+      <button class="pausa" type="button" id="mqPausa" aria-pressed="false">Pausar</button>
+    </div></div>
+  </section>
+
   <!-- CIERRE -->
-  <section class="escena" id="cierre" data-fondo="ciudad" data-pose="salta" data-ancla="boton" aria-labelledby="t-cierre">
+  <section class="escena" id="cierre" data-fondo="ciudad" data-pose="senala" data-ancla="boton" aria-labelledby="t-cierre">
     <div class="in"><div class="texto">
       <p class="eyebrow aparece">Tu siguiente paso</p>
       <h2 id="t-cierre" class="aparece">¿Subimos <em>tu negocio?</em></h2>
@@ -618,6 +659,13 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       var y = Math.min(abajo - w * alto, Math.max(arriba, bt.top + bt.height / 2 - w * alto * .55));
       return { x: W - w - 6, y: y, w: w };
     }
+    if (tipo === "confian") {
+      // brincando de gusto arriba de la cinta de logos, sin tocar el título ni los logos
+      var cin = sec.querySelector(".marquesina").getBoundingClientRect(), tt = sec.querySelector("h2").getBoundingClientRect();
+      if (cel) { var e2 = sec.querySelector(".eyebrow").getBoundingClientRect(); w = Math.max(64, Math.min(110, (e2.top - 92) / alto));
+        return { x: W - w - 14, y: Math.max(84, e2.top - w * alto - 10), w: w }; }
+      w = Math.min(170, W * .12); return { x: Math.max(tt.right + 40, W * .64), y: cin.top - w * alto - 22, w: w };
+    }
     if (tipo === "boton") {
       var bb = sec.querySelector("[data-apunta]").getBoundingClientRect();
       if (cel) { var t2 = sec.querySelector(".eyebrow").getBoundingClientRect(), hueco = t2.top - 84 - 8;
@@ -642,6 +690,9 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     if (meta && pose === "senala") { var r = meta.getBoundingClientRect(); voltea = l.x + l.w / 2 > r.left + r.width / 2; }
     mascota.classList.toggle("voltea", voltea);
   }
+  // Pausar los logos (para quien prefiere leerlos quietos)
+  var mq = document.querySelector(".marquesina"), mqB = document.getElementById("mqPausa");
+  if (mq && mqB) mqB.addEventListener("click", function () { var p = mq.classList.toggle("pausada"); mqB.setAttribute("aria-pressed", p); mqB.textContent = p ? "Continuar" : "Pausar"; });
   // ---- Tocar a la mascota: reacciona y vuelve a su pose, sin mover nada de la página ----
   var REACCIONES = [["j-brinco", "salta"], ["j-hola", "saluda"], ["j-giro", "celebra"], ["j-latido", "arriba"]], turno = 0, ocupada = false;
   var boton = mascota.querySelector(".mascota__in");
