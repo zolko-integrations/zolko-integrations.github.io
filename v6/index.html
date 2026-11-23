@@ -145,27 +145,32 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
 @keyframes flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* ---------- Quién te atiende: Ricardo ---------- */
-#ricardo h2 { font-size: clamp(2.3rem, 4.2vw, 3.8rem); }
-#ricardo .texto { max-width: 30rem; }
+#fundador h2 { font-size: clamp(2.3rem, 4.2vw, 3.8rem); }
+#fundador .texto { max-width: 30rem; }
 .cara { display: none; }
-@media (min-width: 900px) { #ricardo .dos { grid-template-columns: minmax(0, 1fr) minmax(0, 500px); gap: 56px; } }
+@media (min-width: 900px) { #fundador .dos { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 64px; } }
+.datos { list-style: none; margin: -8px 0 26px; padding: 0; display: flex; gap: 12px; }
+.datos li { display: grid; gap: 2px; min-width: 136px; padding: 12px 16px; border-radius: 18px; background: rgba(13, 10, 28, .72); border: 1px solid rgba(169, 147, 255, .35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.datos b { font: 500 2.2rem/1 var(--f-display); color: var(--verde); }
+.datos span { font-size: .84rem; color: var(--lavanda); }
 .ayudo { list-style: none; margin: -12px 0 28px; padding: 0; display: grid; gap: 10px; }
 .ayudo li { display: flex; align-items: center; gap: 12px; color: var(--blanco); font-weight: 500; }
 .ayudo b { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font: 500 1rem var(--f-display); color: var(--violeta-luz); border: 1px solid rgba(169, 147, 255, .5); }
-.retrato { position: relative; margin: 0; width: min(560px, 100%); justify-self: center; border-radius: 28px; overflow: hidden;
+.retrato { position: relative; margin: 0; width: min(420px, 100%); justify-self: center; border-radius: 28px; overflow: hidden;
   box-shadow: 0 0 0 1px rgba(244, 244, 247, .14), 0 50px 100px -40px rgba(124, 92, 255, .95), 0 0 70px -20px rgba(37, 211, 102, .25); }
-.retrato img { width: 100%; height: auto; aspect-ratio: 2400 / 1340; object-fit: cover; }
+.retrato img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
 .retrato figcaption { position: absolute; left: 14px; bottom: 14px; display: grid; gap: 1px; padding: 9px 14px; border-radius: 16px; background: rgba(8, 7, 14, .78); border: 1px solid rgba(244, 244, 247, .14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .retrato figcaption b { font: 500 1.05rem var(--f-display); }
 .retrato figcaption span { font-size: .74rem; color: var(--lavanda); }
 @media (max-width: 899px) {
-  #ricardo .dos { gap: 22px; }
+  #fundador .dos { gap: 22px; }
+  .datos { margin: -4px 0 20px; } .datos li { min-width: 0; flex: 1; padding: 10px 14px; } .datos b { font-size: 1.9rem; }
   /* En celular tu cara aparece desde el primer momento, junto al título */
   .cara { display: block; float: right; width: 84px; height: 84px; margin: 4px 0 6px 12px; border-radius: 50%; object-fit: cover;
     box-shadow: 0 0 0 2px rgba(169, 147, 255, .7), 0 0 0 6px rgba(124, 92, 255, .18), 0 14px 30px -10px rgba(124, 92, 255, .8); }
   .retrato { border-radius: 22px; }
-  .retrato img { aspect-ratio: 4 / 3; }
-  #ricardo .frase { margin-bottom: 18px; }
+  .retrato img { aspect-ratio: 4 / 5; }
+  #fundador .frase { margin-bottom: 18px; }
   .ayudo { margin: -2px 0 20px; gap: 8px; font-size: .95rem; }
 }
 
@@ -304,10 +309,10 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
     <a href="#llegada" aria-label="ZOLKO INTEGRATIONS, inicio"><img src="../assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="84" height="28"></a>
     <nav aria-label="Principal"><ul>
       <li><a href="#cimientos">Cómo empezamos</a></li>
-      <li><a href="#ricardo">Quién soy</a></li>
       <li><a href="#piso1">Servicios</a></li>
       <li><a href="#piso3">ARM</a></li>
       <li><a href="#azotea">Próximamente</a></li>
+      <li><a href="#fundador">Quién soy</a></li>
     </ul></nav>
     <a class="btn btn--verde btn--chico" href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">DIAGNÓSTICO</a>
   </div>
@@ -317,7 +322,6 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <li><a href="#llegada" data-ir="llegada"><span>Llegada</span><i></i></a></li>
   <li><a href="#torre" data-ir="torre"><span>Tu torre</span><i></i></a></li>
   <li><a href="#cimientos" data-ir="cimientos"><span>Cimientos</span><i></i></a></li>
-  <li><a href="#ricardo" data-ir="ricardo"><span>Ricardo</span><i></i></a></li>
   <li><a href="#piso1" data-ir="piso1"><span>1 · Página y tarjetas</span><i></i></a></li>
   <li><a href="#piso2" data-ir="piso2"><span>2 · Respuestas</span><i></i></a></li>
   <li><a href="#piso3" data-ir="piso3"><span>3 · ARM</span><i></i></a></li>
@@ -326,6 +330,7 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
   <li><a href="#piso6" data-ir="piso6"><span>6 · Lealtad</span><i></i></a></li>
   <li><a href="#piso7" data-ir="piso7"><span>7 · IA para tu negocio</span><i></i></a></li>
   <li><a href="#azotea" data-ir="azotea"><span>Azotea · Próximamente</span><i></i></a></li>
+  <li><a href="#fundador" data-ir="fundador"><span>El fundador</span><i></i></a></li>
   <li><a href="#cierre" data-ir="cierre"><span>Diagnóstico</span><i></i></a></li>
 </ol>
 
@@ -369,33 +374,6 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       <h2 id="t-cim" class="aparece">Primero entendemos <em>tu negocio.</em></h2>
       <p class="frase aparece">Un diagnóstico de 30 minutos: cómo vendes hoy y dónde se te van los clientes.</p>
     </div></div>
-  </section>
-
-  <!-- RICARDO -->
-  <section class="escena" id="ricardo" data-fondo="oficina" data-pose="saluda" data-ancla="visual" aria-labelledby="t-ric">
-    <div class="in dos">
-      <div class="texto">
-        <p class="eyebrow aparece">Quién te atiende</p>
-        <h2 id="t-ric" class="aparece"><img class="cara" src="../assets/v6/ricardo/ricardo-cara.webp" alt="" width="240" height="240">Soy Ricardo. <em>Te ayudo a vender más.</em></h2>
-        <p class="frase aparece">Fundador de ZOLKO INTEGRATIONS. IA, automatización y estrategia comercial para que tu negocio venda más.</p>
-        <ul class="ayudo aparece" aria-label="Cómo te ayudo">
-          <li><b>1</b><span>Hago tu diagnóstico y entiendo cómo vendes hoy.</span></li>
-          <li><b>2</b><span>Integro tu página, tu WhatsApp con IA y tu ARM.</span></li>
-          <li><b>3</b><span>Te enseño a ti y a tu equipo a usarlos.</span></li>
-        </ul>
-        <div class="acciones aparece">
-          <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Escríbeme DIAGNÓSTICO</a>
-          <a class="bajar" href="demos/tarjeta-digital.html">Ver mi tarjeta →</a>
-        </div>
-      </div>
-      <figure class="retrato aparece">
-        <picture>
-          <source media="(max-width: 899px)" srcset="../assets/v6/ricardo/ricardo-movil.webp" type="image/webp">
-          <img src="../assets/v6/ricardo/ricardo-escritorio.webp" srcset="../assets/v6/ricardo/ricardo-escritorio-1200.webp 1200w, ../assets/v6/ricardo/ricardo-escritorio.webp 2400w" sizes="(min-width: 900px) 560px, 100vw" alt="Ricardo Vergara, fundador de ZOLKO INTEGRATIONS, sonriendo en su escritorio junto a la mascota de ZOLKO" width="2400" height="1340" loading="lazy" decoding="async">
-        </picture>
-        <figcaption><b>Ricardo Vergara</b><span>Fundador · ZOLKO INTEGRATIONS</span></figcaption>
-      </figure>
-    </div>
   </section>
 
   <!-- PISO 1 -->
@@ -548,6 +526,34 @@ h1 em, h2 em { font-style: italic; color: var(--violeta-luz); }
       </div>
       <p class="fuente aparece">Reforma a la Ley Federal del Trabajo publicada en el Diario Oficial el 1 de mayo de 2026. La STPS publicará las reglas del registro.</p>
     </div></div>
+  </section>
+
+  <!-- EL FUNDADOR (al terminar los pisos) -->
+  <section class="escena" id="fundador" data-fondo="lejana" data-pose="saluda" data-ancla="visual" aria-labelledby="t-fun">
+    <div class="in dos">
+      <div class="texto">
+        <p class="eyebrow aparece">El fundador de esta torre</p>
+        <h2 id="t-fun" class="aparece"><img class="cara" src="../assets/v6/ricardo/ricardo-cara.webp" alt="" width="240" height="240">Ricardo Vergara. <em>Así lo hacemos.</em></h2>
+        <p class="frase aparece">Fundador de ZOLKO INTEGRATIONS. IA, automatización y estrategia comercial para que tu negocio venda más.</p>
+        <ul class="datos aparece" aria-label="Experiencia de Ricardo">
+          <li><b>+8</b><span>años en ventas</span></li>
+          <li><b>4</b><span>años en franquicias</span></li>
+        </ul>
+        <ul class="ayudo aparece" aria-label="Cómo te ayudo">
+          <li><b>1</b><span>Hago tu diagnóstico y entiendo cómo vendes hoy.</span></li>
+          <li><b>2</b><span>Integro tu página, tu WhatsApp con IA y tu ARM.</span></li>
+          <li><b>3</b><span>Te enseño a ti y a tu equipo a usarlos.</span></li>
+        </ul>
+        <div class="acciones aparece">
+          <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Escríbeme DIAGNÓSTICO</a>
+          <a class="bajar" href="demos/tarjeta-digital.html">Ver mi tarjeta →</a>
+        </div>
+      </div>
+      <figure class="retrato aparece">
+        <img src="../assets/v6/ricardo/fundador.webp" srcset="../assets/v6/ricardo/fundador-600.webp 600w, ../assets/v6/ricardo/fundador.webp 1140w" sizes="(min-width: 900px) 420px, 100vw" alt="Ricardo Vergara, fundador de ZOLKO INTEGRATIONS, con los brazos cruzados y sonriendo" width="1140" height="1425" loading="lazy" decoding="async">
+        <figcaption><b>Ricardo Vergara</b><span>Fundador · ZOLKO INTEGRATIONS</span></figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- CIERRE -->
