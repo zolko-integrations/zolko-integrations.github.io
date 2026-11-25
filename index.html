@@ -28,8 +28,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/v6/torre/lejana-movil.webp" media="(max-aspect-ratio: 1/1)">
-<link rel="preload" as="image" imagesrcset="assets/v6/torre/lejana-1600.webp 1600w, assets/v6/torre/lejana-2560.webp 2560w, assets/v6/torre/lejana-3840.webp 3840w" imagesizes="100vw" media="(min-aspect-ratio: 1/1)">
+<link rel="preload" as="image" href="assets/v6/torre/lejana-movil.webp" media="(max-aspect-ratio: 1/1)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="assets/v6/torre/lejana-1600.webp 1600w, assets/v6/torre/lejana-2560.webp 2560w, assets/v6/torre/lejana-3840.webp 3840w" imagesizes="100vw" media="(min-aspect-ratio: 1/1)" fetchpriority="high">
 <style>
 /* =====================================================================
    ZOLKO · v6 "Tu torre" (página de prueba)
@@ -645,6 +645,43 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
   <div class="intro__pie"><img src="assets/zolko-logo.svg" alt="ZOLKO INTEGRATIONS" width="150" height="50"><div class="intro__barra"><i id="introBarra"></i></div></div>
 </div>
 <script>
+/* Carga rápida: al abrir solo baja el primer fondo y la mascota que saluda.
+   Lo demás (fondos y poses) baja en el orden del recorrido, uno por uno, y la escena que ves pasa al frente de la fila. */
+(function () {
+  var pend = [], corriendo = false, listo = false;
+  function hidrata(img) {
+    if (!img || !img.hasAttribute("data-src")) return null;
+    var pic = img.parentNode && img.parentNode.tagName === "PICTURE" ? img.parentNode : null;
+    if (pic) [].slice.call(pic.querySelectorAll("source[data-srcset]")).forEach(function (so) { so.srcset = so.getAttribute("data-srcset"); so.removeAttribute("data-srcset"); });
+    if (img.hasAttribute("data-srcset")) { img.srcset = img.getAttribute("data-srcset"); img.removeAttribute("data-srcset"); }
+    img.src = img.getAttribute("data-src"); img.removeAttribute("data-src");
+    return img;
+  }
+  function sigue() {
+    if (!listo || corriendo) return;
+    var img; while (pend.length && !(img = hidrata(pend.shift()))) {}
+    if (!img) return;
+    corriendo = true;
+    var fin = function () { corriendo = false; sigue(); };
+    if (img.complete || img.loading === "lazy") fin(); else { img.addEventListener("load", fin, { once: true }); img.addEventListener("error", fin, { once: true }); }
+  }
+  function de(sec) {
+    var f = document.querySelector('.fondo figure[data-fondo="' + sec.dataset.fondo + '"] img'),
+        m = document.querySelector('#mascota img[data-pose="' + sec.dataset.pose + '"]');
+    return [f, m].concat([].slice.call(sec.querySelectorAll("img[data-src]")));
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    [].slice.call(document.querySelectorAll(".escena")).forEach(function (sec) { pend.push.apply(pend, de(sec)); });
+    pend.push.apply(pend, [].slice.call(document.querySelectorAll("#mascota img[data-src], .fondo img[data-src]")));
+  });
+  // la escena que estás viendo se carga ya, sin esperar su turno
+  window.zkPrioriza = function (sec) { de(sec).forEach(hidrata); };
+  window.zkCargaResto = function () { if (listo) return; listo = true; sigue(); };
+  // sin intro (o si algo falla), arranca cuando terminó de cargar lo primero
+  addEventListener("load", function () { setTimeout(window.zkCargaResto, 200); });
+})();
+</script>
+<script>
 /* Intro: el portal se llena mientras cargan los 7 fondos de la torre, la mascota y las letras (máximo 5 s). Luego la mascota salta y se abre el portal. */
 (function () {
   var html = document.documentElement, intro = document.getElementById("intro");
@@ -670,14 +707,14 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
     setTimeout(function () {
       meta = 1; vista = .999;
       setTimeout(function () {
-        saluda.classList.remove("ve"); salta.classList.add("ve");
+        saluda.classList.remove("ve"); salta.classList.add("ve"); if (window.zkCargaResto) window.zkCargaResto();
         intro.classList.add("abre"); html.classList.remove("con-intro");
         setTimeout(function () { if (intro.parentNode) intro.parentNode.removeChild(intro); }, 1500);
       }, 260);
     }, Math.max(150, MIN - (Date.now() - t0)));
   }
   document.addEventListener("DOMContentLoaded", function () {
-    [].slice.call(document.querySelectorAll(".fondo img, #mascota img")).forEach(espera);
+    [].slice.call(document.querySelectorAll(".fondo figure.on img, #mascota img.on")).forEach(espera);
     if (document.fonts && document.fonts.ready) { total++; document.fonts.ready.then(uno, uno); }
     objetivo(); if (listos >= total) abre();
   });
@@ -689,13 +726,13 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
 
 <!-- Fondo: una escena de la torre por sección -->
 <div class="fondo" aria-hidden="true">
-  <figure data-fondo="lejana" class="on"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/lejana-movil.webp"><img src="assets/v6/torre/lejana-2560.webp" srcset="assets/v6/torre/lejana-1600.webp 1600w, assets/v6/torre/lejana-2560.webp 2560w, assets/v6/torre/lejana-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
-  <figure data-fondo="acerca"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/acerca-movil.webp"><img src="assets/v6/torre/acerca-2560.webp" srcset="assets/v6/torre/acerca-1600.webp 1600w, assets/v6/torre/acerca-2560.webp 2560w, assets/v6/torre/acerca-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
-  <figure data-fondo="calle"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/calle-movil.webp"><img src="assets/v6/torre/calle-2560.webp" srcset="assets/v6/torre/calle-1600.webp 1600w, assets/v6/torre/calle-2560.webp 2560w, assets/v6/torre/calle-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
-  <figure data-fondo="oficina"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/oficina-movil.webp"><img src="assets/v6/torre/oficina-2560.webp" srcset="assets/v6/torre/oficina-1600.webp 1600w, assets/v6/torre/oficina-2560.webp 2560w, assets/v6/torre/oficina-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
-  <figure data-fondo="elevador"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/elevador-movil.webp"><img src="assets/v6/torre/elevador-2560.webp" srcset="assets/v6/torre/elevador-1600.webp 1600w, assets/v6/torre/elevador-2560.webp 2560w, assets/v6/torre/elevador-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
-  <figure data-fondo="azotea"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/azotea-movil.webp"><img src="assets/v6/torre/azotea-2560.webp" srcset="assets/v6/torre/azotea-1600.webp 1600w, assets/v6/torre/azotea-2560.webp 2560w, assets/v6/torre/azotea-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
-  <figure data-fondo="ciudad"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/ciudad-movil.webp"><img src="assets/v6/torre/ciudad-2560.webp" srcset="assets/v6/torre/ciudad-1600.webp 1600w, assets/v6/torre/ciudad-2560.webp 2560w, assets/v6/torre/ciudad-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="lejana" class="on"><picture><source media="(max-aspect-ratio: 1/1)" srcset="assets/v6/torre/lejana-movil.webp"><img fetchpriority="high" src="assets/v6/torre/lejana-2560.webp" srcset="assets/v6/torre/lejana-1600.webp 1600w, assets/v6/torre/lejana-2560.webp 2560w, assets/v6/torre/lejana-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="acerca"><picture><source media="(max-aspect-ratio: 1/1)" data-srcset="assets/v6/torre/acerca-movil.webp"><img data-src="assets/v6/torre/acerca-2560.webp" data-srcset="assets/v6/torre/acerca-1600.webp 1600w, assets/v6/torre/acerca-2560.webp 2560w, assets/v6/torre/acerca-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="calle"><picture><source media="(max-aspect-ratio: 1/1)" data-srcset="assets/v6/torre/calle-movil.webp"><img data-src="assets/v6/torre/calle-2560.webp" data-srcset="assets/v6/torre/calle-1600.webp 1600w, assets/v6/torre/calle-2560.webp 2560w, assets/v6/torre/calle-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="oficina"><picture><source media="(max-aspect-ratio: 1/1)" data-srcset="assets/v6/torre/oficina-movil.webp"><img data-src="assets/v6/torre/oficina-2560.webp" data-srcset="assets/v6/torre/oficina-1600.webp 1600w, assets/v6/torre/oficina-2560.webp 2560w, assets/v6/torre/oficina-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="elevador"><picture><source media="(max-aspect-ratio: 1/1)" data-srcset="assets/v6/torre/elevador-movil.webp"><img data-src="assets/v6/torre/elevador-2560.webp" data-srcset="assets/v6/torre/elevador-1600.webp 1600w, assets/v6/torre/elevador-2560.webp 2560w, assets/v6/torre/elevador-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="azotea"><picture><source media="(max-aspect-ratio: 1/1)" data-srcset="assets/v6/torre/azotea-movil.webp"><img data-src="assets/v6/torre/azotea-2560.webp" data-srcset="assets/v6/torre/azotea-1600.webp 1600w, assets/v6/torre/azotea-2560.webp 2560w, assets/v6/torre/azotea-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
+  <figure data-fondo="ciudad"><picture><source media="(max-aspect-ratio: 1/1)" data-srcset="assets/v6/torre/ciudad-movil.webp"><img data-src="assets/v6/torre/ciudad-2560.webp" data-srcset="assets/v6/torre/ciudad-1600.webp 1600w, assets/v6/torre/ciudad-2560.webp 2560w, assets/v6/torre/ciudad-3840.webp 3840w" sizes="100vw" alt="" decoding="async"></picture></figure>
 </div>
 
 <header class="header">
@@ -736,12 +773,12 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
 <!-- La mascota: cambia de pose y de lugar en cada escena -->
 <div class="mascota" id="mascota"><button class="mascota__in" type="button" aria-label="Tocar a la mascota de ZOLKO"><span class="mascota__juego">
   <img data-pose="saluda" class="on" src="assets/v6/mascota/saluda-900.webp" alt="" width="900" height="853">
-  <img data-pose="arriba" src="assets/v6/mascota/arriba-900.webp" alt="" width="837" height="900">
-  <img data-pose="piensa" src="assets/v6/mascota/piensa-900.webp" alt="" width="757" height="900">
-  <img data-pose="senala" src="assets/v6/mascota/senala-900.webp" alt="" width="900" height="764">
-  <img data-pose="celebra" src="assets/v6/mascota/celebra-900.webp?v=2" alt="" width="535" height="900">
-  <img data-pose="salta" src="assets/v6/mascota/salta-900.webp" alt="" width="900" height="736">
-  <img data-pose="abajo" src="assets/v6/mascota/abajo-900.webp" alt="" width="817" height="900">
+  <img data-pose="arriba" data-src="assets/v6/mascota/arriba-900.webp" alt="" width="837" height="900">
+  <img data-pose="piensa" data-src="assets/v6/mascota/piensa-900.webp" alt="" width="757" height="900">
+  <img data-pose="senala" data-src="assets/v6/mascota/senala-900.webp" alt="" width="900" height="764">
+  <img data-pose="celebra" data-src="assets/v6/mascota/celebra-900.webp?v=2" alt="" width="535" height="900">
+  <img data-pose="salta" data-src="assets/v6/mascota/salta-900.webp" alt="" width="900" height="736">
+  <img data-pose="abajo" data-src="assets/v6/mascota/abajo-900.webp" alt="" width="817" height="900">
 </span><span class="mascota__toca" aria-hidden="true">¡Tócame!</span><span class="chispas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div>
 
 <!-- Visor: la demo se abre aquí, encima de la torre, dentro de un celular o una tableta -->
@@ -794,7 +831,7 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
       <p class="frase aparece">Estos son ejemplos. Hacemos la página de tu negocio, sea cual sea, y lleva al cliente directo a tu WhatsApp.</p>
     </div></div>
     <div class="vitrina aparece">
-      <ul class="vitrina__pista" id="vitrina" tabindex="0" aria-label="Páginas de ejemplo. Desliza de lado para ver más y toca una para abrirla."><li><a class="tel" href="demos/taqueria.html" aria-label="Ver la página de ejemplo de taquería"><span class="tel__pantalla"><img src="assets/v6/vitrina/taqueria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:0s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Taquería</p></li><li><a class="tel" href="demos/restaurante.html" aria-label="Ver la página de ejemplo de restaurante"><span class="tel__pantalla"><img src="assets/v6/vitrina/restaurante.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:2s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Restaurante</p></li><li><a class="tel" href="demos/unas.html" aria-label="Ver la página de ejemplo de estudio de uñas"><span class="tel__pantalla"><img src="assets/v6/vitrina/unas.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:4s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Estudio de uñas</p></li><li><a class="tel" href="demos/panaderia.html" aria-label="Ver la página de ejemplo de panadería"><span class="tel__pantalla"><img src="assets/v6/vitrina/panaderia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:6s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Panadería</p></li><li><a class="tel" href="demos/joyeria.html" aria-label="Ver la página de ejemplo de joyería"><span class="tel__pantalla"><img src="assets/v6/vitrina/joyeria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:8s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Joyería</p></li><li><a class="tel" href="demos/car-wash.html" aria-label="Ver la página de ejemplo de car wash"><span class="tel__pantalla"><img src="assets/v6/vitrina/car-wash.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:10s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Car wash</p></li><li><a class="tel" href="demos/consultorio.html" aria-label="Ver la página de ejemplo de consultorio"><span class="tel__pantalla"><img src="assets/v6/vitrina/consultorio.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:12s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Consultorio</p></li><li><a class="tel" href="demos/academia.html" aria-label="Ver la página de ejemplo de academia de música"><span class="tel__pantalla"><img src="assets/v6/vitrina/academia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:14s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Academia de música</p></li><li><a class="tel" href="demos/inmobiliaria.html" aria-label="Ver la página de ejemplo de inmobiliaria"><span class="tel__pantalla"><img src="assets/v6/vitrina/inmobiliaria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:16s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Inmobiliaria</p></li></ul>
+      <ul class="vitrina__pista" id="vitrina" tabindex="0" aria-label="Páginas de ejemplo. Desliza de lado para ver más y toca una para abrirla."><li><a class="tel" href="demos/taqueria.html" aria-label="Ver la página de ejemplo de taquería"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/taqueria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:0s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Taquería</p></li><li><a class="tel" href="demos/restaurante.html" aria-label="Ver la página de ejemplo de restaurante"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/restaurante.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:2s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Restaurante</p></li><li><a class="tel" href="demos/unas.html" aria-label="Ver la página de ejemplo de estudio de uñas"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/unas.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:4s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Estudio de uñas</p></li><li><a class="tel" href="demos/panaderia.html" aria-label="Ver la página de ejemplo de panadería"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/panaderia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:6s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Panadería</p></li><li><a class="tel" href="demos/joyeria.html" aria-label="Ver la página de ejemplo de joyería"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/joyeria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:8s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Joyería</p></li><li><a class="tel" href="demos/car-wash.html" aria-label="Ver la página de ejemplo de car wash"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/car-wash.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:10s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Car wash</p></li><li><a class="tel" href="demos/consultorio.html" aria-label="Ver la página de ejemplo de consultorio"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/consultorio.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:12s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Consultorio</p></li><li><a class="tel" href="demos/academia.html" aria-label="Ver la página de ejemplo de academia de música"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/academia.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:14s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Academia de música</p></li><li><a class="tel" href="demos/inmobiliaria.html" aria-label="Ver la página de ejemplo de inmobiliaria"><span class="tel__pantalla"><img data-src="assets/v6/vitrina/inmobiliaria.webp" alt="" width="780" height="3600" loading="lazy" decoding="async" style="--d:16s"></span></a><p class="tel__nombre"><small>Ejemplo</small>Inmobiliaria</p></li></ul>
       <div class="vitrina__mando">
         <button type="button" class="vitrina__flecha" data-dir="-1" aria-label="Ejemplo anterior"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <p>Desliza y toca un celular para ver la página completa</p>
@@ -983,7 +1020,7 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
       <h2 id="t-conf" class="aparece">Negocios que ya confiaron <em>en Ricardo y en ZOLKO.</em></h2>
     </div></div>
     <div class="marquesina aparece" role="region" aria-label="Negocios que han trabajado con ZOLKO">
-      <div class="marquesina__pista"><ul class="marquesina__fila"><li><img class="ancho" src="assets/v6/clientes/maria-montero-blanco.webp" alt="María Montero" width="640" height="95" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/los-parados-blanco.webp" alt="Los Parados de Sinaloa" width="314" height="320" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/eloisa-montero-blanco.webp" alt="Eloisa Montero Diamantes" width="693" height="318" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/vybra-blanco.webp" alt="VYBRA Sound & Light" width="306" height="320" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/plataforma-blanco.webp" alt="Plataforma Joyería" width="289" height="320" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dhamira-blanco.webp" alt="Dhamira" width="311" height="320" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/el-marquez-blanco.webp" alt="Joyas El Márquez" width="847" height="320" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/guadalayork-blanco.webp" alt="Guadalayork Dance Festival" width="707" height="285" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/brillo-eterno-blanco.webp" alt="Brillo Eterno Joyería" width="471" height="260" decoding="async"></li><li><img class="ancho" src="assets/v6/clientes/fisiomate-blanco.webp" alt="Fisiomate" width="753" height="221" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dogs-california-blanco.webp" alt="Dogs California" width="323" height="320" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/mcommands-blanco.webp" alt="Mcommands" width="409" height="320" decoding="async"></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img class="ancho" src="assets/v6/clientes/maria-montero-blanco.webp" alt="" width="640" height="95" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/los-parados-blanco.webp" alt="" width="314" height="320" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/eloisa-montero-blanco.webp" alt="" width="693" height="318" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/vybra-blanco.webp" alt="" width="306" height="320" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/plataforma-blanco.webp" alt="" width="289" height="320" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dhamira-blanco.webp" alt="" width="311" height="320" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/el-marquez-blanco.webp" alt="" width="847" height="320" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/guadalayork-blanco.webp" alt="" width="707" height="285" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/brillo-eterno-blanco.webp" alt="" width="471" height="260" decoding="async"></li><li><img class="ancho" src="assets/v6/clientes/fisiomate-blanco.webp" alt="" width="753" height="221" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dogs-california-blanco.webp" alt="" width="323" height="320" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/mcommands-blanco.webp" alt="" width="409" height="320" decoding="async"></li></ul></div>
+      <div class="marquesina__pista"><ul class="marquesina__fila"><li><img class="ancho" src="assets/v6/clientes/maria-montero-blanco.webp" alt="María Montero" width="640" height="95" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/los-parados-blanco.webp" alt="Los Parados de Sinaloa" width="314" height="320" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/eloisa-montero-blanco.webp" alt="Eloisa Montero Diamantes" width="693" height="318" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/vybra-blanco.webp" alt="VYBRA Sound & Light" width="306" height="320" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/plataforma-blanco.webp" alt="Plataforma Joyería" width="289" height="320" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dhamira-blanco.webp" alt="Dhamira" width="311" height="320" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/el-marquez-blanco.webp" alt="Joyas El Márquez" width="847" height="320" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/guadalayork-blanco.webp" alt="Guadalayork Dance Festival" width="707" height="285" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/brillo-eterno-blanco.webp" alt="Brillo Eterno Joyería" width="471" height="260" loading="lazy" decoding="async"></li><li><img class="ancho" src="assets/v6/clientes/fisiomate-blanco.webp" alt="Fisiomate" width="753" height="221" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dogs-california-blanco.webp" alt="Dogs California" width="323" height="320" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/mcommands-blanco.webp" alt="Mcommands" width="409" height="320" loading="lazy" decoding="async"></li></ul><ul class="marquesina__fila" aria-hidden="true"><li><img class="ancho" src="assets/v6/clientes/maria-montero-blanco.webp" alt="" width="640" height="95" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/los-parados-blanco.webp" alt="" width="314" height="320" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/eloisa-montero-blanco.webp" alt="" width="693" height="318" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/vybra-blanco.webp" alt="" width="306" height="320" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/plataforma-blanco.webp" alt="" width="289" height="320" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dhamira-blanco.webp" alt="" width="311" height="320" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/el-marquez-blanco.webp" alt="" width="847" height="320" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/guadalayork-blanco.webp" alt="" width="707" height="285" loading="lazy" decoding="async"></li><li><img class="medio" src="assets/v6/clientes/brillo-eterno-blanco.webp" alt="" width="471" height="260" loading="lazy" decoding="async"></li><li><img class="ancho" src="assets/v6/clientes/fisiomate-blanco.webp" alt="" width="753" height="221" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/dogs-california-blanco.webp" alt="" width="323" height="320" loading="lazy" decoding="async"></li><li><img class="cuadrado" src="assets/v6/clientes/mcommands-blanco.webp" alt="" width="409" height="320" loading="lazy" decoding="async"></li></ul></div>
     </div>
     <div class="in"><div class="acciones aparece">
       <a class="btn btn--verde" data-apunta href="https://wa.me/523343230958?text=DIAGN%C3%93STICO" target="_blank" rel="noopener">Quiero ser el siguiente</a>
@@ -1223,6 +1260,7 @@ html.con-visor .mascota, html.con-visor .riel, html.con-visor .desliza { visibil
 
   function activar(sec) {
     if (actual === sec) return; actual = sec;
+    if (window.zkPrioriza) window.zkPrioriza(sec);
     escenas.forEach(function (s) { s.classList.toggle("activa", s === sec); });
     elevador(sec);
     equipos(sec);
